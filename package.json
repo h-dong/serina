@@ -1,0 +1,22 @@
+{
+  "name": "serina",
+  "version": "0.1.0",
+  "description": "Natural Language Parser for date and time in Javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hdong92/Serina.git"
+  },
+  "keywords": [
+    "javascript", "natural-language-processing", "date-parser", "time-parsing", "javascript-library"
+  ],
+  "author": "Hao Dong (dong_hao@hotmail.co.uk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hdong92/Serina/issues"
+  },
+  "homepage": "https://github.com/hdong92/Serina#readme"
+}
