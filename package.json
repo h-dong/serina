@@ -4,6 +4,7 @@
   "description": "Natural Language Parser for date and time in Javascript",
   "main": "index.js",
   "scripts": {
+    "build": "npm run ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/hdong92/Serina/issues"
   },
-  "homepage": "https://github.com/hdong92/Serina#readme"
+  "homepage": "https://github.com/hdong92/Serina#readme",
+  "devDependencies": {
+    "rollup": "^0.50.0"
+  }
 }
