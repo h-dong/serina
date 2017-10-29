@@ -4,7 +4,9 @@
   "description": "Natural Language Parser for date and time in Javascript",
   "main": "index.js",
   "scripts": {
-    "build": "npm run ",
+    "build": "npm run lint && npm run test && npm run build:prod",
+    "build:prod": "rollup ./src/entry.js --o ./dist/serina.js --f iife",
+    "lint": "eslint \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,7 +14,11 @@
     "url": "git+https://github.com/hdong92/Serina.git"
   },
   "keywords": [
-    "javascript", "natural-language-processing", "date-parser", "time-parsing", "javascript-library"
+    "javascript",
+    "natural-language-processing",
+    "date-parser",
+    "time-parsing",
+    "javascript-library"
   ],
   "author": "Hao Dong (dong_hao@hotmail.co.uk)",
   "license": "MIT",
@@ -21,6 +27,9 @@
   },
   "homepage": "https://github.com/hdong92/Serina#readme",
   "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
     "rollup": "^0.50.0"
   }
 }
