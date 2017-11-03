@@ -4,10 +4,14 @@
   "description": "Natural Language Parser for date and time in Javascript",
   "main": "index.js",
   "scripts": {
-    "build": "npm run lint && npm run test && npm run build:prod",
-    "build:prod": "rollup ./src/entry.js --o ./dist/serina.js --f iife",
-    "lint": "eslint \"src/**/*.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "rollup --config --watch",
+    "build": "npm run lint && npm run test && rollup --config",
+    "build:prod": "rollup ./src/serina.ts --o ./dist/serina.js --f iife",
+    "lint": "tslint -c tslint.json \"src/**/*.ts\"",
+    "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "jest:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -15,10 +19,11 @@
   },
   "keywords": [
     "javascript",
+    "library",
+    "javascript-library",
     "natural-language-processing",
     "date-parser",
-    "time-parsing",
-    "javascript-library"
+    "time-parsing"
   ],
   "author": "Hao Dong (dong_hao@hotmail.co.uk)",
   "license": "MIT",
@@ -27,9 +32,30 @@
   },
   "homepage": "https://github.com/hdong92/Serina#readme",
   "devDependencies": {
-    "eslint": "^4.10.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0",
-    "rollup": "^0.50.0"
+    "@types/jest": "^21.1.5",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "jest": "^21.2.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-typescript2": "^0.8.0",
+    "ts-jest": "^21.1.4",
+    "tslint": "^5.8.0",
+    "tslint-eslint-rules": "^4.1.1",
+    "typescript": "^2.6.1"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.ts"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts"
+    ],
+    "moduleFileExtensions": [
+      "ts", "js"
+    ],
+    "transform": {
+      "\\.(ts)$": "<rootDir>/node_modules/ts-jest/preprocessor.js",
+      "^.+\\.js$": "babel-jest"
+    }
   }
 }

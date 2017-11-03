@@ -1,3 +1,15 @@
 {
-    "extends": "airbnb-base"
+    "extends": "airbnb-base",
+    "plugins": [
+        "jest"
+    ],
+    "env": {
+        "jest/globals": true
+    },
+    "rules": {
+        "comma-dangle": [
+            "error",
+            "never"
+        ]
+    }
 }
