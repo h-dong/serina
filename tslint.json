@@ -1,0 +1,28 @@
+{
+    "version": "5.8.0",
+    "compilerOptions": {
+      "target": "ES5",
+      "declaration": false,
+      "forceConsistentCasingInFileNames": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "noImplicitReturns": true,
+      "noFallthroughCasesInSwitch": true, 
+      "noImplicitAny": false,
+      "removeComments": true,
+      "noLib": false,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "typeRoots": [
+        "/.node_modules/@types"
+      ],
+      "types": [
+        "jest"
+      ]
+    },
+    "exclude": [
+      "node_modules",
+      "dist"
+    ]
+  }
+  
