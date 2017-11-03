@@ -1,4 +1,6 @@
 # Serina
+ [![Build Status](https://travis-ci.org/hdong92/Serina.svg?branch=master)](https://travis-ci.org/hdong92/Serina)
+
 Natural Language Parser for date and time in Javascript.
 
 ## STILL UNDER DEVELOPMENT, NOT YET READY!
