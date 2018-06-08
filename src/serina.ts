@@ -1,27 +1,15 @@
 import Helper from './Helper';
+import { ParsedSchema } from 'serina.interface';
 
-const serina = (text: string): SerinaSchema => {
-  let parsedData: SerinaSchema = {
+const serina = (text: string): ParsedSchema => {
+  let parsedData: ParsedSchema = {
     original: text,
-    text: '',
     isValid: false,
-    dateTime: null
+    matches: []
   };
 
-  // call a file here that imports other 'rules' and attempting to find a match using the text parsed in here
-
-  parsedData = Helper.parse(text, 'tomorrow');
-
-  // const test = text.match(/tomorrow/);
-  // console.log('console:', test);
-
-  // if (text.match(/tomorrow/)) {
-  //   const match = 'tomorrow';
-  //   parsedData.text = text.replace(match, '');
-  //   parsedData.dateTime = dayjs().add(1, 'day').toDate();
-  // }
-
-  parsedData.text = Helper.trimWhiteSpaces(parsedData.text);
+  const weekdays = Helper.parseWeekdayInText(text);
+  if (weekdays) parsedData = weekdays;
 
   return parsedData;
 };
