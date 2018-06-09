@@ -5856,26 +5856,84 @@
   var Helper = (function () {
       function Helper() {
       }
-      Helper.parse = function (text, match) {
-          var originalText = text;
-          var regex = new RegExp(match, 'g');
-          if (originalText.match(regex)) {
-              return {
-                  original: text,
-                  text: text.replace(match, ''),
-                  isValid: true,
-                  dateTime: DateTime.local().plus({ days: 1 }).toJSDate()
-              };
-          }
-          return {
+      Helper.parseWeekdayInText = function (text) {
+          var _this = this;
+          var pattern = "((" + this.patterns.relativeFutureWords + "|" + this.patterns.relativePastWords + ") )?" + this.patterns.weekdays;
+          var matchForWeekdays = this.matchPattern(text, pattern);
+          var parsed = {
               original: text,
-              text: '',
               isValid: false,
-              dateTime: null
+              matches: []
           };
+          if (!matchForWeekdays)
+              return null;
+          parsed.isValid = true;
+          matchForWeekdays.forEach(function (elem) {
+              parsed.matches.push(_this.parseWeekdayMatches(text, elem));
+          });
+          return parsed;
+      };
+      Helper.parseWeekdayMatches = function (text, matchedWeekday) {
+          var replaceMatch = text.toLowerCase().replace(matchedWeekday, '');
+          var parsedData = {
+              text: this.trimWhiteSpaces(replaceMatch),
+              dateTime: this.convertWeekdayMatchToDate(matchedWeekday),
+              matched: this.trimWhiteSpaces(matchedWeekday)
+          };
+          return parsedData;
+      };
+      Helper.matchWeekdays = function (text) {
+          var matched = this.matchPattern(text, this.patterns.weekdays);
+          return (matched)
+              ? matched
+              : null;
+      };
+      Helper.convertWeekdayMatchToDate = function (matchingText) {
+          var weekday = null;
+          if (this.contains(matchingText, this.patterns.monday))
+              weekday = 8;
+          if (this.contains(matchingText, this.patterns.tuesday))
+              weekday = 9;
+          if (this.contains(matchingText, this.patterns.wednesday))
+              weekday = 10;
+          if (this.contains(matchingText, this.patterns.thursday))
+              weekday = 11;
+          if (this.contains(matchingText, this.patterns.friday))
+              weekday = 12;
+          if (this.contains(matchingText, this.patterns.saturday))
+              weekday = 13;
+          if (this.contains(matchingText, this.patterns.sunday))
+              weekday = 14;
+          if (!weekday)
+              return null;
+          if (this.contains(matchingText, "last|(prev(ious)?) " + this.patterns.weekdays)) {
+              weekday -= 7;
+          }
+          return DateTime.local().set({ weekday: weekday }).startOf('second').toJSDate();
       };
       Helper.trimWhiteSpaces = function (text) {
-          return text.trim();
+          var trimedText = text.replace(/  /g, ' ');
+          return trimedText.trim();
+      };
+      Helper.contains = function (haystack, pattern) {
+          var regex = new RegExp("\\b" + pattern + "\\b", 'g');
+          return regex.test(haystack.toLowerCase());
+      };
+      Helper.matchPattern = function (haystack, pattern) {
+          var regex = new RegExp("\\b" + pattern + "\\b", 'g');
+          return haystack.toLowerCase().match(regex);
+      };
+      Helper.patterns = {
+          weekdays: '(mon|tue(s)?|wed|wedn(es)?|thu|thur(s)?|fri|sat(ur)?|sun)(day)?',
+          relativeFutureWords: 'for|next|this|current|on',
+          relativePastWords: 'last|prev(ious)?',
+          monday: '(mon)(day)?',
+          tuesday: '(tue(s)?)(day)?',
+          wednesday: '(wed|wedn(es)?)(day)?',
+          thursday: '(thu(r)?(s)?)(day)?',
+          friday: '(fri)(day)?',
+          saturday: '(sat(ur)?)(day)?',
+          sunday: '(sun)(day)?'
       };
       return Helper;
   }());
@@ -5883,12 +5941,12 @@
   var serina = function (text) {
       var parsedData = {
           original: text,
-          text: '',
           isValid: false,
-          dateTime: null
+          matches: []
       };
-      parsedData = Helper.parse(text, 'tomorrow');
-      parsedData.text = Helper.trimWhiteSpaces(parsedData.text);
+      var weekdays = Helper.parseWeekdayInText(text);
+      if (weekdays)
+          parsedData = weekdays;
       return parsedData;
   };
 

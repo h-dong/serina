@@ -1,6 +1,7 @@
 export interface ParsedMatchSchema {
     dateTime: Date;
     text: string;
+    matched: string;
 }
 
 export interface ParsedSchema {

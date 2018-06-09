@@ -1,5 +1,5 @@
 import Helper from './Helper';
-import { ParsedSchema } from 'serina.interface';
+import { ParsedSchema } from 'serina.schema';
 
 const serina = (text: string): ParsedSchema => {
   let parsedData: ParsedSchema = {

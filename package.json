@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "rollup --config --watch",
-    "build": "npm run lint && npm run test && npm run clean && rollup --config",
+    "build": "npm run lint && npm run test:build && npm run clean && rollup --config",
     "build:prod": "rollup ./src/serina.ts --o ./dist/serina.js --f iife",
     "clean": "rm -rf ./dist && mkdir dist",
     "lint": "tslint -c tslint.json \"src/**/*.ts\"",
     "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
-    "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test": "jest --watchAll",
+    "test:build": "jest",
     "jest:coverage": "jest --coverage"
   },
   "repository": {
@@ -66,7 +66,7 @@
       "^.+\\.js$": "babel-jest"
     },
     "modulePaths": [
-        "src"
+      "src"
     ]
   }
 }
