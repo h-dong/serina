@@ -5865,8 +5865,9 @@
               isValid: false,
               matches: []
           };
-          if (!matchForWeekdays)
+          if (!matchForWeekdays) {
               return null;
+          }
           parsed.isValid = true;
           matchForWeekdays.forEach(function (elem) {
               parsed.matches.push(_this.parseWeekdayMatches(text, elem));
@@ -5884,32 +5885,41 @@
       };
       Helper.matchWeekdays = function (text) {
           var matched = this.matchPattern(text, this.patterns.weekdays);
-          return (matched)
-              ? matched
-              : null;
+          return matched ? matched : null;
       };
       Helper.convertWeekdayMatchToDate = function (matchingText) {
           var weekday = null;
-          if (this.contains(matchingText, this.patterns.monday))
+          if (this.contains(matchingText, this.patterns.monday)) {
               weekday = 8;
-          if (this.contains(matchingText, this.patterns.tuesday))
+          }
+          if (this.contains(matchingText, this.patterns.tuesday)) {
               weekday = 9;
-          if (this.contains(matchingText, this.patterns.wednesday))
+          }
+          if (this.contains(matchingText, this.patterns.wednesday)) {
               weekday = 10;
-          if (this.contains(matchingText, this.patterns.thursday))
+          }
+          if (this.contains(matchingText, this.patterns.thursday)) {
               weekday = 11;
-          if (this.contains(matchingText, this.patterns.friday))
+          }
+          if (this.contains(matchingText, this.patterns.friday)) {
               weekday = 12;
-          if (this.contains(matchingText, this.patterns.saturday))
+          }
+          if (this.contains(matchingText, this.patterns.saturday)) {
               weekday = 13;
-          if (this.contains(matchingText, this.patterns.sunday))
+          }
+          if (this.contains(matchingText, this.patterns.sunday)) {
               weekday = 14;
-          if (!weekday)
+          }
+          if (!weekday) {
               return null;
+          }
           if (this.contains(matchingText, "last|(prev(ious)?) " + this.patterns.weekdays)) {
               weekday -= 7;
           }
-          return DateTime.local().set({ weekday: weekday }).startOf('second').toJSDate();
+          return DateTime.local()
+              .set({ weekday: weekday })
+              .startOf('second')
+              .toJSDate();
       };
       Helper.trimWhiteSpaces = function (text) {
           var trimedText = text.replace(/  /g, ' ');

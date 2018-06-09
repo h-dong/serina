@@ -2,16 +2,16 @@ import Helper from './Helper';
 import { ParsedSchema } from 'serina.schema';
 
 const serina = (text: string): ParsedSchema => {
-  let parsedData: ParsedSchema = {
-    original: text,
-    isValid: false,
-    matches: []
-  };
+    let parsedData: ParsedSchema = {
+        original: text,
+        isValid: false,
+        matches: []
+    };
 
-  const weekdays = Helper.parseWeekdayInText(text);
-  if (weekdays) parsedData = weekdays;
+    const weekdays = Helper.parseWeekdayInText(text);
+    if (weekdays) parsedData = weekdays;
 
-  return parsedData;
+    return parsedData;
 };
 
 export default serina;

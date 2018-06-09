@@ -16,7 +16,9 @@ export default class Helper {
     };
 
     static parseWeekdayInText(text: string): ParsedSchema {
-        const pattern = `((${this.patterns.relativeFutureWords}|${this.patterns.relativePastWords}) )?${this.patterns.weekdays}`;
+        const pattern = `((${this.patterns.relativeFutureWords}|${this.patterns.relativePastWords}) )?${
+            this.patterns.weekdays
+        }`;
         const matchForWeekdays = this.matchPattern(text, pattern);
 
         const parsed: ParsedSchema = {
@@ -25,12 +27,14 @@ export default class Helper {
             matches: []
         };
 
-        if (!matchForWeekdays) return null; // string doesn't contains weekday
+        if (!matchForWeekdays) {
+            return null;
+        } // string doesn't contains weekday
 
         parsed.isValid = true;
 
         // for each match, get the parsed cases
-        matchForWeekdays.forEach((elem) => {
+        matchForWeekdays.forEach(elem => {
             parsed.matches.push(this.parseWeekdayMatches(text, elem));
         });
 
@@ -51,29 +55,46 @@ export default class Helper {
 
     static matchWeekdays(text: string): string[] {
         const matched = this.matchPattern(text, this.patterns.weekdays);
-        return (matched)
-            ? matched
-            : null;
+        return matched ? matched : null;
     }
 
     static convertWeekdayMatchToDate(matchingText) {
         let weekday = null;
 
-        if (this.contains(matchingText, this.patterns.monday)) weekday = 8;
-        if (this.contains(matchingText, this.patterns.tuesday)) weekday = 9;
-        if (this.contains(matchingText, this.patterns.wednesday)) weekday = 10;
-        if (this.contains(matchingText, this.patterns.thursday)) weekday = 11;
-        if (this.contains(matchingText, this.patterns.friday)) weekday = 12;
-        if (this.contains(matchingText, this.patterns.saturday)) weekday = 13;
-        if (this.contains(matchingText, this.patterns.sunday)) weekday = 14;
+        if (this.contains(matchingText, this.patterns.monday)) {
+            weekday = 8;
+        }
+        if (this.contains(matchingText, this.patterns.tuesday)) {
+            weekday = 9;
+        }
+        if (this.contains(matchingText, this.patterns.wednesday)) {
+            weekday = 10;
+        }
+        if (this.contains(matchingText, this.patterns.thursday)) {
+            weekday = 11;
+        }
+        if (this.contains(matchingText, this.patterns.friday)) {
+            weekday = 12;
+        }
+        if (this.contains(matchingText, this.patterns.saturday)) {
+            weekday = 13;
+        }
+        if (this.contains(matchingText, this.patterns.sunday)) {
+            weekday = 14;
+        }
 
-        if (!weekday) return null;
+        if (!weekday) {
+            return null;
+        }
 
         if (this.contains(matchingText, `last|(prev(ious)?) ${this.patterns.weekdays}`)) {
             weekday -= 7;
         }
 
-        return DateTime.local().set({ weekday }).startOf('second').toJSDate();
+        return DateTime.local()
+            .set({ weekday })
+            .startOf('second')
+            .toJSDate();
     }
 
     static trimWhiteSpaces(text: string): string {

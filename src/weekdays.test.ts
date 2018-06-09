@@ -12,8 +12,7 @@ describe('Week Days', () => {
                 isValid: true,
                 matches: [
                     {
-                        dateTime: DateTime
-                            .local()
+                        dateTime: DateTime.local()
                             .set({ weekday: 8 })
                             .startOf('second')
                             .toJSDate(),
@@ -27,26 +26,25 @@ describe('Week Days', () => {
         });
 
         test('should find multiple matches', () => {
-            const text = 'hand in tuesday\'s paper on mon';
+            const text = "hand in tuesday's paper on mon";
             const result: ParsedSchema = {
                 original: text,
                 isValid: true,
                 matches: [
                     {
-                        dateTime: DateTime
-                            .local()
+                        dateTime: DateTime.local()
                             .set({ weekday: 9 })
                             .startOf('second')
                             .toJSDate(),
-                        text: 'hand in \'s paper on mon',
+                        text: "hand in 's paper on mon",
                         matched: 'tuesday'
-                    }, {
-                        dateTime: DateTime
-                            .local()
+                    },
+                    {
+                        dateTime: DateTime.local()
                             .set({ weekday: 8 })
                             .startOf('second')
                             .toJSDate(),
-                        text: 'hand in tuesday\'s paper',
+                        text: "hand in tuesday's paper",
                         matched: 'on mon'
                     }
                 ]
@@ -139,8 +137,7 @@ describe('Week Days', () => {
                 isValid: true,
                 matches: [
                     {
-                        dateTime: DateTime
-                            .local()
+                        dateTime: DateTime.local()
                             .set({ weekday: 8 })
                             .startOf('second')
                             .toJSDate(),
@@ -165,11 +162,9 @@ describe('Week Days', () => {
         });
 
         test('should return correct date for last monday', () => {
-
             const text = ['buy milk last', 'buy milk prev', 'buy milk previous'];
 
-            result.matches[0].dateTime = DateTime
-                .local()
+            result.matches[0].dateTime = DateTime.local()
                 .set({ weekday: 1 })
                 .startOf('second')
                 .toJSDate();
