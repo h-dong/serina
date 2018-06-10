@@ -4,6 +4,13 @@ import Helper from './Helper';
 import { ParsedSchema } from './serina.schema';
 
 describe('Week Days', () => {
+    const mockWeekday = weekday => {
+        return DateTime.local()
+            .set({ weekday })
+            .startOf('second')
+            .toJSDate();
+    };
+
     describe('parseWeekdayInText()', () => {
         test('should find a single match', () => {
             const text = 'hand in paper on mon';
@@ -12,10 +19,7 @@ describe('Week Days', () => {
                 isValid: true,
                 matches: [
                     {
-                        dateTime: DateTime.local()
-                            .set({ weekday: 8 })
-                            .startOf('second')
-                            .toJSDate(),
+                        dateTime: mockWeekday(8),
                         text: 'hand in paper',
                         matched: 'on mon'
                     }
@@ -32,18 +36,12 @@ describe('Week Days', () => {
                 isValid: true,
                 matches: [
                     {
-                        dateTime: DateTime.local()
-                            .set({ weekday: 9 })
-                            .startOf('second')
-                            .toJSDate(),
+                        dateTime: mockWeekday(9),
                         text: "hand in 's paper on mon",
                         matched: 'tuesday'
                     },
                     {
-                        dateTime: DateTime.local()
-                            .set({ weekday: 8 })
-                            .startOf('second')
-                            .toJSDate(),
+                        dateTime: mockWeekday(8),
                         text: "hand in tuesday's paper",
                         matched: 'on mon'
                     }
@@ -111,25 +109,8 @@ describe('Week Days', () => {
     });
     describe('Parse Text Contains Weekday', () => {
         let result: ParsedSchema;
-        const weekdays = [
-            'mon',
-            'monday',
-            'tue',
-            'tues',
-            'tuesday',
-            'wed',
-            'wedn',
-            'wednesday',
-            'thu',
-            'thur',
-            'thursday',
-            'fri',
-            'friday',
-            'sat',
-            'saturday',
-            'sun',
-            'sunday'
-        ];
+        const relativeFutureArray = ['buy milk', 'buy milk for', 'buy milk next', 'buy milk this'];
+        const relativePastArray = ['buy milk last', 'buy milk prev', 'buy milk previous'];
 
         beforeEach(() => {
             result = {
@@ -137,10 +118,7 @@ describe('Week Days', () => {
                 isValid: true,
                 matches: [
                     {
-                        dateTime: DateTime.local()
-                            .set({ weekday: 8 })
-                            .startOf('second')
-                            .toJSDate(),
+                        dateTime: null,
                         text: 'buy milk',
                         matched: ''
                     }
@@ -148,33 +126,211 @@ describe('Week Days', () => {
             };
         });
 
-        test('should parse date correctly for next monday', () => {
-            const text = ['buy milk', 'buy milk for', 'buy milk next', 'buy milk this'];
+        describe('For Monday', () => {
+            const weekdayArray = ['mon', 'monday'];
+            test('should parse date correctly for next monday', () => {
+                result.matches[0].dateTime = mockWeekday(8);
 
-            text.forEach(elem => {
-                ['mon', 'monday'].forEach(weekday => {
-                    const combination = `${elem} ${weekday}`;
-                    result.original = combination;
-                    result.matches[0].matched = combination.replace('buy milk ', '');
-                    expect(serina(combination)).toEqual(result);
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last monday', () => {
+                result.matches[0].dateTime = mockWeekday(1);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
                 });
             });
         });
 
-        test('should return correct date for last monday', () => {
-            const text = ['buy milk last', 'buy milk prev', 'buy milk previous'];
+        describe('For Tuesday', () => {
+            const weekdayArray = ['tue', 'tues', 'tuesday'];
 
-            result.matches[0].dateTime = DateTime.local()
-                .set({ weekday: 1 })
-                .startOf('second')
-                .toJSDate();
+            test('should parse date correctly for next tuesday', () => {
+                result.matches[0].dateTime = mockWeekday(9);
 
-            text.forEach(elem => {
-                ['mon', 'monday'].forEach(weekday => {
-                    const combination = `${elem} ${weekday}`;
-                    result.original = combination;
-                    result.matches[0].matched = combination.replace('buy milk ', '');
-                    expect(serina(combination)).toEqual(result);
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last tuesday', () => {
+                result.matches[0].dateTime = mockWeekday(2);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+        });
+
+        describe('For Wednesday', () => {
+            const weekdayArray = ['wed', 'wedn', 'wednesday'];
+
+            test('should parse date correctly for next wednesday', () => {
+                result.matches[0].dateTime = mockWeekday(10);
+
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last wednesday', () => {
+                result.matches[0].dateTime = mockWeekday(3);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+        });
+
+        describe('For Thursday', () => {
+            const weekdayArray = ['thu', 'thur', 'thursday'];
+
+            test('should parse date correctly for next thursday', () => {
+                result.matches[0].dateTime = mockWeekday(11);
+
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last thursday', () => {
+                result.matches[0].dateTime = mockWeekday(4);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+        });
+
+        describe('For Friday', () => {
+            const weekdayArray = ['fri', 'friday'];
+
+            test('should parse date correctly for next friday', () => {
+                result.matches[0].dateTime = mockWeekday(12);
+
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last friday', () => {
+                result.matches[0].dateTime = mockWeekday(5);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+        });
+
+        describe('For Saturday', () => {
+            const weekdayArray = ['sat', 'saturday'];
+
+            test('should parse date correctly for next saturday', () => {
+                result.matches[0].dateTime = mockWeekday(13);
+
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last saturday', () => {
+                result.matches[0].dateTime = mockWeekday(6);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+        });
+
+        describe('For Sunday', () => {
+            const weekdayArray = ['sun', 'sunday'];
+
+            test('should parse date correctly for next sunday', () => {
+                result.matches[0].dateTime = mockWeekday(14);
+
+                relativeFutureArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
+                });
+            });
+
+            test('should return correct date for last sunday', () => {
+                result.matches[0].dateTime = mockWeekday(7);
+
+                relativePastArray.forEach(elem => {
+                    weekdayArray.forEach(weekday => {
+                        const combination = `${elem} ${weekday}`;
+                        result.original = combination;
+                        result.matches[0].matched = combination.replace('buy milk ', '');
+                        expect(serina(combination)).toEqual(result);
+                    });
                 });
             });
         });
