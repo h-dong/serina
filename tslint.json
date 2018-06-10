@@ -1,28 +1,21 @@
 {
-    "version": "5.8.0",
-    "compilerOptions": {
-      "target": "ES5",
-      "declaration": false,
-      "forceConsistentCasingInFileNames": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true, 
-      "noImplicitAny": false,
-      "removeComments": true,
-      "noLib": false,
-      "moduleResolution": "node",
-      "sourceMap": true,
-      "typeRoots": [
-        "/.node_modules/@types"
-      ],
-      "types": [
-        "jest"
-      ]
+    "extends": ["tslint:recommended", "tslint-eslint-rules"],
+    "defaultSeverity": "warning",
+    "jsRules": {},
+    "rules": {
+        "curly": [true, "ignore-same-line"],
+        "interface-name": [true, "never-prefix"],
+        "max-line-length": [true, 180],
+        "object-literal-sort-keys": false,
+        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+        "arrow-parens": false,
+        "member-access": [true, "no-public"],
+        "eofline": false,
+        "whitespace": [false, "check-module"],
+        "no-angle-bracket-type-assertion": false,
+        "ordered-imports": false,
+        "quotemark": [true, "single", "avoid-escape"],
+        "object-curly-spacing": [true, "always"]
     },
-    "exclude": [
-      "node_modules",
-      "dist"
-    ]
-  }
-  
+    "rulesDirectory": []
+}

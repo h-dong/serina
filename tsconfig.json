@@ -1,27 +1,24 @@
 {
-    "version": "1.5.0",
+    "version": "2.5.0",
     "compilerOptions": {
-        "target": "es5",
-        "module": "es2015",
-        "declaration": false,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "diagnostics": true,
+        "target": "ES5",
+        "downlevelIteration": true,
         "forceConsistentCasingInFileNames": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
-        "noImplicitReturns": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitAny": false,
         "removeComments": true,
+        "noLib": false,
         "moduleResolution": "node",
         "sourceMap": true,
-        "typeRoots": [
-            "/.node_modules/@types"
-        ],
-        "types": [
-            "jest"
-        ]
+        "baseUrl": "./src",
+        "typeRoots": ["node_modules/@types"],
+        "types": ["jest", "luxon"]
     },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["src/**/*.test.ts"]
 }

@@ -6,24 +6,8 @@ root = true
 
 # every file
 [*]
-# set default charset
 charset = utf-8
-# Unix-style newlines with a newline ending
-end_of_line = lf
+end_of_line = lf # Unix-style newlines with a newline ending
 insert_final_newline = true
-
-# markdown file
-[*.md]
-trim_trailing_whitespace = false
-
-# html file
-[*.html]
-# 4 space indentation
 indent_style = space
 indent_size = 4
-
-# files matches exactly to either javascript, json, typescript
-[{*.js, *.json, *.ts}]
-# 2 space indentation
-indent_style = space
-indent_size = 2

@@ -1,14 +1,17 @@
-const Serina = (text) => {
-  const parsedData = {
-    original: text,
-    text: '',
-    isValid: false,
-    date: '',
-    time: '',
-    dateObject: null
-  };
+import Helper from './Helper';
+import { ParsedSchema } from 'serina.schema';
 
-  return parsedData;
+const serina = (text: string): ParsedSchema => {
+    let parsedData: ParsedSchema = {
+        original: text,
+        isValid: false,
+        matches: []
+    };
+
+    const weekdays = Helper.parseWeekdayInText(text);
+    if (weekdays) parsedData = weekdays;
+
+    return parsedData;
 };
 
-export default Serina;
+export default serina;
