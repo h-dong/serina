@@ -1,12 +1,9 @@
 # Serina
- [![Build Status](https://travis-ci.org/hdong92/Serina.svg?branch=master)](https://travis-ci.org/hdong92/Serina)
 
+[![Build Status](https://travis-ci.org/hdong92/Serina.svg?branch=master)]()
 [![GitHub Release](https://img.shields.io/github/release/hdong92/serina.svg)]()
-
 [![GitHub Issues Open](https://img.shields.io/github/issues-raw/hdong92/serina.svg)]()
-
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/hdong92/serina.svg)]()
-
 [![GitHub License](https://img.shields.io/github/license/hdong92/serina.svg)]()
 
 Natural Language Parser for date and time in Javascript.
