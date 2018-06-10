@@ -46,7 +46,7 @@ This project is currently developed by just me, so can't say when the library wi
 
 ### Milestone 1
 
-- [x] Parse weekdays e.g. 'tue', 'tuesday'
+- [x] ~~Parse weekdays e.g. 'tue', 'tuesday'~~
 - [ ] Parse relative days e.g. 'today', 'tomorrow', 'a week from now'
 - [ ] Parse day e.g. '11th', '2nd'
 - [ ] Parse month e.g. 'july', 'jan'
