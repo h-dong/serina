@@ -16,18 +16,9 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "baseUrl": "./src",
-        "typeRoots": [
-            "node_modules/@types"
-        ],
-        "types": [
-            "jest",
-            "luxon"
-        ]
+        "typeRoots": ["node_modules/@types"],
+        "types": ["jest", "luxon"]
     },
-    "include": [
-        "src/**/*"
-    ],
-    "exclude": [
-        "src/**/*.test.ts"
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["src/**/*.test.ts"]
 }
