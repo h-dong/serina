@@ -1,5 +1,5 @@
-import Helper from './Helper';
-import { ParsedSchema } from 'serina.schema';
+import { ParsedSchema, ParsedMatchSchema } from './serina.schema';
+import DayOfTheWeek from './patterns/dayOfTheWeek/dayOfTheWeek'
 
 const serina = (text: string): ParsedSchema => {
     let parsedData: ParsedSchema = {
@@ -8,8 +8,9 @@ const serina = (text: string): ParsedSchema => {
         matches: []
     };
 
-    const weekdays = Helper.parseWeekdayInText(text);
-    if (weekdays) parsedData = weekdays;
+    const weekdays: ParsedMatchSchema[] = DayOfTheWeek.parseText(text);
+    if (weekdays && weekdays.length) parsedData.matches = parsedData.matches.concat(weekdays);
+    if (parsedData.matches.length) parsedData.isValid = true;
 
     return parsedData;
 };
