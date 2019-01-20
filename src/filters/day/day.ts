@@ -36,17 +36,9 @@ export default class Day {
             const [matchedDay] = matchPattern(matchingText, DAY.ALL);
             day = parseInt(matchedDay, 10);
 
-            // if day doesn't exist in month e.g. 30th Feb
-            // TODO:
-
             // if day is in past then try future month
             if (day < today.day) month += 1;
         }
-        
-        // TODO:
-        // if (contains(matchingText, `${relative.RELATIVE_PAST_WORDS} ${weekdays.ALL_WEEKDAYS}`)) {
-        //     weekday -= 7;
-        // }
 
         if (!day) return null;
 
