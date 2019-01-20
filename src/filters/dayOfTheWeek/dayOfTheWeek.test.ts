@@ -5,10 +5,21 @@ import { ParsedMatchSchema } from '../../serina.schema';
 describe('Day Of The Week', () => {
     const mockWeekday = weekday => {
         return DateTime.local()
-            .set({ weekday })
-            .startOf('second')
-            .toJSDate();
+        .set({ weekday })
+        .startOf('minutes')
+        .toJSDate();
     };
+    let dateNowSpy;
+    
+    beforeAll(() => {
+        // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+        dateNowSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1547921178000);
+    });
+
+    afterAll(() => {
+        // Retore Date Time Mock
+        dateNowSpy.mockRestore();
+    });
 
     describe('parseText()', () => {
         test('should find a single match', () => {

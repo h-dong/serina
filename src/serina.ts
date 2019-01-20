@@ -1,5 +1,5 @@
 import { ParsedSchema, ParsedMatchSchema } from './serina.schema';
-import DayOfTheWeek from './patterns/dayOfTheWeek/dayOfTheWeek'
+import DayOfTheWeek from './filters/dayOfTheWeek/dayOfTheWeek';
 
 const serina = (text: string): ParsedSchema => {
     let parsedData: ParsedSchema = {
