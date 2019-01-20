@@ -47,10 +47,10 @@ This project is currently developed by just me, so can't say when the library wi
 ### Milestone 1
 
 - [x] ~~Parse weekdays e.g. 'tue', 'tuesday'~~
-- [ ] Parse relative days e.g. 'today', 'tomorrow', 'a week from now'
-- [ ] Parse day e.g. '11th', '2nd'
+- [x] Parse day e.g. '11th', '2nd'
 - [ ] Parse month e.g. 'july', 'jan'
 - [ ] Parse year e.g. '2018', '2k18'
+- [ ] Parse relative days e.g. 'today', 'tomorrow', 'a week from now'
 - [ ] Parse long and short dates e.g. '11th June', '11/09/2018'
 - [ ] Parse relative dates e.g. 'next year', '2 weeks from now'
 - [ ] Parse time e.g. '5pm',
@@ -64,3 +64,11 @@ This project is currently developed by just me, so can't say when the library wi
 - [ ] Parse more UK keywords e.g. 'oxt', 'fortnight'
 - [ ] Parse more advanced time e.g. 'seconds', 'millisecond'
 - [ ] Parse international date formats e.g. '2018/06/21'
+
+## Edge cases
+
+People could express dates & time in many different ways, and sometimes there's no one clear logical choice. In these situations, I'll try to list them here so everyone's aware about these edge cases and what the expected outcome should be. If people have any suggestions for these decisions feel free to raise an issue about it where we can discuss it in more detail. I'm happy for any of these to be challenged!
+
+### Resolve "Next 31st" when the current/next month doesn't have 31 days
+
+Given the user is on 20th February, the logical month for "next" in this case should be February itself since 31st is greater than 20th. However, February only has 28 or 29 days depending on if it is currently a leap year. The current logic is to skip Feb and look for "next month which has 31 days". So in this case Shiva will resolve "next 31st" to be 31st March.

@@ -7,7 +7,7 @@
         "interface-name": [true, "never-prefix"],
         "max-line-length": [true, 180],
         "object-literal-sort-keys": false,
-        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+        "semicolon": [true, "always"],
         "arrow-parens": false,
         "member-access": [true, "no-public"],
         "eofline": false,
