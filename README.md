@@ -1,10 +1,10 @@
 # Serina
 
-[![Build Status](https://travis-ci.org/hdong92/Serina.svg?branch=master)]()
-[![GitHub Release](https://img.shields.io/github/release/hdong92/serina.svg)]()
-[![GitHub Issues Open](https://img.shields.io/github/issues-raw/hdong92/serina.svg)]()
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/hdong92/serina.svg)]()
-[![GitHub License](https://img.shields.io/github/license/hdong92/serina.svg)]()
+[![Build Status](https://travis-ci.org/h-dong/Serina.svg?branch=master)]()
+[![GitHub Release](https://img.shields.io/github/release/h-dong/serina.svg)]()
+[![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)]()
+[![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)]()
+[![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
 
 Natural Language Parser for date and time in Javascript.
 
@@ -47,7 +47,7 @@ This project is currently developed by just me, so can't say when the library wi
 ### Milestone 1
 
 - [x] ~~Parse weekdays e.g. 'tue', 'tuesday'~~
-- [x] Parse day e.g. '11th', '2nd'
+- [x] ~~Parse day e.g. '11th', '2nd'~~
 - [ ] Parse month e.g. 'july', 'jan'
 - [ ] Parse year e.g. '2018', '2k18'
 - [ ] Parse relative days e.g. 'today', 'tomorrow', 'a week from now'
