@@ -1,5 +1,5 @@
 import { ParsedSchema, ParsedMatchSchema } from './serina.schema';
-import DayOfTheWeek from './filters/dayOfTheWeek/dayOfTheWeek';
+import WeekDay from './filters/weekDay/weekDay';
 import Day from './filters/day/day';
 
 const serina = (text: string): ParsedSchema => {
@@ -9,7 +9,7 @@ const serina = (text: string): ParsedSchema => {
         matches: [],
     };
 
-    const weekdays: ParsedMatchSchema[] = DayOfTheWeek.parseText(text);
+    const weekdays: ParsedMatchSchema[] = WeekDay.parseText(text);
     if (weekdays && weekdays.length) parsedData.matches = parsedData.matches.concat(weekdays);
 
     const day: ParsedMatchSchema[] = Day.parseText(text);

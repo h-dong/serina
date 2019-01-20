@@ -23,9 +23,14 @@ const WEEKDAY = {
     SUNDAY: '(sun)(day)?',
 };
 
+const MONTH = {
+    ALL: '(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)',
+};
+
 export {
     RELATIVE,
     FILLER_WORD,
     DAY,
     WEEKDAY,
+    MONTH,
 };

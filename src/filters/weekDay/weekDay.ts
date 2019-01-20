@@ -3,7 +3,7 @@ import { RELATIVE, WEEKDAY } from '../../constants/patterns';
 import { matchPattern, trimWhiteSpaces, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from '../../serina.schema';
 
-export default class DayOfTheWeek {
+export default class WeekDay {
 
     /*
     * When parsing day of the week, check for relative words & week day e.g. next friday
