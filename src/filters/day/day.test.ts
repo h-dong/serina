@@ -4,15 +4,15 @@ import { Settings, DateTime } from 'luxon';
 
 describe('Day', () => {
     describe('Normal Usage', () => {
-        let mockDay: Function;
-        let testData: {
+        let mockDay;
+        let testData: Array<{
             date: string,
-            dateTime: Date
-        }[];
+            dateTime: Date,
+        }>;
 
         beforeAll(() => {
             Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-            mockDay = (day: number, month: number, year: number) : Date => {
+            mockDay = (day: number, month: number, year: number): Date => {
                 return DateTime.local()
                 .set({ day, month, year })
                 .startOf('minutes')
@@ -70,8 +70,8 @@ describe('Day', () => {
                     {
                         dateTime: testCase.dateTime,
                         text,
-                        matched: testCase.date
-                    }
+                        matched: testCase.date,
+                    },
                 ];
                 expect(Day.parseText(`${text} ${testCase.date}`)).toEqual(result);
             });
@@ -85,8 +85,8 @@ describe('Day', () => {
                     {
                         dateTime: testCase.dateTime,
                         text,
-                        matched: `on ${testCase.date}`
-                    }
+                        matched: `on ${testCase.date}`,
+                    },
                 ];
                 expect(Day.parseText(`${text} on ${testCase.date}`)).toEqual(result);
             });
@@ -100,8 +100,8 @@ describe('Day', () => {
                     {
                         dateTime: testCase.dateTime,
                         text,
-                        matched: `on the ${testCase.date}`
-                    }
+                        matched: `on the ${testCase.date}`,
+                    },
                 ];
                 expect(Day.parseText(`${text} on the ${testCase.date}`)).toEqual(result);
             });
@@ -129,11 +129,11 @@ describe('Day', () => {
                     {
                         dateTime: mockDay(31, 3, 2019),
                         text,
-                        matched: date
-                    }
+                        matched: date,
+                    },
                 ];
                 expect(Day.parseText(`${text} ${date}`)).toEqual(result);
             });
-        })
+        });
     });
 });

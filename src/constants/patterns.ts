@@ -20,7 +20,7 @@ const WEEKDAY = {
     THURSDAY: '(thu(r)?(s)?)(day)?',
     FRIDAY: '(fri)(day)?',
     SATURDAY: '(sat(ur)?)(day)?',
-    SUNDAY: '(sun)(day)?'
+    SUNDAY: '(sun)(day)?',
 };
 
 export {
@@ -28,4 +28,4 @@ export {
     FILLER_WORD,
     DAY,
     WEEKDAY,
-}
+};

@@ -1,7 +1,7 @@
-import { DAY, FILLER_WORD, } from "constants/patterns";
-import { trimWhiteSpaces, matchPattern, contains } from "utils/Helper";
-import { ParsedMatchSchema } from "serina.schema";
-import { DateTime } from "luxon";
+import { DAY, FILLER_WORD } from 'constants/patterns';
+import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
+import { ParsedMatchSchema } from 'serina.schema';
+import { DateTime } from 'luxon';
 
 export default class Day {
     /*
@@ -23,12 +23,12 @@ export default class Day {
         return {
             text: trimWhiteSpaces(replaceMatch),
             dateTime: this.convertMatchToDateObj(matchedDate),
-            matched: trimWhiteSpaces(matchedDate)
+            matched: trimWhiteSpaces(matchedDate),
         };
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let today: DateTime = DateTime.local();
+        const today: DateTime = DateTime.local();
         let day: number = null;
         let month: number = DateTime.local().month;
 

@@ -3,7 +3,6 @@ import { RELATIVE, WEEKDAY } from '../../constants/patterns';
 import { matchPattern, trimWhiteSpaces, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from '../../serina.schema';
 
-
 export default class DayOfTheWeek {
 
     /*
@@ -30,7 +29,7 @@ export default class DayOfTheWeek {
         return {
             text: trimWhiteSpaces(replaceMatch),
             dateTime: this.convertWeekdayMatchToDate(matchedWeekday),
-            matched: trimWhiteSpaces(matchedWeekday)
+            matched: trimWhiteSpaces(matchedWeekday),
         };
     }
 
@@ -54,4 +53,4 @@ export default class DayOfTheWeek {
             .startOf('minutes')
             .toJSDate();
     }
-} 
+}

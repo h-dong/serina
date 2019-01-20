@@ -10,7 +10,7 @@ describe('Day Of The Week', () => {
         .toJSDate();
     };
     let dateNowSpy;
-    
+
     beforeAll(() => {
         // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
         dateNowSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1547921178000);
@@ -28,8 +28,8 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: mockWeekday(8),
                     text: 'hand in paper',
-                    matched: 'on mon'
-                }
+                    matched: 'on mon',
+                },
             ];
 
             expect(DayOfTheWeek.parseText(text)).toEqual(result);
@@ -41,13 +41,13 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: mockWeekday(9),
                     text: "hand in 's paper on mon",
-                    matched: 'tuesday'
+                    matched: 'tuesday',
                 },
                 {
                     dateTime: mockWeekday(8),
                     text: "hand in tuesday's paper",
-                    matched: 'on mon'
-                }
+                    matched: 'on mon',
+                },
             ];
             expect(DayOfTheWeek.parseText(text)).toEqual(result);
         });
@@ -119,8 +119,8 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: null,
                     text: 'buy milk',
-                    matched: ''
-                }
+                    matched: '',
+                },
             ];
         });
 
