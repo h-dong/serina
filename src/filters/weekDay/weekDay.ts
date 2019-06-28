@@ -3,7 +3,7 @@ import { RELATIVE, WEEKDAY } from '../../constants/patterns';
 import { matchPattern, trimWhiteSpaces, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from '../../serina.schema';
 
-export default class DayOfTheWeek {
+export default class WeekDay {
 
     /*
     * When parsing day of the week, check for relative words & week day e.g. next friday
@@ -36,13 +36,17 @@ export default class DayOfTheWeek {
     static convertWeekdayMatchToDate(matchingText) {
         let weekday = null;
 
-        if (contains(matchingText, WEEKDAY.MONDAY)) weekday = 8;
-        if (contains(matchingText, WEEKDAY.TUESDAY)) weekday = 9;
-        if (contains(matchingText, WEEKDAY.WEDNESDAY)) weekday = 10;
-        if (contains(matchingText, WEEKDAY.THURSDAY)) weekday = 11;
-        if (contains(matchingText, WEEKDAY.FRIDAY)) weekday = 12;
-        if (contains(matchingText, WEEKDAY.SATURDAY)) weekday = 13;
-        if (contains(matchingText, WEEKDAY.SUNDAY)) weekday = 14;
+        const todayInWeekday = DateTime.local().weekday;
+
+        if (contains(matchingText, WEEKDAY.MONDAY)) weekday = 1;
+        if (contains(matchingText, WEEKDAY.TUESDAY)) weekday = 2;
+        if (contains(matchingText, WEEKDAY.WEDNESDAY)) weekday = 3;
+        if (contains(matchingText, WEEKDAY.THURSDAY)) weekday = 4;
+        if (contains(matchingText, WEEKDAY.FRIDAY)) weekday = 5;
+        if (contains(matchingText, WEEKDAY.SATURDAY)) weekday = 6;
+        if (contains(matchingText, WEEKDAY.SUNDAY)) weekday = 7;
+
+        if (weekday <= todayInWeekday) weekday += 7;
 
         if (!weekday) return null;
 
