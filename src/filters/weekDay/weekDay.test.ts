@@ -288,7 +288,7 @@ describe('Day Of The Week', () => {
             const weekdayArray = ['sun', 'sunday'];
 
             test('should parse date correctly for next sunday', () => {
-                result[0].dateTime = mockWeekday(14);
+                result[0].dateTime = mockWeekday(7);
 
                 relativeFutureArray.forEach(elem => {
                     weekdayArray.forEach(weekday => {
@@ -300,7 +300,7 @@ describe('Day Of The Week', () => {
             });
 
             test('should return correct date for last sunday', () => {
-                result[0].dateTime = mockWeekday(7);
+                result[0].dateTime = mockWeekday(0);
 
                 relativePastArray.forEach(elem => {
                     weekdayArray.forEach(weekday => {
