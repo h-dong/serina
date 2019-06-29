@@ -44,7 +44,7 @@ export default class Day {
 
         return DateTime.local()
             .set({ day, month })
-            .startOf('minute')
+            .startOf('day')
             .toJSDate();
     }
 }

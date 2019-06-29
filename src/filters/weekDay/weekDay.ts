@@ -54,7 +54,7 @@ export default class WeekDay {
 
         return DateTime.local()
             .set({ weekday })
-            .startOf('minutes')
+            .startOf('day')
             .toJSDate();
     }
 }
