@@ -46,17 +46,17 @@ This project is currently developed by just me, so can't say when the library wi
 
 ### Milestone 1
 
-- [x] ~~Parse weekdays e.g. 'tue', 'tuesday'~~
-- [x] ~~Parse day e.g. '11th', '2nd'~~
-- [ ] Parse month e.g. 'july', 'jan'
-- [ ] Parse year e.g. '2018', '2k18'
-- [ ] Parse relative days e.g. 'today', 'tomorrow', 'a week from now'
-- [ ] Parse long and short dates e.g. '11th June', '11/09/2018'
-- [ ] Parse relative dates e.g. 'next year', '2 weeks from now'
-- [ ] Parse time e.g. '5pm',
-- [ ] Parse relative time e.g. 'in half an hour', '4 hours from now'
-- [ ] Parse date range e.g. 'tue - thu', '4th july to 8th aug'
-- [ ] Parse time range e.g. 'beteen 5pm and 8pm'
+- [x] ~~Parse weekdays e.g. `tue`, `tuesday`~~
+- [x] ~~Parse day e.g. `11th`, `2nd`~~
+- [ ] Parse month e.g. `july`, `jan`
+- [x] ~~Parse year e.g. `2018`, `9999`~~
+- [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
+- [ ] Parse long and short dates e.g. `11th June`, `11/09/2018`
+- [ ] Parse relative dates e.g. `next year`, `2 weeks from now`
+- [ ] Parse time e.g. `5pm`,
+- [ ] Parse relative time e.g. `in half an hour`, `4 hours from now`
+- [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
+- [ ] Parse time range e.g. `beteen 5pm and 8pm`
 
 ### Milestone 2
 
@@ -65,7 +65,7 @@ This project is currently developed by just me, so can't say when the library wi
 - [ ] Parse more advanced time e.g. 'seconds', 'millisecond'
 - [ ] Parse international date formats e.g. '2018/06/21'
 
-## Edge cases
+## Edge cases / Limitations
 
 People could express dates & time in many different ways, and sometimes there's no one clear logical choice. In these situations, I'll try to list them here so everyone's aware about these edge cases and what the expected outcome should be. If people have any suggestions for these decisions feel free to raise an issue about it where we can discuss it in more detail. I'm happy for any of these to be challenged!
 
@@ -76,3 +76,7 @@ Given the user is on 20th February, the logical month for "next" in this case sh
 ### Week day v.s. day of the week
 
 Week day normally refers to Mon - Fri and excludes weekends, but for the sake of simplicity (and looking at other libs) I decided it is much easier to just refer to "day of the week" as "week day" in the code.
+
+### Only match year 1000 - 9999
+
+Currently the library only find matched YEAR between (1000 - 9999). This could be a limitation for some people, so we may need to come back and address this. Please raise an issue if this is an problem for you.

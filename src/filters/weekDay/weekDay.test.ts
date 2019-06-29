@@ -3,12 +3,10 @@ import WeekDay from './weekDay';
 import { ParsedMatchSchema } from '../../serina.schema';
 
 describe('Day Of The Week', () => {
-    const mockWeekday = weekday => {
-        return DateTime.local()
+    const mockWeekday = weekday => DateTime.local()
         .set({ weekday })
-        .startOf('minutes')
+        .startOf('day')
         .toJSDate();
-    };
 
     beforeAll(() => {
         Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00

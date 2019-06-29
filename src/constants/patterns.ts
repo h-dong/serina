@@ -5,6 +5,7 @@ const RELATIVE = {
 
 const FILLER_WORD = {
     DAY: 'on (the )?',
+    YEAR: 'in ',
 };
 
 const DAY = {
@@ -23,9 +24,14 @@ const WEEKDAY = {
     SUNDAY: '(sun)(day)?',
 };
 
+const YEAR = {
+    ALL: '(\\b\\d{4}\\b)',
+};
+
 export {
     RELATIVE,
     FILLER_WORD,
     DAY,
     WEEKDAY,
+    YEAR,
 };
