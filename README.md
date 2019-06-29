@@ -5,6 +5,7 @@
 [![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)]()
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)]()
 [![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
+[![Netlify Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
 
 Natural Language Parser for date and time in Javascript.
 
