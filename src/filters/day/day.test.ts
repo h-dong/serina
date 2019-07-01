@@ -12,12 +12,10 @@ describe('Day', () => {
 
         beforeAll(() => {
             Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-            mockDay = (day: number, month: number, year: number): Date => {
-                return DateTime.local()
+            mockDay = (day: number, month: number, year: number): Date => DateTime.local()
                 .set({ day, month, year })
-                .startOf('minutes')
+                .startOf('day')
                 .toJSDate();
-            };
             testData = [
                 { date: '01st', dateTime: mockDay(1, 2, 2019) },
                 { date: '02nd', dateTime: mockDay(2, 2, 2019) },

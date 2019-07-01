@@ -1,23 +1,15 @@
 import { DateTime, Settings } from 'luxon';
-import DayOfTheWeek from './dayOfTheWeek';
+import WeekDay from './weekDay';
 import { ParsedMatchSchema } from '../../serina.schema';
 
 describe('Day Of The Week', () => {
-    const mockWeekday = weekday => {
-        return DateTime.local()
+    const mockWeekday = weekday => DateTime.local()
         .set({ weekday })
-        .startOf('minutes')
+        .startOf('day')
         .toJSDate();
-    };
 
     beforeAll(() => {
-        // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-        Settings.now = () => 1547921178000;
-    });
-
-    afterAll(() => {
-        // Restore Date Time Mock
-        Settings.now = () => Date.now();
+        Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
     });
 
     describe('parseText()', () => {
@@ -31,7 +23,7 @@ describe('Day Of The Week', () => {
                 },
             ];
 
-            expect(DayOfTheWeek.parseText(text)).toEqual(result);
+            expect(WeekDay.parseText(text)).toEqual(result);
         });
 
         test('should find multiple matches', () => {
@@ -48,64 +40,64 @@ describe('Day Of The Week', () => {
                     matched: 'on mon',
                 },
             ];
-            expect(DayOfTheWeek.parseText(text)).toEqual(result);
+            expect(WeekDay.parseText(text)).toEqual(result);
         });
     });
 
     describe('matchWeekdays()', () => {
         test('should match monday', () => {
-            expect(DayOfTheWeek.matchWeekdays('mon')).toEqual(['mon']);
-            expect(DayOfTheWeek.matchWeekdays('Mon')).toEqual(['mon']);
-            expect(DayOfTheWeek.matchWeekdays('monday')).toEqual(['monday']);
-            expect(DayOfTheWeek.matchWeekdays('Monday')).toEqual(['monday']);
+            expect(WeekDay.matchWeekdays('mon')).toEqual(['mon']);
+            expect(WeekDay.matchWeekdays('Mon')).toEqual(['mon']);
+            expect(WeekDay.matchWeekdays('monday')).toEqual(['monday']);
+            expect(WeekDay.matchWeekdays('Monday')).toEqual(['monday']);
         });
 
         test('should match tuesday', () => {
-            expect(DayOfTheWeek.matchWeekdays('tue')).toEqual(['tue']);
-            expect(DayOfTheWeek.matchWeekdays('Tue')).toEqual(['tue']);
-            expect(DayOfTheWeek.matchWeekdays('tues')).toEqual(['tues']);
-            expect(DayOfTheWeek.matchWeekdays('Tues')).toEqual(['tues']);
-            expect(DayOfTheWeek.matchWeekdays('tuesday')).toEqual(['tuesday']);
-            expect(DayOfTheWeek.matchWeekdays('Tuesday')).toEqual(['tuesday']);
+            expect(WeekDay.matchWeekdays('tue')).toEqual(['tue']);
+            expect(WeekDay.matchWeekdays('Tue')).toEqual(['tue']);
+            expect(WeekDay.matchWeekdays('tues')).toEqual(['tues']);
+            expect(WeekDay.matchWeekdays('Tues')).toEqual(['tues']);
+            expect(WeekDay.matchWeekdays('tuesday')).toEqual(['tuesday']);
+            expect(WeekDay.matchWeekdays('Tuesday')).toEqual(['tuesday']);
         });
 
         test('should match wednesday', () => {
-            expect(DayOfTheWeek.matchWeekdays('wed')).toEqual(['wed']);
-            expect(DayOfTheWeek.matchWeekdays('Wed')).toEqual(['wed']);
-            expect(DayOfTheWeek.matchWeekdays('wedn')).toEqual(['wedn']);
-            expect(DayOfTheWeek.matchWeekdays('Wedn')).toEqual(['wedn']);
-            expect(DayOfTheWeek.matchWeekdays('wednesday')).toEqual(['wednesday']);
-            expect(DayOfTheWeek.matchWeekdays('Wednesday')).toEqual(['wednesday']);
+            expect(WeekDay.matchWeekdays('wed')).toEqual(['wed']);
+            expect(WeekDay.matchWeekdays('Wed')).toEqual(['wed']);
+            expect(WeekDay.matchWeekdays('wedn')).toEqual(['wedn']);
+            expect(WeekDay.matchWeekdays('Wedn')).toEqual(['wedn']);
+            expect(WeekDay.matchWeekdays('wednesday')).toEqual(['wednesday']);
+            expect(WeekDay.matchWeekdays('Wednesday')).toEqual(['wednesday']);
         });
 
         test('should match thursday', () => {
-            expect(DayOfTheWeek.matchWeekdays('thu')).toEqual(['thu']);
-            expect(DayOfTheWeek.matchWeekdays('Thu')).toEqual(['thu']);
-            expect(DayOfTheWeek.matchWeekdays('thur')).toEqual(['thur']);
-            expect(DayOfTheWeek.matchWeekdays('Thur')).toEqual(['thur']);
-            expect(DayOfTheWeek.matchWeekdays('thursday')).toEqual(['thursday']);
-            expect(DayOfTheWeek.matchWeekdays('Thursday')).toEqual(['thursday']);
+            expect(WeekDay.matchWeekdays('thu')).toEqual(['thu']);
+            expect(WeekDay.matchWeekdays('Thu')).toEqual(['thu']);
+            expect(WeekDay.matchWeekdays('thur')).toEqual(['thur']);
+            expect(WeekDay.matchWeekdays('Thur')).toEqual(['thur']);
+            expect(WeekDay.matchWeekdays('thursday')).toEqual(['thursday']);
+            expect(WeekDay.matchWeekdays('Thursday')).toEqual(['thursday']);
         });
 
         test('should match friday', () => {
-            expect(DayOfTheWeek.matchWeekdays('fri')).toEqual(['fri']);
-            expect(DayOfTheWeek.matchWeekdays('Fri')).toEqual(['fri']);
-            expect(DayOfTheWeek.matchWeekdays('friday')).toEqual(['friday']);
-            expect(DayOfTheWeek.matchWeekdays('Friday')).toEqual(['friday']);
+            expect(WeekDay.matchWeekdays('fri')).toEqual(['fri']);
+            expect(WeekDay.matchWeekdays('Fri')).toEqual(['fri']);
+            expect(WeekDay.matchWeekdays('friday')).toEqual(['friday']);
+            expect(WeekDay.matchWeekdays('Friday')).toEqual(['friday']);
         });
 
         test('should match saturday', () => {
-            expect(DayOfTheWeek.matchWeekdays('sat')).toEqual(['sat']);
-            expect(DayOfTheWeek.matchWeekdays('Sat')).toEqual(['sat']);
-            expect(DayOfTheWeek.matchWeekdays('saturday')).toEqual(['saturday']);
-            expect(DayOfTheWeek.matchWeekdays('Saturday')).toEqual(['saturday']);
+            expect(WeekDay.matchWeekdays('sat')).toEqual(['sat']);
+            expect(WeekDay.matchWeekdays('Sat')).toEqual(['sat']);
+            expect(WeekDay.matchWeekdays('saturday')).toEqual(['saturday']);
+            expect(WeekDay.matchWeekdays('Saturday')).toEqual(['saturday']);
         });
 
         test('should match sunday', () => {
-            expect(DayOfTheWeek.matchWeekdays('sun')).toEqual(['sun']);
-            expect(DayOfTheWeek.matchWeekdays('Sun')).toEqual(['sun']);
-            expect(DayOfTheWeek.matchWeekdays('sunday')).toEqual(['sunday']);
-            expect(DayOfTheWeek.matchWeekdays('Sunday')).toEqual(['sunday']);
+            expect(WeekDay.matchWeekdays('sun')).toEqual(['sun']);
+            expect(WeekDay.matchWeekdays('Sun')).toEqual(['sun']);
+            expect(WeekDay.matchWeekdays('sunday')).toEqual(['sunday']);
+            expect(WeekDay.matchWeekdays('Sunday')).toEqual(['sunday']);
         });
     });
     describe('Parse Text Contains Weekday', () => {
@@ -132,7 +124,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -144,7 +136,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -160,7 +152,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -172,7 +164,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -188,7 +180,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -200,7 +192,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -216,7 +208,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -228,7 +220,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -244,7 +236,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -256,7 +248,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -272,7 +264,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -284,7 +276,7 @@ describe('Day Of The Week', () => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
@@ -294,25 +286,25 @@ describe('Day Of The Week', () => {
             const weekdayArray = ['sun', 'sunday'];
 
             test('should parse date correctly for next sunday', () => {
-                result[0].dateTime = mockWeekday(14);
+                result[0].dateTime = mockWeekday(7);
 
                 relativeFutureArray.forEach(elem => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
 
             test('should return correct date for last sunday', () => {
-                result[0].dateTime = mockWeekday(7);
+                result[0].dateTime = mockWeekday(0);
 
                 relativePastArray.forEach(elem => {
                     weekdayArray.forEach(weekday => {
                         const combination = `${elem} ${weekday}`;
                         result[0].matched = combination.replace('buy milk ', '');
-                        expect(DayOfTheWeek.parseText(combination)).toEqual(result);
+                        expect(WeekDay.parseText(combination)).toEqual(result);
                     });
                 });
             });
