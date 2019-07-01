@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateTime, Settings } from 'luxon';
 import DayOfTheWeek from './dayOfTheWeek';
 import { ParsedMatchSchema } from '../../serina.schema';
 
@@ -9,16 +9,15 @@ describe('Day Of The Week', () => {
         .startOf('minutes')
         .toJSDate();
     };
-    let dateNowSpy;
 
     beforeAll(() => {
-        // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-        dateNowSpy = jest.spyOn(Date, 'now').mockImplementation(() => 1547921178000);
+        // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+        Settings.now = () => 1547921178000;
     });
 
     afterAll(() => {
-        // Retore Date Time Mock
-        dateNowSpy.mockRestore();
+        // Restore Date Time Mock
+        Settings.now = () => Date.now();
     });
 
     describe('parseText()', () => {
