@@ -1,6 +1,7 @@
 import { ParsedSchema, ParsedMatchSchema } from './serina.schema';
 import DayOfTheWeek from './filters/dayOfTheWeek/dayOfTheWeek';
 import Day from './filters/day/day';
+import Month from './filters/month/month';
 
 const serina = (text: string): ParsedSchema => {
     const parsedData: ParsedSchema = {
@@ -14,6 +15,9 @@ const serina = (text: string): ParsedSchema => {
 
     const day: ParsedMatchSchema[] = Day.parseText(text);
     if (day && day.length) parsedData.matches = parsedData.matches.concat(day);
+
+    const month: ParsedMatchSchema[] = Month.parseText(text);
+    if (month && month.length) parsedData.matches = parsedData.matches.concat(month);
 
     if (parsedData.matches.length) parsedData.isValid = true;
 
