@@ -31,8 +31,8 @@ describe('Day Of The Week', () => {
             const result: ParsedMatchSchema[] = [
                 {
                     dateTime: mockWeekday(9),
-                    text: "hand in 's paper on mon",
-                    matched: 'tuesday',
+                    text: "hand 's paper on mon",
+                    matched: 'in tuesday',
                 },
                 {
                     dateTime: mockWeekday(8),
