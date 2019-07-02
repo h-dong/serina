@@ -47,17 +47,15 @@ export default class Month {
 
     static convertMatchToDateObj(matchingText: string): Date {
         const month = Month.convertMonthStringToNumber(matchingText);
-
         if (month == null) return null;
 
         let year = DateTime.local().year
-
         if (month < DateTime.local().month) {
             year += 1;
         }
-
-        if (contains(matchingText, `${RELATIVE.PAST_WORDS} ${MONTH.ALL}`)) year -= 1;
-
+        if (contains(matchingText, `${RELATIVE.PAST_WORDS} ${MONTH.ALL}`)) {
+            year -= 1;
+        }
         return DateTime.local()
             .set({ month, year })
             .startOf('minute')
