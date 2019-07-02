@@ -163,7 +163,7 @@ describe('Month', () => {
     describe('convertMonthStringToNumber()', () => {
         test('should return correct number for each short month string', () => {
             for (let i = 0; i < 12; i++) {
-                const text = shortMonths[i]
+                const text = shortMonths[i];
                 expect(Month.convertMonthStringToNumber(text)).toEqual(i + 1);
             }
         });

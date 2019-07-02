@@ -49,7 +49,7 @@ export default class Month {
         const month = Month.convertMonthStringToNumber(matchingText);
         if (month == null) return null;
 
-        let year = DateTime.local().year
+        let year = DateTime.local().year;
         if (month < DateTime.local().month) {
             year += 1;
         }

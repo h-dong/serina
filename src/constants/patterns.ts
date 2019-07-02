@@ -38,7 +38,7 @@ const MONTH = {
     OCTOBER: 'oct(?:ober)?',
     NOVEMBER: 'nov(?:ember)?',
     DECEMBER: 'dec(?:ember)?',
-}
+};
 const YEAR = {
     ALL: '(\\b\\d{4}\\b)',
 };
