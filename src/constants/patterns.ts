@@ -24,21 +24,6 @@ const WEEKDAY = {
     SUNDAY: '(sun)(day)?',
 };
 
-const MONTH = {
-    ALL: '(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:tember)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)',
-    JANUARY: 'jan(?:uary)?',
-    FEBRUARY: 'feb(?:ruary)?',
-    MARCH: 'mar(?:ch)?',
-    APRIL: 'apr(?:il)?',
-    MAY: 'may',
-    JUNE: 'jun(?:e)?',
-    JULY: 'jul(?:y)?',
-    AUGUST: 'aug(?:ust)?',
-    SEPTEMBER: 'sep(?:tember)?',
-    OCTOBER: 'oct(?:ober)?',
-    NOVEMBER: 'nov(?:ember)?',
-    DECEMBER: 'dec(?:ember)?',
-};
 const YEAR = {
     ALL: '(\\b\\d{4}\\b)',
 };
@@ -48,6 +33,5 @@ export {
     FILLER_WORD,
     DAY,
     WEEKDAY,
-    MONTH,
     YEAR,
 };

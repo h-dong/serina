@@ -14,7 +14,7 @@ const MONTH = {
         NOVEMBER: 'nov(?:ember)?',
         DECEMBER: 'dec(?:ember)?',
     },
-    FUTURE_WORDS: 'for|next|this|current|on|in',
+    FUTURE_WORDS: 'for|next|this|current|in',
     PAST_WORDS: 'last|prev(ious)?',
 };
 
