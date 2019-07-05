@@ -6,7 +6,7 @@ describe('Month', () => {
     const mockDate = (month, year) => {
         return DateTime.local()
             .set({ month, year })
-            .startOf('minutes')
+            .endOf('day')
             .toJSDate();
     };
 
@@ -27,31 +27,33 @@ describe('Month', () => {
     describe('parseText()', () => {
         describe('if no past or future words are used', () => {
             test('should return date in next year if the month is before the current month', () => {
-                for (let i = 0; i < 5; i++) {
-                    const text = 'visit athens in ' + shortMonths[i];
+                const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);
+                shortMonthsBeforeJune.forEach((month, index) => {
+                    const text = `visit athens in ${month}`;
                     const result: ParsedMatchSchema[] = [
                         {
-                            dateTime: mockDate(i + 1, 2020),
+                            dateTime: mockDate(index + 1, 2020),
                             text: 'visit athens',
-                            matched: 'in ' + shortMonths[i],
+                            matched: `in ${month}`,
                         },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
-                }
+                });
             });
 
             test('should return date in the current year if the month is current month or later', () => {
-                for (let i = 5; i < 12; i++) {
-                    const text = 'visit athens in ' + shortMonths[i];
+                const shortMonthsAfterJune = shortMonths.filter((_, index) => index >= 5);
+                shortMonthsAfterJune.forEach((month, index) => {
+                    const text = `visit athens in ${month}`;
                     const result: ParsedMatchSchema[] = [
                         {
-                            dateTime: mockDate(i + 1, 2019),
+                            dateTime: mockDate(index + 6, 2019),
                             text: 'visit athens',
-                            matched: 'in ' + shortMonths[i],
+                            matched: `in ${month}`,
                         },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
-                }
+                });
             });
 
             test('should parse the month regardless of capital letters', () => {
@@ -85,31 +87,33 @@ describe('Month', () => {
         });
         describe('if a past word is used', () => {
             test('should return date in the same year if the month is before the current month', () => {
-                for (let i = 0; i < 5; i++) {
-                    const text = 'visit athens last ' + shortMonths[i];
+                const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);
+                shortMonthsBeforeJune.forEach((month, index) => {
+                    const text = `visit athens last ${month}`;
                     const result: ParsedMatchSchema[] = [
                         {
-                            dateTime: mockDate(i + 1, 2019),
+                            dateTime: mockDate(index + 1, 2019),
                             text: 'visit athens',
-                            matched: 'last ' + shortMonths[i],
+                            matched: `last ${month}`,
                         },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
-                }
+                });
             });
 
             test('should return date in the previous year if the month is current month or later', () => {
-                for (let i = 5; i < 12; i++) {
-                    const text = 'visit athens last ' + shortMonths[i];
+                const shortMonthsAfterJune = shortMonths.filter((_, index) => index >= 5);
+                shortMonthsAfterJune.forEach((month, index) => {
+                    const text = `visit athens last ${month}`;
                     const result: ParsedMatchSchema[] = [
                         {
-                            dateTime: mockDate(i + 1, 2018),
+                            dateTime: mockDate(index + 6, 2018),
                             text: 'visit athens',
-                            matched: 'last ' + shortMonths[i],
+                            matched: `last ${month}`,
                         },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
-                }
+                });
             });
 
             test('should parse multiple matches', () => {
@@ -132,47 +136,47 @@ describe('Month', () => {
 
         describe('if a future word is used', () => {
             test('should return date in next year if the month is before the current month', () => {
-                for (let i = 0; i < 5; i++) {
-                    const text = 'visit athens next ' + shortMonths[i];
+                const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);
+                shortMonthsBeforeJune.forEach((month, index) => {
+                    const text = `visit athens next ${month}`;
                     const result: ParsedMatchSchema[] = [
                         {
-                            dateTime: mockDate(i + 1, 2020),
+                            dateTime: mockDate(index + 1, 2020),
                             text: 'visit athens',
-                            matched: 'next ' + shortMonths[i],
+                            matched: `next ${month}`,
                         },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
-                }
+                });
             });
 
             test('should return date in the current year if the month is current month or later', () => {
-                for (let i = 5; i < 12; i++) {
-                    const text = 'visit athens next ' + shortMonths[i];
+                const shortMonthsAfterJune = shortMonths.filter((_, index) => index >= 5);
+                shortMonthsAfterJune.forEach((month, index) => {
+                    const text = `visit athens next ${month}`;
                     const result: ParsedMatchSchema[] = [
                         {
-                            dateTime: mockDate(i + 1, 2019),
+                            dateTime: mockDate(index + 6, 2019),
                             text: 'visit athens',
-                            matched: 'next ' + shortMonths[i],
+                            matched: `next ${month}`,
                         },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
-                }
+                });
             });
         });
     });
     describe('convertMonthStringToNumber()', () => {
         test('should return correct number for each short month string', () => {
-            for (let i = 0; i < 12; i++) {
-                const text = shortMonths[i];
-                expect(Month.convertMonthStringToNumber(text)).toEqual(i + 1);
-            }
+            shortMonths.forEach((month, index) => {
+                expect(Month.convertMonthStringToNumber(month)).toEqual(index + 1);
+            });
         });
 
         test('should return correct number for each long month string', () => {
-            for (let i = 0; i < 12; i++) {
-                const text = longMonths[i];
-                expect(Month.convertMonthStringToNumber(text)).toEqual(i + 1);
-            }
+            longMonths.forEach((month, index) => {
+                expect(Month.convertMonthStringToNumber(month)).toEqual(index + 1);
+            });
         });
     });
 });
