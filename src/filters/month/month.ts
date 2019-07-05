@@ -47,7 +47,7 @@ export default class Month {
 
     static convertMatchToDateObj(matchingText: string): Date {
         const month = Month.convertMonthStringToNumber(matchingText);
-        if (month == null) return null;
+        if (month === null) return null;
 
         let year = DateTime.local().year;
         if (month < DateTime.local().month) {
