@@ -49,7 +49,7 @@ This project is currently developed by just me, so can't say when the library wi
 
 - [x] ~~Parse weekdays e.g. `tue`, `tuesday`~~
 - [x] ~~Parse day e.g. `11th`, `2nd`~~
-- [ ] Parse month e.g. `july`, `jan`
+- [x] ~~Parse month e.g. `july`, `jan`~~
 - [x] ~~Parse year e.g. `2018`, `9999`~~
 - [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
 - [ ] Parse long and short dates e.g. `11th June`, `11/09/2018`
