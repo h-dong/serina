@@ -6,7 +6,7 @@ describe('Month', () => {
     const mockDate = (month, year) => {
         return DateTime.local()
             .set({ month, year })
-            .endOf('day')
+            .startOf('month')
             .toJSDate();
     };
 

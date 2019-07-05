@@ -58,7 +58,7 @@ export default class Month {
         }
         return DateTime.local()
             .set({ month, year })
-            .endOf('day')
+            .startOf('month')
             .toJSDate();
     }
 }
