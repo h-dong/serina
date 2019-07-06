@@ -1,14 +1,14 @@
-import { DAY, FILLER_WORD } from 'constants/patterns';
 import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
+import DAY from './day.constants';
 
 export default class Day {
     /*
     * When parsing dates e.g. 2nd, 11th
     */
    static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${FILLER_WORD.DAY})?${DAY.ALL}`;
+        const pattern = `(${DAY.FILLER_WORDS})?${DAY.ALL}`;
         const matchForDates = matchPattern(text, pattern);
 
         if (!matchForDates) return null;

@@ -1,7 +1,7 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
-import MONTH from './constants';
+import MONTH from './month.constants';
 
 export default class Month {
 
