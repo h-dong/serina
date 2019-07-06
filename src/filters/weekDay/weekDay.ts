@@ -36,7 +36,7 @@ export default class WeekDay {
     static convertWeekdayMatchToDate(matchingText) {
         let weekday = null;
 
-        const todayInWeekday = DateTime.local().weekday;
+        const todayInWeekday = DateTime.utc().weekday;
 
         Object.keys(WEEKDAY.SINGLE).forEach((key, index) => {
             const weekdayPattern = WEEKDAY.SINGLE[key];
@@ -51,7 +51,7 @@ export default class WeekDay {
 
         if (contains(matchingText, `${WEEKDAY.PAST_WORDS} ${WEEKDAY.ALL}`)) weekday -= 7;
 
-        return DateTime.local()
+        return DateTime.utc()
             .set({ weekday })
             .startOf('day')
             .toJSDate();

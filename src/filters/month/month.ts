@@ -43,14 +43,14 @@ export default class Month {
         const month = Month.convertMonthStringToNumber(matchingText);
         if (month === null) return null;
 
-        let year = DateTime.local().year;
-        if (month < DateTime.local().month) {
+        let year = DateTime.utc().year;
+        if (month < DateTime.utc().month) {
             year += 1;
         }
         if (contains(matchingText, `${MONTH.PAST_WORDS} ${MONTH.ANY}`)) {
             year -= 1;
         }
-        return DateTime.local()
+        return DateTime.utc()
             .set({ month, year })
             .startOf('month')
             .toJSDate();

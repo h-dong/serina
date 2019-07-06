@@ -8,7 +8,7 @@ interface TestCaseSchema {
 }
 
 describe('Year', () => {
-    const mockYear = year => DateTime.local()
+    const mockYear = year => DateTime.utc()
         .set({ year })
         .startOf('year')
         .toJSDate();

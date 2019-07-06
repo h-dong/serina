@@ -4,7 +4,7 @@ import { ParsedMatchSchema } from '../../serina.schema';
 
 describe('Month', () => {
     const mockDate = (month, year) => {
-        return DateTime.local()
+        return DateTime.utc()
             .set({ month, year })
             .startOf('month')
             .toJSDate();

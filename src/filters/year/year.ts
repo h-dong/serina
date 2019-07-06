@@ -27,7 +27,7 @@ export default class Year {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let year: number = DateTime.local().year;
+        let year: number = DateTime.utc().year;
 
         if(contains(matchingText, YEAR.ALL)) {
             const [matchedDay] = matchPattern(matchingText, YEAR.ALL);
@@ -36,7 +36,7 @@ export default class Year {
 
         if (!year) return null;
 
-        return DateTime.local()
+        return DateTime.utc()
             .set({ year })
             .startOf('year')
             .toJSDate();

@@ -28,9 +28,9 @@ export default class Day {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        const today: DateTime = DateTime.local();
+        const today: DateTime = DateTime.utc();
         let day: number = null;
-        let month: number = DateTime.local().month;
+        let month: number = DateTime.utc().month;
 
         if(contains(matchingText, DAY.ALL)) {
             const [matchedDay] = matchPattern(matchingText, DAY.ALL);
@@ -42,7 +42,7 @@ export default class Day {
 
         if (!day) return null;
 
-        return DateTime.local()
+        return DateTime.utc()
             .set({ day, month })
             .startOf('day')
             .toJSDate();
