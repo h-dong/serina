@@ -62,7 +62,7 @@ describe('Month', () => {
                     {
                         dateTime: mockDate(12, 2019),
                         text: 'visit athens',
-                        matched: 'in december',
+                        matched: 'in DEceMBeR',
                     },
                 ];
                 expect(Month.parseText(text)).toEqual(result);
@@ -73,13 +73,13 @@ describe('Month', () => {
                 const result: ParsedMatchSchema[] = [
                     {
                         dateTime: mockDate(9, 2019),
-                        text: 'visit athens or october',
-                        matched: 'in september',
+                        text: 'visit athens or October',
+                        matched: 'in September',
                     },
                     {
                         dateTime: mockDate(10, 2019),
-                        text: 'visit athens in september or',
-                        matched: 'october',
+                        text: 'visit athens in September or',
+                        matched: 'October',
                     },
                 ];
                 expect(Month.parseText(text)).toEqual(result);
@@ -121,13 +121,13 @@ describe('Month', () => {
                 const result: ParsedMatchSchema[] = [
                     {
                         dateTime: mockDate(9, 2018),
-                        text: 'visit athens or last october',
-                        matched: 'last september',
+                        text: 'visit athens or last October',
+                        matched: 'last September',
                     },
                     {
                         dateTime: mockDate(10, 2018),
-                        text: 'visit athens last september or',
-                        matched: 'last october',
+                        text: 'visit athens last September or',
+                        matched: 'last October',
                     },
                 ];
                 expect(Month.parseText(text)).toEqual(result);

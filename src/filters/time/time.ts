@@ -5,7 +5,7 @@ import TIME from './time.constants';
 import { parseMatches } from 'utils';
 
 export default class Time {
-   static parseText(text: string): ParsedMatchSchema[] {
+    static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `(${TIME.FILLER_WORDS})?${TIME.ALL}`;
         const matches = matchPattern(text, pattern);
 
@@ -24,13 +24,9 @@ export default class Time {
         Object.keys(TIME.SINGLE).forEach(key => {
             const timePattern = TIME.SINGLE[key];
             if (contains(matchingText, timePattern)) {
-                const timeMatches = matchPattern(matchingText, TIME.ALL);
-                let time;
-                if (timeMatches.length === 1) {
-                    time = timeMatches[0];
-                } else {
-                    time = timeMatches;
-                }
+                // match again without filler words
+                // then take the first and only matched string
+                const time = matchPattern(matchingText, TIME.ALL)[0];
 
                 let replaceAm;
                 let replacePm;
