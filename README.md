@@ -51,20 +51,24 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~~Parse day e.g. `11th`, `2nd`~~
 - [x] ~~Parse month e.g. `july`, `jan`~~
 - [x] ~~Parse year e.g. `2018`, `9999`~~
-- [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
+- [ ] Parse time e.g. `5pm`, `5:00am`, `15:00`
 - [ ] Parse long and short dates e.g. `11th June`, `11/09/2018`
-- [ ] Parse relative dates e.g. `next year`, `2 weeks from now`
-- [ ] Parse time e.g. `5pm`,
+- [ ] Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`
 - [ ] Parse relative time e.g. `in half an hour`, `4 hours from now`
-- [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
-- [ ] Parse time range e.g. `beteen 5pm and 8pm`
+- [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
+- [ ] Parse relative dates e.g. `next year`, `2 weeks from now`
+- [ ] Parse combined relative date and time e.g. `a week from now 2pm`
 
 ### Milestone 2
 
-- [ ] Parse filler words (clean up)
-- [ ] Parse more UK keywords e.g. 'oxt', 'fortnight'
-- [ ] Parse more advanced time e.g. 'seconds', 'millisecond'
-- [ ] Parse international date formats e.g. '2018/06/21'
+- [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
+- [ ] Parse time range e.g. `between 5pm and 8pm`
+- [ ] Parse international date formats e.g. `2018/06/21`
+
+### Milestone 3
+
+- [ ] Parse more UK keywords e.g. `oxt`, `fortnight`
+- [ ] Parse more advanced time e.g. `seconds`, `millisecond`
 
 ## Edge cases / Limitations
 
