@@ -1,15 +1,13 @@
-import { DAY, FILLER_WORD } from 'constants/patterns';
 import { matchPattern, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import { parseMatches } from 'utils';
+import DAY from './day.constants';
 
+// When parsing dates e.g. 2nd, 11th
 export default class Day {
-    /*
-    * When parsing dates e.g. 2nd, 11th
-    */
-   static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${FILLER_WORD.DAY})?${DAY.ALL}`;
+    static parseText(text: string): ParsedMatchSchema[] {
+        const pattern = `(${DAY.FILLER_WORDS})?${DAY.ALL}`;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
@@ -22,9 +20,9 @@ export default class Day {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        const today: DateTime = DateTime.local();
+        const today: DateTime = DateTime.utc();
         let day: number = null;
-        let month: number = DateTime.local().month;
+        let month: number = DateTime.utc().month;
 
         if(contains(matchingText, DAY.ALL)) {
             const [matchedDay] = matchPattern(matchingText, DAY.ALL);
@@ -36,7 +34,7 @@ export default class Day {
 
         if (!day) return null;
 
-        return DateTime.local()
+        return DateTime.utc()
             .set({ day, month })
             .startOf('day')
             .toJSDate();

@@ -3,7 +3,7 @@ import { TestCaseSchema } from '../../serina.schema';
 import { DateTime } from 'luxon';
 
 describe('Year', () => {
-    const mockYear = year => DateTime.local()
+    const mockYear = year => DateTime.utc()
         .set({ year })
         .startOf('year')
         .toJSDate();
