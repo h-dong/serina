@@ -51,7 +51,7 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~~Parse day e.g. `11th`, `2nd`~~
 - [x] ~~Parse month e.g. `july`, `jan`~~
 - [x] ~~Parse year e.g. `2018`, `9999`~~
-- [ ] Parse time e.g. `5pm`, `5:00am`, `15:00`
+- [x] Parse time e.g. `5pm`, `5:00am`, `15:00`
 - [ ] Parse combined day, month and year e.g. `11th June`, `11/09/2018`
 - [ ] Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`
 - [ ] Parse relative time e.g. `in half an hour`, `4 hours from now`
