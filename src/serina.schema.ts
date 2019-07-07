@@ -9,3 +9,8 @@ export interface ParsedSchema {
     isValid: boolean;
     matches: ParsedMatchSchema[];
 }
+
+export interface TestCaseSchema {
+    case: string;
+    result: ParsedMatchSchema[];
+}

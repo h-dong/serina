@@ -1,7 +1,8 @@
 import { YEAR, FILLER_WORD } from 'constants/patterns';
-import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
+import { matchPattern, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
+import { parseMatches } from 'utils';
 
 export default class Year {
     /*
@@ -13,17 +14,10 @@ export default class Year {
 
         if (!matches) return null;
 
-        return matches.map(match => this.parseDateMatches(text, match));
-    }
-
-    static parseDateMatches(text: string, matchedDate: string): ParsedMatchSchema {
-        const replaceMatch = text.toLowerCase().replace(matchedDate, '');
-
-        return {
-            text: trimWhiteSpaces(replaceMatch),
-            dateTime: this.convertMatchToDateObj(matchedDate),
-            matched: trimWhiteSpaces(matchedDate),
-        };
+        return matches.map(match => {
+            const dateTimeObj = this.convertMatchToDateObj(match);
+            return parseMatches(text, match, dateTimeObj);
+        });
     }
 
     static convertMatchToDateObj(matchingText: string): Date {

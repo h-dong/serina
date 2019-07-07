@@ -1,29 +1,23 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import { MONTH, RELATIVE } from 'constants/patterns';
-import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
+import { matchPattern, contains } from 'utils/Helper';
+import { parseMatches } from 'utils';
 
 export default class Month {
 
     static parseText(text: string): ParsedMatchSchema[] {
 
         const pattern = `((${RELATIVE.FUTURE_WORDS}|${RELATIVE.PAST_WORDS}) )?${MONTH.ALL}`;
-        const matchForDates = matchPattern(text, pattern);
+        const matches = matchPattern(text, pattern);
 
-        if (!matchForDates) return null;
+        if (!matches) return null;
 
         // for each match, get the parsed cases
-        return matchForDates.map(elem => this.parseDateMatches(text, elem));
-    }
-
-    static parseDateMatches(text: string, matchedDate: string): ParsedMatchSchema {
-        const replaceMatch = text.toLowerCase().replace(matchedDate, '');
-
-        return {
-            text: trimWhiteSpaces(replaceMatch),
-            dateTime: this.convertMatchToDateObj(matchedDate),
-            matched: trimWhiteSpaces(matchedDate),
-        };
+        return matches.map(match => {
+            const dateTimeObj = this.convertMatchToDateObj(match);
+            return parseMatches(text, match, dateTimeObj);
+        });
     }
 
     static convertMonthStringToNumber(matchingText: string): number {
