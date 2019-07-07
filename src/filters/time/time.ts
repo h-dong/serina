@@ -70,13 +70,11 @@ export default class Time {
             }
         });
 
-        if (hour >= 0 || minute >= 0) {
-            return DateTime.utc()
-                .set({ hour, minute })
-                .startOf('minute')
-                .toJSDate();
-        }
+        if (hour === null || minute === null) return null;
 
-        return null;
+        return DateTime.utc()
+            .set({ hour, minute })
+            .startOf('minute')
+            .toJSDate();
     }
 }
