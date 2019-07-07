@@ -1,13 +1,13 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { MONTH, RELATIVE } from 'constants/patterns';
 import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
+import MONTH from './month.constants';
 
 export default class Month {
 
     static parseText(text: string): ParsedMatchSchema[] {
 
-        const pattern = `((${RELATIVE.FUTURE_WORDS}|${RELATIVE.PAST_WORDS}) )?${MONTH.ALL}`;
+        const pattern = `((${MONTH.FUTURE_WORDS}|${MONTH.PAST_WORDS}) )?${MONTH.ANY}`;
         const matchForDates = matchPattern(text, pattern);
 
         if (!matchForDates) return null;
@@ -29,18 +29,12 @@ export default class Month {
     static convertMonthStringToNumber(matchingText: string): number {
         let month = null;
 
-        if (contains(matchingText, MONTH.JANUARY)) month = 1;
-        if (contains(matchingText, MONTH.FEBRUARY)) month = 2;
-        if (contains(matchingText, MONTH.MARCH)) month = 3;
-        if (contains(matchingText, MONTH.APRIL)) month = 4;
-        if (contains(matchingText, MONTH.MAY)) month = 5;
-        if (contains(matchingText, MONTH.JUNE)) month = 6;
-        if (contains(matchingText, MONTH.JULY)) month = 7;
-        if (contains(matchingText, MONTH.AUGUST)) month = 8;
-        if (contains(matchingText, MONTH.SEPTEMBER)) month = 9;
-        if (contains(matchingText, MONTH.OCTOBER)) month = 10;
-        if (contains(matchingText, MONTH.NOVEMBER)) month = 11;
-        if (contains(matchingText, MONTH.DECEMBER)) month = 12;
+        Object.keys(MONTH.SINGLE).forEach((key, index) => {
+            const monthPattern = MONTH.SINGLE[key];
+            if (contains(matchingText, monthPattern)) {
+                month = index + 1;
+            }
+        });
 
         return month;
     }
@@ -49,14 +43,14 @@ export default class Month {
         const month = Month.convertMonthStringToNumber(matchingText);
         if (month === null) return null;
 
-        let year = DateTime.local().year;
-        if (month < DateTime.local().month) {
+        let year = DateTime.utc().year;
+        if (month < DateTime.utc().month) {
             year += 1;
         }
-        if (contains(matchingText, `${RELATIVE.PAST_WORDS} ${MONTH.ALL}`)) {
+        if (contains(matchingText, `${MONTH.PAST_WORDS} ${MONTH.ANY}`)) {
             year -= 1;
         }
-        return DateTime.local()
+        return DateTime.utc()
             .set({ month, year })
             .startOf('month')
             .toJSDate();

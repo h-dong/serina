@@ -3,7 +3,7 @@ import WeekDay from './weekDay';
 import { ParsedMatchSchema } from '../../serina.schema';
 
 describe('Day Of The Week', () => {
-    const mockWeekday = weekday => DateTime.local()
+    const mockWeekday = weekday => DateTime.utc()
         .set({ weekday })
         .startOf('day')
         .toJSDate();
@@ -31,8 +31,8 @@ describe('Day Of The Week', () => {
             const result: ParsedMatchSchema[] = [
                 {
                     dateTime: mockWeekday(9),
-                    text: "hand 's paper on mon",
-                    matched: 'in tuesday',
+                    text: "hand in 's paper on mon",
+                    matched: 'tuesday',
                 },
                 {
                     dateTime: mockWeekday(8),

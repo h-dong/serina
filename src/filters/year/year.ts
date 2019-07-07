@@ -1,14 +1,14 @@
-import { YEAR, FILLER_WORD } from 'constants/patterns';
+import { DateTime } from 'luxon';
 import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
+import YEAR from './year.constants';
 
 export default class Year {
     /*
     * When parsing year between 1000 - 9999
     */
    static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${FILLER_WORD.YEAR})?${YEAR.ALL}`;
+        const pattern = `(${YEAR.FILLER_WORDS})?${YEAR.ALL}`;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
@@ -27,7 +27,7 @@ export default class Year {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let year: number = DateTime.local().year;
+        let year: number = DateTime.utc().year;
 
         if(contains(matchingText, YEAR.ALL)) {
             const [matchedDay] = matchPattern(matchingText, YEAR.ALL);
@@ -36,7 +36,7 @@ export default class Year {
 
         if (!year) return null;
 
-        return DateTime.local()
+        return DateTime.utc()
             .set({ year })
             .startOf('year')
             .toJSDate();
