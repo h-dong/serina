@@ -3,6 +3,7 @@ import WeekDay from './filters/weekDay/weekDay';
 import Day from './filters/day/day';
 import Month from './filters/month/month';
 import Year from 'filters/year/year';
+import Time from 'filters/time/time';
 
 const serina = (text: string): ParsedSchema => {
     const parsedData: ParsedSchema = {
@@ -22,6 +23,9 @@ const serina = (text: string): ParsedSchema => {
 
     const year: ParsedMatchSchema[] = Year.parseText(text);
     if (year && year.length) parsedData.matches = parsedData.matches.concat(year);
+
+    const time: ParsedMatchSchema[] = Time.parseText(text);
+    if (time && time.length) parsedData.matches = parsedData.matches.concat(time);
 
     if (parsedData.matches.length) parsedData.isValid = true;
 
