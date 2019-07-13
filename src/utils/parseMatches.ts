@@ -1,8 +1,8 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import trimWhiteSpaces from './trimWhiteSpaces';
 
-function parseMatches(text: string, matchedDate: string, dateTimeObj: Date): ParsedMatchSchema {
-    const regex = new RegExp(matchedDate, 'ig');
+function parseMatches(text: string, pattern: string, dateTimeObj: Date): ParsedMatchSchema {
+    const regex = new RegExp(pattern, 'ig');
     const textRemain = text.replace(regex, '');
 
     // get the original capitalisation
