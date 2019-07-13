@@ -14,3 +14,8 @@ export interface TestCaseSchema {
     case: string;
     result: ParsedMatchSchema[];
 }
+
+export interface TimeObjectSchema {
+    hour: number;
+    minute: number;
+}

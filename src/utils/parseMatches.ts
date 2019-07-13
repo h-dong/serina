@@ -1,5 +1,5 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { trimWhiteSpaces } from './Helper';
+import trimWhiteSpaces from './trimWhiteSpaces';
 
 function parseMatches(text: string, matchedDate: string, dateTimeObj: Date): ParsedMatchSchema {
     const regex = new RegExp(matchedDate, 'ig');

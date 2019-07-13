@@ -42,7 +42,7 @@ describe('Time', () => {
         {
             case: 'get ready for bed 12am',
             result: [
-                { dateTime: mockTime(0 ,0), text: 'get ready for bed', matched: '12am' },
+                { dateTime: mockTime(0, 0), text: 'get ready for bed', matched: '12am' },
             ],
         },
         {
@@ -61,6 +61,12 @@ describe('Time', () => {
             case: 'afternoon tea at 4PM',
             result: [
                 { dateTime: mockTime(16, 0), text: 'afternoon tea', matched: 'at 4PM' },
+            ],
+        },
+        {
+            case: 'go to cinema at 2 pm',
+            result: [
+                { dateTime: mockTime(14, 0), text: 'go to cinema', matched: 'at 2 pm' },
             ],
         },
     ];

@@ -1,12 +1,11 @@
-import { matchPattern, contains } from 'utils/Helper';
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import TIME from './time.constants';
-import { parseMatches } from 'utils';
+import { parseMatches, convertTimeStringToObj, remove, matchPattern } from 'utils';
 
 export default class Time {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${TIME.FILLER_WORDS})?${TIME.ALL}`;
+        const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ALL})`;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
@@ -18,63 +17,12 @@ export default class Time {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let hour = null;
-        let minute = null;
+        const removeFillerWords = remove(matchingText, TIME.FILLER_WORDS);
+        const { hour, minute } = convertTimeStringToObj(removeFillerWords);
+        const newDateTime = DateTime.utc().set({ hour, minute });
 
-        Object.keys(TIME.SINGLE).forEach(key => {
-            const timePattern = TIME.SINGLE[key];
-            if (contains(matchingText, timePattern)) {
-                // match again without filler words
-                // then take the first and only matched string
-                const time = matchPattern(matchingText, TIME.ALL)[0];
+        if (!newDateTime.isValid) return null;
 
-                let replaceAm;
-                let replacePm;
-                let timeSplit;
-
-                switch (timePattern) {
-                    case TIME.SINGLE.FORMAT_12H_AM_WHOLE_HOUR:
-                        replaceAm = time.replace('am', '');
-                        hour = parseInt(replaceAm, 10);
-                        minute = 0;
-                        if (hour === 12) hour = 0;
-                        break;
-                    case TIME.SINGLE.FORMAT_12H_AM_WITH_MIN:
-                        replaceAm = time.replace('am', '');
-                        timeSplit = replaceAm.split(':');
-                        hour = parseInt(timeSplit[0], 10);
-                        minute = parseInt(timeSplit[1], 10);
-                        if (hour === 12) hour = 0;
-                        break;
-                    case TIME.SINGLE.FORMAT_12H_PM_WHOLE_HOUR:
-                        replacePm = time.replace('pm', '');
-                        hour = parseInt(replacePm, 10);
-                        minute = 0;
-                        if (hour !== 12) hour += 12;
-                        break;
-                    case TIME.SINGLE.FORMAT_12H_PM_WITH_MIN:
-                        replacePm = time.replace('pm', '');
-                        timeSplit = replaceAm.split(':');
-                        hour = parseInt(timeSplit[0], 10);
-                        minute = parseInt(timeSplit[1], 10);
-                        if (hour !== 12) hour += 12;
-                        break;
-                    case TIME.SINGLE.FORMAT_24H_WITH_MIN:
-                        timeSplit = time.split(':');
-                        hour = parseInt(timeSplit[0], 10);
-                        minute = parseInt(timeSplit[1], 10);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        });
-
-        if (hour === null || minute === null) return null;
-
-        return DateTime.utc()
-            .set({ hour, minute })
-            .startOf('minute')
-            .toJSDate();
+        return newDateTime.startOf('minute').toJSDate();
     }
 }
