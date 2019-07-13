@@ -29,6 +29,4 @@ describe('trimWhiteSpaces()', () => {
         const check = trimWhiteSpaces(text);
         expect(check).toBe('this is my string');
     });
-
-    
 });
