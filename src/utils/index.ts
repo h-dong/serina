@@ -4,6 +4,7 @@ import contains from './contains';
 import remove from './remove';
 import matchPattern from './matchPattern';
 import trimWhiteSpaces from './trimWhiteSpaces';
+import isValidTime from './isValidTime';
 
 export {
     parseMatches,
@@ -12,4 +13,5 @@ export {
     remove,
     matchPattern,
     trimWhiteSpaces,
+    isValidTime,
 };

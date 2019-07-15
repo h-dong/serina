@@ -1,15 +1,15 @@
 import { TimeObjectSchema } from 'serina.schema';
-import { ANTE_MERIDIEM, POST_MERIDIEM } from 'filters/time/time.constants';
+import { POST_MERIDIEM, ALL_MERIDIEM } from 'filters/time/time.constants';
 import contains from './contains';
-import { remove } from 'utils';
+import { remove, isValidTime } from 'utils';
 
 function convertTimeStringToObj(time: string): TimeObjectSchema {
     let hour;
     let minute;
 
-    if (contains(time, `( )?${ANTE_MERIDIEM}|${POST_MERIDIEM}`, false)) {
+    if (contains(time, `( )?${ALL_MERIDIEM}`, false)) {
         // 12H
-        const timeWithMeridiem = remove(time, `( )?${ANTE_MERIDIEM}|${POST_MERIDIEM}`, false);
+        const timeWithMeridiem = remove(time, `( )?${ALL_MERIDIEM}`, false);
         const timeSplit = timeWithMeridiem.split(':');
         hour = parseInt(timeSplit[0], 10);
         minute = parseInt(timeSplit[1], 10);
@@ -30,7 +30,7 @@ function convertTimeStringToObj(time: string): TimeObjectSchema {
         minute = parseInt(timeSplit[1], 10);
     }
 
-    return { hour, minute };
+    return isValidTime(hour, minute) ? { hour, minute } : null;
 }
 
 export default convertTimeStringToObj;

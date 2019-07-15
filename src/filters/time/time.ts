@@ -6,7 +6,7 @@ import { parseMatches, convertTimeStringToObj, remove, matchPattern } from 'util
 export default class Time {
     static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ALL})`;
-        const matches = matchPattern(text, pattern);
+        const matches = matchPattern(text, pattern, false);
 
         if (!matches) return null;
 

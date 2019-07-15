@@ -69,6 +69,18 @@ describe('Time', () => {
                 { dateTime: mockTime(14, 0), text: 'go to cinema', matched: 'at 2 pm' },
             ],
         },
+        {
+            case: 'clean the house at 4 p.M.',
+            result: [
+                { dateTime: mockTime(16, 0), text: 'clean the house', matched: 'at 4 p.M.' },
+            ],
+        },
+        {
+            case: 'get shopping done by 4p.m.',
+            result: [
+                { dateTime: mockTime(16, 0), text: 'get shopping done', matched: 'by 4p.m.' },
+            ],
+        },
     ];
 
     test('test this new format', () => {
