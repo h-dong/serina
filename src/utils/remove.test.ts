@@ -11,13 +11,13 @@ describe('remove()', () => {
 
     test('should remove pattern from text', () => {
         const check = remove(text, pattern);
-        expect(check).toBe('this is my  string');
+        expect(check).toBe('this is my string');
     });
 
     test('should be case insensitive', () => {
         text = 'this is my TEST string';
         const check = remove(text, pattern);
-        expect(check).toBe('this is my  string');
+        expect(check).toBe('this is my string');
     });
 
     test('should only match whole words', () => {

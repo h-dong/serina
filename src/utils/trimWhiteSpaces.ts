@@ -1,6 +1,6 @@
 function trimWhiteSpaces(text: string): string {
-    const trimedText = text.replace(/  /g, ' ');
-    return trimedText.trim();
+    const trimmedText = text.replace(/  /g, ' ');
+    return trimmedText.trim();
 }
 
 export default trimWhiteSpaces;

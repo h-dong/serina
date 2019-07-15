@@ -22,7 +22,7 @@ describe('isValidTime()', () => {
     });
 
     test('should not allow 23:60', () => {
-        expect(isValidTime(25, 0)).toBe(false);
+        expect(isValidTime(23, 60)).toBe(false);
     });
 
     test('should not allow 12:60', () => {
