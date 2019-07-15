@@ -1,29 +1,20 @@
 import { DateTime } from 'luxon';
-import { trimWhiteSpaces, matchPattern, contains } from 'utils/Helper';
+import { parseMatches, contains, matchPattern } from 'utils';
 import { ParsedMatchSchema } from 'serina.schema';
 import YEAR from './year.constants';
 
+// parsing year between 1000 - 9999
 export default class Year {
-    /*
-    * When parsing year between 1000 - 9999
-    */
-   static parseText(text: string): ParsedMatchSchema[] {
+    static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `(${YEAR.FILLER_WORDS})?${YEAR.ALL}`;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
 
-        return matches.map(match => this.parseDateMatches(text, match));
-    }
-
-    static parseDateMatches(text: string, matchedDate: string): ParsedMatchSchema {
-        const replaceMatch = text.toLowerCase().replace(matchedDate, '');
-
-        return {
-            text: trimWhiteSpaces(replaceMatch),
-            dateTime: this.convertMatchToDateObj(matchedDate),
-            matched: trimWhiteSpaces(matchedDate),
-        };
+        return matches.map(match => {
+            const dateTimeObj = this.convertMatchToDateObj(match);
+            return parseMatches(text, match, dateTimeObj);
+        });
     }
 
     static convertMatchToDateObj(matchingText: string): Date {

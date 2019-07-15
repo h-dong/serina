@@ -1,11 +1,6 @@
 import Year from './year';
-import { ParsedMatchSchema } from '../../serina.schema';
+import { TestCaseSchema } from '../../serina.schema';
 import { DateTime } from 'luxon';
-
-interface TestCaseSchema {
-    case: string;
-    result: ParsedMatchSchema[];
-}
 
 describe('Year', () => {
     const mockYear = year => DateTime.utc()
