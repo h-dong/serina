@@ -25,4 +25,10 @@ describe('matchPattern()', () => {
         const check = matchPattern(text, pattern);
         expect(check).toEqual(null);
     });
+
+    test('should be able to partial match', () => {
+        text = 'this is my teststring';
+        const check = matchPattern(text, pattern, false);
+        expect(check).toEqual([pattern]);
+    });
 });
