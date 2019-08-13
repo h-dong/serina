@@ -36,7 +36,7 @@ console.log(parsed);
     "matches": [
         {
             "text": "Remind me to buy milk",
-            "dateTime": "2019-09-11T00:00:00.000Z",
+            "dateTime": "2019-09-11T15:00:00.000Z",
             "matched": "tomorrow 3pm"
         }
     ]
@@ -59,7 +59,7 @@ console.log(parsed);
     "matches": [
         {
             "text": "Remind me to buy milk",
-            "dateTime": "2019-09-11T00:00:00.000Z",
+            "dateTime": "2019-09-11T15:00:00.000Z",
             "matched": "tomorrow 3pm"
         }
     ]
