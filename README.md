@@ -22,23 +22,48 @@ Simply run `npm install serina`
 
 If using ES5
 
-```
+```js
 var Serina = require('serina');
 
 var parsed = Serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
 
-var original = parsed.original; // 'Remind me to buy milk tomorrow 3pm'
-var text = parsed.text; // 'Remind me to buy milk'
-var validDateTime = parsed.isValid; // True (Boolean type)
-var date = parsed.date; // '30/10/2017'
-var time = parsed.time; // '3:00pm'
-var dateTime = parsed.dateObject; // Date object for '30/10/2017 3:00pm'
+console.log(parsed);
+
+// console output
+{
+    "original": "Remind me to buy milk tomorrow 3pm",
+    "isValid": true,
+    "matches": [
+        {
+            "text": "Remind me to buy milk",
+            "dateTime": "2019-09-11T00:00:00.000Z",
+            "matched": "tomorrow 3pm"
+        }
+    ]
+}
 ```
 
 Or use import if using ES6
 
-```
+```js
 import Serina from 'serina';
+
+const parsed = Serina('Remind me to buy milk tomorrow 3pm');
+
+console.log(parsed);
+
+// console output
+{
+    "original": "Remind me to buy milk tomorrow 3pm",
+    "isValid": true,
+    "matches": [
+        {
+            "text": "Remind me to buy milk",
+            "dateTime": "2019-09-11T00:00:00.000Z",
+            "matched": "tomorrow 3pm"
+        }
+    ]
+}
 ```
 
 ## Progress
