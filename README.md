@@ -63,7 +63,8 @@ This project is currently developed by just me, so can't say when the library wi
 
 - [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
 - [ ] Parse time range e.g. `between 5pm and 8pm`
-- [ ] Parse international date formats e.g. `2018/06/21`
+- [ ] Parse international date formats better e.g. `2018/06/21`
+- [ ] Parse incomplete date formats e.g. `20/08` or `Jan 2020`
 
 ### Milestone 3
 
