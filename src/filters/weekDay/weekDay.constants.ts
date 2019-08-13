@@ -1,5 +1,5 @@
 const WEEKDAY = {
-    ALL: '(mon|tue(s)?|wed|wedn(es)?|thu|thur(s)?|fri|sat(ur)?|sun)(day)?',
+    ANY: '(mon|tue(s)?|wed|wedn(es)?|thu|thur(s)?|fri|sat(ur)?|sun)(day)?',
     SINGLE: {
         MONDAY: '(mon)(day)?',
         TUESDAY: '(tue(s)?)(day)?',

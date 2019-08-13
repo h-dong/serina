@@ -1,5 +1,5 @@
 const YEAR = {
-    ALL: '(\\b\\d{4}\\b)',
+    ANY: '(\\b\\d{4}\\b)',
     FILLER_WORDS: 'in ',
 };
 

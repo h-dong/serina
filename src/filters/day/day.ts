@@ -6,7 +6,7 @@ import DAY from './day.constants';
 // When parsing dates e.g. 2nd, 11th
 export default class Day {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${DAY.FILLER_WORDS})?${DAY.ALL}`;
+        const pattern = `(${DAY.FILLER_WORDS})?${DAY.ANY}`;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
@@ -23,8 +23,8 @@ export default class Day {
         let day: number = null;
         let month: number = DateTime.utc().month;
 
-        if(contains(matchingText, DAY.ALL)) {
-            const [matchedDay] = matchPattern(matchingText, DAY.ALL);
+        if(contains(matchingText, DAY.ANY)) {
+            const [matchedDay] = matchPattern(matchingText, DAY.ANY);
             day = parseInt(matchedDay, 10);
 
             // if day is in past then try future month

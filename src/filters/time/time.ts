@@ -5,7 +5,7 @@ import { parseMatches, convertTimeStringToObj, remove, matchPattern } from 'util
 
 export default class Time {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ALL})`;
+        const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ANY})`;
         const matches = matchPattern(text, pattern, false);
 
         if (!matches) return null;
@@ -17,8 +17,8 @@ export default class Time {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        const removeFillerWords = remove(matchingText, TIME.FILLER_WORDS);
-        const { hour, minute } = convertTimeStringToObj(removeFillerWords);
+        const removedFillerWords = remove(matchingText, TIME.FILLER_WORDS);
+        const { hour, minute } = convertTimeStringToObj(removedFillerWords);
         const newDateTime = DateTime.utc().set({ hour, minute });
 
         if (!newDateTime.isValid) return null;

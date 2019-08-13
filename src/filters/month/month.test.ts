@@ -11,8 +11,6 @@ describe('Month', () => {
     };
 
     const shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-    const longMonths = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september',
-    'october', 'november', 'december'];
 
     beforeAll(() => {
         // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
@@ -163,19 +161,6 @@ describe('Month', () => {
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });
-            });
-        });
-    });
-    describe('convertMonthStringToNumber()', () => {
-        test('should return correct number for each short month string', () => {
-            shortMonths.forEach((month, index) => {
-                expect(Month.convertMonthStringToNumber(month)).toEqual(index + 1);
-            });
-        });
-
-        test('should return correct number for each long month string', () => {
-            longMonths.forEach((month, index) => {
-                expect(Month.convertMonthStringToNumber(month)).toEqual(index + 1);
             });
         });
     });

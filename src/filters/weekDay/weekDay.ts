@@ -9,7 +9,7 @@ export default class WeekDay {
     * When parsing day of the week, check for relative words & week day e.g. next friday
     */
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `((${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS}) )?${WEEKDAY.ALL}`;
+        const pattern = `((${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS}) )?${WEEKDAY.ANY}`;
         const matchForWeekdays = matchPattern(text, pattern);
 
         if (!matchForWeekdays) return null;
@@ -19,7 +19,7 @@ export default class WeekDay {
     }
 
     static matchWeekdays(text: string): string[] {
-        const matched = matchPattern(text, WEEKDAY.ALL);
+        const matched = matchPattern(text, WEEKDAY.ANY);
         return matched ? matched : null;
     }
 
@@ -49,7 +49,7 @@ export default class WeekDay {
 
         if (!weekday) return null;
 
-        if (contains(matchingText, `${WEEKDAY.PAST_WORDS} ${WEEKDAY.ALL}`)) weekday -= 7;
+        if (contains(matchingText, `${WEEKDAY.PAST_WORDS} ${WEEKDAY.ANY}`)) weekday -= 7;
 
         return DateTime.utc()
             .set({ weekday })

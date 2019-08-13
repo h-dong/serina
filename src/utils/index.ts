@@ -5,13 +5,17 @@ import remove from './remove';
 import matchPattern from './matchPattern';
 import trimWhiteSpaces from './trimWhiteSpaces';
 import isValidTime from './isValidTime';
+import convertDateStringToObj from './convertDateStringToObj';
+import monthStringToNumber from './monthStringToNumber';
 
 export {
     parseMatches,
     convertTimeStringToObj,
+    convertDateStringToObj,
     contains,
     remove,
     matchPattern,
     trimWhiteSpaces,
     isValidTime,
+    monthStringToNumber,
 };

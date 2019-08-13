@@ -1,6 +1,6 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { parseMatches, contains, matchPattern } from 'utils';
+import { parseMatches, contains, matchPattern, monthStringToNumber } from 'utils';
 import MONTH from './month.constants';
 
 export default class Month {
@@ -19,21 +19,8 @@ export default class Month {
         });
     }
 
-    static convertMonthStringToNumber(matchingText: string): number {
-        let month = null;
-
-        Object.keys(MONTH.SINGLE).forEach((key, index) => {
-            const monthPattern = MONTH.SINGLE[key];
-            if (contains(matchingText, monthPattern)) {
-                month = index + 1;
-            }
-        });
-
-        return month;
-    }
-
     static convertMatchToDateObj(matchingText: string): Date {
-        const month = Month.convertMonthStringToNumber(matchingText);
+        const month = monthStringToNumber(matchingText);
         if (month === null) return null;
 
         let year = DateTime.utc().year;
