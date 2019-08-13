@@ -29,11 +29,21 @@ var parsed = Serina('Remind me to buy milk tomorrow 3pm'); // assuming it is cur
 
 console.log(parsed);
 
-// console output
+// assuming current time is 2019/09/10 1pm, console output
 {
     "original": "Remind me to buy milk tomorrow 3pm",
     "isValid": true,
     "matches": [
+        {
+            "text": "Remind me to buy milk tomorrow",
+            "dateTime": "2019-09-10T15:00:00.000Z",
+            "matched": "3pm"
+        },
+        {
+            "text": "Remind me to buy milk 3pm",
+            "dateTime": "2019-09-11T00:00:00.000Z",
+            "matched": "tomorrow"
+        },
         {
             "text": "Remind me to buy milk",
             "dateTime": "2019-09-11T15:00:00.000Z",
@@ -49,21 +59,6 @@ Or use import if using ES6
 import Serina from 'serina';
 
 const parsed = Serina('Remind me to buy milk tomorrow 3pm');
-
-console.log(parsed);
-
-// console output
-{
-    "original": "Remind me to buy milk tomorrow 3pm",
-    "isValid": true,
-    "matches": [
-        {
-            "text": "Remind me to buy milk",
-            "dateTime": "2019-09-11T15:00:00.000Z",
-            "matched": "tomorrow 3pm"
-        }
-    ]
-}
 ```
 
 ## Progress
