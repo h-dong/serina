@@ -19,3 +19,9 @@ export interface TimeObjectSchema {
     hour: number;
     minute: number;
 }
+
+export interface DateObjectSchema {
+    day: number;
+    month: number;
+    year: number;
+}

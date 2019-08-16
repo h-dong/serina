@@ -22,23 +22,43 @@ Simply run `npm install serina`
 
 If using ES5
 
-```
+```js
 var Serina = require('serina');
 
 var parsed = Serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
 
-var original = parsed.original; // 'Remind me to buy milk tomorrow 3pm'
-var text = parsed.text; // 'Remind me to buy milk'
-var validDateTime = parsed.isValid; // True (Boolean type)
-var date = parsed.date; // '30/10/2017'
-var time = parsed.time; // '3:00pm'
-var dateTime = parsed.dateObject; // Date object for '30/10/2017 3:00pm'
+console.log(parsed);
+
+// assuming current time is 2019/09/10 1pm, console output
+{
+    "original": "Remind me to buy milk tomorrow 3pm",
+    "isValid": true,
+    "matches": [
+        {
+            "text": "Remind me to buy milk tomorrow",
+            "dateTime": "2019-09-10T15:00:00.000Z",
+            "matched": "3pm"
+        },
+        {
+            "text": "Remind me to buy milk 3pm",
+            "dateTime": "2019-09-11T00:00:00.000Z",
+            "matched": "tomorrow"
+        },
+        {
+            "text": "Remind me to buy milk",
+            "dateTime": "2019-09-11T15:00:00.000Z",
+            "matched": "tomorrow 3pm"
+        }
+    ]
+}
 ```
 
 Or use import if using ES6
 
-```
+```js
 import Serina from 'serina';
+
+const parsed = Serina('Remind me to buy milk tomorrow 3pm');
 ```
 
 ## Progress
@@ -52,7 +72,8 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~~Parse month e.g. `july`, `jan`~~
 - [x] ~~Parse year e.g. `2018`, `9999`~~
 - [x] ~~Parse time e.g. `5pm`, `5:00am`, `15:00`~~
-- [ ] Parse combined day, month and year e.g. `11th June`, `11/09/2018`
+- [x] ~Parse combined day, month and year e.g. `11th June 2019`, `11/09/2018`~
+- [ ] Parse incomplete date formats e.g. `20/08` or `Jan 2020`
 - [ ] Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`
 - [ ] Parse relative time e.g. `in half an hour`, `4 hours from now`
 - [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
@@ -64,7 +85,6 @@ This project is currently developed by just me, so can't say when the library wi
 - [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
 - [ ] Parse time range e.g. `between 5pm and 8pm`
 - [ ] Parse international date formats better e.g. `2018/06/21`
-- [ ] Parse incomplete date formats e.g. `20/08` or `Jan 2020`
 
 ### Milestone 3
 
