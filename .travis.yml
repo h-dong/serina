@@ -1,6 +1,7 @@
 language: node_js
+
 node_js:
-  - "8.10.0"
+  - "10"
 
 install:
   - npm install
@@ -8,3 +9,6 @@ install:
 script:
   - npm run test:build
   - npm run lint
+
+after_success:
+  - codecov
