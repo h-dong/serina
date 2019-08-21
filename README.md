@@ -1,5 +1,6 @@
 # Serina
 
+[![Build Status](https://travis-ci.org/h-dong/Serina.svg?branch=master)]()
 [![Netlify Build Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
 [![GitHub Release](https://img.shields.io/github/release/h-dong/serina.svg)]()
 [![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)]()
