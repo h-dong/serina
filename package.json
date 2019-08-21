@@ -14,7 +14,7 @@
     "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
     "test": "jest --watchAll",
     "test:build": "jest",
-    "jest:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
