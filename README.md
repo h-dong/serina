@@ -7,6 +7,7 @@
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)]()
 [![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
 [![BCH compliance](https://bettercodehub.com/edge/badge/h-dong/Serina?branch=master)](https://bettercodehub.com/)
+[![codecov](https://codecov.io/gh/h-dong/Serina/branch/master/graph/badge.svg)](https://codecov.io/gh/h-dong/Serina)
 
 Natural Language Parser for date and time in Javascript.
 
