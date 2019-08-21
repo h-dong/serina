@@ -4,12 +4,11 @@
 [![GitHub Release](https://img.shields.io/github/release/h-dong/serina.svg)]()
 [![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)]()
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)]()
+[![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
 
 [![Netlify Build Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
 [![BCH compliance](https://bettercodehub.com/edge/badge/h-dong/Serina?branch=master)](https://bettercodehub.com/)
 [![codecov](https://codecov.io/gh/h-dong/Serina/branch/master/graph/badge.svg)](https://codecov.io/gh/h-dong/Serina)
-
-[![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
 
 Natural Language Parser for date and time in Javascript.
 
