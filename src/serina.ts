@@ -5,7 +5,7 @@ import Month from './filters/month/month';
 import Year from 'filters/year/year';
 import Time from 'filters/time/time';
 import Dates from 'filters/dates/dates';
-import PartialDates from './filters/dates/partialDates'
+import PartialDates from './filters/dates/partialDates';
 
 const serina = (text: string): ParsedSchema => {
     const parsedData: ParsedSchema = {

@@ -1,11 +1,11 @@
-import { DateTime} from 'luxon';
-import {TestCaseSchema} from '../../serina.schema';
+import { DateTime } from 'luxon';
+import { TestCaseSchema } from '../../serina.schema';
 import PartialDates from './partialDates';
 
 const currentYear = DateTime.utc().year;
 
 const mockDates = (day, month, year) => DateTime.utc()
-    .set({day, month, year})
+    .set({ day, month, year })
     .endOf('day')
     .toJSDate();
 

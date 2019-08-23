@@ -1,6 +1,6 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import {DATES, PARTIAL_DATES } from './dates.constants';
+import { DATES, PARTIAL_DATES } from './dates.constants';
 import { parseMatches, convertPartialDateStringToObj, remove, matchPattern } from 'utils';
 
 export default class PartialDates {
