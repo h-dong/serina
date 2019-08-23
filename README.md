@@ -5,11 +5,14 @@
 [![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)]()
 [![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)]()
 [![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
-[![Netlify Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
+
+[![Netlify Build Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
+[![BCH compliance](https://bettercodehub.com/edge/badge/h-dong/Serina?branch=master)](https://bettercodehub.com/)
+[![codecov](https://codecov.io/gh/h-dong/Serina/branch/master/graph/badge.svg)](https://codecov.io/gh/h-dong/Serina)
 
 Natural Language Parser for date and time in Javascript.
 
-## STILL UNDER DEVELOPMENT, NOT READY FOR ALPHA! ![45%](http://progressed.io/bar/45)
+## STILL UNDER DEVELOPMENT, NOT READY FOR ALPHA!
 
 ## Introduction
 Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!https://github.com/neilgupta/Sherlock) project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship  - Spirit of Fire.
