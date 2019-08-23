@@ -12,8 +12,15 @@ function strToInt(dayStr: string, monthStr: string, yearStr: string): DateObject
     };
 }
 
+/**
+ * We want to return a future date, so if the month has already occurred this year, we give next year's date.
+ */
+function getYearWhenMonthIsUpcoming(month): string {
+    const currentDate = DateTime.utc();
+    return (parseInt(month, 10) > currentDate.month ? currentDate.year : currentDate.year + 1).toString();
+}
+
 function convertPartialDateStringToObj(date: string): DateObjectSchema {
-    const currentYear = DateTime.utc().year;
     let day: string;
     let month: string;
     let year: string;
@@ -30,11 +37,11 @@ function convertPartialDateStringToObj(date: string): DateObjectSchema {
     } else if (contains(date, PARTIAL_DATES.NUM_DAY_MONTH)) {
         dividerRegex = new RegExp(DATES.NUM_DIVIDER, 'g');
         [day, month] = date.replace(dividerRegex, ' ').split(' ');
-        year = currentYear.toString();
+        year = getYearWhenMonthIsUpcoming(month);
     } else if (contains(date, PARTIAL_DATES.NUM_MONTH_DAY)) {
         dividerRegex = new RegExp(DATES.NUM_DIVIDER, 'g');
         [month, day] = date.replace(dividerRegex, ' ').split(' ');
-        year = currentYear.toString();
+        year = getYearWhenMonthIsUpcoming(month);
     } else if (contains(date, PARTIAL_DATES.TXT_MONTH_YEAR)) {
         dividerRegex = new RegExp(DATES.TXT_DIVIDER, 'g');
         [month, year] = date.replace(dividerRegex, ' ').split(' ');
@@ -48,12 +55,12 @@ function convertPartialDateStringToObj(date: string): DateObjectSchema {
     } else if (contains(date, PARTIAL_DATES.TXT_DAY_MONTH)) {
         dividerRegex = new RegExp(DATES.TXT_DIVIDER, 'g');
         [day, month] = date.replace(dividerRegex, ' ').split(' ');
-        year = currentYear.toString();
+        year = getYearWhenMonthIsUpcoming(month);
         month = monthStringToNumber(month).toString();
     } else if (contains(date, PARTIAL_DATES.TXT_MONTH_DAY)) {
         dividerRegex = new RegExp(DATES.TXT_DIVIDER, 'g');
         [month, day] = date.replace(dividerRegex, ' ').split(' ');
-        year = currentYear.toString();
+        year = getYearWhenMonthIsUpcoming(month);
         month = monthStringToNumber(month).toString();
     }
 

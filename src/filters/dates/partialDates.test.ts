@@ -49,7 +49,7 @@ describe('Dates', () => {
         }, {
             case: 'go to work on 02/20',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on 02/20' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on 02/20' },
             ],
         }, {
             case: 'go to work on 02/10',
@@ -59,77 +59,77 @@ describe('Dates', () => {
         }, {
             case: 'go to work on Feb 20',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on Feb 20' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on Feb 20' },
             ],
         }, {
             case: 'go to work on Feb 20th',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on Feb 20th' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on Feb 20th' },
             ],
         }, {
             case: 'go to work on February 20',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on February 20' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on February 20' },
             ],
         }, {
             case: 'go to work on February 20th',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on February 20th' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on February 20th' },
             ],
         }, {
             case: 'go to work on Feb 21st',
             result: [
-                { dateTime: mockDates(21, 2, currentYear), text: 'go to work', matched: 'on Feb 21st' },
+                { dateTime: mockDates(21, 2, currentYear + 1), text: 'go to work', matched: 'on Feb 21st' },
             ],
         }, {
             case: 'go to work on Feb 22nd',
             result: [
-                { dateTime: mockDates(22, 2, currentYear), text: 'go to work', matched: 'on Feb 22nd' },
+                { dateTime: mockDates(22, 2, currentYear + 1), text: 'go to work', matched: 'on Feb 22nd' },
             ],
         }, {
             case: 'go to work on Feb 23rd',
             result: [
-                { dateTime: mockDates(23, 2, currentYear), text: 'go to work', matched: 'on Feb 23rd' },
+                { dateTime: mockDates(23, 2, currentYear + 1), text: 'go to work', matched: 'on Feb 23rd' },
             ],
         }, {
             case: 'go to work on 20/02',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on 20/02' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on 20/02' },
             ],
         }, {
             case: 'go to work on 20 Feb',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on 20 Feb' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on 20 Feb' },
             ],
         }, {
             case: 'go to work on 20th Feb',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on 20th Feb' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on 20th Feb' },
             ],
         }, {
             case: 'go to work on 20 February',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on 20 February' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on 20 February' },
             ],
         }, {
             case: 'go to work on 20th February',
             result: [
-                { dateTime: mockDates(20, 2, currentYear), text: 'go to work', matched: 'on 20th February' },
+                { dateTime: mockDates(20, 2, currentYear + 1), text: 'go to work', matched: 'on 20th February' },
             ],
         }, {
             case: 'go to work on 21st Feb',
             result: [
-                { dateTime: mockDates(21, 2, currentYear), text: 'go to work', matched: 'on 21st Feb' },
+                { dateTime: mockDates(21, 2, currentYear + 1), text: 'go to work', matched: 'on 21st Feb' },
             ],
         }, {
             case: 'go to work on 22nd Feb',
             result: [
-                { dateTime: mockDates(22, 2, currentYear), text: 'go to work', matched: 'on 22nd Feb' },
+                { dateTime: mockDates(22, 2, currentYear + 1), text: 'go to work', matched: 'on 22nd Feb' },
             ],
         }, {
             case: 'go to work on 23rd Feb',
             result: [
-                { dateTime: mockDates(23, 2, currentYear), text: 'go to work', matched: 'on 23rd Feb' },
+                { dateTime: mockDates(23, 2, currentYear + 1), text: 'go to work', matched: 'on 23rd Feb' },
             ],
         }];
 
