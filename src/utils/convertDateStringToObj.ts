@@ -1,5 +1,5 @@
 import { DateObjectSchema } from 'serina.schema';
-import DATES from 'filters/dates/dates.constants';
+import { DATES } from 'filters/dates/dates.constants';
 import contains from './contains';
 import { monthStringToNumber } from 'utils';
 

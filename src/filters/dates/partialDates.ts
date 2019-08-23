@@ -1,11 +1,11 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { DATES } from './dates.constants';
-import { parseMatches, convertDateStringToObj, remove, matchPattern } from 'utils';
+import {DATES, PARTIAL_DATES } from './dates.constants';
+import { parseMatches, convertPartialDateStringToObj, remove, matchPattern } from 'utils';
 
-export default class Dates {
+export default class PartialDates {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${DATES.FILLER_WORDS})?(${DATES.ANY})`;
+        const pattern = `(${DATES.FILLER_WORDS})?(${PARTIAL_DATES.ANY})`;
         const matches = matchPattern(text, pattern, false);
 
         if (!matches) return null;
@@ -18,7 +18,7 @@ export default class Dates {
 
     static convertMatchToDateObj(matchingText: string): Date {
         const removedFillerWords = remove(matchingText, DATES.FILLER_WORDS);
-        const dateObj = convertDateStringToObj(removedFillerWords);
+        const dateObj = convertPartialDateStringToObj(removedFillerWords);
 
         if (!dateObj) return null;
 
