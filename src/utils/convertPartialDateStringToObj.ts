@@ -7,9 +7,16 @@ import { DateTime } from 'luxon';
 /**
  * We want to return a future date, so if the month has already occurred this year, we give next year's date.
  */
-function getYearWhenMonthIsUpcoming(month): string {
+function getFutureYearIfDateIsInThePast(month, day): string {
     const currentDate = DateTime.utc();
-    return (parseInt(month, 10) > currentDate.month ? currentDate.year : currentDate.year + 1).toString();
+    const year = currentDate.year;
+    const monthInt = parseInt(month, 10);
+    if (monthInt < currentDate.month) {
+        return (year + 1).toString();
+    } else if (monthInt === currentDate.month) {
+        (parseInt(day, 10) >= currentDate.day ? year : year + 1).toString();
+    }
+    return year.toString();
 }
 
 function convertPartialDateStringToObj(date: string): DateObjectSchema {
@@ -29,11 +36,11 @@ function convertPartialDateStringToObj(date: string): DateObjectSchema {
     } else if (contains(date, PARTIAL_DATES.NUM_DAY_MONTH)) {
         dividerRegex = new RegExp(DATES.NUM_DIVIDER, 'g');
         [day, month] = date.replace(dividerRegex, ' ').split(' ');
-        year = getYearWhenMonthIsUpcoming(month);
+        year = getFutureYearIfDateIsInThePast(month, day);
     } else if (contains(date, PARTIAL_DATES.NUM_MONTH_DAY)) {
         dividerRegex = new RegExp(DATES.NUM_DIVIDER, 'g');
         [month, day] = date.replace(dividerRegex, ' ').split(' ');
-        year = getYearWhenMonthIsUpcoming(month);
+        year = getFutureYearIfDateIsInThePast(month, day);
     } else if (contains(date, PARTIAL_DATES.TXT_MONTH_YEAR)) {
         dividerRegex = new RegExp(DATES.TXT_DIVIDER, 'g');
         [month, year] = date.replace(dividerRegex, ' ').split(' ');
@@ -47,13 +54,13 @@ function convertPartialDateStringToObj(date: string): DateObjectSchema {
     } else if (contains(date, PARTIAL_DATES.TXT_DAY_MONTH)) {
         dividerRegex = new RegExp(DATES.TXT_DIVIDER, 'g');
         [day, month] = date.replace(dividerRegex, ' ').split(' ');
-        year = getYearWhenMonthIsUpcoming(month);
         month = monthStringToNumber(month).toString();
+        year = getFutureYearIfDateIsInThePast(month, day);
     } else if (contains(date, PARTIAL_DATES.TXT_MONTH_DAY)) {
         dividerRegex = new RegExp(DATES.TXT_DIVIDER, 'g');
         [month, day] = date.replace(dividerRegex, ' ').split(' ');
-        year = getYearWhenMonthIsUpcoming(month);
         month = monthStringToNumber(month).toString();
+        year = getFutureYearIfDateIsInThePast(month, day);
     }
 
     if (!day || !month || !year) return null;
