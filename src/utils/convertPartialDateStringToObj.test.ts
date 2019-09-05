@@ -80,6 +80,9 @@ describe('convertDateStringToObj', () => {
     }, {
         input: '29 Jun',
         output: { day: 29, month: 6, year: currentYear },
+    }, {
+        input: '28 Jun',
+        output: { day: 28, month: 6, year: currentYear + 1 },
     }];
 
     test('should parse the correct dates', () => {

@@ -14,7 +14,7 @@ function getFutureYearIfDateIsInThePast(month, day): string {
     if (monthInt < currentDate.month) {
         return (year + 1).toString();
     } else if (monthInt === currentDate.month) {
-        (parseInt(day, 10) >= currentDate.day ? year : year + 1).toString();
+        return (parseInt(day, 10) >= currentDate.day ? year : year + 1).toString();
     }
     return year.toString();
 }
