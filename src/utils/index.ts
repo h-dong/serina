@@ -6,16 +6,20 @@ import matchPattern from './matchPattern';
 import trimWhiteSpaces from './trimWhiteSpaces';
 import isValidTime from './isValidTime';
 import convertDateStringToObj from './convertDateStringToObj';
+import convertPartialDateStringToObj from './convertPartialDateStringToObj';
 import monthStringToNumber from './monthStringToNumber';
+import strToInt from './strToInt';
 
 export {
     parseMatches,
     convertTimeStringToObj,
     convertDateStringToObj,
+    convertPartialDateStringToObj,
     contains,
     remove,
     matchPattern,
     trimWhiteSpaces,
     isValidTime,
     monthStringToNumber,
+    strToInt,
 };
