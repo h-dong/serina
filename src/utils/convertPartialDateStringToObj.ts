@@ -7,16 +7,17 @@ import { DateTime } from 'luxon';
 /**
  * We want to return a future date, so if the month has already occurred this year, we give next year's date.
  */
-function getFutureYearIfDateIsInThePast(month, day): string {
+function getFutureYearIfDateIsInThePast(monthStr, dayStr): string {
     const currentDate = DateTime.utc();
     const year = currentDate.year;
-    const monthInt = parseInt(month, 10);
-    if (monthInt < currentDate.month) {
+    const month = parseInt(monthStr, 10);
+    const day = parseInt(dayStr, 10);
+    const tempDate = DateTime.utc().set({ month, day, year });
+    if (tempDate < currentDate) {
         return (year + 1).toString();
-    } else if (monthInt === currentDate.month) {
-        return (parseInt(day, 10) >= currentDate.day ? year : year + 1).toString();
     }
     return year.toString();
+
 }
 
 function convertPartialDateStringToObj(date: string): DateObjectSchema {
