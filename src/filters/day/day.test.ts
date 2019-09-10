@@ -116,6 +116,10 @@ describe('Day', () => {
                 expect(Day.parseText(`${text} 0th`)).toBe(null);
             });
 
+            test('should not parse a single number', () => {
+                expect(Day.parseText('buy milk 20')).toBe(null);
+            });
+
             test('should not parse any dates beyond 31st', () => {
                 expect(Day.parseText(`${text} 32nd`)).toBe(null);
             });

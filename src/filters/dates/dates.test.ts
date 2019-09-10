@@ -9,6 +9,9 @@ describe('Dates', () => {
         .toJSDate();
 
     const testCases: TestCaseSchema[] = [{
+        case: 'buy milk 20',
+        result: null,
+    }, {
         case: 'go to work on 02/17/2009',
         result: [
             { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 02/17/2009' },

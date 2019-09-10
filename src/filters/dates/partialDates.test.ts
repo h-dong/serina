@@ -150,6 +150,9 @@ describe('Partial Dates', () => {
         result: [
             { dateTime: mockDates(23, 2, currentYear + 1), text: 'go to work', matched: 'on 23rd Feb' },
         ],
+    }, {
+        case: 'buy milk 20',
+        result: null,
     }];
 
     test('should parse the correct dates', () => {
