@@ -6,6 +6,7 @@ import Year from 'filters/year/year';
 import Time from 'filters/time/time';
 import Dates from 'filters/dates/dates';
 import PartialDates from './filters/dates/partialDates';
+import DateAndTime from './filters/dates/dateAndTime';
 
 const serina = (text: string): ParsedSchema => {
     const parsedData: ParsedSchema = {
@@ -34,6 +35,9 @@ const serina = (text: string): ParsedSchema => {
 
     const partialDates: ParsedMatchSchema[] = PartialDates.parseText(text);
     if (partialDates && partialDates.length) parsedData.matches = parsedData.matches.concat(partialDates);
+
+    const dateAndTime: ParsedMatchSchema[] = DateAndTime.parseText(text);
+    if (dateAndTime && dateAndTime.length) parsedData.matches = parsedData.matches.concat(dateAndTime);
 
     if (parsedData.matches.length) parsedData.isValid = true;
 
