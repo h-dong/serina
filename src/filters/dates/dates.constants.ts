@@ -17,7 +17,7 @@ const DATES = {
     NUM_YEAR_MONTH_DAY: numYearMonthDay,
     TXT_DAY_MONTH_YEAR: txtDayMonthYear,
     TXT_MONTH_DAY_YEAR: txtMonthDayYear,
-    FILLER_WORDS: '(on|by) ',
+    FILLER_WORDS: '(on|by) (the)?',
     NUM_DIVIDER: numDividers,
     TXT_DIVIDER: txtDividers,
 };
@@ -30,9 +30,10 @@ const txtMonthDay = `(${MONTH.ANY}${txtDividers}${DAY.ANY})`;
 const txtDayMonth = `(${DAY.ANY}${txtDividers}${MONTH.ANY})`;
 const txtMonthYear = `(${MONTH.ANY}${txtDividers}${YEAR.ANY})`;
 const txtYearMonth = `(${YEAR.ANY}${txtDividers}${MONTH.ANY})`;
+const day = `((${DAY.FILLER_WORDS})?${DAY.ORDINAL_ONLY})`;
 
 const PARTIAL_DATES = {
-    ANY: `${numMonthYear}|${numYearMonth}|${numMonthDay}|${numDayMonth}|${txtMonthYear}|${txtMonthDay}|${txtYearMonth}|${txtDayMonth}`,
+    ANY: `${numMonthYear}|${numYearMonth}|${numMonthDay}|${numDayMonth}|${txtMonthYear}|${txtMonthDay}|${txtYearMonth}|${txtDayMonth}|${day}`,
     NUM_MONTH_YEAR: numMonthYear,
     NUM_YEAR_MONTH: numYearMonth,
     NUM_MONTH_DAY: numMonthDay,
@@ -41,6 +42,7 @@ const PARTIAL_DATES = {
     TXT_MONTH_DAY: txtMonthDay,
     TXT_DAY_MONTH: txtDayMonth,
     TXT_YEAR_MONTH: txtYearMonth,
+    DAY: day,
 };
 
 export { DATES, PARTIAL_DATES };

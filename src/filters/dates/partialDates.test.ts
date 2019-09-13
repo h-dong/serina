@@ -2,12 +2,10 @@ import { DateTime, Settings } from 'luxon';
 import { TestCaseSchema } from '../../serina.schema';
 import PartialDates from './partialDates';
 
+// Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+Settings.now = () => 1561819692628;
 const currentYear = DateTime.utc().year;
-
-beforeAll(() => {
-    // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    Settings.now = () => 1561819692628;
-});
+const currentMonth = DateTime.utc().month;
 
 afterAll(() => {
     // Restore Date Time Mock
@@ -149,6 +147,16 @@ describe('Partial Dates', () => {
         case: 'go to work on 23rd Feb',
         result: [
             { dateTime: mockDates(23, 2, currentYear + 1), text: 'go to work', matched: 'on 23rd Feb' },
+        ],
+    }, {
+        case: 'go to work on 23rd',
+        result: [
+            { dateTime: mockDates(23, currentMonth + 1, currentYear), text: 'go to work', matched: 'on 23rd' },
+        ],
+    }, {
+        case: 'go to work on the 30th',
+        result: [
+            { dateTime: mockDates(30, currentMonth, currentYear), text: 'go to work', matched: 'on the 30th' },
         ],
     }, {
         case: 'buy milk 20',
