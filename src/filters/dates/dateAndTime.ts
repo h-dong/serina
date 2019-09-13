@@ -32,7 +32,11 @@ export default class DateAndTime {
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-        const { hour, minute } = convertTimeStringToObj(removedTimeFillerWords);
+
+        const timeObj = convertTimeStringToObj(removedTimeFillerWords);
+        if (!timeObj) return null;
+
+        const { hour, minute } =  timeObj;
 
         const newDateTime = DateTime.utc().set({ day, month, year, hour, minute });
 

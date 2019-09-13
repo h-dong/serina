@@ -249,6 +249,11 @@ describe('DateAndTime', () => {
     }];
 
     const partialDateTestCases: TestCaseSchema[] = [{
+        case: 'go to work on 30th 8:30am',
+        result: [
+            { dateTime: mockDates(30, currentMonth, currentYear, 8, 30), text: 'go to work', matched: 'on 30th 8:30am' },
+        ],
+    }, {
         case: 'go to work on 02/2009 at 8:30 am',
         result: [
             { dateTime: mockDates(1, 2, 2009, 8, 30), text: 'go to work', matched: 'on 02/2009 at 8:30 am' },
