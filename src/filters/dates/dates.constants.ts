@@ -46,8 +46,10 @@ const PARTIAL_DATES = {
     DAY: day,
 };
 
-const dateFirst = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})( )?${TIME.ANY}`;
-const timeFirst = `(${TIME.ANY})( )?(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})`;
+const datePart = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})`;
+
+const dateFirst = `${datePart}( )?${TIME.ANY}`;
+const timeFirst = `(${TIME.ANY})( )?(${datePart})`;
 
 const DATE_AND_TIME = {
     ANY: `${dateFirst}|${timeFirst}`,
