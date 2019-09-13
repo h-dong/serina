@@ -1,6 +1,7 @@
 import DAY from 'filters/day/day.constants';
 import MONTH from 'filters/month/month.constants';
 import YEAR from 'filters/year/year.constants';
+import TIME from '../time/time.constants';
 
 const numDividers = '(\/|\-)';
 const numDayMonthYear = `(${DAY.NUMBERS}${numDividers}${MONTH.NUMBERS}${numDividers}${YEAR.ANY})`;
@@ -17,7 +18,7 @@ const DATES = {
     NUM_YEAR_MONTH_DAY: numYearMonthDay,
     TXT_DAY_MONTH_YEAR: txtDayMonthYear,
     TXT_MONTH_DAY_YEAR: txtMonthDayYear,
-    FILLER_WORDS: '(on|by) (the)?',
+    FILLER_WORDS: '(on|by) (the )?',
     NUM_DIVIDER: numDividers,
     TXT_DIVIDER: txtDividers,
 };
@@ -30,10 +31,10 @@ const txtMonthDay = `(${MONTH.ANY}${txtDividers}${DAY.ANY})`;
 const txtDayMonth = `(${DAY.ANY}${txtDividers}${MONTH.ANY})`;
 const txtMonthYear = `(${MONTH.ANY}${txtDividers}${YEAR.ANY})`;
 const txtYearMonth = `(${YEAR.ANY}${txtDividers}${MONTH.ANY})`;
-const day = `((${DAY.FILLER_WORDS})?${DAY.ORDINAL_ONLY})`;
+const day = `${DAY.ORDINAL_ONLY}`;
 
 const PARTIAL_DATES = {
-    ANY: `${numMonthYear}|${numYearMonth}|${numMonthDay}|${numDayMonth}|${txtMonthYear}|${txtMonthDay}|${txtYearMonth}|${txtDayMonth}|${day}`,
+    ANY: `(${numMonthYear}|${numYearMonth}|${numMonthDay}|${numDayMonth}|${txtMonthYear}|${txtMonthDay}|${txtYearMonth}|${txtDayMonth}|${day})`,
     NUM_MONTH_YEAR: numMonthYear,
     NUM_YEAR_MONTH: numYearMonth,
     NUM_MONTH_DAY: numMonthDay,
@@ -45,4 +46,13 @@ const PARTIAL_DATES = {
     DAY: day,
 };
 
-export { DATES, PARTIAL_DATES };
+const dateFirst = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})( )?${TIME.ANY}`;
+const timeFirst = `(${TIME.ANY})( )?(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})`;
+
+const DATE_AND_TIME = {
+    ANY: `${dateFirst}|${timeFirst}`,
+    DATE_FIRST: dateFirst,
+    TIME_FIRST: timeFirst,
+};
+
+export { DATES, PARTIAL_DATES, DATE_AND_TIME };
