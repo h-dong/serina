@@ -1,12 +1,9 @@
 import convertPartialDateStringToObj from './convertPartialDateStringToObj';
 import { DateTime, Settings } from 'luxon';
 
+// Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+Settings.now = () => 1561819692628;
 const currentYear = DateTime.utc().year;
-
-beforeAll(() => {
-    // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    Settings.now = () => 1561819692628;
-});
 
 afterAll(() => {
     // Restore Date Time Mock
