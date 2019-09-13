@@ -4,6 +4,7 @@ import DateAndTime from './dateAndTime';
 
 Settings.now = () => 1561819692628;
 const currentYear = DateTime.utc().year;
+const currentMonth = DateTime.utc().month;
 
 afterAll(() => {
     // Restore Date Time Mock
@@ -261,6 +262,16 @@ describe('DateAndTime', () => {
         case: 'go to work on 23rd Feb at 8:30am',
         result: [
             { dateTime: mockDates(23, 2, currentYear + 1, 8, 30), text: 'go to work', matched: 'on 23rd Feb at 8:30am' },
+        ],
+    }, {
+        case: 'go to work on 23rd at 8:30am',
+        result: [
+            { dateTime: mockDates(23, currentMonth + 1, currentYear, 8, 30), text: 'go to work', matched: 'on 23rd at 8:30am' },
+        ],
+    }, {
+        case: 'go to work on the 30th at 8:30am',
+        result: [
+            { dateTime: mockDates(30, currentMonth, currentYear, 8, 30), text: 'go to work', matched: 'on the 30th at 8:30am' },
         ],
     }, {
         case: 'buy milk 20',
