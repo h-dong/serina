@@ -78,7 +78,7 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~Parse combined day, month and year e.g. `11th June 2019`, `11/09/2018`~
 - [x] ~Parse incomplete date formats e.g. `20/08` or `Jan 2020`~
 - [x] ~Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`~
-- [ ] Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`
+- [x] ~Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`~
 - [ ] Parse relative time e.g. `in half an hour`, `4 hours from now`
 - [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
 - [ ] Parse relative dates e.g. `next year`, `2 weeks from now`
