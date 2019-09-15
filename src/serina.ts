@@ -15,29 +15,12 @@ const serina = (text: string): ParsedSchema => {
         matches: [],
     };
 
-    const weekdays: ParsedMatchSchema[] = WeekDay.parseText(text);
-    if (weekdays && weekdays.length) parsedData.matches = parsedData.matches.concat(weekdays);
+    const filters = [ WeekDay, Day, Month, Year, Time, Dates, PartialDates, DateAndTime ];
 
-    const day: ParsedMatchSchema[] = Day.parseText(text);
-    if (day && day.length) parsedData.matches = parsedData.matches.concat(day);
-
-    const month: ParsedMatchSchema[] = Month.parseText(text);
-    if (month && month.length) parsedData.matches = parsedData.matches.concat(month);
-
-    const year: ParsedMatchSchema[] = Year.parseText(text);
-    if (year && year.length) parsedData.matches = parsedData.matches.concat(year);
-
-    const time: ParsedMatchSchema[] = Time.parseText(text);
-    if (time && time.length) parsedData.matches = parsedData.matches.concat(time);
-
-    const dates: ParsedMatchSchema[] = Dates.parseText(text);
-    if (dates && dates.length) parsedData.matches = parsedData.matches.concat(dates);
-
-    const partialDates: ParsedMatchSchema[] = PartialDates.parseText(text);
-    if (partialDates && partialDates.length) parsedData.matches = parsedData.matches.concat(partialDates);
-
-    const dateAndTime: ParsedMatchSchema[] = DateAndTime.parseText(text);
-    if (dateAndTime && dateAndTime.length) parsedData.matches = parsedData.matches.concat(dateAndTime);
+    filters.forEach(filter => {
+        const results: ParsedMatchSchema[] = filter.parseText(text);
+        if (results && results.length) parsedData.matches = parsedData.matches.concat(results);
+    });
 
     if (parsedData.matches.length) parsedData.isValid = true;
 
