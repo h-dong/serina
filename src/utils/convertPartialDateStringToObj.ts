@@ -17,7 +17,14 @@ function getFutureYearIfDateIsInThePast(monthStr, dayStr): string {
         return (year + 1).toString();
     }
     return year.toString();
+}
 
+function getNextMonthIfDayIsInThePast(dayStr): number {
+    const currentDate = DateTime.utc();
+    const day = parseInt(dayStr, 10);
+    const currMonth = currentDate.month;
+    const month = day < currentDate.day ? currMonth + 1 : currMonth;
+    return month < 13 ? month : 1;
 }
 
 function convertPartialDateStringToObj(date: string): DateObjectSchema {
@@ -62,6 +69,10 @@ function convertPartialDateStringToObj(date: string): DateObjectSchema {
         [month, day] = date.replace(dividerRegex, ' ').split(' ');
         month = monthStringToNumber(month).toString();
         year = getFutureYearIfDateIsInThePast(month, day);
+    } else if (contains(date, PARTIAL_DATES.DAY)) {
+        day = date;
+        month = getNextMonthIfDayIsInThePast(day).toString();
+        year = getFutureYearIfDateIsInThePast(month, date);
     }
 
     if (!day || !month || !year) return null;
