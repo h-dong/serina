@@ -1,7 +1,7 @@
 import DAY from 'filters/day/day.constants';
 import MONTH from 'filters/month/month.constants';
 import YEAR from 'filters/year/year.constants';
-import TIME from '../time/time.constants';
+import { TIME } from '../time/time.constants';
 
 const numDividers = '(\/|\-)';
 const numDayMonthYear = `(${DAY.NUMBERS}${numDividers}${MONTH.NUMBERS}${numDividers}${YEAR.ANY})`;

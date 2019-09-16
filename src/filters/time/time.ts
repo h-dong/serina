@@ -1,6 +1,6 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import TIME from './time.constants';
+import { TIME } from './time.constants';
 import { parseMatches, convertTimeStringToObj, remove, matchPattern } from 'utils';
 
 export default class Time {
