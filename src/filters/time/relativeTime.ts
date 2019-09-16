@@ -49,6 +49,6 @@ export default class RelativeTime {
         const removedFillerWords = remove(matchingText, RELATIVE_TIME.FILLER_WORDS);
         const newDateTime = this.addRelativeTimeToCurrentTime(removedFillerWords);
         if (!newDateTime.isValid) return null;
-        return newDateTime.startOf('minute').toJSDate();
+        return newDateTime.startOf('second').toJSDate();
     }
 }

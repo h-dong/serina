@@ -11,86 +11,86 @@ afterAll(() => {
 });
 
 describe('RelativeTime', () => {
-    const mockDates = (day, month, year, hour, minute) => DateTime.utc()
-        .set({ day, month, year, hour, minute })
-        .startOf('minute')
+    const mockDates = (day, month, year, hour, minute, second) => DateTime.utc()
+        .set({ day, month, year, hour, minute, second })
+        .startOf('second')
         .toJSDate();
 
     const testCases: TestCaseSchema[] = [
         {
             case: 'go to work in half an hour',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 0, 0), text: 'go to work', matched: 'in half an hour' },
+                { dateTime: mockDates(2, 11, 2018, 0, 0, 0), text: 'go to work', matched: 'in half an hour' },
             ],
         }, {
             case: 'go to work in 15 minutes',
             result: [
-                { dateTime: mockDates(1, 11, 2018, 23, 45), text: 'go to work', matched: 'in 15 minutes' },
+                { dateTime: mockDates(1, 11, 2018, 23, 45, 0), text: 'go to work', matched: 'in 15 minutes' },
             ],
         }, {
             case: 'go to work in 15 mins',
             result: [
-                { dateTime: mockDates(1, 11, 2018, 23, 45), text: 'go to work', matched: 'in 15 mins' },
+                { dateTime: mockDates(1, 11, 2018, 23, 45, 0), text: 'go to work', matched: 'in 15 mins' },
             ],
         }, {
             case: 'go to work in 15 min',
             result: [
-                { dateTime: mockDates(1, 11, 2018, 23, 45), text: 'go to work', matched: 'in 15 min' },
+                { dateTime: mockDates(1, 11, 2018, 23, 45, 0), text: 'go to work', matched: 'in 15 min' },
             ],
         }, {
             case: 'go to work in an hour',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 0, 30), text: 'go to work', matched: 'in an hour' },
+                { dateTime: mockDates(2, 11, 2018, 0, 30, 0), text: 'go to work', matched: 'in an hour' },
             ],
         }, {
             case: 'go to work in 1 hour',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 0, 30), text: 'go to work', matched: 'in 1 hour' },
+                { dateTime: mockDates(2, 11, 2018, 0, 30, 0), text: 'go to work', matched: 'in 1 hour' },
             ],
         }, {
             case: 'go to work in 1 hr',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 0, 30), text: 'go to work', matched: 'in 1 hr' },
+                { dateTime: mockDates(2, 11, 2018, 0, 30, 0), text: 'go to work', matched: 'in 1 hr' },
             ],
         }, {
             case: 'go to work in 2 hours',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 1, 30), text: 'go to work', matched: 'in 2 hours' },
+                { dateTime: mockDates(2, 11, 2018, 1, 30, 0), text: 'go to work', matched: 'in 2 hours' },
             ],
         }, {
             case: 'go to work in 2 hrs',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 1, 30), text: 'go to work', matched: 'in 2 hrs' },
+                { dateTime: mockDates(2, 11, 2018, 1, 30, 0), text: 'go to work', matched: 'in 2 hrs' },
             ],
         }, {
             case: 'go to work 2 hrs from now',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 1, 30), text: 'go to work', matched: '2 hrs from now' },
+                { dateTime: mockDates(2, 11, 2018, 1, 30, 0), text: 'go to work', matched: '2 hrs from now' },
             ],
         }, {
             case: 'go to work 2 hrs after',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 1, 30), text: 'go to work', matched: '2 hrs after' },
+                { dateTime: mockDates(2, 11, 2018, 1, 30, 0), text: 'go to work', matched: '2 hrs after' },
             ],
         }, {
             case: 'go to work 2 hrs later',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 1, 30), text: 'go to work', matched: '2 hrs later' },
+                { dateTime: mockDates(2, 11, 2018, 1, 30, 0), text: 'go to work', matched: '2 hrs later' },
             ],
         }, {
             case: 'go to work after 2 hrs',
             result: [
-                { dateTime: mockDates(2, 11, 2018, 1, 30), text: 'go to work', matched: 'after 2 hrs' },
+                { dateTime: mockDates(2, 11, 2018, 1, 30, 0), text: 'go to work', matched: 'after 2 hrs' },
             ],
         },  {
             case: 'go to work after 30 secs',
             result: [
-                { dateTime: mockDates(1, 11, 2018, 23, 30), text: 'go to work', matched: 'after 30 secs' },
+                { dateTime: mockDates(1, 11, 2018, 23, 30, 30), text: 'go to work', matched: 'after 30 secs' },
             ],
         },  {
             case: 'go to work after 60 seconds',
             result: [
-                { dateTime: mockDates(1, 11, 2018, 23, 31), text: 'go to work', matched: 'after 60 seconds' },
+                { dateTime: mockDates(1, 11, 2018, 23, 31, 0), text: 'go to work', matched: 'after 60 seconds' },
             ],
         },
     ];
