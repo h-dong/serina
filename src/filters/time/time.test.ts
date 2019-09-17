@@ -124,9 +124,9 @@ describe('Time', () => {
             ],
         },
         {
-            case: 'go to work at 20 min to 0',
+            case: 'go to work at 20 min to 12am',
             result: [
-                { dateTime: mockTime(23, 40), text: 'go to work', matched: 'at 20 min to 0' },
+                { dateTime: mockTime(23, 40), text: 'go to work', matched: 'at 20 min to 12am' },
             ],
         },
     ];
