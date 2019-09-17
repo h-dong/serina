@@ -123,6 +123,12 @@ describe('Time', () => {
                 { dateTime: mockTime(4, 20), text: 'go to work', matched: 'at 20 min past 4' },
             ],
         },
+        {
+            case: 'go to work at 20 min to 0',
+            result: [
+                { dateTime: mockTime(23, 40), text: 'go to work', matched: 'at 20 min to 0' },
+            ],
+        },
     ];
 
     test('test this new format', () => {
