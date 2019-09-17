@@ -1,11 +1,11 @@
-import { ParsedMatchSchema } from 'serina.schema';
+import { ParsedMatchSchema, TimeObjectSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import TIME from './time.constants';
-import { parseMatches, convertTimeStringToObj, remove, matchPattern } from 'utils';
+import TIME, { MERIDIEM, PM } from './time.constants';
+import { parseMatches, convertTimeStringToObj, remove, matchPattern, contains } from 'utils';
 
 export default class Time {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ANY})`;
+        const pattern = `${TIME.ANY}`;
         const matches = matchPattern(text, pattern, false);
 
         if (!matches) return null;
@@ -16,9 +16,54 @@ export default class Time {
         });
     }
 
+    static convertVerbalExpressionToObj(matchingText: string): TimeObjectSchema {
+        const hourPart =  matchPattern(matchingText, TIME.VERBAL_EXPRESSION.HOURS).pop();
+        const removedHour = remove(matchingText, hourPart);
+        const determinant = matchPattern(removedHour, TIME.VERBAL_EXPRESSION.DETERMINANT)[0];
+        let minutePart = remove(removedHour, determinant);
+        minutePart = remove(minutePart, TIME.MINUTE_IDENTIFIER);
+        const beforeHour = contains(determinant, TIME.TO);
+        let minute;
+        if (contains(minutePart, TIME.VERBAL_QUANTIFIERS.QUARTER)) {
+            minute = beforeHour ? 45 : 15;
+        } else if (contains(minutePart, TIME.VERBAL_QUANTIFIERS.HALF)) {
+            minute = 30;
+        } else {
+            const minuteInt = parseInt(minutePart, 10);
+            minute = beforeHour ? 60 - minuteInt : minuteInt;
+        }
+        let hour;
+        if (contains(hourPart, `${MERIDIEM}`, false)) {
+            const hourStr = remove(hourPart, `${MERIDIEM}`, false);
+            const isAfternoon = contains(hourPart, PM, false);
+            hour = parseInt(hourStr, 10);
+            if (isAfternoon) {
+                if (hour < 12) hour += 12;
+            } else {
+                // Ante Meridiem (AM)
+                if (hour === 12) hour = 0;
+            }
+        } else {
+            hour = parseInt(hourPart, 10);
+        }
+        if (beforeHour) {
+            hour -= 1;
+            if (hour === -1) {
+                hour = 23;
+            }
+        }
+        return { hour, minute };
+    }
+
     static convertMatchToDateObj(matchingText: string): Date {
         const removedFillerWords = remove(matchingText, TIME.FILLER_WORDS);
-        const { hour, minute } = convertTimeStringToObj(removedFillerWords);
+        let timeObj;
+        if (contains(matchingText, TIME.VERBAL_EXPRESSION.FULL_EXPRESSION)) {
+            timeObj = this.convertVerbalExpressionToObj(removedFillerWords);
+        } else {
+            timeObj = convertTimeStringToObj(removedFillerWords);
+        }
+        const { hour, minute } = timeObj;
         const newDateTime = DateTime.utc().set({ hour, minute });
 
         if (!newDateTime.isValid) return null;

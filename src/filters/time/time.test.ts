@@ -81,6 +81,48 @@ describe('Time', () => {
                 { dateTime: mockTime(16, 0), text: 'get shopping done', matched: 'by 4p.m.' },
             ],
         },
+        {
+            case: 'go to work at quarter to 4',
+            result: [
+                { dateTime: mockTime(3, 45), text: 'go to work', matched: 'at quarter to 4' },
+            ],
+        },
+        {
+            case: 'go to work at quarter past 4',
+            result: [
+                { dateTime: mockTime(4, 15), text: 'go to work', matched: 'at quarter past 4' },
+            ],
+        },
+        {
+            case: 'go to work at quarter to 4pm',
+            result: [
+                { dateTime: mockTime(15, 45), text: 'go to work', matched: 'at quarter to 4pm' },
+            ],
+        },
+        {
+            case: 'go to work at half past 4',
+            result: [
+                { dateTime: mockTime(4, 30), text: 'go to work', matched: 'at half past 4' },
+            ],
+        },
+        {
+            case: 'go to work at 20 past 4',
+            result: [
+                { dateTime: mockTime(4, 20), text: 'go to work', matched: 'at 20 past 4' },
+            ],
+        },
+        {
+            case: 'go to work at 20 minutes past 4',
+            result: [
+                { dateTime: mockTime(4, 20), text: 'go to work', matched: 'at 20 minutes past 4' },
+            ],
+        },
+        {
+            case: 'go to work at 20 min past 4',
+            result: [
+                { dateTime: mockTime(4, 20), text: 'go to work', matched: 'at 20 min past 4' },
+            ],
+        },
     ];
 
     test('test this new format', () => {
