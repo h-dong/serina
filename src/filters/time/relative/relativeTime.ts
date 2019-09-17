@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { RELATIVE_TIME } from './time.constants';
+import RELATIVE_TIME from './relativeTime.constants';
 import { parseMatches, matchPattern } from 'utils';
-import remove from '../../utils/remove';
-import contains from '../../utils/contains';
+import remove from '../../../utils/remove';
+import contains from '../../../utils/contains';
 
 export default class RelativeTime {
     static parseText(text: string): ParsedMatchSchema[] {

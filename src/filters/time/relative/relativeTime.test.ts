@@ -1,5 +1,5 @@
 import { DateTime, Settings } from 'luxon';
-import { TestCaseSchema } from '../../serina.schema';
+import { TestCaseSchema } from '../../../serina.schema';
 import RelativeTime from './relativeTime';
 
 // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
