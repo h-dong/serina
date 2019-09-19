@@ -15,7 +15,7 @@ const VERBAL_QUANTIFIERS = {
 };
 
 const TO = `(to)`;
-const PAST = `(after|past)`;
+const PAST = '(after|past)';
 const MINUTE_IDENTIFIER = '( (min|mins|minutes))';
 
 const DIGITS_ONLY = `${HOUR_PART}((${MINUTE_PART}${MERIDIEM})|${MINUTE_PART}|${MERIDIEM})`;
