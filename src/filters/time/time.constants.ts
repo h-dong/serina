@@ -1,9 +1,9 @@
-const PM = `pm|p.m.`;
-const AM = `am|a.m.`;
+const PM = 'pm|p.m.';
+const AM = 'am|a.m.';
 const MERIDIEM = `( )?(${AM}|${PM})`;
 const FILLER_WORDS = '(at|by) ';
-const HOUR_PART = '([0-1][0-9]|2[0-3]|[0-9])';
-const MINUTE_PART = `(:[0-5][0-9])`;
+const HOUR_PART = '([0-1]?[0-9]|2[0-3])';
+const MINUTE_PART = '(:[0-5][0-9])';
 
 const HALF = 'half';
 const QUARTER = 'quarter';
@@ -14,7 +14,7 @@ const VERBAL_QUANTIFIERS = {
     QUARTER,
 };
 
-const TO = `(to)`;
+const TO = '(to)';
 const PAST = '(after|past)';
 const MINUTE_IDENTIFIER = '( (min|mins|minutes))';
 
