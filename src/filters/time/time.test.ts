@@ -23,6 +23,14 @@ describe('Time', () => {
                 ],
             },
             {
+                case: 'attend daily stand up 24:45',
+                result: null,
+            },
+            {
+                case: 'attend daily stand up 25pm',
+                result: null,
+            },
+            {
                 case: 'buy breakfast 9am',
                 result: [
                     { dateTime: mockTime(9, 0), text: 'buy breakfast', matched: '9am' },
@@ -128,6 +136,26 @@ describe('Time', () => {
                 case: 'go to work at 20 min to 12am',
                 result: [
                     { dateTime: mockTime(23, 40), text: 'go to work', matched: 'at 20 min to 12am' },
+                ],
+            },
+            {
+                case: 'go to work at 20 min to 90',
+                result: null,
+            },
+            {
+                case: 'go to work at 20 min to 23',
+                result: [
+                    { dateTime: mockTime(22, 40), text: 'go to work', matched: 'at 20 min to 23' },
+                ],
+            },
+            {
+                case: 'go to work at 20 min to 24',
+                result: null,
+            },
+            {
+                case: 'go to work at 20 min to 19',
+                result: [
+                    { dateTime: mockTime(18, 40), text: 'go to work', matched: 'at 20 min to 19' },
                 ],
             },
         ];

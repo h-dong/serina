@@ -70,6 +70,7 @@ export default class Time {
         } else {
             timeObj = convertTimeStringToObj(removedFillerWords);
         }
+        if (!timeObj) return null;
         const { hour, minute } = timeObj;
         const newDateTime = DateTime.utc().set({ hour, minute });
 

@@ -2,7 +2,7 @@ const PM = `pm|p.m.`;
 const AM = `am|a.m.`;
 const MERIDIEM = `( )?(${AM}|${PM})`;
 const FILLER_WORDS = '(at|by) ';
-const HOUR_PART = '[0-9]{1,2}';
+const HOUR_PART = '([0-1][0-9]|2[0-3]|[0-9])';
 const MINUTE_PART = `(:[0-5][0-9])`;
 
 const HALF = 'half';
@@ -18,10 +18,10 @@ const TO = `(to)`;
 const PAST = `(after|past)`;
 const MINUTE_IDENTIFIER = '( (min|mins|minutes))';
 
-const DIGITS_ONLY = `${HOUR_PART}((${MINUTE_PART}${MERIDIEM})|${MINUTE_PART}|${MERIDIEM})`;
+const DIGITS_ONLY = `\\b${HOUR_PART}((${MINUTE_PART}${MERIDIEM})|${MINUTE_PART}|${MERIDIEM})`;
 
 const VERBAL_EXPRESSION_MINUTES = `(${VERBAL_QUANTIFIERS.ANY}|[0-5][0-9])${MINUTE_IDENTIFIER}?`;
-const VERBAL_EXPRESSION_HOURS = `${HOUR_PART}(${MERIDIEM})?`;
+const VERBAL_EXPRESSION_HOURS = `\\b${HOUR_PART}(${MERIDIEM})?\\b`;
 const VERBAL_EXPRESSION_DETERMINANT = ` ((${TO}|${PAST})( )?)`;
 
 const VERBAL_EXPRESSION = {
