@@ -10,13 +10,13 @@ const QUARTER = 'quarter';
 
 const VERBAL_QUANTIFIERS = {
     ANY: `(${HALF}|${QUARTER})`,
-    HALF: `${HALF}`,
-    QUARTER: `${QUARTER}`,
+    HALF,
+    QUARTER,
 };
 
 const TO = `(to)`;
 const PAST = `(after|past)`;
-const MINUTE_IDENTIFIER = '( min| mins| minutes)';
+const MINUTE_IDENTIFIER = '( (min|mins|minutes))';
 
 const DIGITS_ONLY = `${HOUR_PART}((${MINUTE_PART}${MERIDIEM})|${MINUTE_PART}|${MERIDIEM})`;
 
@@ -33,7 +33,7 @@ const VERBAL_EXPRESSION = {
 
 const TIME = {
     ANY: `(${FILLER_WORDS})?(${DIGITS_ONLY}|${VERBAL_EXPRESSION.FULL_EXPRESSION})`,
-    DIGITS_ONLY: `${DIGITS_ONLY}`,
+    DIGITS_ONLY,
     VERBAL_QUANTIFIERS,
     VERBAL_EXPRESSION,
     TO,

@@ -16,22 +16,18 @@ export default class Time {
         });
     }
 
-    static convertVerbalExpressionToObj(matchingText: string): TimeObjectSchema {
-        const hourPart =  matchPattern(matchingText, TIME.VERBAL_EXPRESSION.HOURS).pop();
-        const removedHour = remove(matchingText, hourPart);
-        const determinant = matchPattern(removedHour, TIME.VERBAL_EXPRESSION.DETERMINANT)[0];
-        let minutePart = remove(removedHour, determinant);
-        minutePart = remove(minutePart, TIME.MINUTE_IDENTIFIER);
-        const beforeHour = contains(determinant, TIME.TO);
-        let minute;
+    static convertMinutePartToNumber(minutePart: string, beforeHour: boolean): number {
         if (contains(minutePart, TIME.VERBAL_QUANTIFIERS.QUARTER)) {
-            minute = beforeHour ? 45 : 15;
+            return beforeHour ? 45 : 15;
         } else if (contains(minutePart, TIME.VERBAL_QUANTIFIERS.HALF)) {
-            minute = 30;
+            return 30;
         } else {
             const minuteInt = parseInt(minutePart, 10);
-            minute = beforeHour ? 60 - minuteInt : minuteInt;
+            return beforeHour ? 60 - minuteInt : minuteInt;
         }
+    }
+
+    static convertHourPartToNumber(hourPart: string, beforeHour: boolean): number {
         let hour;
         if (contains(hourPart, `${MERIDIEM}`, false)) {
             const hourStr = remove(hourPart, `${MERIDIEM}`, false);
@@ -40,7 +36,6 @@ export default class Time {
             if (isAfternoon) {
                 if (hour < 12) hour += 12;
             } else {
-                // Ante Meridiem (AM)
                 if (hour === 12) hour = 0;
             }
         } else {
@@ -52,6 +47,18 @@ export default class Time {
                 hour = 23;
             }
         }
+        return hour;
+    }
+
+    static convertVerbalExpressionToObj(matchingText: string): TimeObjectSchema {
+        const hourPart =  matchPattern(matchingText, TIME.VERBAL_EXPRESSION.HOURS).pop();
+        const removedHour = remove(matchingText, hourPart);
+        const determinant = matchPattern(removedHour, TIME.VERBAL_EXPRESSION.DETERMINANT)[0];
+        let minutePart = remove(removedHour, determinant);
+        minutePart = remove(minutePart, TIME.MINUTE_IDENTIFIER);
+        const beforeHour = contains(determinant, TIME.TO);
+        const minute = this.convertMinutePartToNumber(minutePart, beforeHour);
+        const hour = this.convertHourPartToNumber(hourPart, beforeHour);
         return { hour, minute };
     }
 
