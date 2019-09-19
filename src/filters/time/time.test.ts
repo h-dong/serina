@@ -182,12 +182,12 @@ describe('Time', () => {
             const parsedText = Time.convertHourPartToNumber(hourPart, false);
             expect(parsedText).toEqual(3);
         });
-        test('should give correct result when AM meridiem is used is used', () => {
+        test('should give correct result when AM meridiem is used', () => {
             hourPart = '3am';
             const parsedText = Time.convertHourPartToNumber(hourPart, false);
             expect(parsedText).toEqual(3);
         });
-        test('should give correct result when PM meridiem is used is used', () => {
+        test('should give correct result when PM meridiem is used', () => {
             hourPart = '3pm';
             const parsedText = Time.convertHourPartToNumber(hourPart, false);
             expect(parsedText).toEqual(15);
