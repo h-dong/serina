@@ -1,4 +1,4 @@
-import { ParsedMatchSchema} from 'serina.schema';
+import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import { DATES } from '../dates.constants';
 import RELATIVE_DATES, { RELATIVE_ADVERB } from './relativeDates.constants';
@@ -39,7 +39,7 @@ export default class RelativeDates {
         return DateTime.utc()
             .plus({ [unit]: 1 })
             .startOf(unit)
-            .endOf('day')
+            .endOf('day');
     }
 
     static convertRelativeExpressionToObj(expression: string): DateTime {
