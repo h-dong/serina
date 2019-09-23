@@ -46,7 +46,6 @@ export default class RelativeDates {
         const unit = this.timeUnitToString(matchPattern(expression, RELATIVE_DATES.TIME_UNITS.ANY)[0]);
         const period = remove(expression, unit);
         let quantity;
-        // Multiplication is commutative, we are going to take a quarter of whatever time unit we are going to get.
         if (contains(period, RELATIVE_DATES.VERBAL_QUANTIFIERS.ONE)) {
             quantity = 1;
         } else if (contains(period, RELATIVE_DATES.VERBAL_QUANTIFIERS.NEXT)) {
