@@ -80,8 +80,8 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`~
 - [ ] Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`
 - [x] ~Parse relative time e.g. `in half an hour`, `4 hours from now`~
-- [ ] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
-- [ ] Parse relative dates e.g. `next year`, `2 weeks from now`
+- [x] ~Parse relative days e.g. `today`, `tomorrow`, `a week from now`~
+- [x] ~Parse relative dates e.g. `next year`, `2 weeks from now`~
 - [ ] Parse combined relative date and time e.g. `a week from now 2pm`
 
 ### Milestone 2
