@@ -12,6 +12,7 @@ export interface ParsedSchema {
 
 export interface TestCaseSchema {
     case: string;
+    description?: string;
     result: ParsedMatchSchema[];
 }
 

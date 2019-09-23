@@ -13,6 +13,7 @@ describe('Serina', () => {
         ${'PartialDates'} | ${'go to work 15th Dec'}    | ${3}
         ${'DateAndTime'}  | ${'go to work 5am 12/2019'} | ${4}
         ${'RelativeTime'} | ${'go to work in 15 mins'}  | ${1}
+        ${'RelativeDates'}| ${'got to work in 2 days'}  | ${1}
     `('should be able to parse $filter', ({ text, expected }) => {
         const results = serina(text);
         expect(results.matches.length).toEqual(expected);
