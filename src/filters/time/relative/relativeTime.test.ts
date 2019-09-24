@@ -92,11 +92,14 @@ describe('RelativeTime', () => {
             result: [
                 { dateTime: mockDates(1, 11, 2018, 23, 30, 30), text: 'go to work', matched: 'after 30 secs' },
             ],
-        },  {
+        }, {
             case: 'go to work after 60 seconds',
             result: [
                 { dateTime: mockDates(1, 11, 2018, 23, 31, 0), text: 'go to work', matched: 'after 60 seconds' },
             ],
+        }, {
+            case: 'go to work in 1000',
+            result: null,
         },
     ];
 

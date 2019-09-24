@@ -146,6 +146,28 @@ describe('RelativeDates', () => {
             result: [
                 { dateTime: mockDates(currentDay, currentMonth, currentYear + 5), text: 'go to work', matched: 'in 5 yrs' },
             ],
+        }, {
+            description: 'should parse "later" correctly',
+            case: 'go to work 5 years later',
+            result: [
+                { dateTime: mockDates(currentDay, currentMonth, currentYear + 5), text: 'go to work', matched: '5 years later' },
+            ],
+        }, {
+            description: 'should parse "from now" correctly',
+            case: 'go to work 5 years from now',
+            result: [
+                { dateTime: mockDates(currentDay, currentMonth, currentYear + 5), text: 'go to work', matched: '5 years from now' },
+            ],
+        }, {
+            description: 'should parse "from now" correctly',
+            case: '5 years from now go to work',
+            result: [
+                { dateTime: mockDates(currentDay, currentMonth, currentYear + 5), text: 'go to work', matched: '5 years from now' },
+            ],
+        }, {
+            description: 'should not parse without date units',
+            case: 'go to work in 5',
+            result: null,
         }];
 
         testCases.forEach(item => {
