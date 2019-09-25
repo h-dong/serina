@@ -3,14 +3,15 @@ import { TestCaseSchema } from '../../../serina.schema';
 import RelativeDates from './relativeDates';
 
 // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
-Settings.now = () => 1561019692628;
+const mockDate = 1561019692628;
+Settings.now = () => mockDate;
 const currentYear = DateTime.utc().year;
 const currentMonth = DateTime.utc().month;
 const currentDay = DateTime.utc().day;
 
 beforeEach(() => {
-    // Restore mocked time in case we need to change it for individual tests
-    Settings.now = () => 1561019692628;
+    // Reset the mock in case we need to change it for individual tests
+    Settings.now = () => mockDate;
 });
 
 afterAll(() => {
