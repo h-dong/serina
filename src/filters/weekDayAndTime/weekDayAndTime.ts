@@ -1,34 +1,44 @@
 import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
-import WEEKDAY from './weekDay.constants';
+import WEEKDAY from '../weekDay/weekDay.constants';
 import { contains, matchPattern, trimWhiteSpaces } from 'utils';
+import WEEKDAY_AND_TIME from './weekDayAndTime.constants';
+import TIME from 'filters/time/time.constants';
 
-export default class WeekDay {
-
-    /*
-    * When parsing day of the week, check for relative words & week day e.g. next friday
-    */
+export default class WeekDayAndTime {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `((${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS}) )?${WEEKDAY.ANY}`;
-        const matchForWeekdays = matchPattern(text, pattern);
+        const pattern = WEEKDAY_AND_TIME.ANY;
+        const matchForWeekdayAndTime = matchPattern(text, pattern);
 
-        if (!matchForWeekdays) return null;
+        if (!matchForWeekdayAndTime) return null;
 
         // for each match, get the parsed cases
-        return matchForWeekdays.map(elem => this.parseWeekdayMatches(text, elem));
+        return matchForWeekdayAndTime.map(elem => this.parseWeekdayAndTimeMatches(text, elem));
     }
 
-    static parseWeekdayMatches(text: string, matchedWeekday: string): ParsedMatchSchema {
+    static parseWeekdayAndTimeMatches(text: string, matchedWeekday: string): ParsedMatchSchema {
         const replaceMatch = text.toLowerCase().replace(matchedWeekday, '');
 
         return {
             text: trimWhiteSpaces(replaceMatch),
-            dateTime: this.convertWeekdayMatchToDate(matchedWeekday),
+            dateTime: this.convertWeekdayMatchAndTimeToDate(matchedWeekday),
             matched: trimWhiteSpaces(matchedWeekday),
         };
     }
 
-    static convertWeekdayMatchToDate(matchingText) {
+    static convertWeekdayMatchAndTimeToDate(matchingText) {
+        console.log('matchingText', matchingText);
+        // const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ANY})`;
+        // const time = matchPattern(text, pattern, false);
+
+        // 12:20 sunday
+
+        const time = matchPattern(matchingText, TIME.ANY);
+        console.log('time', time);
+        const weekDay = matchPattern(matchingText, WEEKDAY.ANY);
+        console.log('weekDay', weekDay);
+
+
         let weekday = null;
 
         const todayInWeekday = DateTime.utc().weekday;
