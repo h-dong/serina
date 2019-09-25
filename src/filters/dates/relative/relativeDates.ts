@@ -2,7 +2,7 @@ import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import { DATES } from '../dates.constants';
 import RELATIVE_DATES, { RELATIVE_ADVERB } from './relativeDates.constants';
-import { parseMatches, contains, remove, matchPattern } from 'utils';
+import { parseMatches, contains, remove, matchPattern, findMatchingKey } from 'utils';
 
 export default class RelativeDates {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -18,21 +18,14 @@ export default class RelativeDates {
     }
 
     static timeUnitToString(matchAgainst: string): string {
-        for (const key in RELATIVE_DATES.TIME_UNITS) {
-            if (contains(matchAgainst, RELATIVE_DATES.TIME_UNITS[key])) {
-                return key;
-            }
-        }
-        return null;
+        return findMatchingKey(RELATIVE_DATES.TIME_UNITS, matchAgainst);
     }
 
     static convertRelativeAdverbToObj(relativeDateStr: string): DateTime {
         if (contains(relativeDateStr, RELATIVE_ADVERB.TODAY)) {
             return DateTime.utc();
-        } else if (contains(relativeDateStr, RELATIVE_ADVERB.TOMORROW)) {
-            return DateTime.utc().plus({ days: 1 });
         }
-        return null;
+        return DateTime.utc().plus({ days: 1 });
     }
 
     static getNext(unit): DateTime {
@@ -53,10 +46,7 @@ export default class RelativeDates {
         } else {
             quantity = parseInt(period, 10);
         }
-        if (contains(unit, RELATIVE_DATES.TIME_UNITS.ANY)) {
-            return DateTime.utc().plus({ [unit]: quantity });
-        }
-        return null;
+        return DateTime.utc().plus({ [unit]: quantity });
     }
 
     static convertMatchToDateObj(matchingText: string): Date {

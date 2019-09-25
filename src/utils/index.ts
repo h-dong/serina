@@ -9,6 +9,7 @@ import convertDateStringToObj from './convertDateStringToObj';
 import convertPartialDateStringToObj from './convertPartialDateStringToObj';
 import monthStringToNumber from './monthStringToNumber';
 import strToInt from './strToInt';
+import findMatchingKey from './findMatchingKey';
 
 export {
     parseMatches,
@@ -22,4 +23,5 @@ export {
     isValidTime,
     monthStringToNumber,
     strToInt,
+    findMatchingKey,
 };
