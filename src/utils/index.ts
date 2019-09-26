@@ -10,6 +10,7 @@ import convertPartialDateStringToObj from './convertPartialDateStringToObj';
 import monthStringToNumber from './monthStringToNumber';
 import strToInt from './strToInt';
 import findMatchingKey from './findMatchingKey';
+import convertRelativeDateStringToObj from './convertRelativeDateStringToObj';
 
 export {
     parseMatches,
@@ -24,4 +25,5 @@ export {
     monthStringToNumber,
     strToInt,
     findMatchingKey,
+    convertRelativeDateStringToObj,
 };
