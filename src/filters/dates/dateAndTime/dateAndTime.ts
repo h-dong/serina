@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { DATES, DATE_AND_TIME, PARTIAL_DATES } from './dates.constants';
-import TIME from '../time/time.constants';
+import { DATES, DATE_AND_TIME, PARTIAL_DATES } from '../dates.constants';
+import TIME from '../../time/time.constants';
 import { parseMatches, convertDateStringToObj, remove, matchPattern, convertTimeStringToObj } from 'utils';
-import convertPartialDateStringToObj from '../../utils/convertPartialDateStringToObj';
+import convertPartialDateStringToObj from '../../../utils/convertPartialDateStringToObj';
 
 export default class DateAndTime {
     static parseText(text: string): ParsedMatchSchema[] {

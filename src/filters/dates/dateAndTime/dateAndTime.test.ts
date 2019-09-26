@@ -1,5 +1,5 @@
 import { DateTime, Settings } from 'luxon';
-import { TestCaseSchema } from '../../serina.schema';
+import { TestCaseSchema } from '../../../serina.schema';
 import DateAndTime from './dateAndTime';
 
 Settings.now = () => 1561819692628;
