@@ -28,15 +28,20 @@ export default class DateAndTime {
 
     static convertMatchToDateObj(matchingText: string): Date {
         const removeDateFillerWords = remove(matchingText, DATES.FILLER_WORDS);
-        const dateStringMatches = matchPattern(removeDateFillerWords, `(${DATES.ANY}|${PARTIAL_DATES.ANY})`);
+        const dateStringMatches = matchPattern(removeDateFillerWords, `(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`);
         if (!dateStringMatches) return null;
         const dateString = dateStringMatches[0];
         const timeString = remove(removeDateFillerWords, dateString);
         const removedTimeFillerWords = remove(timeString, TIME.FILLER_WORDS);
 
-        let dateObj = convertDateStringToObj(dateString);
-        dateObj = !dateObj ? convertPartialDateStringToObj(dateString) : dateObj;
-
+        let dateObj;
+        if (contains(dateString, `${DATES.ANY}`)) {
+            dateObj = convertDateStringToObj(dateString);
+        } else if (contains(dateString, `${PARTIAL_DATES.ANY}`)) {
+            dateObj = convertPartialDateStringToObj(dateString);
+        } else {
+            dateObj = convertRelativeDateStringToObj(dateString);
+        }
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;

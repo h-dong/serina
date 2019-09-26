@@ -2,9 +2,12 @@ import { DateTime, Settings } from 'luxon';
 import { TestCaseSchema } from '../../../serina.schema';
 import DateAndTime from './dateAndTime';
 
-Settings.now = () => 1561819692628;
+// Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
+const mockDate = 1561019692628;
+Settings.now = () => mockDate;
 const currentYear = DateTime.utc().year;
 const currentMonth = DateTime.utc().month;
+const currentDay = DateTime.utc().day;
 
 afterAll(() => {
     // Restore Date Time Mock
@@ -384,9 +387,9 @@ describe('DateAndTime', () => {
             { dateTime: mockDates(23, 2, currentYear + 1, 8, 30), text: 'go to work', matched: 'on 23rd Feb at 8:30am' },
         ],
     }, {
-        case: 'go to work on 23rd at 8:30am',
+        case: 'go to work on 3rd at 8:30am',
         result: [
-            { dateTime: mockDates(23, currentMonth + 1, currentYear, 8, 30), text: 'go to work', matched: 'on 23rd at 8:30am' },
+            { dateTime: mockDates(3, currentMonth + 1, currentYear, 8, 30), text: 'go to work', matched: 'on 3rd at 8:30am' },
         ],
     }, {
         case: 'go to work on the 30th at 8:30am',
@@ -534,9 +537,9 @@ describe('DateAndTime', () => {
             { dateTime: mockDates(23, 2, currentYear + 1, 8, 30), text: 'go to work', matched: 'at 8:30am on 23rd Feb' },
         ],
     }, {
-        case: 'go to work at 8:30am on 23rd',
+        case: 'go to work at 8:30am on 3rd',
         result: [
-            { dateTime: mockDates(23, currentMonth + 1, currentYear, 8, 30), text: 'go to work', matched: 'at 8:30am on 23rd' },
+            { dateTime: mockDates(3, currentMonth + 1, currentYear, 8, 30), text: 'go to work', matched: 'at 8:30am on 3rd' },
         ],
     }, {
         case: 'go to work at 8:30am on 30th June',
@@ -580,6 +583,24 @@ describe('DateAndTime', () => {
         partialDateTimeFirstCases.forEach(item => {
             const parsedText = DateAndTime.parseText(item.case);
             expect(parsedText).toEqual(item.result);
+        });
+    });
+
+    const relativeDateTestCases: TestCaseSchema[] = [
+        {
+            description: 'should parse today correctly',
+            case: 'go to work today 5pm',
+            result: [
+                { dateTime: mockDates(currentDay, currentMonth, currentYear, 17, 0), text: 'go to work', matched: 'today 5pm' },
+            ],
+        }];
+
+    describe('should parse the correct dates when dates are relative and time is before date', () => {
+        relativeDateTestCases.forEach(item => {
+            test(item.description, () => {
+                const parsedText = DateAndTime.parseText(item.case);
+                expect(parsedText).toEqual(item.result);
+            });
         });
     });
 });

@@ -2,6 +2,7 @@ import DAY from 'filters/day/day.constants';
 import MONTH from 'filters/month/month.constants';
 import YEAR from 'filters/year/year.constants';
 import TIME from '../time/time.constants';
+import RELATIVE_DATES from './relative/relativeDates.constants';
 
 const numDividers = '(\/|\-)';
 const numDayMonthYear = `(${DAY.NUMBERS}${numDividers}${MONTH.NUMBERS}${numDividers}${YEAR.ANY})`;
@@ -46,7 +47,7 @@ const PARTIAL_DATES = {
     DAY: day,
 };
 
-const datePart = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})`;
+const datePart = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`;
 
 const dateFirst = `${datePart}( )?${TIME.ANY}`;
 const timeFirst = `(${TIME.ANY})( )?(${datePart})`;
