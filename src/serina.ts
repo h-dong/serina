@@ -7,6 +7,7 @@ import Time from 'filters/time/time';
 import Dates from 'filters/dates/dates';
 import PartialDates from './filters/dates/partialDates';
 import DateAndTime from './filters/dates/dateAndTime';
+import WeekDayAndTime from 'filters/weekDayAndTime/weekDayAndTime';
 
 const serina = (text: string): ParsedSchema => {
     const parsedData: ParsedSchema = {
@@ -15,7 +16,7 @@ const serina = (text: string): ParsedSchema => {
         matches: [],
     };
 
-    const filters = [ WeekDay, Day, Month, Year, Time, Dates, PartialDates, DateAndTime ];
+    const filters = [ WeekDay, Day, Month, Year, Time, Dates, PartialDates, DateAndTime, WeekDayAndTime ];
 
     filters.forEach(filter => {
         const results: ParsedMatchSchema[] = filter.parseText(text);

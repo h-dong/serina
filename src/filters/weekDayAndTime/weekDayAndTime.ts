@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from '../weekDay/weekDay.constants';
-import { contains, matchPattern, trimWhiteSpaces } from 'utils';
+import { matchPattern, trimWhiteSpaces, convertTimeStringToObj, contains } from 'utils';
 import WEEKDAY_AND_TIME from './weekDayAndTime.constants';
 import TIME from 'filters/time/time.constants';
+import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 
 export default class WeekDayAndTime {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -27,38 +28,16 @@ export default class WeekDayAndTime {
     }
 
     static convertWeekdayMatchAndTimeToDate(matchingText) {
-        console.log('matchingText', matchingText);
-        // const pattern = `(${TIME.FILLER_WORDS})?(${TIME.ANY})`;
-        // const time = matchPattern(text, pattern, false);
+        const [ timeString ] = matchPattern(matchingText, TIME.ANY);
+        const { hour, minute } = convertTimeStringToObj(timeString);
+        const [ weekdayString ] = matchPattern(matchingText, WEEKDAY.ANY);
+        const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
+        const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        // 12:20 sunday
+        const newDateTime = DateTime.utc().set({ weekday, hour, minute});
 
-        const time = matchPattern(matchingText, TIME.ANY);
-        console.log('time', time);
-        const weekDay = matchPattern(matchingText, WEEKDAY.ANY);
-        console.log('weekDay', weekDay);
+        if (!newDateTime.isValid) return null;
 
-
-        let weekday = null;
-
-        const todayInWeekday = DateTime.utc().weekday;
-
-        Object.keys(WEEKDAY.SINGLE).forEach((key, index) => {
-            const weekdayPattern = WEEKDAY.SINGLE[key];
-            if (contains(matchingText, weekdayPattern)) {
-                weekday = index + 1;
-            }
-        });
-
-        if (weekday <= todayInWeekday) weekday += 7;
-
-        if (!weekday) return null;
-
-        if (contains(matchingText, `${WEEKDAY.PAST_WORDS} ${WEEKDAY.ANY}`)) weekday -= 7;
-
-        return DateTime.utc()
-            .set({ weekday })
-            .startOf('day')
-            .toJSDate();
+        return newDateTime.startOf('minute').toJSDate();
     }
 }

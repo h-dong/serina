@@ -12,6 +12,7 @@ describe('convertTimeStringToObj()', () => {
         { case: '00:00', result: { hour: 0, minute: 0 } },
         { case: '11:00', result: { hour: 11, minute: 0 } },
         { case: '4PM', result: { hour: 16, minute: 0 } },
+        { case: '1:20pm', result: { hour: 13, minute: 20 } },
         { case: '2 pm', result: { hour: 14, minute: 0 } },
         { case: '5:27 p.m.', result: { hour: 17, minute: 27 } },
         { case: '6:27 A.M.', result: { hour: 6, minute: 27 } },
