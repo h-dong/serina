@@ -46,11 +46,11 @@ const PARTIAL_DATES = {
     DAY: day,
 };
 
-const timePart = `(${TIME.FILLER_WORDS})?${TIME.ANY}`;
+const timePart = `(${TIME.FILLER_WORDS}( ))?${TIME.ANY}`;
 const datePart = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY})`;
 
-const dateFirst = `${datePart}( )?${timePart}`;
-const timeFirst = `${timePart}( )?${datePart}`;
+const dateFirst = `${datePart}( )${timePart}`;
+const timeFirst = `${timePart}( )${datePart}`;
 
 const DATE_AND_TIME = {
     ANY: `${dateFirst}|${timeFirst}`,
