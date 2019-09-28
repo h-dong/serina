@@ -83,6 +83,7 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~Parse relative days e.g. `today`, `tomorrow`, `a week from now`~
 - [x] ~Parse relative dates e.g. `next year`, `2 weeks from now`~
 - [ ] Parse combined relative date and time e.g. `a week from now 2pm`
+- [ ] Parse keywords such as `noon`, `midnight`, `mid day`
 
 ### Milestone 2
 
