@@ -102,7 +102,7 @@ People could express dates & time in many different ways, and sometimes there's 
 
 ### Resolve "Next 31st" when the current/next month doesn't have 31 days
 
-Given current date is 20th February, the logical month for "next" in this case should be February itself since 31st is greater than 20th. However, February only has 28 or 29 days depending on if it is a leap year. The current logic is to skip Feb and look for "next month which has 31 days". So in this case Shiva will resolve "next 31st" to be 31st March.
+Given current date is 20th February, the logical month for "next" in this case should be February itself since 31st is greater than 20th. However, February only has 28 or 29 days depending on if it is a leap year. The current logic is to skip Feb and look for "next month which has 31 days". So in this case Serina will resolve "next 31st" to be 31st March.
 
 ### Week day v.s. day of the week
 
