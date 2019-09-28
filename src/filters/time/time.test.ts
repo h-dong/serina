@@ -7,8 +7,8 @@ describe('Time', () => {
         .startOf('minute')
         .toJSDate();
 
-        describe('parseText', () => {
-            test.each`
+    describe('parseText', () => {
+        test.each`
             filter                    | dateTime
             ${'at 8:30am'}            | ${mockTime(8, 30)}
             ${'09:45'}                | ${mockTime(9, 45)}

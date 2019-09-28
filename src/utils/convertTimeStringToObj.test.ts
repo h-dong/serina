@@ -51,14 +51,4 @@ describe('convertTimeStringToObj()', () => {
         const results = convertTimeStringToObj(filter);
         expect(results).toEqual(expected);
     });
-
-    // const testCases = [
-    // ];
-
-    // test('test this new format', () => {
-    //     testCases.forEach(item => {
-    //         const parsed = convertTimeStringToObj(item.case);
-    //         expect(parsed).toEqual(item.result);
-    //     });
-    // });
 });

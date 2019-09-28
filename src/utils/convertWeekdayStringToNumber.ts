@@ -4,7 +4,6 @@ import { contains } from 'utils';
 
 function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolean): number {
     let weekday = null;
-
     const todayInWeekday = DateTime.utc().weekday;
 
     Object.keys(WEEKDAY.SINGLE).forEach((key, index) => {
@@ -14,10 +13,8 @@ function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolea
         }
     });
     
-    if (weekday <= todayInWeekday) weekday += 7;
-    
     if (!weekday) return null;
-    
+    if (weekday <= todayInWeekday) weekday += 7;
     if (pastWeekday) weekday -= 7;
 
     return weekday;
