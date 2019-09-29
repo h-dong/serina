@@ -19,6 +19,7 @@ describe('Time', () => {
             ${'12pm'}                 | ${mockTime(12, 0)}
             ${'12am'}                 | ${mockTime(0, 0)}
             ${'0:00'}                 | ${mockTime(0, 0)}
+            ${'09:61'}                | ${null}
             ${'11:00'}                | ${mockTime(11, 0)}
             ${'at 4PM'}               | ${mockTime(16, 0)}
             ${'at 2 pm'}              | ${mockTime(14, 0)}
