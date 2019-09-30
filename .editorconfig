@@ -11,3 +11,7 @@ end_of_line = lf # Unix-style newlines with a newline ending
 insert_final_newline = true
 indent_style = space
 indent_size = 4
+
+# JSON
+[*.json]
+indent_size = 2
