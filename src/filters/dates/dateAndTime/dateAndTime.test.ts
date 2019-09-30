@@ -586,21 +586,81 @@ describe('DateAndTime', () => {
         });
     });
 
-    const relativeDateTestCases: TestCaseSchema[] = [
-        {
-            description: 'should parse today correctly',
-            case: 'go to work today 5pm',
-            result: [
-                { dateTime: mockDates(currentDay, currentMonth, currentYear, 17, 0), text: 'go to work', matched: 'today 5pm' },
-            ],
-        }];
+    describe('should parse relative date and time (date first)', () => {
 
-    describe('should parse the correct dates when dates are relative and time is before date', () => {
-        relativeDateTestCases.forEach(item => {
-            test(item.description, () => {
-                const parsedText = DateAndTime.parseText(item.case);
-                expect(parsedText).toEqual(item.result);
-            });
+        test.each`
+        filter                            | dateTime
+        ${'today 5pm'}                    | ${mockDates(currentDay, currentMonth, currentYear, 17, 0)}
+        ${'tomorrow at 8:30am'}           | ${mockDates(currentDay + 1, currentMonth, currentYear, 8, 30)}
+        ${'in 5 days at 09:45'}           | ${mockDates(currentDay + 5, currentMonth, currentYear, 9, 45)}
+        ${'in 31 days at 9am'}            | ${mockDates(currentDay + 31, currentMonth, currentYear, 9, 0)}
+        ${'in a day by 7pm'}              | ${mockDates(currentDay + 1, currentMonth, currentYear, 19, 0)}
+        ${'in a week 12pm'}               | ${mockDates(currentDay + 7, currentMonth, currentYear, 12, 0)}
+        ${'in 5 weeks 12am'}              | ${mockDates(currentDay + 35, currentMonth, currentYear, 0, 0)}
+        ${'in a wk 0:00'}                 | ${mockDates(currentDay + 7, currentMonth, currentYear, 0, 0)}
+        ${'in 5 wks at 4PM'}              | ${mockDates(currentDay + 35, currentMonth, currentYear, 16, 0)}
+        ${'in a month at 2 pm'}           | ${mockDates(currentDay, currentMonth + 1, currentYear, 14, 0)}
+        ${'in 5 months at 4 p.M.'}        | ${mockDates(currentDay, currentMonth + 5, currentYear, 16, 0)}
+        ${'in 12 months by 4p.m.'}        | ${mockDates(currentDay, currentMonth, currentYear + 1, 16, 0)}
+        ${'in a year at quarter past 4'}  | ${mockDates(currentDay, currentMonth, currentYear + 1, 4, 15)}
+        ${'in 5 years at quarter to 4'}   | ${mockDates(currentDay, currentMonth, currentYear + 5, 3, 45)}
+        ${'in a yr at quarter to 4pm'}    | ${mockDates(currentDay, currentMonth, currentYear + 1, 15, 45)}
+        ${'in 5 yrs at half past 4'}      | ${mockDates(currentDay, currentMonth, currentYear + 5, 4, 30)}
+        ${'5 years later at 20 min to 4'} | ${mockDates(currentDay, currentMonth, currentYear + 5, 3, 40)}
+        ${'5 years from now at 20 past 4'}| ${mockDates(currentDay, currentMonth, currentYear + 5, 4, 20)}
+        `('should be able to parse $filter', ({ filter, dateTime }) => {
+            const text = 'go to work';
+            const results = DateAndTime.parseText(` ${text} ${filter}`);
+            const output = [
+                { dateTime, matched: filter, text },
+            ];
+            expect(results).toEqual(output);
+        });
+    });
+
+    describe('should parse relative date and time (time first)', () => {
+
+        test.each`
+        filter                            | dateTime
+        ${'5pm today'}                    | ${mockDates(currentDay, currentMonth, currentYear, 17, 0)}
+        ${'at 8:30am tomorrow'}           | ${mockDates(currentDay + 1, currentMonth, currentYear, 8, 30)}
+        ${'at 09:45 in 5 days'}           | ${mockDates(currentDay + 5, currentMonth, currentYear, 9, 45)}
+        ${'at 9am in 31 days'}            | ${mockDates(currentDay + 31, currentMonth, currentYear, 9, 0)}
+        ${'by 7pm in a day'}              | ${mockDates(currentDay + 1, currentMonth, currentYear, 19, 0)}
+        ${'12pm in a week'}               | ${mockDates(currentDay + 7, currentMonth, currentYear, 12, 0)}
+        ${'12am in 5 weeks'}              | ${mockDates(currentDay + 35, currentMonth, currentYear, 0, 0)}
+        ${'0:00 in a wk'}                 | ${mockDates(currentDay + 7, currentMonth, currentYear, 0, 0)}
+        ${'at 4PM in 5 wks'}              | ${mockDates(currentDay + 35, currentMonth, currentYear, 16, 0)}
+        ${'at 2 pm in a month'}           | ${mockDates(currentDay, currentMonth + 1, currentYear, 14, 0)}
+        ${'at 4 p.M. in 5 months'}        | ${mockDates(currentDay, currentMonth + 5, currentYear, 16, 0)}
+        ${'by 4p.m. in 12 months'}        | ${mockDates(currentDay, currentMonth, currentYear + 1, 16, 0)}
+        ${'at quarter past 4 in a year'}  | ${mockDates(currentDay, currentMonth, currentYear + 1, 4, 15)}
+        ${'at quarter to 4 in 5 years'}   | ${mockDates(currentDay, currentMonth, currentYear + 5, 3, 45)}
+        ${'at quarter to 4pm in a yr'}    | ${mockDates(currentDay, currentMonth, currentYear + 1, 15, 45)}
+        ${'at half past 4 in 5 yrs'}      | ${mockDates(currentDay, currentMonth, currentYear + 5, 4, 30)}
+        ${'at 20 min to 4 5 years later'} | ${mockDates(currentDay, currentMonth, currentYear + 5, 3, 40)}
+        ${'at 20 past 4 5 years from now'}| ${mockDates(currentDay, currentMonth, currentYear + 5, 4, 20)}
+        `('should be able to parse $filter', ({ filter, dateTime }) => {
+            const text = 'go to work';
+            const results = DateAndTime.parseText(` ${text} ${filter}`);
+            const output = [
+                { dateTime, matched: filter, text },
+            ];
+            expect(results).toEqual(output);
+        });
+    });
+
+    describe('should not parse relative date and time without units', () => {
+
+        test.each`
+        filter                 | dateTime
+        ${'in 5 at 4 pm'}      | ${null}
+        ${'in 5 mins at 4'}    | ${null}
+        ${'in 5 at 4'}         | ${null}
+        `('should not parse $filter', ({ filter, dateTime }) => {
+            const text = 'go to work';
+            const results = DateAndTime.parseText(` ${text} ${filter}`);
+            expect(results).toEqual(dateTime);
         });
     });
 });
