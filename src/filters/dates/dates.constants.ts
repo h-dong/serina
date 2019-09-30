@@ -48,9 +48,10 @@ const PARTIAL_DATES = {
 };
 
 const datePart = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`;
+const timePart = `(${TIME.FILLER_WORDS}( ))?${TIME.ANY}`;
 
-const dateFirst = `${datePart}( )?${TIME.ANY}`;
-const timeFirst = `(${TIME.ANY})( )?(${datePart})`;
+const dateFirst = `${datePart}( )${timePart}`;
+const timeFirst = `${timePart}( )${datePart}`;
 
 const DATE_AND_TIME = {
     ANY: `${dateFirst}|${timeFirst}`,

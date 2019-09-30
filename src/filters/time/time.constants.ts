@@ -1,49 +1,44 @@
-const PM = 'pm|p.m.';
-const AM = 'am|a.m.';
-const MERIDIEM = `( )?(${AM}|${PM})`;
-const FILLER_WORDS = '(at|by) ';
-const HOUR_PART = '([0-1]?[0-9]|2[0-3])';
-const MINUTE_PART = '(:[0-5][0-9])';
-
+const AM = 'am|a.m.|am.';
+const PM = 'pm|p.m.|pm.';
+const MERIDIEM = `(${AM}|${PM})`;
+const FILLER_WORDS = '(at|by)';
+const HOUR_PART = '([0-9]{1,2})';
+const DIVIDER = '(:)';
+const MINUTE_PART = '([0-9]{1,2})';
+const TO = '(to|until)';
+const PAST = '(after|past)';
+const RELATIVE_TIME_FILLER_WORDS = `(${TO}|${PAST})`;
 const HALF = 'half';
 const QUARTER = 'quarter';
+const VERBAL_QUANTIFIERS = `(${HALF}|${QUARTER})`;
+const MINUTE_IDENTIFIER = '(min|mins|minutes)';
 
-const VERBAL_QUANTIFIERS = {
-    ANY: `(${HALF}|${QUARTER})`,
-    HALF,
-    QUARTER,
-};
-
-const TO = '(to)';
-const PAST = '(after|past)';
-const MINUTE_IDENTIFIER = '( (min|mins|minutes))';
-
-const DIGITS_ONLY = `\\b${HOUR_PART}((${MINUTE_PART}${MERIDIEM})|${MINUTE_PART}|${MERIDIEM})`;
-
-const VERBAL_EXPRESSION_MINUTES = `(${VERBAL_QUANTIFIERS.ANY}|[0-5][0-9])${MINUTE_IDENTIFIER}?`;
-const VERBAL_EXPRESSION_HOURS = `\\b${HOUR_PART}(${MERIDIEM})?\\b`;
-const VERBAL_EXPRESSION_DETERMINANT = ` ((${TO}|${PAST})( )?)`;
-
-const VERBAL_EXPRESSION = {
-    FULL_EXPRESSION: `${VERBAL_EXPRESSION_MINUTES}${VERBAL_EXPRESSION_DETERMINANT}${VERBAL_EXPRESSION_HOURS}`,
-    MINUTES: `${VERBAL_EXPRESSION_MINUTES}`,
-    HOURS: `${VERBAL_EXPRESSION_HOURS}`,
-    DETERMINANT: `${VERBAL_EXPRESSION_DETERMINANT}`,
-};
+const FORMAT_JUST_HOUR = `${HOUR_PART}( )?${MERIDIEM}`; // 4am or 4 am
+const FORMAT_HOUR_WITH_MINS = `${HOUR_PART}${DIVIDER}${MINUTE_PART}`; // 04:30
+const FORMAT_HOUR_WITH_MINS_AND_MERIDIEM = `${HOUR_PART}${DIVIDER}${MINUTE_PART}( )?${MERIDIEM}`; // 04:30am or 04:30 am
+const FORMAT_VERBAL_QUANTIFIERS = `${VERBAL_QUANTIFIERS}( )${RELATIVE_TIME_FILLER_WORDS}( )(${HOUR_PART}( )?${MERIDIEM}|${HOUR_PART})`; // half past 3pm
+const FORMAT_DIGIT_RELATIVE = `${MINUTE_PART}( )(${MINUTE_IDENTIFIER}( ))?${RELATIVE_TIME_FILLER_WORDS}( )(${HOUR_PART}( )?${MERIDIEM}|${HOUR_PART})`; // 20 mins to 11
+const FORMAT_NORMAL_TIME = `(${FORMAT_JUST_HOUR}|${FORMAT_HOUR_WITH_MINS_AND_MERIDIEM}|${FORMAT_HOUR_WITH_MINS})`;
+const FORMAT_RELATIVE_TIME = `(${FORMAT_VERBAL_QUANTIFIERS}|${FORMAT_DIGIT_RELATIVE})`;
 
 const TIME = {
-    ANY: `(${FILLER_WORDS})?(${DIGITS_ONLY}|${VERBAL_EXPRESSION.FULL_EXPRESSION})`,
-    DIGITS_ONLY,
-    VERBAL_QUANTIFIERS,
-    VERBAL_EXPRESSION,
+    ANY: `(${FORMAT_NORMAL_TIME}|${FORMAT_RELATIVE_TIME})`,
+    FORMAT_NORMAL: FORMAT_NORMAL_TIME,
+    FORMAT_RELATIVE: FORMAT_RELATIVE_TIME,
+    RELATIVE_TIME_FILLER_WORDS,
+    HOUR_PART,
+    MINUTE_PART,
+    DIVIDER,
+    MERIDIEM,
+    AM,
+    PM,
     TO,
     PAST,
+    HALF,
+    QUARTER,
+    VERBAL_QUANTIFIERS,
     MINUTE_IDENTIFIER,
     FILLER_WORDS,
 };
 
-export {
-    TIME as default,
-    MERIDIEM,
-    PM,
-};
+export default TIME;

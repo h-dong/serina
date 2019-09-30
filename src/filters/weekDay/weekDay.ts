@@ -2,6 +2,7 @@ import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from './weekDay.constants';
 import { contains, matchPattern, trimWhiteSpaces } from 'utils';
+import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 
 export default class WeekDay {
 
@@ -18,11 +19,6 @@ export default class WeekDay {
         return matchForWeekdays.map(elem => this.parseWeekdayMatches(text, elem));
     }
 
-    static matchWeekdays(text: string): string[] {
-        const matched = matchPattern(text, WEEKDAY.ANY);
-        return matched ? matched : null;
-    }
-
     static parseWeekdayMatches(text: string, matchedWeekday: string): ParsedMatchSchema {
         const replaceMatch = text.toLowerCase().replace(matchedWeekday, '');
 
@@ -34,26 +30,14 @@ export default class WeekDay {
     }
 
     static convertWeekdayMatchToDate(matchingText) {
-        let weekday = null;
+        const [ weekdayString ] = matchPattern(matchingText, WEEKDAY.ANY);
+        const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
+        const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        const todayInWeekday = DateTime.utc().weekday;
+        const newDateTime = DateTime.utc().set({ weekday });
 
-        Object.keys(WEEKDAY.SINGLE).forEach((key, index) => {
-            const weekdayPattern = WEEKDAY.SINGLE[key];
-            if (contains(matchingText, weekdayPattern)) {
-                weekday = index + 1;
-            }
-        });
+        if (!newDateTime.isValid) return null;
 
-        if (weekday <= todayInWeekday) weekday += 7;
-
-        if (!weekday) return null;
-
-        if (contains(matchingText, `${WEEKDAY.PAST_WORDS} ${WEEKDAY.ANY}`)) weekday -= 7;
-
-        return DateTime.utc()
-            .set({ weekday })
-            .startOf('day')
-            .toJSDate();
+        return newDateTime.startOf('day').toJSDate();
     }
 }

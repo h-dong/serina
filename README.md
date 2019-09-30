@@ -78,11 +78,12 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] ~Parse combined day, month and year e.g. `11th June 2019`, `11/09/2018`~
 - [x] ~Parse incomplete date formats e.g. `20/08` or `Jan 2020`~
 - [x] ~Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`~
-- [ ] Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`
+- [x] ~Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`~
 - [x] ~Parse relative time e.g. `in half an hour`, `4 hours from now`~
 - [x] ~Parse relative days e.g. `today`, `tomorrow`, `a week from now`~
 - [x] ~Parse relative dates e.g. `next year`, `2 weeks from now`~
 - [ ] Parse combined relative date and time e.g. `a week from now 2pm`
+- [ ] Parse keywords such as `noon`, `midnight`, `mid day`
 
 ### Milestone 2
 
@@ -101,7 +102,7 @@ People could express dates & time in many different ways, and sometimes there's 
 
 ### Resolve "Next 31st" when the current/next month doesn't have 31 days
 
-Given the user is on 20th February, the logical month for "next" in this case should be February itself since 31st is greater than 20th. However, February only has 28 or 29 days depending on if it is currently a leap year. The current logic is to skip Feb and look for "next month which has 31 days". So in this case Shiva will resolve "next 31st" to be 31st March.
+Given current date is 20th February, the logical month for "next" in this case should be February itself since 31st is greater than 20th. However, February only has 28 or 29 days depending on if it is a leap year. The current logic is to skip Feb and look for "next month which has 31 days". So in this case Serina will resolve "next 31st" to be 31st March.
 
 ### Week day v.s. day of the week
 
