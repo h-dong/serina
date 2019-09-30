@@ -44,62 +44,6 @@ describe('Day Of The Week', () => {
         });
     });
 
-    describe('matchWeekdays()', () => {
-        test('should match monday', () => {
-            expect(WeekDay.matchWeekdays('mon')).toEqual(['mon']);
-            expect(WeekDay.matchWeekdays('Mon')).toEqual(['mon']);
-            expect(WeekDay.matchWeekdays('monday')).toEqual(['monday']);
-            expect(WeekDay.matchWeekdays('Monday')).toEqual(['monday']);
-        });
-
-        test('should match tuesday', () => {
-            expect(WeekDay.matchWeekdays('tue')).toEqual(['tue']);
-            expect(WeekDay.matchWeekdays('Tue')).toEqual(['tue']);
-            expect(WeekDay.matchWeekdays('tues')).toEqual(['tues']);
-            expect(WeekDay.matchWeekdays('Tues')).toEqual(['tues']);
-            expect(WeekDay.matchWeekdays('tuesday')).toEqual(['tuesday']);
-            expect(WeekDay.matchWeekdays('Tuesday')).toEqual(['tuesday']);
-        });
-
-        test('should match wednesday', () => {
-            expect(WeekDay.matchWeekdays('wed')).toEqual(['wed']);
-            expect(WeekDay.matchWeekdays('Wed')).toEqual(['wed']);
-            expect(WeekDay.matchWeekdays('wedn')).toEqual(['wedn']);
-            expect(WeekDay.matchWeekdays('Wedn')).toEqual(['wedn']);
-            expect(WeekDay.matchWeekdays('wednesday')).toEqual(['wednesday']);
-            expect(WeekDay.matchWeekdays('Wednesday')).toEqual(['wednesday']);
-        });
-
-        test('should match thursday', () => {
-            expect(WeekDay.matchWeekdays('thu')).toEqual(['thu']);
-            expect(WeekDay.matchWeekdays('Thu')).toEqual(['thu']);
-            expect(WeekDay.matchWeekdays('thur')).toEqual(['thur']);
-            expect(WeekDay.matchWeekdays('Thur')).toEqual(['thur']);
-            expect(WeekDay.matchWeekdays('thursday')).toEqual(['thursday']);
-            expect(WeekDay.matchWeekdays('Thursday')).toEqual(['thursday']);
-        });
-
-        test('should match friday', () => {
-            expect(WeekDay.matchWeekdays('fri')).toEqual(['fri']);
-            expect(WeekDay.matchWeekdays('Fri')).toEqual(['fri']);
-            expect(WeekDay.matchWeekdays('friday')).toEqual(['friday']);
-            expect(WeekDay.matchWeekdays('Friday')).toEqual(['friday']);
-        });
-
-        test('should match saturday', () => {
-            expect(WeekDay.matchWeekdays('sat')).toEqual(['sat']);
-            expect(WeekDay.matchWeekdays('Sat')).toEqual(['sat']);
-            expect(WeekDay.matchWeekdays('saturday')).toEqual(['saturday']);
-            expect(WeekDay.matchWeekdays('Saturday')).toEqual(['saturday']);
-        });
-
-        test('should match sunday', () => {
-            expect(WeekDay.matchWeekdays('sun')).toEqual(['sun']);
-            expect(WeekDay.matchWeekdays('Sun')).toEqual(['sun']);
-            expect(WeekDay.matchWeekdays('sunday')).toEqual(['sunday']);
-            expect(WeekDay.matchWeekdays('Sunday')).toEqual(['sunday']);
-        });
-    });
     describe('Parse Text Contains Weekday', () => {
         let result: ParsedMatchSchema[];
         const relativeFutureArray = ['buy milk', 'buy milk for', 'buy milk next', 'buy milk this'];
