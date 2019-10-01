@@ -41,7 +41,7 @@ export default class WeekDayAndTime {
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        const newDateTime = DateTime.utc().set({ weekday, hour, minute});
+        const newDateTime = DateTime.utc().set({ weekday, hour, minute });
 
         if (!newDateTime.isValid) return null;
 

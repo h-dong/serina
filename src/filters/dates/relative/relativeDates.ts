@@ -1,7 +1,7 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DATES } from '../dates.constants';
 import RELATIVE_DATES from './relativeDates.constants';
-import { parseMatches, matchPattern, convertRelativeDateStringToObj} from 'utils';
+import { parseMatches, matchPattern, convertRelativeDateStringToObj } from 'utils';
 
 export default class RelativeDates {
     static parseText(text: string): ParsedMatchSchema[] {

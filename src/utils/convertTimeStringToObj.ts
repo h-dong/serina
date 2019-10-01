@@ -13,12 +13,11 @@ function getValidMatch(text: string, pattern: string): string {
 function convertTimeStringToObj(timeString: string): TimeObjectSchema {
     let hour;
     let minute;
-    
     const isRelativeTime = contains(timeString, TIME.RELATIVE_TIME_FILLER_WORDS);
-    
+
     if (isRelativeTime) {
         if (contains(timeString, TIME.VERBAL_QUANTIFIERS)) { // half or quarter
-            hour = getValidMatch(timeString, `(?<=${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}`)
+            hour = getValidMatch(timeString, `(?<=${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}`);
             if (contains(timeString, TIME.HALF)) minute = '30';
             if (contains(timeString, TIME.QUARTER)) minute = '15';
         } else { // 20 min to 7pm

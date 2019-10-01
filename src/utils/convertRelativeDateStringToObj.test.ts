@@ -17,7 +17,7 @@ afterAll(() => {
 
 describe('RelativeDates', () => {
     const mockDates = (day, month, year) => DateTime.utc()
-        .set({day, month, year})
+        .set({ day, month, year })
         .endOf('day')
         .toJSDate();
 
