@@ -1,8 +1,8 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { DATES, DATE_AND_TIME, PARTIAL_DATES } from '../dates.constants';
-import RELATIVE_DATES from '../relative/relativeDates.constants';
-import TIME from '../../time/time.constants';
+import { DATES, DATE_AND_TIME, PARTIAL_DATES } from '../dates/dates.constants';
+import RELATIVE_DATES from '../dates/relative/relativeDates.constants';
+import TIME from '../time/time.constants';
 import {
     parseMatches,
     convertDateStringToObj,
