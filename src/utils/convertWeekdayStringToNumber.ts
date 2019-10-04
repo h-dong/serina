@@ -12,7 +12,6 @@ function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolea
             weekday = index + 1;
         }
     });
-    
     if (!weekday) return null;
     if (weekday <= todayInWeekday) weekday += 7;
     if (pastWeekday) weekday -= 7;

@@ -1,9 +1,17 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { DATES, DATE_AND_TIME, PARTIAL_DATES } from './dates.constants';
+import { DATES, DATE_AND_TIME, PARTIAL_DATES } from '../dates/dates.constants';
+import RELATIVE_DATES from '../dates/relative/relativeDates.constants';
 import TIME from '../time/time.constants';
-import { parseMatches, convertDateStringToObj, remove, matchPattern, convertTimeStringToObj } from 'utils';
-import convertPartialDateStringToObj from '../../utils/convertPartialDateStringToObj';
+import {
+    parseMatches,
+    convertDateStringToObj,
+    contains,
+    remove,
+    matchPattern,
+    convertTimeStringToObj,
+    convertPartialDateStringToObj,
+    convertRelativeDateStringToObj } from 'utils';
 
 export default class DateAndTime {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -20,15 +28,20 @@ export default class DateAndTime {
 
     static convertMatchToDateObj(matchingText: string): Date {
         const removeDateFillerWords = remove(matchingText, DATES.FILLER_WORDS);
-        const dateStringMatches = matchPattern(removeDateFillerWords, `(${DATES.ANY}|${PARTIAL_DATES.ANY})`);
+        const dateStringMatches = matchPattern(removeDateFillerWords, `(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`);
         if (!dateStringMatches) return null;
         const dateString = dateStringMatches[0];
         const timeString = remove(removeDateFillerWords, dateString);
         const removedTimeFillerWords = remove(timeString, TIME.FILLER_WORDS);
 
-        let dateObj = convertDateStringToObj(dateString);
-        dateObj = !dateObj ? convertPartialDateStringToObj(dateString) : dateObj;
-
+        let dateObj;
+        if (contains(dateString, `${DATES.ANY}`)) {
+            dateObj = convertDateStringToObj(dateString);
+        } else if (contains(dateString, `${PARTIAL_DATES.ANY}`)) {
+            dateObj = convertPartialDateStringToObj(dateString);
+        } else {
+            dateObj = convertRelativeDateStringToObj(dateString);
+        }
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
