@@ -10,6 +10,7 @@ import DateAndTime from './filters/dateAndTime/dateAndTime';
 import WeekDayAndTime from 'filters/weekDayAndTime/weekDayAndTime';
 import RelativeTime from './filters/time/relative/relativeTime';
 import RelativeDates from './filters/dates/relative/relativeDates';
+import TimeKeywords from 'filters/timeKeywords/timeKeywords';
 
 const serina = (text: string): ParsedSchema => {
     const parsedData: ParsedSchema = {
@@ -18,7 +19,7 @@ const serina = (text: string): ParsedSchema => {
         matches: [],
     };
 
-    const filters = [ WeekDay, Day, Month, Year, Time, Dates, PartialDates, DateAndTime, RelativeTime, RelativeDates, WeekDayAndTime ];
+    const filters = [ WeekDay, Day, Month, Year, Time, Dates, PartialDates, DateAndTime, RelativeTime, RelativeDates, WeekDayAndTime, TimeKeywords ];
 
     filters.forEach(filter => {
         const results: ParsedMatchSchema[] = filter.parseText(text);
