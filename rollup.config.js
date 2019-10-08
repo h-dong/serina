@@ -1,20 +1,42 @@
 import typescript from 'rollup-plugin-typescript2';
-import resolve from 'rollup-plugin-node-resolve';
-// import commonjs from 'rollup-plugin-commonjs';
-// import uglify from 'rollup-plugin-uglify';
+import { terser } from 'rollup-plugin-terser';
 
-export default {
-    input: 'src/serina.ts',
-    output: [
-        {
-            name: 'Serina',
-            file: 'dist/serina.js',
-            format: 'umd'
+const defaults = { compilerOptions: { declaration: true } };
+
+export default [
+    {
+        input: 'src/serina.ts',
+        external: ['luxon'],
+        plugins: [
+            typescript({
+                tsconfigDefaults: defaults,
+                tsconfig: "tsconfig.json",
+                tsconfigOverride: { compilerOptions: { declaration: false } }
+            }),
+            terser()
+        ],
+        output: {
+            globals: { 'luxon': 'luxon' },
+            file: 'dist/umd/serina.min.js',
+            format: 'umd',
+            name: 'serina',
+            sourcemap: true,
+            esModule: false
         }
-    ],
-    plugins: [
-        typescript(),
-        resolve()
-        // commonjs()
-    ]
-};
+    },
+    {
+        input: 'src/serina.ts',
+        external: ['luxon'],
+        plugins: [
+            typescript({
+                tsconfigDefaults: defaults,
+                tsconfig: "tsconfig.json",
+                tsconfigOverride: {}
+            })
+        ],
+        output: [
+            { dir: 'dist/esm', format: 'esm' },
+            { dir: 'dist/cjs', format: 'cjs' }
+        ]
+    }
+];
