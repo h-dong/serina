@@ -3,15 +3,14 @@ import { DateTime } from 'luxon';
 import { DATES, DATE_AND_TIME, PARTIAL_DATES } from '../dates/dates.constants';
 import RELATIVE_DATES from '../dates/relative/relativeDates.constants';
 import TIME from '../time/time.constants';
-import {
-    parseMatches,
-    convertDateStringToObj,
-    contains,
-    remove,
-    matchPattern,
-    convertTimeStringToObj,
-    convertPartialDateStringToObj,
-    convertRelativeDateStringToObj } from 'utils';
+import parseMatches from 'utils/parseMatches';
+import convertDateStringToObj from 'utils/convertDateStringToObj';
+import contains from 'utils/contains';
+import remove from 'utils/remove';
+import matchPattern from 'utils/matchPattern';
+import convertTimeStringToObj from 'utils/convertTimeStringToObj';
+import convertPartialDateStringToObj from 'utils/convertPartialDateStringToObj';
+import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
 
 export default class DateAndTime {
     static parseText(text: string): ParsedMatchSchema[] {

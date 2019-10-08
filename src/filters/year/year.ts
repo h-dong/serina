@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon';
-import { parseMatches, contains, matchPattern } from 'utils';
+import parseMatches from 'utils/parseMatches';
+import contains from 'utils/contains';
+import matchPattern from 'utils/matchPattern';
 import { ParsedMatchSchema } from 'serina.schema';
 import YEAR from './year.constants';
 

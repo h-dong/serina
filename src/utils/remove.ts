@@ -1,4 +1,4 @@
-import { trimWhiteSpaces } from 'utils';
+import trimWhiteSpaces from 'utils/trimWhiteSpaces';
 
 function remove(text: string, pattern: string, wordBoundary: boolean = true) {
     const updatedPattern = (wordBoundary) ? `\\b${pattern}\\b` : pattern;

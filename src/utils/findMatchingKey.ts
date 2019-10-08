@@ -1,4 +1,4 @@
-import { contains } from './index';
+import contains from './contains';
 
 export default function findMatchingKey(object, pattern): string {
     const keys = Object.keys(object);

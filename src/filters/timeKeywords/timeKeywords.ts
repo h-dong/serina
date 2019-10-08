@@ -1,7 +1,9 @@
-import { matchPattern, parseMatches, contains } from "utils";
-import TIME_KEYWORDS from "./timeKeywords.constants";
-import { ParsedMatchSchema } from "serina.schema";
-import { DateTime } from "luxon";
+import matchPattern from 'utils/matchPattern';
+import parseMatches from 'utils/parseMatches';
+import contains from 'utils/contains';
+import TIME_KEYWORDS from './timeKeywords.constants';
+import { ParsedMatchSchema } from 'serina.schema';
+import { DateTime } from 'luxon';
 
 export default class TimeKeywords {
     static parseText(text: string): ParsedMatchSchema[] {

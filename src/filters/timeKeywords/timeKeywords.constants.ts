@@ -5,7 +5,7 @@ const TIME_KEYWORDS = {
     ANY: `(${MID_NIGHT}|${MID_DAY})`,
     FILLER_WORDS: '(at|by|around)',
     MID_NIGHT,
-    MID_DAY
+    MID_DAY,
 };
 
 export default TIME_KEYWORDS;
