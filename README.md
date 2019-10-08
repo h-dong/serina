@@ -12,8 +12,6 @@
 
 Natural Language Parser for date and time in Javascript.
 
-## STILL UNDER DEVELOPMENT, NOT READY FOR ALPHA!
-
 ## Introduction
 Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!https://github.com/neilgupta/Sherlock) project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship  - Spirit of Fire.
 
@@ -68,7 +66,7 @@ const parsed = Serina('Remind me to buy milk tomorrow 3pm');
 
 This project is currently developed by just me, so can't say when the library will be ready. But just to give a high level breakdown, here is everything I'm planning to include:
 
-### Milestone 1
+### Milestone 1 ✅
 
 - [x] ~~Parse weekdays e.g. `tue`, `tuesday`~~
 - [x] ~~Parse day e.g. `11th`, `2nd`~~
