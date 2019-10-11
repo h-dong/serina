@@ -19,15 +19,23 @@ export default class TimeKeywords {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
+        let day = DateTime.utc().day;
         let hour = null;
+        const currentHour = DateTime.utc().hour;
 
-        if (contains(matchingText, `${TIME_KEYWORDS.MID_DAY}`)) hour = 12;
+        if (contains(matchingText, `${TIME_KEYWORDS.MID_DAY}`)) {
+            hour = 12;
+            if (currentHour > 12) day += 1;
+        }
 
-        if (contains(matchingText, `${TIME_KEYWORDS.MID_NIGHT}`)) hour = 0;
+        if (contains(matchingText, `${TIME_KEYWORDS.MID_NIGHT}`)) {
+            hour = 0;
+            day += 1;
+        }
 
         if (hour === null) return null;
 
-        const newDateTime = DateTime.utc().set({ hour, minute: 0 });
+        const newDateTime = DateTime.utc().set({ day, hour, minute: 0 });
 
         if (!newDateTime.isValid) return null;
 
