@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 import parseMatches from 'utils/parseMatches';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
-import monthStringToNumber from 'utils/monthStringToNumber'; 
+import monthStringToNumber from 'utils/monthStringToNumber';
 import MONTH from './month.constants';
 
 export default class Month {

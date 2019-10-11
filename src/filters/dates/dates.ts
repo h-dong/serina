@@ -6,7 +6,6 @@ import convertDateStringToObj from 'utils/convertDateStringToObj';
 import remove from 'utils/remove';
 import matchPattern from 'utils/matchPattern';
 
-
 export default class Dates {
     static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `(${DATES.FILLER_WORDS})?(${DATES.ANY})`;
