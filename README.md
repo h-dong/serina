@@ -53,8 +53,6 @@ import Serina from 'serina';
 const parsed = Serina('Remind me to buy milk tomorrow 3pm');
 ```
 
-### What do you get back
-
 ## Usage of Library
 
 ```js
