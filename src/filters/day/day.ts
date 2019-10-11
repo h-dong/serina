@@ -1,6 +1,8 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { parseMatches, contains, matchPattern } from 'utils';
+import parseMatches from 'utils/parseMatches';
+import contains from 'utils/contains';
+import matchPattern from 'utils/matchPattern';
 import DAY from './day.constants';
 
 // When parsing dates e.g. 2nd, 11th

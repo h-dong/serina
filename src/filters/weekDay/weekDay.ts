@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from './weekDay.constants';
-import { contains, matchPattern, trimWhiteSpaces } from 'utils';
+import contains from 'utils/contains';
+import matchPattern from 'utils/matchPattern';
+import trimWhiteSpaces from 'utils/trimWhiteSpaces';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 
 export default class WeekDay {

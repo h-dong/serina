@@ -19,18 +19,53 @@ Serina can parse English phrases and return an object that is easier to work. Th
 
 Simply run `npm install serina`
 
-## Usage
+### Basic browser setup
 
-If using ES5
+Just include Serina in a script tag. You can access its various classes through the serina global.
+
+```html
+<script src="serina.min.js"></script>
+```
 
 ```js
-var Serina = require('serina');
+var parsed = serina('Remind me to buy milk tomorrow 3pm');
+```
 
+### Node
+
+Install via NPM:
+
+```
+npm i --save serina
+```
+
+```js
+const serina = require("serina");
+
+var parsed = serina('Remind me to buy milk tomorrow 3pm');
+```
+
+### ES6
+
+```js
+import Serina from 'serina';
+
+const parsed = Serina('Remind me to buy milk tomorrow 3pm');
+```
+
+### What do you get back
+
+## Usage of Library
+
+```js
 var parsed = Serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
 
+// assuming current time is 2019/09/10 1pm
 console.log(parsed);
+```
 
-// assuming current time is 2019/09/10 1pm, console output
+```js
+// console output
 {
     "original": "Remind me to buy milk tomorrow 3pm",
     "isValid": true,
@@ -52,14 +87,6 @@ console.log(parsed);
         }
     ]
 }
-```
-
-Or use import if using ES6
-
-```js
-import Serina from 'serina';
-
-const parsed = Serina('Remind me to buy milk tomorrow 3pm');
 ```
 
 ## Progress

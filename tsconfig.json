@@ -19,6 +19,14 @@
         "typeRoots": ["node_modules/@types"],
         "types": ["jest", "luxon"]
     },
-    "include": ["src/**/*"],
-    "exclude": ["src/**/*.test.ts"]
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "node_modules",
+      "src/filters",
+      "src/utils",
+      "src/**.*.test.ts",
+      "src/serina.schema.ts"
+    ]
 }

@@ -1,7 +1,10 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
 import { DATES } from './dates.constants';
-import { parseMatches, convertDateStringToObj, remove, matchPattern } from 'utils';
+import parseMatches from 'utils/parseMatches';
+import convertDateStringToObj from 'utils/convertDateStringToObj';
+import remove from 'utils/remove';
+import matchPattern from 'utils/matchPattern';
 
 export default class Dates {
     static parseText(text: string): ParsedMatchSchema[] {

@@ -33,12 +33,14 @@
     </style>
     <script>
         function textChanged() {
+            var DateTime = luxon.DateTime;
+
             var inputText = document.getElementById('text-input').value;
             var element = document.getElementById('results');
-
+            
             if (inputText.length === 0) element.textContent = "";
 
-            var matches = Serina(inputText);
+            var matches = serina(inputText);
 
             element.textContent = (matches.isValid)
                 ? JSON.stringify(matches, null, 4)
@@ -53,6 +55,7 @@
     </div>
     <pre id="results" class="wrapper"></pre>
 
-    <script src="./serina.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.19.3/build/global/luxon.min.js"></script>
+    <script src="./serina.min.js"></script>
 </body>
 </html>

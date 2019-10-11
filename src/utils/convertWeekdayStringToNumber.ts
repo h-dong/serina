@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import WEEKDAY from 'filters/weekDay/weekDay.constants';
-import { contains } from 'utils';
+import contains from 'utils/contains';
 
 function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolean): number {
     let weekday = null;
