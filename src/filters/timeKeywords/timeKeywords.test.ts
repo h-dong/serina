@@ -1,7 +1,6 @@
 import { DateTime, Settings } from 'luxon';
 import TimeKeywords from './timeKeywords';
 
-
 describe('Time Keywords', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
     Settings.now = () => 1541115000000;
