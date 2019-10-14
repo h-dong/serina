@@ -1,7 +1,6 @@
-import serina from './serina';
+import serina from 'serina';
 
 describe('Serina', () => {
-
     test.each`
         filter              | text              | expected
         ${'WeekDay'}        | ${'on Monday'}    | ${1}

@@ -1,5 +1,5 @@
 import Day from './day';
-import { ParsedMatchSchema } from '../../serina.schema';
+import { ParsedMatchSchema } from 'serina.schema';
 import { Settings, DateTime } from 'luxon';
 
 describe('Day', () => {
@@ -16,6 +16,7 @@ describe('Day', () => {
                 .set({ day, month, year })
                 .startOf('day')
                 .toJSDate();
+
             testData = [
                 { date: '01st', dateTime: mockDay(1, 2, 2019) },
                 { date: '02nd', dateTime: mockDay(2, 2, 2019) },
@@ -109,7 +110,8 @@ describe('Day', () => {
             const text = 'go to library';
 
             beforeAll(() => {
-                Settings.now = () => new Date(2019, 2, 19).valueOf(); // Mock Date Time to Saturday, 19 February 2019 18:06:18 GMT+00:00
+                // Mock Date Time to Saturday, 19 February 2019 18:06:18 GMT+00:00
+                Settings.now = () => new Date(2019, 2, 19).valueOf();
             });
 
             test('should not parse any date before 1st', () => {
@@ -127,13 +129,11 @@ describe('Day', () => {
             test('should skip month until a month that has it', () => {
                 // e.g. if 31st is asked during Feb, we should skip to March (next month with that date)
                 const date = '31st';
-                const result: ParsedMatchSchema[] = [
-                    {
-                        dateTime: mockDay(31, 3, 2019),
-                        text,
-                        matched: date,
-                    },
-                ];
+                const result: ParsedMatchSchema[] = [{
+                    dateTime: mockDay(31, 3, 2019),
+                    text,
+                    matched: date,
+                }];
                 expect(Day.parseText(`${text} ${date}`)).toEqual(result);
             });
         });

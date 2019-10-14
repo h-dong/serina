@@ -1,5 +1,5 @@
-import WEEKDAY from '../weekDay/weekDay.constants';
-import TIME from '../time/time.constants';
+import WEEKDAY from 'filters/weekDay/weekDay.constants';
+import TIME from 'filters/time/time.constants';
 
 const anyWeekday = `((${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS})( ))?${WEEKDAY.ANY}`;
 const anyTime = `(${TIME.FILLER_WORDS}( ))?${TIME.FORMAT_NORMAL}`;

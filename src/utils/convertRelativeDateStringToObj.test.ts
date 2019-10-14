@@ -15,7 +15,7 @@ afterAll(() => {
     Settings.now = () => Date.now();
 });
 
-describe('RelativeDates', () => {
+describe('Relative Dates', () => {
     const mockDates = (day, month, year) => DateTime.utc()
         .set({ day, month, year })
         .endOf('day')

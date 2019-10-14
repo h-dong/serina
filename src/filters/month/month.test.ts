@@ -1,6 +1,6 @@
 import { Settings, DateTime } from 'luxon';
 import Month from './month';
-import { ParsedMatchSchema } from '../../serina.schema';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Month', () => {
     const mockDate = (month, year) => {

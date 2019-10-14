@@ -5,7 +5,6 @@ import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import DAY from './day.constants';
 
-// When parsing dates e.g. 2nd, 11th
 export default class Day {
     static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `(${DAY.FILLER_WORDS})?${DAY.ORDINAL_ONLY}`;

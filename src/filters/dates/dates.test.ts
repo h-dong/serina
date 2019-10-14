@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon';
-import { TestCaseSchema } from '../../serina.schema';
 import Dates from './dates';
 
 describe('Dates', () => {
@@ -8,125 +7,35 @@ describe('Dates', () => {
         .endOf('day')
         .toJSDate();
 
-    const testCases: TestCaseSchema[] = [{
-        case: 'buy milk 20',
-        result: null,
-    }, {
-        case: 'go to work on 02/17/2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 02/17/2009' },
-        ],
-    }, {
-        case: 'go to work on 17/02/2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 17/02/2009' },
-        ],
-    }, {
-        case: 'go to work on 2009/02/17',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 2009/02/17' },
-        ],
-    }, {
-        case: 'go to work on 2/17/2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 2/17/2009' },
-        ],
-    }, {
-        case: 'go to work on 17/2/2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 17/2/2009' },
-        ],
-    }, {
-        case: 'go to work on 2009/2/17',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 2009/2/17' },
-        ],
-    }, {
-        case: 'go to work on 2/17/2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 2/17/2009' },
-        ],
-    }, {
-        case: 'go to work on 2-17-2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 2-17-2009' },
-        ],
-    }, {
-        case: 'go to work on February 17, 2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on February 17, 2009' },
-        ],
-    }, {
-        case: 'go to work on 17 February, 2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 17 February, 2009' },
-        ],
-    }, {
-        case: 'go to work on Feb 17, 2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on Feb 17, 2009' },
-        ],
-    }, {
-        case: 'go to work on 17 Feb, 2009',
-        result: [
-            { dateTime: mockDates(17, 2, 2009), text: 'go to work', matched: 'on 17 Feb, 2009' },
-        ],
-    }, {
-        case: 'go to work on Feb 17, 2014',
-        result: [
-            { dateTime: mockDates(17, 2, 2014), text: 'go to work', matched: 'on Feb 17, 2014' },
-        ],
-    }, {
-        case: 'go to work on 17 Feb, 2014',
-        result: [
-            { dateTime: mockDates(17, 2, 2014), text: 'go to work', matched: 'on 17 Feb, 2014' },
-        ],
-    }, {
-        case: 'go to work on 21st Feb 2019',
-        result: [
-            { dateTime: mockDates(21, 2, 2019), text: 'go to work', matched: 'on 21st Feb 2019' },
-        ],
-    }, {
-        case: 'go to work on Feb 21st 2019',
-        result: [
-            { dateTime: mockDates(21, 2, 2019), text: 'go to work', matched: 'on Feb 21st 2019' },
-        ],
-    }, {
-        case: 'go to work on 22nd Feb 2019',
-        result: [
-            { dateTime: mockDates(22, 2, 2019), text: 'go to work', matched: 'on 22nd Feb 2019' },
-        ],
-    }, {
-        case: 'go to work on Feb 22nd 2019',
-        result: [
-            { dateTime: mockDates(22, 2, 2019), text: 'go to work', matched: 'on Feb 22nd 2019' },
-        ],
-    }, {
-        case: 'go to work on 22nd Feb 2019',
-        result: [
-            { dateTime: mockDates(22, 2, 2019), text: 'go to work', matched: 'on 22nd Feb 2019' },
-        ],
-    }, {
-        case: 'go to work on Feb 22nd 2019',
-        result: [
-            { dateTime: mockDates(22, 2, 2019), text: 'go to work', matched: 'on Feb 22nd 2019' },
-        ],
-    }, {
-        case: 'go to work on 17th February 2019',
-        result: [
-            { dateTime: mockDates(17, 2, 2019), text: 'go to work', matched: 'on 17th February 2019' },
-        ],
-    }, {
-        case: 'go to work by February 17th 2019',
-        result: [
-            { dateTime: mockDates(17, 2, 2019), text: 'go to work', matched: 'by February 17th 2019' },
-        ],
-    }];
-
-    test('should parse the correct dates', () => {
-        testCases.forEach(item => {
-            const parsedText = Dates.parseText(item.case);
-            expect(parsedText).toEqual(item.result);
-        });
+    test.each`
+        filter                     | dateTime
+        ${'20'}                    | ${null}
+        ${'on 02/17/2009'}         | ${mockDates(17, 2, 2009)}
+        ${'on 17/02/2009'}         | ${mockDates(17, 2, 2009)}
+        ${'on 2009/02/17'}         | ${mockDates(17, 2, 2009)}
+        ${'on 2/17/2009'}          | ${mockDates(17, 2, 2009)}
+        ${'on 17/2/2009'}          | ${mockDates(17, 2, 2009)}
+        ${'on 2009/2/17'}          | ${mockDates(17, 2, 2009)}
+        ${'on 2/17/2009'}          | ${mockDates(17, 2, 2009)}
+        ${'on 2-17-2009'}          | ${mockDates(17, 2, 2009)}
+        ${'on February 17, 2009'}  | ${mockDates(17, 2, 2009)}
+        ${'on 17 February, 2009'}  | ${mockDates(17, 2, 2009)}
+        ${'on Feb 17, 2009'}       | ${mockDates(17, 2, 2009)}
+        ${'on 17 Feb, 2009'}       | ${mockDates(17, 2, 2009)}
+        ${'on Feb 17, 2014'}       | ${mockDates(17, 2, 2014)}
+        ${'on 17 Feb, 2014'}       | ${mockDates(17, 2, 2014)}
+        ${'on 21st Feb 2019'}      | ${mockDates(21, 2, 2019)}
+        ${'on Feb 21st 2019'}      | ${mockDates(21, 2, 2019)}
+        ${'on 22nd Feb 2019'}      | ${mockDates(22, 2, 2019)}
+        ${'on Feb 22nd 2019'}      | ${mockDates(22, 2, 2019)}
+        ${'on 22nd Feb 2019'}      | ${mockDates(22, 2, 2019)}
+        ${'on Feb 22nd 2019'}      | ${mockDates(22, 2, 2019)}
+        ${'on 17th February 2019'} | ${mockDates(17, 2, 2019)}
+        ${'by February 17th 2019'} | ${mockDates(17, 2, 2019)}
+    `('should not parse $filter', ({ filter, dateTime }) => {
+        const text = 'go to work';
+        const results = Dates.parseText(`${text} ${filter}`);
+        const output = (dateTime) ? [{ dateTime, matched: filter, text }] : null;
+        expect(results).toEqual(output);
     });
 });
