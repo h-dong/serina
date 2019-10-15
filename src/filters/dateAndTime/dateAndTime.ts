@@ -1,8 +1,8 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DateTime } from 'luxon';
-import { DATES, DATE_AND_TIME, PARTIAL_DATES } from '../dates/dates.constants';
-import RELATIVE_DATES from '../dates/relative/relativeDates.constants';
-import TIME from '../time/time.constants';
+import { DATES, DATE_AND_TIME, PARTIAL_DATES } from 'filters/dates/dates.constants';
+import RELATIVE_DATES from 'filters/relativeDates/relativeDates.constants';
+import TIME from 'filters/time/time.constants';
 import parseMatches from 'utils/parseMatches';
 import convertDateStringToObj from 'utils/convertDateStringToObj';
 import contains from 'utils/contains';
@@ -28,7 +28,9 @@ export default class DateAndTime {
     static convertMatchToDateObj(matchingText: string): Date {
         const removeDateFillerWords = remove(matchingText, DATES.FILLER_WORDS);
         const dateStringMatches = matchPattern(removeDateFillerWords, `(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`);
+
         if (!dateStringMatches) return null;
+
         const dateString = dateStringMatches[0];
         const timeString = remove(removeDateFillerWords, dateString);
         const removedTimeFillerWords = remove(timeString, TIME.FILLER_WORDS);
@@ -41,15 +43,15 @@ export default class DateAndTime {
         } else {
             dateObj = convertRelativeDateStringToObj(dateString);
         }
+
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-
         const timeObj = convertTimeStringToObj(removedTimeFillerWords);
+
         if (!timeObj) return null;
 
         const { hour, minute } =  timeObj;
-
         const newDateTime = DateTime.utc().set({ day, month, year, hour, minute });
 
         if (!newDateTime.isValid) return null;

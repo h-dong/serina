@@ -1,28 +1,36 @@
-export interface ParsedMatchSchema {
+interface ParsedMatchSchema {
     dateTime: Date;
     text: string;
     matched: string;
 }
 
-export interface ParsedSchema {
+interface ParsedSchema {
     original: string;
     isValid: boolean;
     matches: ParsedMatchSchema[];
 }
 
-export interface TestCaseSchema {
+interface TestCaseSchema {
     case: string;
     description?: string;
     result: ParsedMatchSchema[];
 }
 
-export interface TimeObjectSchema {
+interface TimeObjectSchema {
     hour: number;
     minute: number;
 }
 
-export interface DateObjectSchema {
+interface DateObjectSchema {
     day: number;
     month: number;
     year: number;
 }
+
+export {
+    ParsedMatchSchema,
+    ParsedSchema,
+    TestCaseSchema,
+    TimeObjectSchema,
+    DateObjectSchema,
+};

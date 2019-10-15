@@ -2,10 +2,13 @@ import contains from './contains';
 
 export default function findMatchingKey(object, pattern): string {
     const keys = Object.keys(object);
-    for (const key of keys) {
-        if (contains(pattern, object[key])) {
-            return key;
+
+    if (keys.length) {
+        for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+            if (contains(object[key], pattern)) return key;
         }
     }
+
     return null;
 }

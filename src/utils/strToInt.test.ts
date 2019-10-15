@@ -1,7 +1,6 @@
 import strToInt from './strToInt';
 
 describe('strToInt()', () => {
-
     test('should correctly convert given strings into a date object', () => {
         const dateObj = {
             year: 2019,
@@ -11,5 +10,4 @@ describe('strToInt()', () => {
         const check = strToInt('01', '09', '2019');
         expect(check).toEqual(dateObj);
     });
-
 });

@@ -1,9 +1,9 @@
+import { DateTime } from 'luxon';
 import contains from './contains';
 import findMatchingKey from './findMatchingKey';
 import matchPattern from './matchPattern';
 import remove from './remove';
-import RELATIVE_DATES, { RELATIVE_ADVERB } from '../filters/dates/relative/relativeDates.constants';
-import { DateTime } from 'luxon';
+import RELATIVE_DATES, { RELATIVE_ADVERB } from 'filters/relativeDates/relativeDates.constants';
 
 function timeUnitToString(matchAgainst: string): string {
     return findMatchingKey(RELATIVE_DATES.TIME_UNITS, matchAgainst);

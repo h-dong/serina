@@ -1,5 +1,5 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DATES } from '../dates.constants';
+import { DATES } from 'filters/dates/dates.constants';
 import RELATIVE_DATES from './relativeDates.constants';
 import parseMatches from 'utils/parseMatches';
 import matchPattern from 'utils/matchPattern';

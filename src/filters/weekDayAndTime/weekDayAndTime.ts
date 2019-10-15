@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
-import WEEKDAY from '../weekDay/weekDay.constants';
+import WEEKDAY from 'filters/weekDay/weekDay.constants';
 import matchPattern from 'utils/matchPattern';
 import trimWhiteSpaces from 'utils/trimWhiteSpaces';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';

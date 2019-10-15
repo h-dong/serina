@@ -1,6 +1,6 @@
 import { DateTime, Settings } from 'luxon';
 import WeekDay from './weekDay';
-import { ParsedMatchSchema } from '../../serina.schema';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Day Of The Week', () => {
     const mockWeekday = weekday => DateTime.utc()
@@ -9,7 +9,13 @@ describe('Day Of The Week', () => {
         .toJSDate();
 
     beforeAll(() => {
-        Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+         // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+        Settings.now = () => new Date(2019, 0, 19).valueOf();
+    });
+
+    afterAll(() => {
+        // Restore Mock
+        Settings.now = () => Date.now();
     });
 
     describe('parseText()', () => {
@@ -59,10 +65,18 @@ describe('Day Of The Week', () => {
             ];
         });
 
-        describe('For Monday', () => {
-            const weekdayArray = ['mon', 'monday'];
-            test('should parse date correctly for next monday', () => {
-                result[0].dateTime = mockWeekday(8);
+        describe.each`
+            title          | next  | last | weekdayArray
+            ${'Monday'}    | ${8}  | ${1} | ${['mon', 'monday']}
+            ${'Tuesday'}   | ${9}  | ${2} | ${['tue', 'tues', 'tuesday']}
+            ${'Wednesday'} | ${10} | ${3} | ${['wed', 'wedn', 'wednesday']}
+            ${'Thursday'}  | ${11} | ${4} | ${['thu', 'thur', 'thursday']}
+            ${'Friday'}    | ${12} | ${5} | ${['fri', 'friday']}
+            ${'Saturday'}  | ${13} | ${6} | ${['sat', 'saturday']}
+            ${'Sunday'}    | ${7}  | ${0} | ${['sun', 'sunday']}
+        `('$title', ({ title, next, last, weekdayArray }) => {
+            test(`should parse date correctly for next ${title}`, () => {
+                result[0].dateTime = mockWeekday(next);
 
                 relativeFutureArray.forEach(elem => {
                     weekdayArray.forEach(weekday => {
@@ -73,176 +87,8 @@ describe('Day Of The Week', () => {
                 });
             });
 
-            test('should return correct date for last monday', () => {
-                result[0].dateTime = mockWeekday(1);
-
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
-
-        describe('For Tuesday', () => {
-            const weekdayArray = ['tue', 'tues', 'tuesday'];
-
-            test('should parse date correctly for next tuesday', () => {
-                result[0].dateTime = mockWeekday(9);
-
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-
-            test('should return correct date for last tuesday', () => {
-                result[0].dateTime = mockWeekday(2);
-
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
-
-        describe('For Wednesday', () => {
-            const weekdayArray = ['wed', 'wedn', 'wednesday'];
-
-            test('should parse date correctly for next wednesday', () => {
-                result[0].dateTime = mockWeekday(10);
-
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-
-            test('should return correct date for last wednesday', () => {
-                result[0].dateTime = mockWeekday(3);
-
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
-
-        describe('For Thursday', () => {
-            const weekdayArray = ['thu', 'thur', 'thursday'];
-
-            test('should parse date correctly for next thursday', () => {
-                result[0].dateTime = mockWeekday(11);
-
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-
-            test('should return correct date for last thursday', () => {
-                result[0].dateTime = mockWeekday(4);
-
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
-
-        describe('For Friday', () => {
-            const weekdayArray = ['fri', 'friday'];
-
-            test('should parse date correctly for next friday', () => {
-                result[0].dateTime = mockWeekday(12);
-
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-
-            test('should return correct date for last friday', () => {
-                result[0].dateTime = mockWeekday(5);
-
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
-
-        describe('For Saturday', () => {
-            const weekdayArray = ['sat', 'saturday'];
-
-            test('should parse date correctly for next saturday', () => {
-                result[0].dateTime = mockWeekday(13);
-
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-
-            test('should return correct date for last saturday', () => {
-                result[0].dateTime = mockWeekday(6);
-
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
-
-        describe('For Sunday', () => {
-            const weekdayArray = ['sun', 'sunday'];
-
-            test('should parse date correctly for next sunday', () => {
-                result[0].dateTime = mockWeekday(7);
-
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-
-            test('should return correct date for last sunday', () => {
-                result[0].dateTime = mockWeekday(0);
+            test(`should return correct date for last ${title}`, () => {
+                result[0].dateTime = mockWeekday(last);
 
                 relativePastArray.forEach(elem => {
                     weekdayArray.forEach(weekday => {
