@@ -2,9 +2,9 @@ import findMatchingKey from './findMatchingKey';
 
 describe('findMatchingKey()', () => {
     const testObject = {
-        first: 1,
-        second: 2,
-        third: 3,
+        first: '1',
+        second: '2',
+        third: '3',
     };
 
     test('should return null when no match is found', () => {
@@ -21,5 +21,4 @@ describe('findMatchingKey()', () => {
         const check = findMatchingKey(testObject, '[1-3]');
         expect(check).toBe('first');
     });
-
 });

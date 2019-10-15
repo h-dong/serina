@@ -1,4 +1,4 @@
-import { DateObjectSchema } from '../serina.schema';
+import { DateObjectSchema } from 'serina.schema';
 
 function strToInt(dayStr: string, monthStr: string, yearStr: string): DateObjectSchema {
     return {

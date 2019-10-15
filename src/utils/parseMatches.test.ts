@@ -1,5 +1,5 @@
-import parseMatches from './parseMatches';
 import { DateTime } from 'luxon';
+import parseMatches from './parseMatches';
 
 describe('parseMatches()', () => {
     let text: string;
