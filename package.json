@@ -1,78 +1,78 @@
 {
-  "name": "serina",
-  "version": "1.0.1",
-  "description": "Natural Language Parser for date and time in Javascript",
-  "main": "dist/cjs/serina.js",
-  "types": "dist/cjs/serina.d.ts",
-  "module": "dist/esm/serina.js",
-  "files": [
-    "dist/cjs/*",
-    "dist/esm/*",
-    "dist/umd/*"
-  ],
-  "scripts": {
-    "dev": "rollup --config --watch",
-    "prepare": "./scripts/build-npm.sh",
-    "docs": "./scripts/build-doc.sh",
-    "lint": "tslint -c tslint.json \"src/**/*.ts\"",
-    "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
-    "test": "jest --watchAll",
-    "test:build": "jest",
-    "test:coverage": "jest --coverage"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hdong92/Serina.git"
-  },
-  "keywords": [
-    "javascript",
-    "library",
-    "javascript-library",
-    "natural-language-processing",
-    "date-parser",
-    "time-parsing"
-  ],
-  "author": "Hao Dong (dong_hao@hotmail.co.uk)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/hdong92/Serina/issues"
-  },
-  "homepage": "https://github.com/hdong92/Serina#readme",
-  "dependencies": {
-    "luxon": "1.17.2"
-  },
-  "devDependencies": {
-    "@types/jest": "^24.0.18",
-    "@types/luxon": "^1.15.2",
-    "babel-preset-es2015-rollup": "^3.0.0",
-    "jest": "^24.9.0",
-    "prettier": "^1.18.2",
-    "rollup": "^1.20.3",
-    "rollup-plugin-terser": "^5.1.2",
-    "rollup-plugin-typescript2": "^0.24.0",
-    "ts-jest": "^24.0.2",
-    "tslint": "^5.19.0",
-    "tslint-eslint-rules": "^5.4.0",
-    "typescript": "^3.6.2"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "testMatch": [
-      "<rootDir>/src/**/*.test.ts"
+    "name": "serina",
+    "version": "1.0.2",
+    "description": "Natural Language Parser for date and time in Javascript",
+    "main": "dist/cjs/serina.js",
+    "types": "dist/cjs/serina.d.ts",
+    "module": "dist/esm/serina.js",
+    "files": [
+        "dist/cjs/*",
+        "dist/esm/*",
+        "dist/umd/*"
     ],
-    "collectCoverageFrom": [
-      "src/**/*.ts"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "js"
-    ],
-    "transform": {
-      "\\.(ts)$": "ts-jest",
-      "^.+\\.js$": "babel-jest"
+    "scripts": {
+        "dev": "rollup --config --watch",
+        "prepare": "./scripts/build-npm.sh",
+        "docs": "./scripts/build-doc.sh",
+        "lint": "tslint -c tslint.json \"src/**/*.ts\"",
+        "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
+        "test": "jest --watchAll",
+        "test:build": "jest",
+        "test:coverage": "jest --coverage"
     },
-    "modulePaths": [
-      "src"
-    ]
-  }
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/h-dong/serina.git"
+    },
+    "keywords": [
+        "javascript",
+        "library",
+        "javascript-library",
+        "natural-language-processing",
+        "date-parser",
+        "time-parsing"
+    ],
+    "author": "Hao Dong (dong_hao@hotmail.co.uk)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/h-dong/serina/issues"
+    },
+    "homepage": "https://github.com/h-dong/serina#readme",
+    "dependencies": {
+        "luxon": "1.17.2"
+    },
+    "devDependencies": {
+        "@types/jest": "^24.0.18",
+        "@types/luxon": "^1.15.2",
+        "babel-preset-es2015-rollup": "^3.0.0",
+        "jest": "^24.9.0",
+        "prettier": "^1.18.2",
+        "rollup": "^1.20.3",
+        "rollup-plugin-terser": "^5.2.0",
+        "rollup-plugin-typescript2": "^0.24.0",
+        "ts-jest": "^24.0.2",
+        "tslint": "^5.19.0",
+        "tslint-eslint-rules": "^5.4.0",
+        "typescript": "^3.6.2"
+    },
+    "jest": {
+        "testEnvironment": "node",
+        "testMatch": [
+            "<rootDir>/src/**/*.test.ts"
+        ],
+        "collectCoverageFrom": [
+            "src/**/*.ts"
+        ],
+        "moduleFileExtensions": [
+            "ts",
+            "js"
+        ],
+        "transform": {
+            "\\.(ts)$": "ts-jest",
+            "^.+\\.js$": "babel-jest"
+        },
+        "modulePaths": [
+            "src"
+        ]
+    }
 }
