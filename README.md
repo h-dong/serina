@@ -90,6 +90,17 @@ console.log(parsed);
 
 ## Publish
 
+The recommended way is to publish using Github Actions, by
+
+1. Changing version in package.json to x.y.z
+2. Push a commit with message "Release x.y.z", this will then generate tag as well as publish to npm.
+
+Here's an example:
+
+> Now, when someone changes the version in package.json to 1.2.3 and pushes a commit with the message Release 1.2.3, the npm-publish action will create a new tag v1.2.3 and publish the package to the npm registry.
+
+Or publish locally if all else fails.
+
 ```
 npm run publish
 ```
