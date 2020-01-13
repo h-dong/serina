@@ -3,7 +3,7 @@ import convertDateStringToObj from './convertDateStringToObj';
 describe('convertDateStringToObj', () => {
     test.each`
         input                   | output
-        ${'02/17/2009'}         | ${{ day: 17, month: 2, year: 2009 }} 
+        ${'02/17/2009'}         | ${{ day: 17, month: 2, year: 2009 }}
         ${'17/02/2009'}         | ${{ day: 17, month: 2, year: 2009 }}
         ${'2009/02/17'}         | ${{ day: 17, month: 2, year: 2009 }}
         ${'2/17/2009'}          | ${{ day: 17, month: 2, year: 2009 }}
@@ -26,7 +26,7 @@ describe('convertDateStringToObj', () => {
         ${'Feb 22nd 2019'}      | ${{ day: 22, month: 2, year: 2019 }}
         ${'17th February 2019'} | ${{ day: 17, month: 2, year: 2019 }}
         ${'February 17th 2019'} | ${{ day: 17, month: 2, year: 2019 }}
-    `('should convert $input', ({input, output}) => {
+    `('should convert $input', ({ input, output }) => {
         const parsedText = convertDateStringToObj(input);
         expect(parsedText).toEqual(output);
     });

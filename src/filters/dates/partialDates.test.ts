@@ -1,19 +1,18 @@
 import { DateTime, Settings } from 'luxon';
 import PartialDates from './partialDates';
 
-
 describe('Partial Dates', () => {
     // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
     Settings.now = () => 1561819692628;
 
     const currentYear = DateTime.utc().year;
     const currentMonth = DateTime.utc().month;
-    
+
     afterAll(() => {
         // Restore Mock
         Settings.now = () => Date.now();
     });
-    
+
     const mockDates = (day, month, year) => DateTime.utc()
         .set({ day, month, year })
         .endOf('day')
