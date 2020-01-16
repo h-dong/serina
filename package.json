@@ -12,7 +12,7 @@
     ],
     "scripts": {
         "dev": "rollup --config --watch",
-        "prepare": "./scripts/build-npm.sh",
+        "prepublishOnly": "./scripts/build-npm.sh",
         "docs": "./scripts/build-doc.sh",
         "lint": "tslint -c tslint.json \"src/**/*.ts\"",
         "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
