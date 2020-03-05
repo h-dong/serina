@@ -1,5 +1,6 @@
 import { DateTime, Settings } from 'luxon';
 import RelativeDates from 'filters/relativeDates/relativeDates';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('RelativeDates', () => {
     // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
@@ -9,16 +10,18 @@ describe('RelativeDates', () => {
     const currentMonth = DateTime.utc().month;
     const currentDay = DateTime.utc().day;
 
-    const mockDates = (day, month, year) => DateTime.utc()
-        .set({ day, month, year })
-        .endOf('day')
-        .toJSDate();
+    const mockDates = (day, month, year) =>
+        DateTime.utc()
+            .set({ day, month, year })
+            .endOf('day')
+            .toJSDate();
 
-    const mockNext = (period) => DateTime.utc()
-        .plus({ [period]: 1 })
-        .startOf(period)
-        .endOf('day')
-        .toJSDate();
+    const mockNext = period =>
+        DateTime.utc()
+            .plus({ [period]: 1 })
+            .startOf(period)
+            .endOf('day')
+            .toJSDate();
 
     afterAll(() => {
         // Restore Mock
@@ -52,7 +55,20 @@ describe('RelativeDates', () => {
     `('should not parse $filter', ({ filter, dateTime }) => {
         const text = 'go to work';
         const results = RelativeDates.parseText(`${text} ${filter}`);
-        const output = (dateTime) ? [{ dateTime, matched: filter, text }] : null;
+        const output = dateTime ? [{ dateTime, matched: filter, text }] : null;
         expect(results).toEqual(output);
+    });
+
+    test('should return correct case for matched string', () => {
+        const text = 'Hand in paper 5 years from now';
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime: mockDates(currentDay, currentMonth, currentYear + 5),
+                text: 'Hand in paper',
+                matched: '5 years from now',
+            },
+        ];
+
+        expect(RelativeDates.parseText(text)).toEqual(result);
     });
 });

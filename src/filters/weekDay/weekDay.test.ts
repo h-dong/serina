@@ -3,13 +3,14 @@ import WeekDay from './weekDay';
 import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Day Of The Week', () => {
-    const mockWeekday = weekday => DateTime.utc()
-        .set({ weekday })
-        .startOf('day')
-        .toJSDate();
+    const mockWeekday = weekday =>
+        DateTime.utc()
+            .set({ weekday })
+            .startOf('day')
+            .toJSDate();
 
     beforeAll(() => {
-         // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+        // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
         Settings.now = () => new Date(2019, 0, 19).valueOf();
     });
 
@@ -46,6 +47,19 @@ describe('Day Of The Week', () => {
                     matched: 'on mon',
                 },
             ];
+            expect(WeekDay.parseText(text)).toEqual(result);
+        });
+
+        test('should return correct case for matched string', () => {
+            const text = 'Hand in paper on mon';
+            const result: ParsedMatchSchema[] = [
+                {
+                    dateTime: mockWeekday(8),
+                    text: 'Hand in paper',
+                    matched: 'on mon',
+                },
+            ];
+
             expect(WeekDay.parseText(text)).toEqual(result);
         });
     });

@@ -23,6 +23,19 @@ describe('Month', () => {
     });
 
     describe('parseText()', () => {
+        test('should return correct case for matched string', () => {
+            const text = 'Hand in paper in march';
+            const result: ParsedMatchSchema[] = [
+                {
+                    dateTime: mockDate(3, 2020),
+                    text: 'Hand in paper',
+                    matched: 'in march',
+                },
+            ];
+
+            expect(Month.parseText(text)).toEqual(result);
+        });
+
         describe('if no past or future words are used', () => {
             test('should return date in next year if the month is before the current month', () => {
                 const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);

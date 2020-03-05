@@ -7,9 +7,7 @@ import monthStringToNumber from 'utils/monthStringToNumber';
 import MONTH from './month.constants';
 
 export default class Month {
-
     static parseText(text: string): ParsedMatchSchema[] {
-
         const pattern = `((${MONTH.FUTURE_WORDS}|${MONTH.PAST_WORDS}) )?${MONTH.ANY}`;
         const matches = matchPattern(text, pattern);
 

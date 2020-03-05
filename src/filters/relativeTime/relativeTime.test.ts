@@ -1,14 +1,16 @@
 import { DateTime, Settings } from 'luxon';
 import RelativeTime from './relativeTime';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('RelativeTime', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
     Settings.now = () => 1541115000000;
 
-    const mockDates = (day, month, year, hour, minute, second) => DateTime.utc()
-        .set({ day, month, year, hour, minute, second })
-        .startOf('second')
-        .toJSDate();
+    const mockDates = (day, month, year, hour, minute, second) =>
+        DateTime.utc()
+            .set({ day, month, year, hour, minute, second })
+            .startOf('second')
+            .toJSDate();
 
     afterAll(() => {
         // Restore Mock
@@ -38,5 +40,18 @@ describe('RelativeTime', () => {
         const results = RelativeTime.parseText(`${text} ${filter}`);
         const output = [{ dateTime, matched: filter, text }];
         expect(results).toEqual(output);
+    });
+
+    test('should return correct case for matched string', () => {
+        const text = 'Hand in paper in 2 hrs';
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime: mockDates(2, 11, 2018, 1, 30, 0),
+                text: 'Hand in paper',
+                matched: 'in 2 hrs',
+            },
+        ];
+
+        expect(RelativeTime.parseText(text)).toEqual(result);
     });
 });

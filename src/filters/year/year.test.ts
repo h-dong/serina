@@ -1,11 +1,13 @@
-import Year from './year';
 import { DateTime } from 'luxon';
+import Year from './year';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Year', () => {
-    const mockYear = year => DateTime.utc()
-        .set({ year })
-        .startOf('year')
-        .toJSDate();
+    const mockYear = year =>
+        DateTime.utc()
+            .set({ year })
+            .startOf('year')
+            .toJSDate();
 
     test.each`
         filter       | dateTime
@@ -22,5 +24,18 @@ describe('Year', () => {
         const results = Year.parseText(`${text} ${filter}`);
         const output = [{ dateTime, matched: filter, text }];
         expect(results).toEqual(output);
+    });
+
+    test('should return correct case for matched string', () => {
+        const text = 'Hand in paper 2020';
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime: mockYear(2020),
+                text: 'Hand in paper',
+                matched: '2020',
+            },
+        ];
+
+        expect(Year.parseText(text)).toEqual(result);
     });
 });

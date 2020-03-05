@@ -24,7 +24,7 @@ export default class Day {
         let day: number = null;
         let month: number = DateTime.utc().month;
 
-        if(contains(matchingText, DAY.ANY)) {
+        if (contains(matchingText, DAY.ANY)) {
             const [matchedDay] = matchPattern(matchingText, DAY.ANY);
             day = parseInt(matchedDay, 10);
 
