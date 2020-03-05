@@ -33,7 +33,7 @@ describe('Week Day and Time', () => {
     });
 
     test('should return correct case for matched string', () => {
-        const text = 'Hand in paper on monday 9am';
+        const mockText = 'Hand in paper on monday 9am';
         const result: ParsedMatchSchema[] = [
             {
                 dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0),
@@ -42,6 +42,19 @@ describe('Week Day and Time', () => {
             },
         ];
 
-        expect(WeekDayAndTime.parseText(text)).toEqual(result);
+        expect(WeekDayAndTime.parseText(mockText)).toEqual(result);
+    });
+
+    test('should not match filler word in string', () => {
+        const mockText = 'Gym session monday 9am';
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0),
+                text: 'Gym session',
+                matched: 'monday 9am',
+            },
+        ];
+
+        expect(WeekDayAndTime.parseText(mockText)).toEqual(result);
     });
 });
