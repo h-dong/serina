@@ -1,11 +1,13 @@
 import { DateTime } from 'luxon';
 import Dates from './dates';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Dates', () => {
-    const mockDates = (day, month, year) => DateTime.utc()
-        .set({ day, month, year })
-        .endOf('day')
-        .toJSDate();
+    const mockDates = (day, month, year) =>
+        DateTime.utc()
+            .set({ day, month, year })
+            .endOf('day')
+            .toJSDate();
 
     test.each`
         filter                     | dateTime
@@ -35,7 +37,20 @@ describe('Dates', () => {
     `('should not parse $filter', ({ filter, dateTime }) => {
         const text = 'go to work';
         const results = Dates.parseText(`${text} ${filter}`);
-        const output = (dateTime) ? [{ dateTime, matched: filter, text }] : null;
+        const output = dateTime ? [{ dateTime, matched: filter, text }] : null;
         expect(results).toEqual(output);
+    });
+
+    test('should return correct case for matched string', () => {
+        const text = 'Hand in paper on Feb 22nd 2019';
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime: mockDates(22, 2, 2019),
+                text: 'Hand in paper',
+                matched: 'on Feb 22nd 2019',
+            },
+        ];
+
+        expect(Dates.parseText(text)).toEqual(result);
     });
 });

@@ -1,11 +1,13 @@
 import { DateTime } from 'luxon';
 import Time from './time';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Time', () => {
-    const mockTime = (hour, minute) => DateTime.utc()
-        .set({ hour, minute })
-        .startOf('minute')
-        .toJSDate();
+    const mockTime = (hour, minute) =>
+        DateTime.utc()
+            .set({ hour, minute })
+            .startOf('minute')
+            .toJSDate();
 
     test.each`
         filter                    | dateTime
@@ -41,5 +43,18 @@ describe('Time', () => {
         const results = Time.parseText(`${text} ${filter}`);
         const output = [{ dateTime, matched: filter, text }];
         expect(results).toEqual(output);
+    });
+
+    test('should return correct case for matched string', () => {
+        const text = 'Hand in paper 11:00';
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime: mockTime(11, 0),
+                text: 'Hand in paper',
+                matched: '11:00',
+            },
+        ];
+
+        expect(Time.parseText(text)).toEqual(result);
     });
 });

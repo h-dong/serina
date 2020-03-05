@@ -6,16 +6,17 @@ describe('Day', () => {
     describe('Normal Usage', () => {
         let mockDay;
         let testData: Array<{
-            date: string,
-            dateTime: Date,
+            date: string;
+            dateTime: Date;
         }>;
 
         beforeAll(() => {
             Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-            mockDay = (day: number, month: number, year: number): Date => DateTime.utc()
-                .set({ day, month, year })
-                .startOf('day')
-                .toJSDate();
+            mockDay = (day: number, month: number, year: number): Date =>
+                DateTime.utc()
+                    .set({ day, month, year })
+                    .startOf('day')
+                    .toJSDate();
 
             testData = [
                 { date: '01st', dateTime: mockDay(1, 2, 2019) },
@@ -106,6 +107,19 @@ describe('Day', () => {
             });
         });
 
+        test('should return correct case for matched string', () => {
+            const text = 'Hand in paper 5th';
+            const result: ParsedMatchSchema[] = [
+                {
+                    dateTime: mockDay(5, 2, 2019),
+                    text: 'Hand in paper',
+                    matched: '5th',
+                },
+            ];
+
+            expect(Day.parseText(text)).toEqual(result);
+        });
+
         describe('Edge Cases', () => {
             const text = 'go to library';
 
@@ -129,11 +143,13 @@ describe('Day', () => {
             test('should skip month until a month that has it', () => {
                 // e.g. if 31st is asked during Feb, we should skip to March (next month with that date)
                 const date = '31st';
-                const result: ParsedMatchSchema[] = [{
-                    dateTime: mockDay(31, 3, 2019),
-                    text,
-                    matched: date,
-                }];
+                const result: ParsedMatchSchema[] = [
+                    {
+                        dateTime: mockDay(31, 3, 2019),
+                        text,
+                        matched: date,
+                    },
+                ];
                 expect(Day.parseText(`${text} ${date}`)).toEqual(result);
             });
         });

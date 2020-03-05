@@ -1,14 +1,16 @@
 import { DateTime, Settings } from 'luxon';
 import TimeKeywords from './timeKeywords';
+import { ParsedMatchSchema } from 'serina.schema';
 
 describe('Time Keywords', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
     Settings.now = () => 1541115000000;
 
-    const mockTime = (day, hour, minute) => DateTime.utc()
-        .set({ day, hour, minute })
-        .startOf('minute')
-        .toJSDate();
+    const mockTime = (day, hour, minute) =>
+        DateTime.utc()
+            .set({ day, hour, minute })
+            .startOf('minute')
+            .toJSDate();
 
     afterAll(() => {
         // Restore Date Time Mock
@@ -31,6 +33,19 @@ describe('Time Keywords', () => {
             const results = TimeKeywords.parseText(`${text} ${filter}`);
             const output = [{ dateTime, matched: filter, text }];
             expect(results).toEqual(output);
+        });
+
+        test('should return correct case for matched string', () => {
+            const text = 'Hand in paper by noon';
+            const result: ParsedMatchSchema[] = [
+                {
+                    dateTime: mockTime(2, 12, 0),
+                    text: 'Hand in paper',
+                    matched: 'by noon',
+                },
+            ];
+
+            expect(TimeKeywords.parseText(text)).toEqual(result);
         });
     });
 });

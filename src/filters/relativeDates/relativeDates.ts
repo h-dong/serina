@@ -9,7 +9,9 @@ export default class RelativeDates {
     static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `(${DATES.FILLER_WORDS})?${RELATIVE_DATES.ANY}`;
         const matches = matchPattern(text, pattern, false);
+
         if (!matches) return null;
+
         return matches.map(match => {
             const dateTimeObj = this.convertMatchToDateObj(match);
             return parseMatches(text, match, dateTimeObj);

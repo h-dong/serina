@@ -3,36 +3,28 @@ import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from './weekDay.constants';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
-import trimWhiteSpaces from 'utils/trimWhiteSpaces';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
+import parseMatches from 'utils/parseMatches';
 
 export default class WeekDay {
-
     /*
-    * When parsing day of the week, check for relative words & week day e.g. next friday
-    */
+     * When parsing day of the week, check for relative words & week day e.g. next friday
+     */
     static parseText(text: string): ParsedMatchSchema[] {
         const pattern = `((${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS}) )?${WEEKDAY.ANY}`;
-        const matchForWeekdays = matchPattern(text, pattern);
+        const matches = matchPattern(text, pattern);
 
-        if (!matchForWeekdays) return null;
+        if (!matches) return null;
 
         // for each match, get the parsed cases
-        return matchForWeekdays.map(elem => this.parseWeekdayMatches(text, elem));
-    }
-
-    static parseWeekdayMatches(text: string, matchedWeekday: string): ParsedMatchSchema {
-        const replaceMatch = text.toLowerCase().replace(matchedWeekday, '');
-
-        return {
-            text: trimWhiteSpaces(replaceMatch),
-            dateTime: this.convertWeekdayMatchToDate(matchedWeekday),
-            matched: trimWhiteSpaces(matchedWeekday),
-        };
+        return matches.map(match => {
+            const dateTimeObj = this.convertWeekdayMatchToDate(match);
+            return parseMatches(text, match, dateTimeObj);
+        });
     }
 
     static convertWeekdayMatchToDate(matchingText) {
-        const [ weekdayString ] = matchPattern(matchingText, WEEKDAY.ANY);
+        const [weekdayString] = matchPattern(matchingText, WEEKDAY.ANY);
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
