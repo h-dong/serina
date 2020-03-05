@@ -62,6 +62,19 @@ describe('Day Of The Week', () => {
 
             expect(WeekDay.parseText(text)).toEqual(result);
         });
+
+        test('should not match filler word in string', () => {
+            const text = 'Gym session Sun';
+            const result: ParsedMatchSchema[] = [
+                {
+                    dateTime: mockWeekday(7),
+                    text: 'Gym session',
+                    matched: 'Sun',
+                },
+            ];
+
+            expect(WeekDay.parseText(text)).toEqual(result);
+        });
     });
 
     describe('Parse Text Contains Weekday', () => {
