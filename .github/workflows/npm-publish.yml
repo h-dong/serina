@@ -17,7 +17,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
       - name: Prepare for publish
-        run: npm run prepare
+        run: npm run prepublishOnly
       - name: Publish if version has been updated
         uses: pascalgn/npm-publish-action@51fdb4531e99aac1873764ef7271af448dc42ab4
         with: # All of theses inputs are optional
