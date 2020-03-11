@@ -7,6 +7,7 @@ describe('Year', () => {
         DateTime.utc()
             .set({ year })
             .startOf('year')
+            .endOf('day')
             .toJSDate();
 
     test.each`
@@ -32,8 +33,8 @@ describe('Year', () => {
             {
                 dateTime: mockYear(2020),
                 text: 'Hand in paper',
-                matched: '2020',
-            },
+                matched: '2020'
+            }
         ];
 
         expect(Year.parseText(text)).toEqual(result);

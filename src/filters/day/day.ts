@@ -36,7 +36,7 @@ export default class Day {
 
         return DateTime.utc()
             .set({ day, month })
-            .startOf('day')
+            .endOf('day')
             .toJSDate();
     }
 }

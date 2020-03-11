@@ -6,7 +6,7 @@ describe('Day Of The Week', () => {
     const mockWeekday = weekday =>
         DateTime.utc()
             .set({ weekday })
-            .startOf('day')
+            .endOf('day')
             .toJSDate();
 
     beforeAll(() => {
@@ -26,8 +26,8 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: mockWeekday(8),
                     text: 'hand in paper',
-                    matched: 'on mon',
-                },
+                    matched: 'on mon'
+                }
             ];
 
             expect(WeekDay.parseText(text)).toEqual(result);
@@ -39,13 +39,13 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: mockWeekday(9),
                     text: "hand in 's paper on mon",
-                    matched: 'tuesday',
+                    matched: 'tuesday'
                 },
                 {
                     dateTime: mockWeekday(8),
                     text: "hand in tuesday's paper",
-                    matched: 'on mon',
-                },
+                    matched: 'on mon'
+                }
             ];
             expect(WeekDay.parseText(text)).toEqual(result);
         });
@@ -56,8 +56,8 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: mockWeekday(8),
                     text: 'Hand in paper',
-                    matched: 'on mon',
-                },
+                    matched: 'on mon'
+                }
             ];
 
             expect(WeekDay.parseText(text)).toEqual(result);
@@ -69,8 +69,8 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: mockWeekday(7),
                     text: 'Gym session',
-                    matched: 'Sun',
-                },
+                    matched: 'Sun'
+                }
             ];
 
             expect(WeekDay.parseText(text)).toEqual(result);
@@ -87,8 +87,8 @@ describe('Day Of The Week', () => {
                 {
                     dateTime: null,
                     text: 'buy milk',
-                    matched: '',
-                },
+                    matched: ''
+                }
             ];
         });
 

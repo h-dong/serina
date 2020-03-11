@@ -32,6 +32,6 @@ export default class WeekDay {
 
         if (!newDateTime.isValid) return null;
 
-        return newDateTime.startOf('day').toJSDate();
+        return newDateTime.endOf('day').toJSDate();
     }
 }

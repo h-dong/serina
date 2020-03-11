@@ -34,6 +34,7 @@ export default class Month {
         return DateTime.utc()
             .set({ month, year })
             .startOf('month')
+            .endOf('day')
             .toJSDate();
     }
 }
