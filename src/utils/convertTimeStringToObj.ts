@@ -24,7 +24,7 @@ function convertTimeStringToObj(timeString: string): TimeObjectSchema {
                 // workaround for browsers that doesn't support regex lookbehind
                 const hourWithFillerWords = getValidMatch(
                     timeString,
-                    `(${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}`
+                    `(${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}`,
                 );
                 hour = getValidMatch(hourWithFillerWords, TIME.HOUR_PART);
             }
@@ -36,19 +36,19 @@ function convertTimeStringToObj(timeString: string): TimeObjectSchema {
             try {
                 hour = getValidMatch(
                     timeString,
-                    `(?<=${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}(?=((( )${TIME.MERIDIEM}))?)`
+                    `(?<=${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}(?=((( )${TIME.MERIDIEM}))?)`,
                 );
             } catch {
                 // workaround for browsers that doesn't support regex lookbehind
                 const hourWithFillerWords = getValidMatch(
                     timeString,
-                    `(${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}(?=((( )${TIME.MERIDIEM}))?)`
+                    `(${TIME.RELATIVE_TIME_FILLER_WORDS}( ))${TIME.HOUR_PART}(?=((( )${TIME.MERIDIEM}))?)`,
                 );
                 hour = getValidMatch(hourWithFillerWords, TIME.HOUR_PART);
             }
             minute = getValidMatch(
                 timeString,
-                `\\b${TIME.MINUTE_PART}(?=(( )(${TIME.MINUTE_IDENTIFIER}( ))?${TIME.RELATIVE_TIME_FILLER_WORDS}))`
+                `\\b${TIME.MINUTE_PART}(?=(( )(${TIME.MINUTE_IDENTIFIER}( ))?${TIME.RELATIVE_TIME_FILLER_WORDS}))`,
             );
         }
     } else {

@@ -33,8 +33,8 @@ describe('Year', () => {
             {
                 dateTime: mockYear(2020),
                 text: 'Hand in paper',
-                matched: '2020'
-            }
+                matched: '2020',
+            },
         ];
 
         expect(Year.parseText(text)).toEqual(result);

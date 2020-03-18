@@ -30,8 +30,8 @@ describe('Month', () => {
                 {
                     dateTime: mockDate(3, 2020),
                     text: 'Hand in paper',
-                    matched: 'in march'
-                }
+                    matched: 'in march',
+                },
             ];
 
             expect(Month.parseText(text)).toEqual(result);
@@ -46,8 +46,8 @@ describe('Month', () => {
                         {
                             dateTime: mockDate(index + 1, 2020),
                             text: 'visit athens',
-                            matched: `in ${month}`
-                        }
+                            matched: `in ${month}`,
+                        },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });
@@ -61,8 +61,8 @@ describe('Month', () => {
                         {
                             dateTime: mockDate(index + 6, 2019),
                             text: 'visit athens',
-                            matched: `in ${month}`
-                        }
+                            matched: `in ${month}`,
+                        },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });
@@ -74,8 +74,8 @@ describe('Month', () => {
                     {
                         dateTime: mockDate(12, 2019),
                         text: 'visit athens',
-                        matched: 'in DEceMBeR'
-                    }
+                        matched: 'in DEceMBeR',
+                    },
                 ];
                 expect(Month.parseText(text)).toEqual(result);
             });
@@ -86,13 +86,13 @@ describe('Month', () => {
                     {
                         dateTime: mockDate(9, 2019),
                         text: 'visit athens or October',
-                        matched: 'in September'
+                        matched: 'in September',
                     },
                     {
                         dateTime: mockDate(10, 2019),
                         text: 'visit athens in September or',
-                        matched: 'October'
-                    }
+                        matched: 'October',
+                    },
                 ];
                 expect(Month.parseText(text)).toEqual(result);
             });
@@ -106,8 +106,8 @@ describe('Month', () => {
                         {
                             dateTime: mockDate(index + 1, 2019),
                             text: 'visit athens',
-                            matched: `last ${month}`
-                        }
+                            matched: `last ${month}`,
+                        },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });
@@ -121,8 +121,8 @@ describe('Month', () => {
                         {
                             dateTime: mockDate(index + 6, 2018),
                             text: 'visit athens',
-                            matched: `last ${month}`
-                        }
+                            matched: `last ${month}`,
+                        },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });
@@ -134,13 +134,13 @@ describe('Month', () => {
                     {
                         dateTime: mockDate(9, 2018),
                         text: 'visit athens or last October',
-                        matched: 'last September'
+                        matched: 'last September',
                     },
                     {
                         dateTime: mockDate(10, 2018),
                         text: 'visit athens last September or',
-                        matched: 'last October'
-                    }
+                        matched: 'last October',
+                    },
                 ];
                 expect(Month.parseText(text)).toEqual(result);
             });
@@ -155,8 +155,8 @@ describe('Month', () => {
                         {
                             dateTime: mockDate(index + 1, 2020),
                             text: 'visit athens',
-                            matched: `next ${month}`
-                        }
+                            matched: `next ${month}`,
+                        },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });
@@ -170,8 +170,8 @@ describe('Month', () => {
                         {
                             dateTime: mockDate(index + 6, 2019),
                             text: 'visit athens',
-                            matched: `next ${month}`
-                        }
+                            matched: `next ${month}`,
+                        },
                     ];
                     expect(Month.parseText(text)).toEqual(result);
                 });

@@ -58,7 +58,7 @@ describe('Day', () => {
                 { date: '28th', dateTime: mockDay(28, 1, 2019) },
                 { date: '29th', dateTime: mockDay(29, 1, 2019) },
                 { date: '30th', dateTime: mockDay(30, 1, 2019) },
-                { date: '31th', dateTime: mockDay(31, 1, 2019) }
+                { date: '31th', dateTime: mockDay(31, 1, 2019) },
             ];
         });
 
@@ -70,8 +70,8 @@ describe('Day', () => {
                     {
                         dateTime: testCase.dateTime,
                         text,
-                        matched: testCase.date
-                    }
+                        matched: testCase.date,
+                    },
                 ];
                 expect(Day.parseText(`${text} ${testCase.date}`)).toEqual(result);
             });
@@ -85,8 +85,8 @@ describe('Day', () => {
                     {
                         dateTime: testCase.dateTime,
                         text,
-                        matched: `on ${testCase.date}`
-                    }
+                        matched: `on ${testCase.date}`,
+                    },
                 ];
                 expect(Day.parseText(`${text} on ${testCase.date}`)).toEqual(result);
             });
@@ -100,8 +100,8 @@ describe('Day', () => {
                     {
                         dateTime: testCase.dateTime,
                         text,
-                        matched: `on the ${testCase.date}`
-                    }
+                        matched: `on the ${testCase.date}`,
+                    },
                 ];
                 expect(Day.parseText(`${text} on the ${testCase.date}`)).toEqual(result);
             });
@@ -113,8 +113,8 @@ describe('Day', () => {
                 {
                     dateTime: mockDay(5, 2, 2019),
                     text: 'Hand in paper',
-                    matched: '5th'
-                }
+                    matched: '5th',
+                },
             ];
 
             expect(Day.parseText(text)).toEqual(result);
@@ -147,8 +147,8 @@ describe('Day', () => {
                     {
                         dateTime: mockDay(31, 3, 2019),
                         text,
-                        matched: date
-                    }
+                        matched: date,
+                    },
                 ];
                 expect(Day.parseText(`${text} ${date}`)).toEqual(result);
             });
