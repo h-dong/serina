@@ -5,18 +5,15 @@ import { Settings, DateTime } from 'luxon';
 describe('Day', () => {
     describe('Normal Usage', () => {
         let mockDay;
-        let testData: Array<{
+        let testData: {
             date: string;
             dateTime: Date;
-        }>;
+        }[];
 
         beforeAll(() => {
             Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
             mockDay = (day: number, month: number, year: number): Date =>
-                DateTime.utc()
-                    .set({ day, month, year })
-                    .endOf('day')
-                    .toJSDate();
+                DateTime.utc().set({ day, month, year }).endOf('day').toJSDate();
 
             testData = [
                 { date: '01st', dateTime: mockDay(1, 2, 2019) },
