@@ -1,6 +1,6 @@
 {
     "name": "serina",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "description": "Natural Language Parser for date and time in Javascript",
     "main": "dist/cjs/serina.js",
     "types": "dist/cjs/serina.d.ts",
