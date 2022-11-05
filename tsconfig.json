@@ -17,16 +17,8 @@
         "sourceMap": true,
         "baseUrl": "./src",
         "typeRoots": ["node_modules/@types"],
-        "types": ["jest", "luxon"]
+        "types": ["jest"]
     },
-    "include": [
-      "src/**/*"
-    ],
-    "exclude": [
-      "node_modules",
-      "src/filters",
-      "src/utils",
-      "src/**.*.test.ts",
-      "src/serina.schema.ts"
-    ]
+    "include": ["src/**/*"],
+    "exclude": ["node_modules", "src/filters", "src/utils", "src/**.*.test.ts", "src/serina.schema.ts"]
 }
