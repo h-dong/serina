@@ -1,6 +1,6 @@
 import Day from './day';
 import { ParsedMatchSchema } from 'serina.schema';
-import { Settings, DateTime } from 'luxon';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('Day', () => {
     describe('Normal Usage', () => {
@@ -10,10 +10,12 @@ describe('Day', () => {
             dateTime: Date;
         }[];
 
+        // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+        jest.useFakeTimers().setSystemTime(new Date(2019, 0, 19));
+
         beforeAll(() => {
-            Settings.now = () => new Date(2019, 0, 19).valueOf(); // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
             mockDay = (day: number, month: number, year: number): Date =>
-                DateTime.utc().set({ day, month, year }).endOf('day').toJSDate();
+                dayLight().set({ day, month, year }).endOf('day').toDate();
 
             testData = [
                 { date: '01st', dateTime: mockDay(1, 2, 2019) },
@@ -57,6 +59,10 @@ describe('Day', () => {
                 { date: '30th', dateTime: mockDay(30, 1, 2019) },
                 { date: '31th', dateTime: mockDay(31, 1, 2019) },
             ];
+        });
+
+        afterAll(() => {
+            jest.useRealTimers();
         });
 
         test('without filler word', () => {

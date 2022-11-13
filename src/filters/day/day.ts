@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
 import parseMatches from 'utils/parseMatches';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import DAY from './day.constants';
+import { dayLight } from 'lib/date/dayLight';
 
 export default class Day {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -20,9 +20,9 @@ export default class Day {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        const today: DateTime = DateTime.utc();
+        const today: DateTime = dayLight().now();
         let day: number = null;
-        let month: number = DateTime.utc().month;
+        let month: number = dayLight().month;
 
         if (contains(matchingText, DAY.ANY)) {
             const [matchedDay] = matchPattern(matchingText, DAY.ANY);
@@ -34,9 +34,6 @@ export default class Day {
 
         if (!day) return null;
 
-        return DateTime.utc()
-            .set({ day, month })
-            .endOf('day')
-            .toJSDate();
+        return dayLight().set({ day, month }).endOf('day').toDate();
     }
 }

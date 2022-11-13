@@ -1,26 +1,19 @@
-import { Settings, DateTime } from 'luxon';
 import Month from './month';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('Month', () => {
     const mockDate = (month, year) => {
-        return DateTime.utc()
-            .set({ month, year })
-            .startOf('month')
-            .endOf('day')
-            .toJSDate();
+        return dayLight().set({ month, year }).startOf('month').endOf('day').toDate();
     };
 
     const shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
-    beforeAll(() => {
-        // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-        Settings.now = () => 1561819692628;
-    });
+    // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+    jest.useFakeTimers().setSystemTime(new Date('2019-06-29T15:48:12'));
 
     afterAll(() => {
-        // Restore Date Time Mock
-        Settings.now = () => Date.now();
+        jest.useRealTimers();
     });
 
     describe('parseText()', () => {

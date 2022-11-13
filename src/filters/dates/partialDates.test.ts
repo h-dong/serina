@@ -1,24 +1,20 @@
-import { DateTime, Settings } from 'luxon';
 import PartialDates from './partialDates';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('Partial Dates', () => {
     // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    Settings.now = () => 1561819692628;
+    const mockDate = new Date('2019-06-29T15:48:12');
+    jest.useFakeTimers().setSystemTime(mockDate);
 
-    const currentYear = DateTime.utc().year;
-    const currentMonth = DateTime.utc().month;
+    const currentYear = dayLight(mockDate).year;
+    const currentMonth = dayLight(mockDate).month;
 
     afterAll(() => {
-        // Restore Mock
-        Settings.now = () => Date.now();
+        jest.useRealTimers();
     });
 
-    const mockDates = (day, month, year) =>
-        DateTime.utc()
-            .set({ day, month, year })
-            .endOf('day')
-            .toJSDate();
+    const mockDates = (day, month, year) => dayLight().set({ day, month, year }).endOf('day').toDate();
 
     test.each`
         filter                | dateTime

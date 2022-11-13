@@ -1,21 +1,18 @@
-import { DateTime, Settings } from 'luxon';
 import WeekDayAndTime from './weekDayAndTime';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-Settings.now = () => new Date(2019, 0, 19).valueOf();
+const mockDate = new Date(2019, 1, 19);
+jest.useFakeTimers().setSystemTime(mockDate);
 
 describe('Week Day and Time', () => {
     const mockWeekdayAndTime = (day, month, year, hour, min) =>
-        DateTime.utc()
-            .set({ year, month, day, hour, minute: min })
-            .startOf('minute')
-            .toJSDate();
+        dayLight(mockDate).set({ year, month, day, hour, minute: min }).startOf('minute').toDate();
     const text = 'go to work';
 
     afterAll(() => {
-        // Restore Mock
-        Settings.now = () => Date.now();
+        jest.useRealTimers();
     });
 
     test.each`

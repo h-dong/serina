@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
 import TIME from './time.constants';
 import parseMatches from 'utils/parseMatches';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
 import matchPattern from 'utils/matchPattern';
+import { dayLight } from 'lib/date/dayLight';
 
 export default class Time {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -25,10 +25,6 @@ export default class Time {
 
         const { hour, minute } = timeObj;
 
-        const newDateTime = DateTime.utc().set({ hour, minute });
-
-        if (!newDateTime.isValid) return null;
-
-        return newDateTime.startOf('minute').toJSDate();
+        return dayLight().set({ hour, minute }).startOf('minute').toDate();
     }
 }

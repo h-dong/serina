@@ -1,13 +1,9 @@
-import { DateTime } from 'luxon';
 import Dates from './dates';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('Dates', () => {
-    const mockDates = (day, month, year) =>
-        DateTime.utc()
-            .set({ day, month, year })
-            .endOf('day')
-            .toJSDate();
+    const mockDates = (day, month, year) => dayLight().set({ day, month, year }).endOf('day').toDate();
 
     test.each`
         filter                     | dateTime

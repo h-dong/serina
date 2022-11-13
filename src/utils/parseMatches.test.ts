@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon';
 import parseMatches from './parseMatches';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('parseMatches()', () => {
     let text: string;
@@ -9,7 +9,7 @@ describe('parseMatches()', () => {
     beforeEach(() => {
         text = 'this is my test string';
         pattern = 'test';
-        dateTimeObj = DateTime.utc().toJSDate();
+        dateTimeObj = dayLight().toDate();
     });
 
     test('should be able to match pattern in middle of text', () => {

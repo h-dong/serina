@@ -1,31 +1,26 @@
-import { DateTime, Settings } from 'luxon';
 import RelativeDates from 'filters/relativeDates/relativeDates';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('RelativeDates', () => {
     // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
-    Settings.now = () => 1561019692628;
+    jest.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52'));
 
-    const currentYear = DateTime.utc().year;
-    const currentMonth = DateTime.utc().month;
-    const currentDay = DateTime.utc().day;
+    const currentYear = dayLight().year;
+    const currentMonth = dayLight().month;
+    const currentDay = dayLight().day;
 
-    const mockDates = (day, month, year) =>
-        DateTime.utc()
-            .set({ day, month, year })
-            .endOf('day')
-            .toJSDate();
+    const mockDates = (day, month, year) => dayLight().set({ day, month, year }).endOf('day').toDate();
 
     const mockNext = period =>
-        DateTime.utc()
+        dayLight()
             .plus({ [period]: 1 })
             .startOf(period)
             .endOf('day')
-            .toJSDate();
+            .toDate();
 
     afterAll(() => {
-        // Restore Mock
-        Settings.now = () => Date.now();
+        jest.useRealTimers();
     });
 
     test.each`

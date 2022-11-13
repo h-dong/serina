@@ -1,20 +1,17 @@
-import { DateTime, Settings } from 'luxon';
 import RelativeTime from './relativeTime';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('RelativeTime', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
-    Settings.now = () => 1541115000000;
+    const mockDate = new Date('2018-11-01T23:30:00');
+    jest.useFakeTimers().setSystemTime(mockDate);
 
     const mockDates = (day, month, year, hour, minute, second) =>
-        DateTime.utc()
-            .set({ day, month, year, hour, minute, second })
-            .startOf('second')
-            .toJSDate();
+        dayLight(mockDate).set({ day, month, year, hour, minute, second }).startOf('second').toDate();
 
     afterAll(() => {
-        // Restore Mock
-        Settings.now = () => Date.now();
+        jest.useRealTimers();
     });
 
     test.each`

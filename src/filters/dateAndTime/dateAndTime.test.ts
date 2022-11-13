@@ -1,25 +1,21 @@
-import { DateTime, Settings } from 'luxon';
 import DateAndTime from './dateAndTime';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLight } from 'lib/date/dayLight';
 
 describe('DateAndTime', () => {
     // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
-    Settings.now = () => 1561019692628;
+    jest.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52'));
 
-    const currentYear = DateTime.utc().year;
-    const currentMonth = DateTime.utc().month;
-    const currentDay = DateTime.utc().day;
+    const currentYear = dayLight().year;
+    const currentMonth = dayLight().month;
+    const currentDay = dayLight().day;
 
     afterAll(() => {
-        // Restore Mock
-        Settings.now = () => Date.now();
+        jest.useRealTimers();
     });
 
     const mockDates = (day, month, year, hour, minute) =>
-        DateTime.utc()
-            .set({ day, month, year, hour, minute })
-            .startOf('minute')
-            .toJSDate();
+        dayLight().set({ day, month, year, hour, minute }).startOf('minute').toDate();
 
     describe('should parse the correct date and time when dates are full', () => {
         test.each`

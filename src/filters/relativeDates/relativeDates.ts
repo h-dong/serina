@@ -21,6 +21,6 @@ export default class RelativeDates {
     static convertMatchToDateObj(matchingText: string): Date {
         const dateObj = convertRelativeDateStringToObj(matchingText);
         if (!dateObj) return null;
-        return dateObj.endOf('day').toJSDate();
+        return dateObj.endOf('day').toDate();
     }
 }

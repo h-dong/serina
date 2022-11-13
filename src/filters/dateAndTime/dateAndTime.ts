@@ -1,5 +1,4 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
 import { DATES, DATE_AND_TIME, PARTIAL_DATES } from 'filters/dates/dates.constants';
 import RELATIVE_DATES from 'filters/relativeDates/relativeDates.constants';
 import TIME from 'filters/time/time.constants';
@@ -11,6 +10,7 @@ import matchPattern from 'utils/matchPattern';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
 import convertPartialDateStringToObj from 'utils/convertPartialDateStringToObj';
 import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
+import { dayLight } from 'lib/date/dayLight';
 
 export default class DateAndTime {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -27,7 +27,10 @@ export default class DateAndTime {
 
     static convertMatchToDateObj(matchingText: string): Date {
         const removeDateFillerWords = remove(matchingText, DATES.FILLER_WORDS);
-        const dateStringMatches = matchPattern(removeDateFillerWords, `(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`);
+        const dateStringMatches = matchPattern(
+            removeDateFillerWords,
+            `(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`
+        );
 
         if (!dateStringMatches) return null;
 
@@ -51,11 +54,8 @@ export default class DateAndTime {
 
         if (!timeObj) return null;
 
-        const { hour, minute } =  timeObj;
-        const newDateTime = DateTime.utc().set({ day, month, year, hour, minute });
+        const { hour, minute } = timeObj;
 
-        if (!newDateTime.isValid) return null;
-
-        return newDateTime.startOf('minute').toJSDate();
+        return dayLight().set({ day, month, year, hour, minute }).startOf('day').toDate();
     }
 }

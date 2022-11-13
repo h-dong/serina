@@ -1,10 +1,10 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
 import { DATES } from './dates.constants';
 import parseMatches from 'utils/parseMatches';
 import convertDateStringToObj from 'utils/convertDateStringToObj';
 import remove from 'utils/remove';
 import matchPattern from 'utils/matchPattern';
+import { dayLight } from 'lib/date/dayLight';
 
 export default class Dates {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -26,10 +26,6 @@ export default class Dates {
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-        const newDateTime = DateTime.utc().set({ day, month, year });
-
-        if (!newDateTime.isValid) return null;
-
-        return newDateTime.endOf('day').toJSDate();
+        return dayLight().set({ day, month, year }).endOf('day').toDate();
     }
 }

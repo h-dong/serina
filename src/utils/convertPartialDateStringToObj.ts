@@ -1,19 +1,19 @@
-import { DateTime } from 'luxon';
 import { DateObjectSchema } from 'serina.schema';
 import { DATES, PARTIAL_DATES } from 'filters/dates/dates.constants';
 import contains from './contains';
 import monthStringToNumber from 'utils/monthStringToNumber';
 import strToInt from 'utils/strToInt';
+import { dayLight } from 'lib/date/dayLight';
 
 /**
  * We want to return a future date, so if the month has already occurred this year, we give next year's date.
  */
 function getFutureYearIfDateIsInThePast(monthStr, dayStr): string {
-    const currentDate = DateTime.utc();
+    const currentDate = dayLight();
     const year = currentDate.year;
     const month = parseInt(monthStr, 10);
     const day = parseInt(dayStr, 10);
-    const tempDate = DateTime.utc().set({ month, day, year });
+    const tempDate = dayLight().set({ month, day, year });
     if (tempDate < currentDate) {
         return (year + 1).toString();
     }
@@ -21,7 +21,7 @@ function getFutureYearIfDateIsInThePast(monthStr, dayStr): string {
 }
 
 function getNextMonthIfDayIsInThePast(dayStr): number {
-    const currentDate = DateTime.utc();
+    const currentDate = dayLight();
     const day = parseInt(dayStr, 10);
     const currMonth = currentDate.month;
     const month = day < currentDate.day ? currMonth + 1 : currMonth;

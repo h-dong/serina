@@ -1,10 +1,10 @@
-import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from './weekDay.constants';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 import parseMatches from 'utils/parseMatches';
+import { dayLight } from 'lib/date/dayLight';
 
 export default class WeekDay {
     /*
@@ -28,10 +28,6 @@ export default class WeekDay {
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        const newDateTime = DateTime.utc().set({ weekday });
-
-        if (!newDateTime.isValid) return null;
-
-        return newDateTime.endOf('day').toJSDate();
+        return dayLight().set({ weekday }).endOf('day').toDate();
     }
 }

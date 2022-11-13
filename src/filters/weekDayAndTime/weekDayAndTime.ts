@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from 'filters/weekDay/weekDay.constants';
 import matchPattern from 'utils/matchPattern';
@@ -8,6 +7,7 @@ import WEEKDAY_AND_TIME from './weekDayAndTime.constants';
 import TIME from 'filters/time/time.constants';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 import parseMatches from 'utils/parseMatches';
+import { dayLight } from 'lib/date/dayLight';
 
 function getValidMatch(text: string, pattern: string): string {
     const matched = matchPattern(text, pattern);
@@ -37,10 +37,6 @@ export default class WeekDayAndTime {
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        const newDateTime = DateTime.utc().set({ weekday, hour, minute });
-
-        if (!newDateTime.isValid) return null;
-
-        return newDateTime.startOf('minute').toJSDate();
+        return dayLight().set({ weekday, hour, minute }).startOf('minute').toDate();
     }
 }
