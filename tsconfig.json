@@ -15,10 +15,10 @@
         "noLib": false,
         "moduleResolution": "node",
         "sourceMap": true,
-        "baseUrl": "./src",
+        "baseUrl": "src",
         "typeRoots": ["node_modules/@types"],
         "types": ["jest"]
     },
-    "include": ["src/**/*"],
-    "exclude": ["node_modules", "src/filters", "src/utils", "src/**.*.test.ts", "src/serina.schema.ts"]
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
 }
