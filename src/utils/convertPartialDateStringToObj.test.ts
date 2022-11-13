@@ -1,12 +1,12 @@
 import convertPartialDateStringToObj from './convertPartialDateStringToObj';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('convertDateStringToObj', () => {
     // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
     const mockDate = new Date('2019-06-29T15:48:12');
     jest.useFakeTimers().setSystemTime(mockDate);
 
-    const currentYear = dayLight(mockDate).year;
+    const currentYear = dayLite(mockDate).year;
 
     afterAll(() => {
         jest.useRealTimers();

@@ -4,7 +4,7 @@ import parseMatches from 'utils/parseMatches';
 import matchPattern from 'utils/matchPattern';
 import remove from 'utils/remove';
 import contains from 'utils/contains';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class RelativeTime {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -43,12 +43,12 @@ export default class RelativeTime {
         const timeUnit = matchPattern(timeString, RELATIVE_TIME.TIME_UNITS.ANY)[0];
         const timePeriod = remove(timeString, timeUnit);
         const timeValue = this.convertRelativeTimeStringToNumericValue(timePeriod, timeUnit);
-        return dayLight().plus(timeValue, 'millisecond').toDate();
+        return dayLite().plus(timeValue, 'millisecond').toDate();
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
         const removedFillerWords = remove(matchingText, RELATIVE_TIME.FILLER_WORDS);
         const newDateTime = this.addRelativeTimeToCurrentTime(removedFillerWords);
-        return dayLight(newDateTime).startOf('millisecond').toDate();
+        return dayLite(newDateTime).startOf('millisecond').toDate();
     }
 }

@@ -1,6 +1,6 @@
 import Day from './day';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Day', () => {
     describe('Normal Usage', () => {
@@ -11,11 +11,17 @@ describe('Day', () => {
         }[];
 
         // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-        jest.useFakeTimers().setSystemTime(new Date(2019, 0, 19));
+        const mockDate = new Date(2019, 0, 19);
+        jest.useFakeTimers().setSystemTime(mockDate);
 
         beforeAll(() => {
             mockDay = (day: number, month: number, year: number): Date =>
-                dayLight().set({ day, month, year }).endOf('day').toDate();
+                dayLite(mockDate).set({ day, month, year }).endOf('day').toDate();
+
+            // testData = `
+            //     date | dateTime
+            //     ${'01st'} | ${mockDay(1, 2, 2019)}
+            // `;
 
             testData = [
                 { date: '01st', dateTime: mockDay(1, 2, 2019) },
@@ -65,20 +71,34 @@ describe('Day', () => {
             jest.useRealTimers();
         });
 
-        test('without filler word', () => {
+        test.each(testData)('without filler word $date', ({ date, dateTime }) => {
             const text = 'go to library';
 
-            testData.forEach(testCase => {
-                const result: ParsedMatchSchema[] = [
-                    {
-                        dateTime: testCase.dateTime,
-                        text,
-                        matched: testCase.date,
-                    },
-                ];
-                expect(Day.parseText(`${text} ${testCase.date}`)).toEqual(result);
-            });
+            const result: ParsedMatchSchema[] = [
+                {
+                    dateTime,
+                    text,
+                    matched: date,
+                },
+            ];
+
+            expect(Day.parseText(`${text} ${date}`)).toEqual(result);
         });
+
+        // test('without filler word', () => {
+        //     const text = 'go to library';
+
+        //     testData.forEach(testCase => {
+        //         const result: ParsedMatchSchema[] = [
+        //             {
+        //                 dateTime: testCase.dateTime,
+        //                 text,
+        //                 matched: testCase.date,
+        //             },
+        //         ];
+        //         expect(Day.parseText(`${text} ${testCase.date}`)).toEqual(result);
+        //     });
+        // });
 
         test('with "on" filler word', () => {
             const text = 'go to library';
@@ -124,11 +144,13 @@ describe('Day', () => {
         });
 
         describe('Edge Cases', () => {
+            // Mock Date Time to Saturday, 19 February 2019 18:06:18 GMT+00:00
+            jest.useFakeTimers().setSystemTime(new Date(2019, 2, 19));
+
             const text = 'go to library';
 
-            beforeAll(() => {
-                // Mock Date Time to Saturday, 19 February 2019 18:06:18 GMT+00:00
-                Settings.now = () => new Date(2019, 2, 19).valueOf();
+            afterAll(() => {
+                jest.useRealTimers();
             });
 
             test('should not parse any date before 1st', () => {

@@ -1,19 +1,19 @@
 import RelativeDates from 'filters/relativeDates/relativeDates';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('RelativeDates', () => {
     // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
     jest.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52'));
 
-    const currentYear = dayLight().year;
-    const currentMonth = dayLight().month;
-    const currentDay = dayLight().day;
+    const currentYear = dayLite().year;
+    const currentMonth = dayLite().month;
+    const currentDay = dayLite().day;
 
-    const mockDates = (day, month, year) => dayLight().set({ day, month, year }).endOf('day').toDate();
+    const mockDates = (day, month, year) => dayLite().set({ day, month, year }).endOf('day').toDate();
 
     const mockNext = period =>
-        dayLight()
+        dayLite()
             .plus({ [period]: 1 })
             .startOf(period)
             .endOf('day')

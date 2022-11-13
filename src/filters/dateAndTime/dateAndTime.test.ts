@@ -1,21 +1,21 @@
 import DateAndTime from './dateAndTime';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('DateAndTime', () => {
     // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
     jest.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52'));
 
-    const currentYear = dayLight().year;
-    const currentMonth = dayLight().month;
-    const currentDay = dayLight().day;
+    const currentYear = dayLite().year;
+    const currentMonth = dayLite().month;
+    const currentDay = dayLite().day;
 
     afterAll(() => {
         jest.useRealTimers();
     });
 
     const mockDates = (day, month, year, hour, minute) =>
-        dayLight().set({ day, month, year, hour, minute }).startOf('minute').toDate();
+        dayLite().set({ day, month, year, hour, minute }).startOf('minute').toDate();
 
     describe('should parse the correct date and time when dates are full', () => {
         test.each`

@@ -7,7 +7,7 @@ import WEEKDAY_AND_TIME from './weekDayAndTime.constants';
 import TIME from 'filters/time/time.constants';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 import parseMatches from 'utils/parseMatches';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 function getValidMatch(text: string, pattern: string): string {
     const matched = matchPattern(text, pattern);
@@ -37,6 +37,6 @@ export default class WeekDayAndTime {
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        return dayLight().set({ weekday, hour, minute }).startOf('minute').toDate();
+        return dayLite().set({ weekday, hour, minute }).startOf('minute').toDate();
     }
 }

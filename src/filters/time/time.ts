@@ -3,7 +3,7 @@ import TIME from './time.constants';
 import parseMatches from 'utils/parseMatches';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
 import matchPattern from 'utils/matchPattern';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class Time {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -25,6 +25,6 @@ export default class Time {
 
         const { hour, minute } = timeObj;
 
-        return dayLight().set({ hour, minute }).startOf('minute').toDate();
+        return dayLite().set({ hour, minute }).startOf('minute').toDate();
     }
 }

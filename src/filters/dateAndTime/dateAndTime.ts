@@ -10,7 +10,7 @@ import matchPattern from 'utils/matchPattern';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
 import convertPartialDateStringToObj from 'utils/convertPartialDateStringToObj';
 import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class DateAndTime {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -56,6 +56,6 @@ export default class DateAndTime {
 
         const { hour, minute } = timeObj;
 
-        return dayLight().set({ day, month, year, hour, minute }).startOf('day').toDate();
+        return dayLite().set({ day, month, year, hour, minute }).startOf('day').toDate();
     }
 }

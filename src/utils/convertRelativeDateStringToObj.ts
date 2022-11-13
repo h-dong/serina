@@ -3,7 +3,7 @@ import findMatchingKey from './findMatchingKey';
 import matchPattern from './matchPattern';
 import remove from './remove';
 import RELATIVE_DATES, { RELATIVE_ADVERB } from 'filters/relativeDates/relativeDates.constants';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 import { DataTimeUnits } from 'lib/date/types';
 
 function timeUnitToString(matchAgainst: string): string {
@@ -12,13 +12,13 @@ function timeUnitToString(matchAgainst: string): string {
 
 function convertRelativeAdverbToObj(relativeDateStr: string): Date {
     if (contains(relativeDateStr, RELATIVE_ADVERB.TODAY)) {
-        return dayLight().toDate();
+        return dayLite().toDate();
     }
-    return dayLight().plus(1, 'day').toDate();
+    return dayLite().plus(1, 'day').toDate();
 }
 
 function getNext(unit): Date {
-    return dayLight().plus(1, [unit]).startOf(unit).endOf('day').toDate();
+    return dayLite().plus(1, [unit]).startOf(unit).endOf('day').toDate();
 }
 
 function convertRelativeExpressionToObj(expression: string): Date {
@@ -33,7 +33,7 @@ function convertRelativeExpressionToObj(expression: string): Date {
     } else {
         quantity = parseInt(period, 10);
     }
-    return dayLight()
+    return dayLite()
         .plus(quantity, [unit] as DataTimeUnits)
         .toDate();
 }

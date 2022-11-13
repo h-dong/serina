@@ -1,13 +1,13 @@
 import TimeKeywords from './timeKeywords';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Time Keywords', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
     const mockDate = new Date('2018-11-01T23:30:00');
     jest.useFakeTimers().setSystemTime(mockDate);
 
-    const mockTime = (day, hour, minute) => dayLight(mockDate).set({ day, hour, minute }).startOf('minute').toDate();
+    const mockTime = (day, hour, minute) => dayLite(mockDate).set({ day, hour, minute }).startOf('minute').toDate();
 
     afterAll(() => {
         jest.useRealTimers();

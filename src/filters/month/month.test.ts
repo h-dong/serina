@@ -1,10 +1,10 @@
 import Month from './month';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Month', () => {
     const mockDate = (month, year) => {
-        return dayLight().set({ month, year }).startOf('month').endOf('day').toDate();
+        return dayLite().set({ month, year }).startOf('month').endOf('day').toDate();
     };
 
     const shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];

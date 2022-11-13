@@ -1,10 +1,10 @@
 import WEEKDAY from 'filters/weekDay/weekDay.constants';
 import contains from 'utils/contains';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolean): number {
     let weekday = null;
-    const todayInWeekday = dayLight().weekday;
+    const todayInWeekday = dayLite().weekday;
 
     Object.keys(WEEKDAY.SINGLE).forEach((key, index) => {
         const weekdayPattern = WEEKDAY.SINGLE[key];

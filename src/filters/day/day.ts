@@ -3,7 +3,7 @@ import parseMatches from 'utils/parseMatches';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import DAY from './day.constants';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class Day {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -20,9 +20,9 @@ export default class Day {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        const today: DateTime = dayLight().now();
+        const today = dayLite();
         let day: number = null;
-        let month: number = dayLight().month;
+        let month: number = today.month;
 
         if (contains(matchingText, DAY.ANY)) {
             const [matchedDay] = matchPattern(matchingText, DAY.ANY);
@@ -34,6 +34,6 @@ export default class Day {
 
         if (!day) return null;
 
-        return dayLight().set({ day, month }).endOf('day').toDate();
+        return dayLite().set({ day, month }).endOf('day').toDate();
     }
 }

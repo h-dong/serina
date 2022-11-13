@@ -1,9 +1,9 @@
 import Year from './year';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Year', () => {
-    const mockYear = year => dayLight().set({ year }).startOf('year').endOf('day').toDate();
+    const mockYear = year => dayLite().set({ year }).startOf('year').endOf('day').toDate();
 
     test.each`
         filter       | dateTime

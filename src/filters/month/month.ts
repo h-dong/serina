@@ -4,7 +4,7 @@ import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import monthStringToNumber from 'utils/monthStringToNumber';
 import MONTH from './month.constants';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class Month {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -24,13 +24,13 @@ export default class Month {
         const month = monthStringToNumber(matchingText);
         if (month === null) return null;
 
-        let year = dayLight().year;
-        if (month < dayLight().month) {
+        let year = dayLite().year;
+        if (month < dayLite().month) {
             year += 1;
         }
         if (contains(matchingText, `${MONTH.PAST_WORDS} ${MONTH.ANY}`)) {
             year -= 1;
         }
-        return dayLight().set({ month, year }).startOf('month').endOf('day').toDate();
+        return dayLite().set({ month, year }).startOf('month').endOf('day').toDate();
     }
 }

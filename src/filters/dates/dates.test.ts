@@ -1,9 +1,9 @@
 import Dates from './dates';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Dates', () => {
-    const mockDates = (day, month, year) => dayLight().set({ day, month, year }).endOf('day').toDate();
+    const mockDates = (day, month, year) => dayLite().set({ day, month, year }).endOf('day').toDate();
 
     test.each`
         filter                     | dateTime

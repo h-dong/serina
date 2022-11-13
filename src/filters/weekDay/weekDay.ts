@@ -4,7 +4,7 @@ import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 import parseMatches from 'utils/parseMatches';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class WeekDay {
     /*
@@ -28,6 +28,6 @@ export default class WeekDay {
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
 
-        return dayLight().set({ weekday }).endOf('day').toDate();
+        return dayLite().set({ weekday }).endOf('day').toDate();
     }
 }

@@ -4,7 +4,7 @@ import parseMatches from 'utils/parseMatches';
 import convertDateStringToObj from 'utils/convertDateStringToObj';
 import remove from 'utils/remove';
 import matchPattern from 'utils/matchPattern';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class Dates {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -26,6 +26,6 @@ export default class Dates {
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-        return dayLight().set({ day, month, year }).endOf('day').toDate();
+        return dayLite().set({ day, month, year }).endOf('day').toDate();
     }
 }

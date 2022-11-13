@@ -1,5 +1,5 @@
 import parseMatches from './parseMatches';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('parseMatches()', () => {
     let text: string;
@@ -9,7 +9,7 @@ describe('parseMatches()', () => {
     beforeEach(() => {
         text = 'this is my test string';
         pattern = 'test';
-        dateTimeObj = dayLight().toDate();
+        dateTimeObj = dayLite().toDate();
     });
 
     test('should be able to match pattern in middle of text', () => {

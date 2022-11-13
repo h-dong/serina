@@ -1,6 +1,6 @@
 import RelativeTime from './relativeTime';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('RelativeTime', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
@@ -8,7 +8,7 @@ describe('RelativeTime', () => {
     jest.useFakeTimers().setSystemTime(mockDate);
 
     const mockDates = (day, month, year, hour, minute, second) =>
-        dayLight(mockDate).set({ day, month, year, hour, minute, second }).startOf('second').toDate();
+        dayLite(mockDate).set({ day, month, year, hour, minute, second }).startOf('second').toDate();
 
     afterAll(() => {
         jest.useRealTimers();

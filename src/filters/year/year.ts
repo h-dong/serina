@@ -3,7 +3,7 @@ import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import { ParsedMatchSchema } from 'serina.schema';
 import YEAR from './year.constants';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 // parsing year between 1000 - 9999
 export default class Year {
@@ -20,7 +20,7 @@ export default class Year {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let year: number = dayLight().year;
+        let year: number = dayLite().year;
 
         if (contains(matchingText, YEAR.ANY)) {
             const [matchedDay] = matchPattern(matchingText, YEAR.ANY);
@@ -29,6 +29,6 @@ export default class Year {
 
         if (!year) return null;
 
-        return dayLight().set({ year }).startOf('year').endOf('day').toDate();
+        return dayLite().set({ year }).startOf('year').endOf('day').toDate();
     }
 }

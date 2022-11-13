@@ -1,9 +1,9 @@
 import Time from './time';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Time', () => {
-    const mockTime = (hour, minute) => dayLight().set({ hour, minute }).startOf('minute').toDate();
+    const mockTime = (hour, minute) => dayLite().set({ hour, minute }).startOf('minute').toDate();
 
     test.each`
         filter                    | dateTime

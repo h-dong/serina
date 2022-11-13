@@ -3,7 +3,7 @@ import parseMatches from 'utils/parseMatches';
 import contains from 'utils/contains';
 import TIME_KEYWORDS from './timeKeywords.constants';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class TimeKeywords {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -19,9 +19,9 @@ export default class TimeKeywords {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let day = dayLight().day;
+        let day = dayLite().day;
         let hour = null;
-        const currentHour = dayLight().hour;
+        const currentHour = dayLite().hour;
 
         if (contains(matchingText, `${TIME_KEYWORDS.MID_DAY}`)) {
             hour = 12;
@@ -35,7 +35,7 @@ export default class TimeKeywords {
 
         if (hour === null) return null;
 
-        return dayLight()
+        return dayLite()
             .startOf('minute')
             .set({
                 day,

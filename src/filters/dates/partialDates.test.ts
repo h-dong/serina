@@ -1,20 +1,20 @@
 import PartialDates from './partialDates';
 import { ParsedMatchSchema } from 'serina.schema';
-import { dayLight } from 'lib/date/dayLight';
+import { dayLite } from 'lib/date/dayLite';
 
 describe('Partial Dates', () => {
     // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
     const mockDate = new Date('2019-06-29T15:48:12');
     jest.useFakeTimers().setSystemTime(mockDate);
 
-    const currentYear = dayLight(mockDate).year;
-    const currentMonth = dayLight(mockDate).month;
+    const currentYear = dayLite(mockDate).year;
+    const currentMonth = dayLite(mockDate).month;
 
     afterAll(() => {
         jest.useRealTimers();
     });
 
-    const mockDates = (day, month, year) => dayLight().set({ day, month, year }).endOf('day').toDate();
+    const mockDates = (day, month, year) => dayLite().set({ day, month, year }).endOf('day').toDate();
 
     test.each`
         filter                | dateTime
