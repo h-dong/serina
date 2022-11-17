@@ -17,7 +17,7 @@
         "sourceMap": true,
         "baseUrl": "src",
         "typeRoots": ["node_modules/@types"],
-        "types": ["jest"]
+        "types": ["vitest/globals"]
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]
