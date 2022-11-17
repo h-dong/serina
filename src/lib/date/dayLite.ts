@@ -1,54 +1,54 @@
 import { DataTimeUnits } from './types';
 
 class DayLite {
-    private static _dateTime: Date;
+    private _dateTime: Date;
 
     constructor(date?: Date) {
-        DayLite._dateTime = date ?? new Date();
+        this._dateTime = date ? new Date(date.getTime()) : new Date();
     }
 
     get millisecond() {
-        return DayLite._dateTime.getMilliseconds();
+        return this._dateTime.getMilliseconds();
     }
 
     private set millisecond(value: number) {
-        DayLite._dateTime.setMilliseconds(value);
+        this._dateTime.setMilliseconds(value);
     }
 
     get second() {
-        return DayLite._dateTime.getSeconds();
+        return this._dateTime.getSeconds();
     }
 
     private set second(value: number) {
-        DayLite._dateTime.setSeconds(value);
+        this._dateTime.setSeconds(value);
     }
 
     get minute() {
-        return DayLite._dateTime.getMinutes();
+        return this._dateTime.getMinutes();
     }
 
     private set minute(value: number) {
-        DayLite._dateTime.setMinutes(value);
+        this._dateTime.setMinutes(value);
     }
 
     get hour() {
-        return DayLite._dateTime.getHours();
+        return this._dateTime.getHours();
     }
 
     private set hour(value: number) {
-        DayLite._dateTime.setHours(value);
+        this._dateTime.setHours(value);
     }
 
     get day() {
-        return DayLite._dateTime.getDate();
+        return this._dateTime.getDate();
     }
 
     private set day(value: number) {
-        DayLite._dateTime.setDate(value);
+        this._dateTime.setDate(value);
     }
 
     get weekday() {
-        return DayLite._dateTime.getDay();
+        return this._dateTime.getDay();
     }
 
     private set weekday(value: number) {
@@ -60,15 +60,15 @@ class DayLite {
     }
 
     get weekdayName() {
-        return DayLite._dateTime.toLocaleString('default', { weekday: 'long' });
+        return this._dateTime.toLocaleString('default', { weekday: 'long' });
     }
 
     get month() {
-        return DayLite._dateTime.getMonth() + 1;
+        return this._dateTime.getMonth() + 1;
     }
 
     private set month(value: number) {
-        DayLite._dateTime.setMonth(value - 1);
+        this._dateTime.setMonth(value - 1);
     }
 
     get monthName() {
@@ -90,18 +90,18 @@ class DayLite {
     }
 
     get year() {
-        return DayLite._dateTime.getFullYear();
+        return this._dateTime.getFullYear();
     }
     private set year(value: number) {
-        DayLite._dateTime.setFullYear(value);
+        this._dateTime.setFullYear(value);
     }
 
     toDate() {
-        return DayLite._dateTime;
+        return this._dateTime;
     }
 
     toISOString() {
-        return DayLite._dateTime.toISOString();
+        return this._dateTime.toISOString();
     }
 
     toString() {
@@ -109,7 +109,7 @@ class DayLite {
     }
 
     now() {
-        return DayLite._dateTime;
+        return this._dateTime;
     }
 
     set(changes: Partial<Record<DataTimeUnits, number>>) {
