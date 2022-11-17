@@ -72,21 +72,7 @@ class DayLite {
     }
 
     get monthName() {
-        const monthNames = [
-            'January',
-            'February',
-            'March',
-            'April',
-            'May',
-            'June',
-            'July',
-            'August',
-            'September',
-            'October',
-            'November',
-            'December',
-        ];
-        return monthNames[this.month];
+        return this._dateTime.toLocaleString('default', { month: 'long' });
     }
 
     get year() {
@@ -132,7 +118,7 @@ class DayLite {
                 //     this.day = value;
                 //     break;
                 case 'month':
-                    this.month = value;
+                    this.month = value > 0 ? value : value + 1;
                     break;
                 case 'year':
                     this.year = value;
@@ -166,7 +152,7 @@ class DayLite {
                 this.day += value * 7;
                 break;
             case 'month':
-                this.month += value - 1;
+                this.month += value;
                 break;
             case 'year':
                 this.year += value;
@@ -199,7 +185,7 @@ class DayLite {
                 this.day -= value * 7;
                 break;
             case 'month':
-                this.month -= value - 1;
+                this.month -= value;
                 break;
             case 'year':
                 this.year -= value;
@@ -209,6 +195,10 @@ class DayLite {
         }
 
         return this;
+    }
+
+    start(unit: DataTimeUnits) {
+        return this.startOf(unit);
     }
 
     startOf(unit: DataTimeUnits) {
@@ -234,6 +224,13 @@ class DayLite {
                 this.minute = 0;
                 this.hour = 0;
                 break;
+            case 'week':
+                this.millisecond = 0;
+                this.second = 0;
+                this.minute = 0;
+                this.hour = 0;
+                this.day = this.day - this.weekday + 2; // plus 2 here because first Monday is first day of the week
+                break;
             case 'month':
                 this.millisecond = 0;
                 this.second = 0;
@@ -247,13 +244,17 @@ class DayLite {
                 this.minute = 0;
                 this.hour = 0;
                 this.day = 1;
-                this.month = 0;
+                this.month = 1;
                 break;
             default:
                 throw 'Cannot perform .startOf() operation with unknown unit';
         }
 
         return this;
+    }
+
+    end(unit: DataTimeUnits) {
+        return this.endOf(unit);
     }
 
     endOf(unit: DataTimeUnits) {
@@ -281,15 +282,15 @@ class DayLite {
                 this.second = 59;
                 this.minute = 59;
                 this.hour = 23;
-                this.day = new Date(this.year, this.month + 1, 0).getDate();
+                this.day = new Date(this.year, this.month, 0).getDate();
                 break;
             case 'year':
                 this.millisecond = 999;
                 this.second = 59;
                 this.minute = 59;
                 this.hour = 23;
-                this.day = new Date(this.year, this.month + 1, 0).getDate();
-                this.month = 11;
+                this.day = new Date(this.year, this.month, 0).getDate();
+                this.month = 12;
                 break;
             default:
                 throw 'Cannot perform .startOf() operation with unknown unit';
