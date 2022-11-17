@@ -3,23 +3,28 @@ import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
 
 describe('Year', () => {
-    const mockYear = year => dayLite().set({ year }).startOf('year').endOf('day').toDate();
+    const mockYear = (year: number) => dayLite().set({ year }).startOf('year').endOf('day').toDate();
 
-    test.each`
-        filter       | dateTime
-        ${'1000'}    | ${mockYear(1000)}
-        ${'in 1000'} | ${mockYear(1000)}
-        ${'2019'}    | ${mockYear(2019)}
-        ${'in 2019'} | ${mockYear(2019)}
-        ${'9999'}    | ${mockYear(9999)}
-        ${'in 9999'} | ${mockYear(9999)}
-        ${'in 2019'} | ${mockYear(2019)}
-        ${'2020'}    | ${mockYear(2020)}
-    `('should be able to parse $filter', ({ filter, dateTime }) => {
+    test.each([
+        { filter: '1000', dateTime: mockYear(1000) },
+        { filter: 'in 1000', dateTime: mockYear(1000) },
+        { filter: '2019', dateTime: mockYear(2019) },
+        { filter: 'in 2019', dateTime: mockYear(2019) },
+        { filter: '9999', dateTime: mockYear(9999) },
+        { filter: 'in 9999', dateTime: mockYear(9999) },
+        { filter: '2020', dateTime: mockYear(2020) },
+        { filter: 'in 2020', dateTime: mockYear(2020) },
+    ])('should be able to parse $filter', ({ filter, dateTime }) => {
         const text = 'go to work';
-        const results = Year.parseText(`${text} ${filter}`);
-        const output = [{ dateTime, matched: filter, text }];
-        expect(results).toEqual(output);
+        const result: ParsedMatchSchema[] = [
+            {
+                dateTime,
+                text,
+                matched: filter,
+            },
+        ];
+
+        expect(Year.parseText(`${text} ${filter}`)).toEqual(result);
     });
 
     test('should return correct case for matched string', () => {
