@@ -1,7 +1,6 @@
 import Day from './day';
 import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
-import { vi } from 'vitest';
 
 describe('Day', () => {
     // Mock Date Time to Saturday, 19 January 2018 18:06:18 GMT+00:00

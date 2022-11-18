@@ -1,5 +1,4 @@
 import { getNext } from './convertRelativeDateStringToObj';
-import { vi } from 'vitest';
 
 describe('Relative Dates', () => {
     afterAll(() => {

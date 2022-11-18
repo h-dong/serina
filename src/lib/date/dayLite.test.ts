@@ -1,5 +1,4 @@
 import { dayLite } from './dayLite';
-import { vi } from 'vitest';
 
 describe('dayLight', () => {
     describe('Constructor', () => {
