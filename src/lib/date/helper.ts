@@ -29,7 +29,7 @@ export function nextYears(date: Date, value: number): Date {
         count++;
     }
 
-    return dateObj.set({ year: year + count, month, day }).toDate();
+    return dateObj.set({ year, month, day }).plus(count, 'year').toDate();
 }
 
 export function prevMonths(date: Date, value: number): Date {
@@ -39,14 +39,12 @@ export function prevMonths(date: Date, value: number): Date {
     let count = value;
     // loop to skip any months without the day
     // e.g. given date is May 31st, since Apr does not have 31st, so skip to Mar
+
     while (day > dayLite(new Date(year, nativeMonth - count, 1)).daysInMonth) {
         count++;
     }
 
-    // when month is Jan the value becomes 0, and 0 is an edge case in DayLite
-    if (month - count === 0) count++;
-
-    return dateObj.set({ year, month: month - count, day }).toDate();
+    return dateObj.set({ year, month, day }).minus(count, 'month').toDate();
 }
 
 export function prevYears(date: Date, value: number): Date {
@@ -63,7 +61,7 @@ export function prevYears(date: Date, value: number): Date {
         count++;
     }
 
-    return dateObj.set({ year: year - count, month, day }).toDate();
+    return dateObj.set({ year, month, day }).minus(count, 'year').toDate();
 }
 
 export function orderUnits(units: DayLiteUnits[]): DayLiteUnits[] {
