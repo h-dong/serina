@@ -13,6 +13,17 @@ describe('dayLight', () => {
 
         test('should return passed date object', () => {
             const date = new Date(2021, 10, 20);
+            expect(dayLite(date).day).toBe(20);
+            expect(dayLite(date).month).toBe(11);
+            expect(dayLite(date).monthName).toBe('November');
+            expect(dayLite(date).year).toBe(2021);
+        });
+
+        test('should return passed parsed date', () => {
+            const date = new Date('2021-10-20T12:00:00.000');
+            expect(dayLite(date).day).toBe(20);
+            expect(dayLite(date).month).toBe(10);
+            expect(dayLite(date).monthName).toBe('October');
             expect(dayLite(date).year).toBe(2021);
         });
 
@@ -37,7 +48,40 @@ describe('dayLight', () => {
             { name: 'weekday name', operation: dayLite().weekdayName, output: 'Thursday' },
             { name: 'month', operation: dayLite().month, output: 10 },
             { name: 'month name', operation: dayLite().monthName, output: 'October' },
+            { name: 'month native', operation: dayLite().nativeMonth, output: 9 },
             { name: 'year', operation: dayLite().year, output: 2022 },
+        ])('should return correct $name', ({ operation, output }) => {
+            expect(operation).toEqual(output);
+        });
+    });
+
+    describe('Advanced Getters', () => {
+        test.each([
+            { name: 'not leap year -100000', operation: dayLite(new Date(-100000, 1, 1)).leapYear, output: true },
+            { name: 'not leap year -1', operation: dayLite(new Date(-1, 1, 1)).leapYear, output: false },
+            { name: 'not leap year 0', operation: dayLite(new Date(0, 1, 1)).leapYear, output: false },
+            { name: 'leap year', operation: dayLite(new Date(2000, 1, 1)).leapYear, output: true },
+            { name: 'not leap year 2001', operation: dayLite(new Date(2001, 1, 1)).leapYear, output: false },
+            {
+                name: 'days in Feb 2000',
+                operation: dayLite(new Date('2000-02-01T12:00:00.000')).daysInMonth,
+                output: 29,
+            },
+            {
+                name: 'days in Mar 2000',
+                operation: dayLite(new Date('2000-03-01T12:00:00.000')).daysInMonth,
+                output: 31,
+            },
+            {
+                name: 'days in Feb 2001',
+                operation: dayLite(new Date('2001-02-01T12:00:00.000')).daysInMonth,
+                output: 28,
+            },
+            {
+                name: 'days in Apr 2001',
+                operation: dayLite(new Date('2001-04-01T12:00:00.000')).daysInMonth,
+                output: 30,
+            },
         ])('should return correct $name', ({ operation, output }) => {
             expect(operation).toEqual(output);
         });
@@ -131,7 +175,7 @@ describe('dayLight', () => {
 
     describe('startOf()', () => {
         beforeAll(() => {
-            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35.123'));
         });
 
         afterAll(() => {
@@ -141,19 +185,23 @@ describe('dayLight', () => {
         test.each([
             {
                 name: 'second',
-                operation: dayLite().start('second').toString(),
-                output: '2022-10-20T13:55:35.000Z',
+                operation: dayLite().start('second').toDate(),
+                output: new Date('2022-10-20T14:55:35.000'),
             },
             {
                 name: 'minute',
-                operation: dayLite().start('minute').toString(),
-                output: '2022-10-20T13:55:00.000Z',
+                operation: dayLite().start('minute').toDate(),
+                output: new Date('2022-10-20T14:55:00.000'),
             },
-            { name: 'hour', operation: dayLite().start('hour').toString(), output: '2022-10-20T13:00:00.000Z' },
-            { name: 'day', operation: dayLite().start('day').toString(), output: '2022-10-19T23:00:00.000Z' },
-            { name: 'week', operation: dayLite().start('week').toString(), output: '2022-10-17T23:00:00.000Z' },
-            { name: 'month', operation: dayLite().start('month').toString(), output: '2022-09-30T23:00:00.000Z' },
-            { name: 'year', operation: dayLite().start('year').toString(), output: '2022-01-01T00:00:00.000Z' },
+            { name: 'hour', operation: dayLite().start('hour').toDate(), output: new Date('2022-10-20T14:00:00.000') },
+            { name: 'day', operation: dayLite().start('day').toDate(), output: new Date('2022-10-20T00:00:00.000') },
+            { name: 'week', operation: dayLite().start('week').toDate(), output: new Date('2022-10-17T00:00:00.000') },
+            {
+                name: 'month',
+                operation: dayLite().start('month').toDate(),
+                output: new Date('2022-10-01T00:00:00.000'),
+            },
+            { name: 'year', operation: dayLite().start('year').toDate(), output: new Date('2022-01-01T00:00:00.000') },
         ])('should return correct $name', ({ operation, output }) => {
             expect(operation).toEqual(output);
         });

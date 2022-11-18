@@ -1,3 +1,4 @@
+import { nextMonths } from './helper';
 import { DataTimeUnits } from './types';
 
 class DayLite {
@@ -71,6 +72,10 @@ class DayLite {
         this._dateTime.setMonth(value - 1);
     }
 
+    get nativeMonth() {
+        return this._dateTime.getMonth();
+    }
+
     get monthName() {
         return this._dateTime.toLocaleString('default', { month: 'long' });
     }
@@ -78,8 +83,17 @@ class DayLite {
     get year() {
         return this._dateTime.getFullYear();
     }
+
     private set year(value: number) {
         this._dateTime.setFullYear(value);
+    }
+
+    get leapYear() {
+        return new Date(this.year, 1, 29).getDate() === 29;
+    }
+
+    get daysInMonth() {
+        return new Date(this.year, this.nativeMonth + 1, 0).getDate();
     }
 
     toDate() {
@@ -197,6 +211,76 @@ class DayLite {
         return this;
     }
 
+    next(value: number, unit: DataTimeUnits) {
+        switch (unit) {
+            case 'millisecond':
+                this.millisecond += value;
+                break;
+            case 'second':
+                this.second += value;
+                break;
+            case 'minute':
+                this.minute += value;
+                break;
+            case 'hour':
+                this.hour += value;
+                break;
+            case 'day':
+                this.day += value;
+                break;
+            case 'week':
+                this.day += value * 7;
+                break;
+            case 'month':
+                this._dateTime = nextMonths(this._dateTime, value);
+                break;
+            case 'year':
+                this.year += value;
+                break;
+            default:
+                throw 'Cannot perform .next() operation with unknown unit';
+        }
+
+        return this;
+    }
+
+    prev(value: number, unit: DataTimeUnits) {
+        return this.previous(value, unit);
+    }
+
+    previous(value: number, unit: DataTimeUnits) {
+        switch (unit) {
+            case 'millisecond':
+                this.millisecond -= value;
+                break;
+            case 'second':
+                this.second -= value;
+                break;
+            case 'minute':
+                this.minute -= value;
+                break;
+            case 'hour':
+                this.hour -= value;
+                break;
+            case 'day':
+                this.day -= value;
+                break;
+            case 'week':
+                this.day -= value * 7;
+                break;
+            case 'month':
+                this.month -= value;
+                break;
+            case 'year':
+                this.year -= value;
+                break;
+            default:
+                throw 'Cannot perform .prev() or .previous() operation with unknown unit';
+        }
+
+        return this;
+    }
+
     start(unit: DataTimeUnits) {
         return this.startOf(unit);
     }
@@ -229,7 +313,7 @@ class DayLite {
                 this.second = 0;
                 this.minute = 0;
                 this.hour = 0;
-                this.day = this.day - this.weekday + 2; // plus 2 here because first Monday is first day of the week
+                this.day = this.day - this.weekday + 1; // plus 1 here because first Monday is first day of the week
                 break;
             case 'month':
                 this.millisecond = 0;
@@ -247,7 +331,7 @@ class DayLite {
                 this.month = 1;
                 break;
             default:
-                throw 'Cannot perform .startOf() operation with unknown unit';
+                throw 'Cannot perform .start() or .startOf() operation with unknown unit';
         }
 
         return this;
@@ -293,7 +377,7 @@ class DayLite {
                 this.month = 12;
                 break;
             default:
-                throw 'Cannot perform .startOf() operation with unknown unit';
+                throw 'Cannot perform .end() or .endOf() operation with unknown unit';
         }
 
         return this;

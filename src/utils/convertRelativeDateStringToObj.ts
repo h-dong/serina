@@ -17,13 +17,13 @@ function convertRelativeAdverbToObj(relativeDateStr: string): Date {
     return dayLite().plus(1, 'day').toDate();
 }
 
-function getNext(unit): Date {
-    return dayLite().plus(1, [unit]).startOf(unit).endOf('day').toDate();
+function getNext(unit: DataTimeUnits): Date {
+    return dayLite().start(unit).next(1, unit).toDate();
 }
 
 function convertRelativeExpressionToObj(expression: string): Date {
     const [timeUnit] = matchPattern(expression, RELATIVE_DATES.TIME_UNITS.ANY);
-    const unit = timeUnitToString(timeUnit);
+    const unit = timeUnitToString(timeUnit) as DataTimeUnits;
     const period = remove(expression, unit);
     let quantity;
     if (contains(period, RELATIVE_DATES.VERBAL_QUANTIFIERS.ONE)) {
@@ -33,9 +33,7 @@ function convertRelativeExpressionToObj(expression: string): Date {
     } else {
         quantity = parseInt(period, 10);
     }
-    return dayLite()
-        .plus(quantity, [unit] as DataTimeUnits)
-        .toDate();
+    return dayLite().plus(quantity, unit).toDate();
 }
 
 function convertRelativeDateStringToObj(date: string): Date {
