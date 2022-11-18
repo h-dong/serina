@@ -7,6 +7,7 @@ export default defineConfig({
     },
     resolve: {
         alias: [
+            { find: 'serina', replacement: path.resolve(__dirname, 'src', 'serina') },
             { find: 'serina.schema', replacement: path.resolve(__dirname, 'src', 'serina.schema') },
             { find: 'utils', replacement: path.resolve(__dirname, 'src', 'utils') },
             { find: 'filters', replacement: path.resolve(__dirname, 'src', 'filters') },
