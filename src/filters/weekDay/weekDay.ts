@@ -23,7 +23,7 @@ export default class WeekDay {
         });
     }
 
-    static convertWeekdayMatchToDate(matchingText) {
+    static convertWeekdayMatchToDate(matchingText: string) {
         const [weekdayString] = matchPattern(matchingText, WEEKDAY.ANY);
         const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
         const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);

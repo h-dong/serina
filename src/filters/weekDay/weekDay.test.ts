@@ -86,16 +86,15 @@ describe('Day Of The Week', () => {
             ];
         });
 
-        describe.each`
-            title          | next  | last | weekdayArray
-            ${'Monday'}    | ${8}  | ${1} | ${['mon', 'monday']}
-            ${'Tuesday'}   | ${9}  | ${2} | ${['tue', 'tues', 'tuesday']}
-            ${'Wednesday'} | ${10} | ${3} | ${['wed', 'wedn', 'wednesday']}
-            ${'Thursday'}  | ${11} | ${4} | ${['thu', 'thur', 'thursday']}
-            ${'Friday'}    | ${12} | ${5} | ${['fri', 'friday']}
-            ${'Saturday'}  | ${13} | ${6} | ${['sat', 'saturday']}
-            ${'Sunday'}    | ${7}  | ${0} | ${['sun', 'sunday']}
-        `('$title', ({ title, next, last, weekdayArray }) => {
+        describe.each([
+            { title: 'Monday', next: 8, last: 1, weekdayArray: ['mon', 'monday'] },
+            { title: 'Tuesday', next: 9, last: 2, weekdayArray: ['tue', 'tues', 'tuesday'] },
+            { title: 'Wednesday', next: 10, last: 3, weekdayArray: ['wed', 'wedn', 'wednesday'] },
+            { title: 'Thursday', next: 11, last: 4, weekdayArray: ['thu', 'thur', 'thursday'] },
+            { title: 'Friday', next: 12, last: 5, weekdayArray: ['fri', 'friday'] },
+            { title: 'Saturday', next: 13, last: 6, weekdayArray: ['sat', 'saturday'] },
+            { title: 'Sunday', next: 7, last: 0, weekdayArray: ['sun', 'sunday'] },
+        ])('$title', ({ title, next, last, weekdayArray }) => {
             test(`should parse date correctly for next ${title}`, () => {
                 result[0].dateTime = mockWeekday(next);
 

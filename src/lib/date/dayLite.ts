@@ -131,6 +131,9 @@ class DayLite {
                 // case 'week':
                 //     this.day = value;
                 //     break;
+                case 'weekday':
+                    this.day += value - this.weekday;
+                    break;
                 case 'month':
                     this.month = value > 0 ? value : value + 1;
                     break;
