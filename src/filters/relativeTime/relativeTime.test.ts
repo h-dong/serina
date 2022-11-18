@@ -5,34 +5,33 @@ import { dayLite } from 'lib/date/dayLite';
 describe('RelativeTime', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
     const mockDate = new Date('2018-11-01T23:30:00');
-    jest.useFakeTimers().setSystemTime(mockDate);
+    vi.useFakeTimers().setSystemTime(mockDate);
 
     const mockDates = (day, month, year, hour, minute, second) =>
         dayLite(mockDate).set({ day, month, year, hour, minute, second }).startOf('second').toDate();
 
     afterAll(() => {
-        jest.useRealTimers();
+        vi.useRealTimers();
     });
 
-    test.each`
-        filter                        | dateTime
-        ${'in half an hour'}          | ${mockDates(2, 11, 2018, 0, 0, 0)}
-        ${'in a quarter of a minute'} | ${mockDates(1, 11, 2018, 23, 30, 15)}
-        ${'in 15 minutes'}            | ${mockDates(1, 11, 2018, 23, 45, 0)}
-        ${'in 15 mins'}               | ${mockDates(1, 11, 2018, 23, 45, 0)}
-        ${'in 15 min'}                | ${mockDates(1, 11, 2018, 23, 45, 0)}
-        ${'in an hour'}               | ${mockDates(2, 11, 2018, 0, 30, 0)}
-        ${'in 1 hour'}                | ${mockDates(2, 11, 2018, 0, 30, 0)}
-        ${'in 1 hr'}                  | ${mockDates(2, 11, 2018, 0, 30, 0)}
-        ${'in 2 hours'}               | ${mockDates(2, 11, 2018, 1, 30, 0)}
-        ${'in 2 hrs'}                 | ${mockDates(2, 11, 2018, 1, 30, 0)}
-        ${'2 hrs from now'}           | ${mockDates(2, 11, 2018, 1, 30, 0)}
-        ${'2 hrs after'}              | ${mockDates(2, 11, 2018, 1, 30, 0)}
-        ${'2 hrs later'}              | ${mockDates(2, 11, 2018, 1, 30, 0)}
-        ${'after 2 hrs'}              | ${mockDates(2, 11, 2018, 1, 30, 0)}
-        ${'after 30 secs'}            | ${mockDates(1, 11, 2018, 23, 30, 30)}
-        ${'after 60 seconds'}         | ${mockDates(1, 11, 2018, 23, 31, 0)}
-    `('should not parse $filter', ({ filter, dateTime }) => {
+    test.each([
+        { filter: 'in half an hour', dateTime: mockDates(2, 11, 2018, 0, 0, 0) },
+        { filter: 'in a quarter of a minute', dateTime: mockDates(1, 11, 2018, 23, 30, 15) },
+        { filter: 'in 15 minutes', dateTime: mockDates(1, 11, 2018, 23, 45, 0) },
+        { filter: 'in 15 mins', dateTime: mockDates(1, 11, 2018, 23, 45, 0) },
+        { filter: 'in 15 min', dateTime: mockDates(1, 11, 2018, 23, 45, 0) },
+        { filter: 'in an hour', dateTime: mockDates(2, 11, 2018, 0, 30, 0) },
+        { filter: 'in 1 hour', dateTime: mockDates(2, 11, 2018, 0, 30, 0) },
+        { filter: 'in 1 hr', dateTime: mockDates(2, 11, 2018, 0, 30, 0) },
+        { filter: 'in 2 hours', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
+        { filter: 'in 2 hrs', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
+        { filter: '2 hrs from now', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
+        { filter: '2 hrs after', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
+        { filter: '2 hrs later', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
+        { filter: 'after 2 hrs', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
+        { filter: 'after 30 secs', dateTime: mockDates(1, 11, 2018, 23, 30, 30) },
+        { filter: 'after 60 seconds', dateTime: mockDates(1, 11, 2018, 23, 31, 0) },
+    ])('should not parse $filter', ({ filter, dateTime }) => {
         const text = 'go to work';
         const results = RelativeTime.parseText(`${text} ${filter}`);
         const output = [{ dateTime, matched: filter, text }];
