@@ -3,7 +3,7 @@ import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
 
 // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-const mockDate = new Date(2019, 1, 19);
+const mockDate = new Date('2019-01-19T18:06:18Z');
 vi.useFakeTimers().setSystemTime(mockDate);
 
 describe('Week Day and Time', () => {
