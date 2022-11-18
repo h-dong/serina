@@ -12,7 +12,7 @@ export function nextMonths(date: Date, value: number): Date {
         count++;
     }
 
-    return dateObj.set({ year, month: month + count, day }).toDate();
+    return dateObj.set({ year, month, day }).plus(count, 'month').toDate();
 }
 
 export function nextYears(date: Date, value: number): Date {
