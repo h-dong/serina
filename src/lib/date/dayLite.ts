@@ -1,5 +1,5 @@
-import { nextMonths } from './helper';
-import { DataTimeUnits } from './types';
+import { nextMonths, orderUnits } from './helper';
+import { DayLiteUnits } from './types';
 
 class DayLite {
     private _dateTime: Date;
@@ -112,8 +112,10 @@ class DayLite {
         return this._dateTime;
     }
 
-    set(changes: Partial<Record<DataTimeUnits, number>>) {
-        Object.keys(changes).forEach(key => {
+    set(changes: Partial<Record<DayLiteUnits, number>>) {
+        const orderedKeys = orderUnits(Object.keys(changes) as DayLiteUnits[]);
+
+        orderedKeys.forEach(key => {
             const value = changes[key];
             switch (key) {
                 case 'second':
@@ -126,7 +128,13 @@ class DayLite {
                     this.hour = value;
                     break;
                 case 'day':
-                    this.day = value;
+                    if (value < 1) {
+                        this.day = 1;
+                    } else if (value > this.daysInMonth) {
+                        this.day = this.daysInMonth;
+                    } else {
+                        this.day = value;
+                    }
                     break;
                 // case 'week':
                 //     this.day = value;
@@ -135,7 +143,13 @@ class DayLite {
                     this.day += value - this.weekday;
                     break;
                 case 'month':
-                    this.month = value > 0 ? value : value + 1;
+                    if (value < 1) {
+                        this.month = 1;
+                    } else if (value > 12) {
+                        this.month = 12;
+                    } else {
+                        this.month = value > 0 ? value : value + 1;
+                    }
                     break;
                 case 'year':
                     this.year = value;
@@ -148,7 +162,7 @@ class DayLite {
         return this;
     }
 
-    plus(value: number, unit: DataTimeUnits) {
+    plus(value: number, unit: DayLiteUnits) {
         switch (unit) {
             case 'millisecond':
                 this.millisecond += value;
@@ -181,7 +195,7 @@ class DayLite {
         return this;
     }
 
-    minus(value: number, unit: DataTimeUnits) {
+    minus(value: number, unit: DayLiteUnits) {
         switch (unit) {
             case 'millisecond':
                 this.millisecond -= value;
@@ -214,7 +228,7 @@ class DayLite {
         return this;
     }
 
-    next(value: number, unit: DataTimeUnits) {
+    next(value: number, unit: DayLiteUnits) {
         switch (unit) {
             case 'millisecond':
                 this.millisecond += value;
@@ -247,11 +261,11 @@ class DayLite {
         return this;
     }
 
-    prev(value: number, unit: DataTimeUnits) {
+    prev(value: number, unit: DayLiteUnits) {
         return this.previous(value, unit);
     }
 
-    previous(value: number, unit: DataTimeUnits) {
+    previous(value: number, unit: DayLiteUnits) {
         switch (unit) {
             case 'millisecond':
                 this.millisecond -= value;
@@ -284,11 +298,11 @@ class DayLite {
         return this;
     }
 
-    start(unit: DataTimeUnits) {
+    start(unit: DayLiteUnits) {
         return this.startOf(unit);
     }
 
-    startOf(unit: DataTimeUnits) {
+    startOf(unit: DayLiteUnits) {
         switch (unit) {
             case 'millisecond':
                 this.millisecond = 0;
@@ -340,11 +354,11 @@ class DayLite {
         return this;
     }
 
-    end(unit: DataTimeUnits) {
+    end(unit: DayLiteUnits) {
         return this.endOf(unit);
     }
 
-    endOf(unit: DataTimeUnits) {
+    endOf(unit: DayLiteUnits) {
         switch (unit) {
             case 'second':
                 this.millisecond = 999;

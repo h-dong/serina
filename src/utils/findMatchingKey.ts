@@ -1,6 +1,6 @@
 import contains from './contains';
 
-export default function findMatchingKey(object, pattern): string {
+export default function findMatchingKey(object: Record<string, string>, pattern: string): string {
     const keys = Object.keys(object);
 
     if (keys.length) {

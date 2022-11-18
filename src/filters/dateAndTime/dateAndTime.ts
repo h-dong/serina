@@ -1,4 +1,4 @@
-import { ParsedMatchSchema } from 'serina.schema';
+import { DateObjectSchema, ParsedMatchSchema } from 'serina.schema';
 import { DATES, DATE_AND_TIME, PARTIAL_DATES } from 'filters/dates/dates.constants';
 import RELATIVE_DATES from 'filters/relativeDates/relativeDates.constants';
 import TIME from 'filters/time/time.constants';
@@ -38,13 +38,14 @@ export default class DateAndTime {
         const timeString = remove(removeDateFillerWords, dateString);
         const removedTimeFillerWords = remove(timeString, TIME.FILLER_WORDS);
 
-        let dateObj;
+        let dateObj: DateObjectSchema;
         if (contains(dateString, `${DATES.ANY}`)) {
             dateObj = convertDateStringToObj(dateString);
         } else if (contains(dateString, `${PARTIAL_DATES.ANY}`)) {
             dateObj = convertPartialDateStringToObj(dateString);
         } else {
-            dateObj = convertRelativeDateStringToObj(dateString);
+            const { day, month: nativeMonth, year } = dayLite(convertRelativeDateStringToObj(dateString));
+            dateObj = { day, month: nativeMonth, year };
         }
 
         if (!dateObj) return null;
@@ -56,6 +57,6 @@ export default class DateAndTime {
 
         const { hour, minute } = timeObj;
 
-        return dayLite().set({ day, month, year, hour, minute }).startOf('day').toDate();
+        return dayLite().set({ day, month, year, hour, minute }).startOf('minute').toDate();
     }
 }

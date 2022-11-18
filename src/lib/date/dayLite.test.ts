@@ -137,9 +137,9 @@ describe('dayLight', () => {
             { name: 'hour', operation: dayLite().set({ hour: 1 }).hour, output: 1 },
             { name: 'day', operation: dayLite().set({ day: 1 }).day, output: 1 },
             {
-                name: 'month -1',
+                name: 'month -1 should default to Jan',
                 operation: dayLite().set({ month: -1 }).toISOString(),
-                output: '2021-12-20T14:55:35.000Z',
+                output: '2022-01-20T14:55:35.000Z',
             },
             {
                 name: 'month 0',
@@ -157,9 +157,9 @@ describe('dayLight', () => {
                 output: '2022-12-20T14:55:35.000Z',
             },
             {
-                name: 'month 13',
+                name: 'month 13 should default to Dec',
                 operation: dayLite().set({ month: 13 }).toISOString(),
-                output: '2023-01-20T14:55:35.000Z',
+                output: '2022-12-20T14:55:35.000Z',
             },
             { name: 'year', operation: dayLite().set({ year: 1 }).year, output: 1 },
         ])('should return correct $name', ({ operation, output }) => {

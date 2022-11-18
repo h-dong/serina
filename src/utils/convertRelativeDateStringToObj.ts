@@ -4,10 +4,27 @@ import matchPattern from './matchPattern';
 import remove from './remove';
 import RELATIVE_DATES, { RELATIVE_ADVERB } from 'filters/relativeDates/relativeDates.constants';
 import { dayLite } from 'lib/date/dayLite';
-import { DataTimeUnits } from 'lib/date/types';
+import { DayLiteUnits } from 'lib/date/types';
 
-function timeUnitToString(matchAgainst: string): string {
-    return findMatchingKey(RELATIVE_DATES.TIME_UNITS, matchAgainst);
+type RegexTimeUnit = keyof typeof RELATIVE_DATES.TIME_UNITS;
+
+function regexTimeUnitToDayLiteTimeUnit(regexTimeUnit: RegexTimeUnit): DayLiteUnits {
+    switch (regexTimeUnit) {
+        case 'DAYS':
+            return 'day';
+        case 'WEEKS':
+            return 'week';
+        case 'MONTHS':
+            return 'month';
+        case 'YEARS':
+            return 'year';
+        case 'ANY':
+            return null;
+    }
+}
+
+function timeUnitToString(matchAgainst: string) {
+    return findMatchingKey(RELATIVE_DATES.TIME_UNITS, matchAgainst) as RegexTimeUnit;
 }
 
 function convertRelativeAdverbToObj(relativeDateStr: string): Date {
@@ -17,23 +34,28 @@ function convertRelativeAdverbToObj(relativeDateStr: string): Date {
     return dayLite().plus(1, 'day').toDate();
 }
 
-function getNext(unit: DataTimeUnits): Date {
+function getNext(unit: DayLiteUnits): Date {
     return dayLite().start(unit).next(1, unit).toDate();
 }
 
 function convertRelativeExpressionToObj(expression: string): Date {
     const [timeUnit] = matchPattern(expression, RELATIVE_DATES.TIME_UNITS.ANY);
-    const unit = timeUnitToString(timeUnit) as DataTimeUnits;
+    const unit = timeUnitToString(timeUnit);
+
+    if (!unit) return null;
+
+    const dayLiteTimeUnit = regexTimeUnitToDayLiteTimeUnit(unit);
     const period = remove(expression, unit);
-    let quantity;
+    let quantity: number;
     if (contains(period, RELATIVE_DATES.VERBAL_QUANTIFIERS.ONE)) {
         quantity = 1;
     } else if (contains(period, RELATIVE_DATES.VERBAL_QUANTIFIERS.NEXT)) {
-        return getNext(unit);
+        return getNext(dayLiteTimeUnit);
     } else {
         quantity = parseInt(period, 10);
     }
-    return dayLite().plus(quantity, unit).toDate();
+
+    return dayLite().plus(quantity, dayLiteTimeUnit).toDate();
 }
 
 function convertRelativeDateStringToObj(date: string): Date {

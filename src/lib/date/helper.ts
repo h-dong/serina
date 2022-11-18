@@ -1,4 +1,5 @@
 import { dayLite } from './dayLite';
+import { DayLiteUnits } from './types';
 
 export function nextMonths(date: Date, value: number): Date {
     const dateObj = dayLite(date);
@@ -63,4 +64,25 @@ export function prevYears(date: Date, value: number): Date {
     }
 
     return dateObj.set({ year: year - count, month, day }).toDate();
+}
+
+export function orderUnits(units: DayLiteUnits[]): DayLiteUnits[] {
+    const order: DayLiteUnits[] = [
+        'year',
+        'month',
+        'weekday',
+        'week',
+        'day',
+        'hour',
+        'minute',
+        'second',
+        'millisecond',
+    ];
+    const newList = [];
+
+    order.forEach(unit => {
+        if (units.includes(unit)) newList.push(unit);
+    });
+
+    return newList;
 }
