@@ -4,8 +4,10 @@
 **/src
 coverage
 public
+docs
 scripts
 tsconfig.json
+tsconfig.build.json
 tslint.json
 vitest.config.ts
 .vscode
