@@ -34,9 +34,9 @@
         "pnpm": ">=7"
     },
     "scripts": {
+        "watch": "microbundle watch",
         "build": "microbundle build --tsconfig tsconfig.build.json",
-        "dev": "microbundle watch",
-        "build:docs": "pnpm build && ./scripts/build-doc.sh",
+        "build:docs": "./scripts/build-doc.sh",
         "lint": "eslint . --fix",
         "test": "vitest",
         "test:ci": "vitest run"
