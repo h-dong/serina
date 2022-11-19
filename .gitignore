@@ -57,6 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
+# mac
+.DS_Store
+
 # Project Related
 .rpt2_cache/
 .vscode/

@@ -8,5 +8,5 @@ mkdir -p docs/
 cp public/index.html docs/
 
 # copy over library
-rollup --config rollup.config.js
-cp -R dist/umd/* docs/
+cp -R dist/serina.umd.js docs/
+cp -R dist/serina.umd.js.map docs/

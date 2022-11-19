@@ -1,4 +1,16 @@
 **/.eslintrc
 **/.eslintignore
 **/.parcel-cache
+**/src
 coverage
+public
+scripts
+tsconfig.json
+tslint.json
+vitest.config.ts
+.vscode
+.github
+.editorconfig
+.nvmrc
+.prettierrc
+.travis.yml
