@@ -64,3 +64,4 @@ dist/
 .idea/
 docs/
 src/.DS_Store
+.parcel-cache
