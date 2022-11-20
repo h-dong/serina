@@ -4,7 +4,7 @@
         "allowSyntheticDefaultImports": true,
         "declaration": true,
         "diagnostics": true,
-        "target": "ES6",
+        "target": "ESNext",
         "downlevelIteration": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
@@ -20,5 +20,6 @@
         "types": ["vitest/globals"]
     },
     "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules"],
+    "moduleResolution": "nodenext"
 }

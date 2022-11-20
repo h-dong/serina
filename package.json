@@ -24,6 +24,7 @@
     "main": "./dist/serina.cjs",
     "module": "./dist/serina.module.js",
     "unpkg": "./dist/serina.umd.js",
+    "types": "./dist/serina.d.ts",
     "alias": {
         "filters": "./src/filters",
         "utils": "./src/utils",
