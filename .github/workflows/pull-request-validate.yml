@@ -1,0 +1,38 @@
+name: Pull Request Validate
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+
+concurrency:
+  cancel-in-progress: true
+
+jobs:
+    lint-check:
+    name: Lint check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run lint check
+        shell: bash
+        run: pnpm lint
+
+    unit-tests:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run unit tests
+        shell: bash
+        run: pnpm test:ci
+
+    build-check:
+    name: Build check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run build check
+        shell: bash
+        run: pnpm build
+
