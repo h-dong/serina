@@ -1,14 +1,15 @@
 # Serina
 
-[![Build Status](https://travis-ci.org/h-dong/Serina.svg?branch=master)]()
-[![GitHub Release](https://img.shields.io/github/release/h-dong/serina.svg)]()
-[![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)]()
-[![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)]()
-[![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)]()
+> Serina v2 is under active development (currently in alpha), so please continue to use v1.x.x until v2 becomes table.
+
+---
+
+![GitHub Release](https://img.shields.io/github/release/h-dong/serina.svg)
+![GitHub Issues Open](https://img.shields.io/github/issues-raw/h-dong/serina.svg)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/h-dong/serina.svg)
+[![GitHub License](https://img.shields.io/github/license/h-dong/serina.svg)](./LICENSE)
 
 [![Netlify Build Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
-[![BCH compliance](https://bettercodehub.com/edge/badge/h-dong/Serina?branch=master)](https://bettercodehub.com/)
-[![codecov](https://codecov.io/gh/h-dong/Serina/branch/master/graph/badge.svg)](https://codecov.io/gh/h-dong/Serina)
 
 Natural Language Parser for date and time in Javascript.
 
@@ -27,7 +28,7 @@ Simply run `npm install serina`
 Just include Serina in a script tag. You can access its various classes through the serina global.
 
 ```html
-<script src="serina.min.js"></script>
+<script src="serina.umd.js"></script>
 ```
 
 ```js
@@ -38,7 +39,7 @@ var parsed = serina('Remind me to buy milk tomorrow 3pm');
 
 Install via NPM:
 
-```
+```bash
 npm i --save serina
 ```
 
@@ -51,15 +52,15 @@ var parsed = serina('Remind me to buy milk tomorrow 3pm');
 ### ES6
 
 ```js
-import Serina from 'serina';
+import serina from 'serina';
 
-const parsed = Serina('Remind me to buy milk tomorrow 3pm');
+const parsed = serina('Remind me to buy milk tomorrow 3pm');
 ```
 
 ## Usage of Library
 
 ```js
-var parsed = Serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
+var parsed = serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
 
 // assuming current time is 2019/09/10 1pm
 console.log(parsed);
@@ -103,7 +104,7 @@ Here's an example:
 
 Or publish locally if all else fails.
 
-```
+```bash
 npm run publish
 ```
 
@@ -111,33 +112,38 @@ npm run publish
 
 This project is currently developed by just me, so can't say when the library will be ready. But just to give a high level breakdown, here is everything I'm planning to include:
 
-### Milestone 1 ✅
+### Version 1 ✅
 
--   [x] ~~Parse weekdays e.g. `tue`, `tuesday`~~
--   [x] ~~Parse day e.g. `11th`, `2nd`~~
--   [x] ~~Parse month e.g. `july`, `jan`~~
--   [x] ~~Parse year e.g. `2018`, `9999`~~
--   [x] ~~Parse time e.g. `5pm`, `5:00am`, `15:00`~~
--   [x] ~Parse combined day, month and year e.g. `11th June 2019`, `11/09/2018`~
--   [x] ~Parse incomplete date formats e.g. `20/08` or `Jan 2020`~
--   [x] ~Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`~
--   [x] ~Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`~
--   [x] ~Parse relative time e.g. `in half an hour`, `4 hours from now`~
--   [x] ~Parse relative days e.g. `today`, `tomorrow`, `a week from now`~
--   [x] ~Parse relative dates e.g. `next year`, `2 weeks from now`~
--   [x] ~Parse combined relative date and time e.g. `a week from now 2pm`~
--   [x] ~Parse keywords such as `noon`, `midnight`, `mid day`~
+- [x] Parse weekdays e.g. `tue`, `tuesday`
+- [x] Parse day e.g. `11th`, `2nd`
+- [x] Parse month e.g. `july`, `jan`
+- [x] Parse year e.g. `2018`, `9999`
+- [x] Parse time e.g. `5pm`, `5:00am`, `15:00`
+- [x] Parse combined day, month and year e.g. `11th June 2019`, `11/09/2018`
+- [x] Parse incomplete date formats e.g. `20/08` or `Jan 2020`
+- [x] Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`
+- [x] Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`
+- [x] Parse relative time e.g. `in half an hour`, `4 hours from now`
+- [x] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
+- [x] Parse relative dates e.g. `next year`, `2 weeks from now`
+- [x] Parse combined relative date and time e.g. `a week from now 2pm`
+- [x] Parse keywords such as `noon`, `midnight`, `mid day`
 
-### Milestone 2
+### Version 2
 
--   [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
--   [ ] Parse time range e.g. `between 5pm and 8pm`
--   [ ] Parse international date formats better e.g. `2018/06/21`
+- [x] Rewrite Serina to stop using Luxon date library as peer dependency
+- [ ] Improve Regex logic to make it easier to maintain
+- [ ] Review unit tests
+- [ ] Bug fixes
 
-### Milestone 3
+### Todo
 
--   [ ] Parse more UK keywords e.g. `oxt`, `fortnight`
--   [ ] Parse more advanced time e.g. `seconds`, `millisecond`
+- [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
+- [ ] Parse time range e.g. `between 5pm and 8pm`
+- [ ] Parse international date formats better e.g. `2018/06/21`
+- [ ] Parse more UK keywords e.g. `oxt`, `fortnight`
+- [ ] Parse more advanced time e.g. `seconds`, `millisecond`
+- [ ] Timezone support <https://github.com/h-dong/serina/issues/59>
 
 ## Edge cases / Limitations
 
