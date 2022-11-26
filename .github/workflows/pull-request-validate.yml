@@ -2,11 +2,8 @@ name: Pull Request Validate
 
 on:
   pull_request:
-    types:
-      - opened
-      - synchronize
     branches:
-      - main
+      - master
 
 concurrency:
   cancel-in-progress: true
