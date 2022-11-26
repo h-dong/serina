@@ -6,35 +6,63 @@ on:
       - master
 
 jobs:
+  prepare:
+    name: Prepare pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 6
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "pnpm"
+        run: pnpm install --frozen-lockfile
+
     lint-check:
       name: Lint check
+      needs: prepare
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
+        - uses: pnpm/action-setup@v2
+          with:
+            version: 6
+        - name: Install
         - name: Run lint check
           shell: bash
           run: pnpm lint
 
     unit-tests:
       name: Unit tests
+      needs: prepare
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
+        - uses: pnpm/action-setup@v2
+          with:
+            version: 6
         - name: Run unit tests
           shell: bash
           run: pnpm test:ci
 
     build-check:
       name: Build check
+      needs: prepare
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
+        - uses: pnpm/action-setup@v2
+          with:
+            version: 6
         - name: Run build check
           shell: bash
           run: pnpm build
     
     test-coverage:
       name: Test Coverage
+      needs: prepare
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v3
