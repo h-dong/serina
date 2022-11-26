@@ -11,67 +11,39 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/actions/prepare
+      - run: pnpm install --frozen-lockfile
+  
+  validate:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        run: ['lint', 'test:ci', 'build']
+    steps:
+      - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          version: 6
+          version: 7
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
           cache: "pnpm"
-        run: pnpm install --frozen-lockfile
-
-    lint-check:
-      name: Lint check
-      needs: prepare
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: pnpm/action-setup@v2
-          with:
-            version: 6
-        - name: Install
-        - name: Run lint check
-          shell: bash
-          run: pnpm lint
-
-    unit-tests:
-      name: Unit tests
-      needs: prepare
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: pnpm/action-setup@v2
-          with:
-            version: 6
-        - name: Run unit tests
-          shell: bash
-          run: pnpm test:ci
-
-    build-check:
-      name: Build check
-      needs: prepare
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: pnpm/action-setup@v2
-          with:
-            version: 6
-        - name: Run build check
-          shell: bash
-          run: pnpm build
-    
-    test-coverage:
-      name: Test Coverage
-      needs: prepare
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: ArtiomTr/jest-coverage-report-action@v2
-          id: coverage
-          with:
-              output: report-markdown
-        - uses: marocchino/sticky-pull-request-comment@v2
-          with:
-              message: ${{ steps.coverage.outputs.report }}
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm ${{ matrix.run }}
+  
+  test-coverage:
+    name: Test Coverage
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ArtiomTr/jest-coverage-report-action@v2
+        id: coverage
+        with:
+            output: report-markdown
+      - uses: marocchino/sticky-pull-request-comment@v2
+        with:
+            message: ${{ steps.coverage.outputs.report }}
 
 
