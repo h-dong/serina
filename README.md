@@ -11,7 +11,7 @@
 
 [![Netlify Build Status](https://api.netlify.com/api/v1/badges/debe4f89-718a-43de-b3b7-0b791ae709fe/deploy-status)](https://app.netlify.com/sites/serina/deploys)
 
-Natural Language Parser for date and time in Javascript.
+Natural Language Parser (NLP) for date and time in Javascript.
 
 Serina Demo: [serina.netlify.com](https://serina.netlify.com)
 
@@ -131,7 +131,7 @@ This project is currently developed by just me, so can't say when the library wi
 
 ### Version 2
 
-- [x] Rewrite Serina to stop using Luxon date library as peer dependency
+- [x] Rewrite Serina to stop using [Luxon](https://moment.github.io/luxon) as peer dependency
 - [ ] Improve Regex logic to make it easier to maintain
 - [ ] Review unit tests
 - [ ] Bug fixes
@@ -144,6 +144,15 @@ This project is currently developed by just me, so can't say when the library wi
 - [ ] Parse more UK keywords e.g. `oxt`, `fortnight`
 - [ ] Parse more advanced time e.g. `seconds`, `millisecond`
 - [ ] Timezone support <https://github.com/h-dong/serina/issues/59>
+
+## Why remove Luxon and reinvent the wheel?
+
+There are two main considerations for removing [Luxon](https://moment.github.io/luxon):
+
+- This project now has zero dependencies (exclude dev-dependencies of course).
+- Took inspirations from [Day.js](https://day.js.org/) and implement a DayLite class to handle previous Luxon date operations. Now, with full control over the date-time logic, it's possible to move more complex date operations into the DayLite class. Hopefully this will translate to simpler Serina utility files and have them more focused on NLP.
+
+The idea is to release DayLite as a separate library at some point, for now it is easier to keep it within this project.
 
 ## Edge cases / Limitations
 
