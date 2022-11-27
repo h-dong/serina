@@ -14,7 +14,7 @@ describe('RelativeDates', () => {
         vi.useRealTimers();
     });
 
-    test.only.each([
+    test.each([
         { filter: 'next week', dateTime: mockNext('week') },
         { filter: 'next month', dateTime: mockNext('month') },
         { filter: 'next year', dateTime: mockNext('year') },
