@@ -3,7 +3,7 @@ import { dayLite } from './dayLite';
 describe('dayLight', () => {
     describe('Constructor', () => {
         beforeEach(() => {
-            vi.useFakeTimers().setSystemTime(new Date('2020-06-10T11:22:33'));
+            vi.useFakeTimers().setSystemTime(new Date('2020-06-10T11:22:33Z'));
         });
 
         afterEach(() => {
@@ -32,7 +32,7 @@ describe('dayLight', () => {
     });
 
     describe('Basic Getters', () => {
-        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35Z'));
 
         afterAll(() => {
             vi.useRealTimers();
@@ -87,7 +87,7 @@ describe('dayLight', () => {
     });
 
     describe('plus() operation', () => {
-        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35Z'));
 
         afterAll(() => {
             vi.useRealTimers();
@@ -106,7 +106,7 @@ describe('dayLight', () => {
     });
 
     describe('minus() operation', () => {
-        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35Z'));
 
         afterAll(() => {
             vi.useRealTimers();
@@ -125,7 +125,7 @@ describe('dayLight', () => {
     });
 
     describe('set() operation', () => {
-        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+        vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35Z'));
 
         afterAll(() => {
             vi.useRealTimers();
@@ -167,14 +167,14 @@ describe('dayLight', () => {
         });
 
         test('should return correct combination of set day, month and year', () => {
-            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35Z'));
             expect(dayLite().set({ day: 2, month: 11, year: 2018 }).toISOString()).toEqual('2018-11-02T14:55:35.000Z');
         });
     });
 
     describe('startOf()', () => {
         beforeAll(() => {
-            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35.123'));
+            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35.123Z'));
         });
 
         afterAll(() => {
@@ -208,7 +208,7 @@ describe('dayLight', () => {
 
     describe('endOf()', () => {
         beforeAll(() => {
-            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35'));
+            vi.useFakeTimers().setSystemTime(new Date('2022-10-20T14:55:35Z'));
         });
 
         afterAll(() => {
