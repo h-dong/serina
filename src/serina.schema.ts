@@ -27,10 +27,4 @@ interface DateObjectSchema {
     year: number;
 }
 
-export {
-    ParsedMatchSchema,
-    ParsedSchema,
-    TestCaseSchema,
-    TimeObjectSchema,
-    DateObjectSchema,
-};
+export { ParsedMatchSchema, ParsedSchema, TestCaseSchema, TimeObjectSchema, DateObjectSchema };

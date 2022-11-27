@@ -1,0 +1,36 @@
+name: Pull Request Validate
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  prepare:
+    name: Prepare pipeline
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/prepare
+      - run: pnpm install --frozen-lockfile
+  
+  validate:
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: 
+        run: ['lint', 'test:ci', 'build']
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/prepare
+      # - uses: pnpm/action-setup@v2
+      #   with:
+      #     version: 7
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
+      #     cache: "pnpm"
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm ${{ matrix.run }}
+  
+

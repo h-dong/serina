@@ -1,32 +1,32 @@
-import { DateTime, Settings } from 'luxon';
 import WeekDayAndTime from './weekDayAndTime';
 import { ParsedMatchSchema } from 'serina.schema';
+import { dayLite } from 'lib/date/dayLite';
 
 // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-Settings.now = () => new Date(2019, 0, 19).valueOf();
+const mockDate = new Date('2019-01-19T18:06:18Z');
+vi.useFakeTimers().setSystemTime(mockDate);
 
 describe('Week Day and Time', () => {
     const mockWeekdayAndTime = (day, month, year, hour, min) =>
-        DateTime.utc()
-            .set({ year, month, day, hour, minute: min })
-            .startOf('minute')
-            .toJSDate();
+        dayLite(mockDate).set({ year, month, day, hour, minute: min }).startOf('minute').toDate();
     const text = 'go to work';
 
     afterAll(() => {
-        // Restore Mock
-        Settings.now = () => Date.now();
+        vi.useRealTimers();
     });
 
-    test.each`
-        filter                     | input                              | dateTime
-        ${'on Monday 9am'}         | ${`${text} on Monday 9am`}         | ${mockWeekdayAndTime(21, 1, 2019, 9, 0)}
-        ${'on Tue 10pm'}           | ${`${text} on Tue 10pm`}           | ${mockWeekdayAndTime(22, 1, 2019, 22, 0)}
-        ${'9am Mon'}               | ${`${text} 9am Mon`}               | ${mockWeekdayAndTime(21, 1, 2019, 9, 0)}
-        ${'12pm Wed'}              | ${`${text} 12pm Wed`}              | ${mockWeekdayAndTime(23, 1, 2019, 12, 0)}
-        ${'12:20 Sunday'}          | ${`${text} 12:20 Sunday`}          | ${mockWeekdayAndTime(20, 1, 2019, 12, 20)}
-        ${'at 1:20pm last Monday'} | ${`${text} at 1:20pm last Monday`} | ${mockWeekdayAndTime(14, 1, 2019, 13, 20)}
-    `('should be able to parse $filter', ({ filter, input, dateTime }) => {
+    test.each([
+        { filter: 'on Monday 9am', input: `${text} on Monday 9am`, dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0) },
+        { filter: 'on Tue 10pm', input: `${text} on Tue 10pm`, dateTime: mockWeekdayAndTime(22, 1, 2019, 22, 0) },
+        { filter: '9am Mon', input: `${text} 9am Mon`, dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0) },
+        { filter: '12pm Wed', input: `${text} 12pm Wed`, dateTime: mockWeekdayAndTime(23, 1, 2019, 12, 0) },
+        { filter: '12:20 Sunday', input: `${text} 12:20 Sunday`, dateTime: mockWeekdayAndTime(20, 1, 2019, 12, 20) },
+        {
+            filter: 'at 1:20pm last Monday',
+            input: `${text} at 1:20pm last Monday`,
+            dateTime: mockWeekdayAndTime(14, 1, 2019, 13, 20),
+        },
+    ])('should be able to parse $filter', ({ filter, input, dateTime }) => {
         const results = WeekDayAndTime.parseText(input);
         const output = [{ dateTime, matched: filter, text }];
         expect(results).toEqual(output);

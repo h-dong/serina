@@ -4,6 +4,7 @@ import RELATIVE_DATES from './relativeDates.constants';
 import parseMatches from 'utils/parseMatches';
 import matchPattern from 'utils/matchPattern';
 import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class RelativeDates {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -21,6 +22,6 @@ export default class RelativeDates {
     static convertMatchToDateObj(matchingText: string): Date {
         const dateObj = convertRelativeDateStringToObj(matchingText);
         if (!dateObj) return null;
-        return dateObj.endOf('day').toJSDate();
+        return dayLite(dateObj).start('day').toDate();
     }
 }

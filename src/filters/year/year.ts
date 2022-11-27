@@ -1,9 +1,9 @@
-import { DateTime } from 'luxon';
 import parseMatches from 'utils/parseMatches';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import { ParsedMatchSchema } from 'serina.schema';
 import YEAR from './year.constants';
+import { dayLite } from 'lib/date/dayLite';
 
 // parsing year between 1000 - 9999
 export default class Year {
@@ -20,7 +20,7 @@ export default class Year {
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
-        let year: number = DateTime.utc().year;
+        let year: number = dayLite().year;
 
         if (contains(matchingText, YEAR.ANY)) {
             const [matchedDay] = matchPattern(matchingText, YEAR.ANY);
@@ -29,10 +29,6 @@ export default class Year {
 
         if (!year) return null;
 
-        return DateTime.utc()
-            .set({ year })
-            .startOf('year')
-            .endOf('day')
-            .toJSDate();
+        return dayLite().set({ year }).startOf('year').endOf('day').toDate();
     }
 }

@@ -6,7 +6,7 @@ function parseMatches(text: string, pattern: string, dateTimeObj: Date): ParsedM
     const textRemain = text.replace(regex, '');
 
     // get the original capitalisation
-    const [ matched ] = text.match(regex);
+    const [matched] = text.match(regex);
 
     return {
         text: trimWhiteSpaces(textRemain),

@@ -4,7 +4,7 @@
         "allowSyntheticDefaultImports": true,
         "declaration": true,
         "diagnostics": true,
-        "target": "ES5",
+        "target": "ESNext",
         "downlevelIteration": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
@@ -15,18 +15,11 @@
         "noLib": false,
         "moduleResolution": "node",
         "sourceMap": true,
-        "baseUrl": "./src",
+        "baseUrl": "src",
         "typeRoots": ["node_modules/@types"],
-        "types": ["jest", "luxon"]
+        "types": ["vitest/globals"]
     },
-    "include": [
-      "src/**/*"
-    ],
-    "exclude": [
-      "node_modules",
-      "src/filters",
-      "src/utils",
-      "src/**.*.test.ts",
-      "src/serina.schema.ts"
-    ]
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"],
+    "moduleResolution": "nodenext"
 }

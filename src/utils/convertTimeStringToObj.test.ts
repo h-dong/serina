@@ -1,54 +1,53 @@
 import convertTimeStringToObj from './convertTimeStringToObj';
 
 describe('convertTimeStringToObj()', () => {
-    test.each`
-        filter                    | expected
-        ${'25pm'}                 | ${null}
-        ${'at 8:30am'}            | ${{ hour: 8, minute: 30 }}
-        ${'09:45'}                | ${{ hour: 9, minute: 45 }}
-        ${'24:45'}                | ${null}
-        ${'9am'}                  | ${{ hour: 9, minute: 0 }}
-        ${'by 7pm'}               | ${{ hour: 19, minute: 0 }}
-        ${'12pm'}                 | ${{ hour: 12, minute: 0 }}
-        ${'12am'}                 | ${{ hour: 0, minute: 0 }}
-        ${'11:00'}                | ${{ hour: 11, minute: 0 }}
-        ${'at 4PM'}               | ${{ hour: 16, minute: 0 }}
-        ${'at 2 pm'}              | ${{ hour: 14, minute: 0 }}
-        ${'at 4 p.M.'}            | ${{ hour: 16, minute: 0 }}
-        ${'by 4p.m.'}             | ${{ hour: 16, minute: 0 }}
-        ${'0:00'}                 | ${{ hour: 0, minute: 0 }}
-        ${'at quarter past 4'}    | ${{ hour: 4, minute: 15 }}
-        ${'at quarter to 4'}      | ${{ hour: 3, minute: 45 }}
-        ${'at half past 4'}       | ${{ hour: 4, minute: 30 }}
-        ${'at quarter to 4pm'}    | ${{ hour: 15, minute: 45 }}
-        ${'at 20 past 4'}         | ${{ hour: 4, minute: 20 }}
-        ${'at 20 minutes past 4'} | ${{ hour: 4, minute: 20 }}
-        ${'at 20 min past 4'}     | ${{ hour: 4, minute: 20 }}
-        ${'at 20 min to 19'}      | ${{ hour: 18, minute: 40 }}
-        ${'at 20 min to 23'}      | ${{ hour: 22, minute: 40 }}
-        ${'at 20 min to 12am'}    | ${{ hour: 23, minute: 40 }}
-        ${'at 20 min to 90'}      | ${null}
-        ${'at 20 min to 24'}      | ${null}
-        ${'8:30am'}               | ${{ hour: 8, minute: 30 }}
-        ${'09:45'}                | ${{ hour: 9, minute: 45 }}
-        ${'9am'}                  | ${{ hour: 9, minute: 0 }}
-        ${'7pm'}                  | ${{ hour: 19, minute: 0 }}
-        ${'12pm'}                 | ${{ hour: 12, minute: 0 }}
-        ${'12am'}                 | ${{ hour: 0, minute: 0 }}
-        ${'0:00'}                 | ${{ hour: 0, minute: 0 }}
-        ${'00:00'}                | ${{ hour: 0, minute: 0 }}
-        ${'11:00'}                | ${{ hour: 11, minute: 0 }}
-        ${'4PM'}                  | ${{ hour: 16, minute: 0 }}
-        ${'1:20pm'}               | ${{ hour: 13, minute: 20 }}
-        ${'2 pm'}                 | ${{ hour: 14, minute: 0 }}
-        ${'5:27 p.m.'}            | ${{ hour: 17, minute: 27 }}
-        ${'6:27 A.M.'}            | ${{ hour: 6, minute: 27 }}
-        ${'07:27 PM.'}            | ${{ hour: 19, minute: 27 }}
-        ${'19:27 PM.'}            | ${{ hour: 19, minute: 27 }}
-        ${'2:40a.M.'}             | ${{ hour: 2, minute: 40 }}
-        ${'5a.M.'}                | ${{ hour: 5, minute: 0 }}
-    `('should be able to parse $filter', ({ filter, expected }) => {
+    test.each([
+        { filter: '25pm', output: null },
+        { filter: 'at 8:30am', output: { hour: 8, minute: 30 } },
+        { filter: '09:45', output: { hour: 9, minute: 45 } },
+        { filter: '24:45', output: null },
+        { filter: '9am', output: { hour: 9, minute: 0 } },
+        { filter: 'by 7pm', output: { hour: 19, minute: 0 } },
+        { filter: '12pm', output: { hour: 12, minute: 0 } },
+        { filter: '12am', output: { hour: 0, minute: 0 } },
+        { filter: '11:00', output: { hour: 11, minute: 0 } },
+        { filter: 'at 4PM', output: { hour: 16, minute: 0 } },
+        { filter: 'at 2 pm', output: { hour: 14, minute: 0 } },
+        { filter: 'at 4 p.M.', output: { hour: 16, minute: 0 } },
+        { filter: 'by 4p.m.', output: { hour: 16, minute: 0 } },
+        { filter: '0:00', output: { hour: 0, minute: 0 } },
+        { filter: 'at quarter past 4', output: { hour: 4, minute: 15 } },
+        { filter: 'at quarter to 4', output: { hour: 3, minute: 45 } },
+        { filter: 'at half past 4', output: { hour: 4, minute: 30 } },
+        { filter: 'at quarter to 4pm', output: { hour: 15, minute: 45 } },
+        { filter: 'at 20 past 4', output: { hour: 4, minute: 20 } },
+        { filter: 'at 20 minutes past 4', output: { hour: 4, minute: 20 } },
+        { filter: 'at 20 min past 4', output: { hour: 4, minute: 20 } },
+        { filter: 'at 20 min to 19', output: { hour: 18, minute: 40 } },
+        { filter: 'at 20 min to 23', output: { hour: 22, minute: 40 } },
+        { filter: 'at 20 min to 12am', output: { hour: 23, minute: 40 } },
+        { filter: 'at 20 min to 90', output: null },
+        { filter: 'at 20 min to 24', output: null },
+        { filter: '8:30am', output: { hour: 8, minute: 30 } },
+        { filter: '09:45', output: { hour: 9, minute: 45 } },
+        { filter: '9am', output: { hour: 9, minute: 0 } },
+        { filter: '7pm', output: { hour: 19, minute: 0 } },
+        { filter: '12pm', output: { hour: 12, minute: 0 } },
+        { filter: '12am', output: { hour: 0, minute: 0 } },
+        { filter: '0:00', output: { hour: 0, minute: 0 } },
+        { filter: '00:00', output: { hour: 0, minute: 0 } },
+        { filter: '11:00', output: { hour: 11, minute: 0 } },
+        { filter: '4PM', output: { hour: 16, minute: 0 } },
+        { filter: '1:20pm', output: { hour: 13, minute: 20 } },
+        { filter: '2 pm', output: { hour: 14, minute: 0 } },
+        { filter: '5:27 p.m.', output: { hour: 17, minute: 27 } },
+        { filter: '6:27 A.M.', output: { hour: 6, minute: 27 } },
+        { filter: '07:27 PM.', output: { hour: 19, minute: 27 } },
+        { filter: '19:27 PM.', output: { hour: 19, minute: 27 } },
+        { filter: '2:40a.M.', output: { hour: 2, minute: 40 } },
+        { filter: '5a.M.', output: { hour: 5, minute: 0 } },
+    ])('should be able to parse $filter', ({ filter, output }) => {
         const results = convertTimeStringToObj(filter);
-        expect(results).toEqual(expected);
+        expect(results).toEqual(output);
     });
 });

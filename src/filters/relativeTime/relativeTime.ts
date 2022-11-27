@@ -1,10 +1,10 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
 import RELATIVE_TIME from './relativeTime.constants';
 import parseMatches from 'utils/parseMatches';
 import matchPattern from 'utils/matchPattern';
 import remove from 'utils/remove';
 import contains from 'utils/contains';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class RelativeTime {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -39,17 +39,16 @@ export default class RelativeTime {
         return timeValue;
     }
 
-    static addRelativeTimeToCurrentTime(timeString: string): DateTime {
+    static addRelativeTimeToCurrentTime(timeString: string): Date {
         const timeUnit = matchPattern(timeString, RELATIVE_TIME.TIME_UNITS.ANY)[0];
         const timePeriod = remove(timeString, timeUnit);
         const timeValue = this.convertRelativeTimeStringToNumericValue(timePeriod, timeUnit);
-        return DateTime.utc().plus(timeValue);
+        return dayLite().plus(timeValue, 'millisecond').toDate();
     }
 
     static convertMatchToDateObj(matchingText: string): Date {
         const removedFillerWords = remove(matchingText, RELATIVE_TIME.FILLER_WORDS);
         const newDateTime = this.addRelativeTimeToCurrentTime(removedFillerWords);
-        if (!newDateTime.isValid) return null;
-        return newDateTime.startOf('second').toJSDate();
+        return dayLite(newDateTime).startOf('millisecond').toDate();
     }
 }

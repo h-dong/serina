@@ -1,25 +1,7 @@
 {
     "name": "serina",
-    "version": "1.1.2",
+    "version": "2.0.0-alpha.1",
     "description": "Natural Language Parser for date and time in Javascript",
-    "main": "dist/cjs/serina.js",
-    "types": "dist/cjs/serina.d.ts",
-    "module": "dist/esm/serina.js",
-    "files": [
-        "dist/cjs/*",
-        "dist/esm/*",
-        "dist/umd/*"
-    ],
-    "scripts": {
-        "dev": "rollup --config --watch",
-        "prepublishOnly": "./scripts/build-npm.sh",
-        "docs": "./scripts/build-doc.sh",
-        "lint": "tslint -c tslint.json \"src/**/*.ts\"",
-        "lint:fix": "tslint --fix -c tslint.json \"src/**/*.ts\"",
-        "test": "jest --watchAll",
-        "test:build": "jest",
-        "test:coverage": "jest --coverage"
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/h-dong/serina.git"
@@ -38,41 +20,43 @@
         "url": "https://github.com/h-dong/serina/issues"
     },
     "homepage": "https://github.com/h-dong/serina#readme",
-    "dependencies": {
-        "luxon": "1.27.0"
+    "source": "./src/serina.ts",
+    "main": "./dist/serina.cjs",
+    "module": "./dist/serina.module.js",
+    "unpkg": "./dist/serina.umd.js",
+    "types": "./dist/serina.d.ts",
+    "alias": {
+        "filters": "./src/filters",
+        "utils": "./src/utils",
+        "lib": "./src/lib"
     },
+    "engines": {
+        "node": ">=18",
+        "pnpm": ">=7"
+    },
+    "scripts": {
+        "watch": "microbundle watch",
+        "build": "microbundle build --tsconfig tsconfig.build.json",
+        "build:docs": "./scripts/build-doc.sh",
+        "lint": "eslint src",
+        "lint:fix": "eslint src --fix",
+        "test": "vitest",
+        "test:ci": "vitest run --coverage"
+    },
+    "browserslist": [
+        "defaults and supports es6-module",
+        "maintained node versions"
+    ],
     "devDependencies": {
-        "@types/jest": "^26.0.23",
-        "@types/luxon": "^1.26.5",
-        "babel-preset-es2015-rollup": "^3.0.0",
-        "jest": "^27.0.4",
-        "prettier": "^2.3.1",
-        "rollup": "^2.51.1",
-        "rollup-plugin-terser": "^7.0.2",
-        "rollup-plugin-typescript2": "^0.30.0",
-        "ts-jest": "^27.0.3",
-        "tslint": "^6.1.2",
-        "tslint-eslint-rules": "^5.4.0",
-        "typescript": "^4.3.2"
-    },
-    "jest": {
-        "testEnvironment": "node",
-        "testMatch": [
-            "<rootDir>/src/**/*.test.ts"
-        ],
-        "collectCoverageFrom": [
-            "src/**/*.ts"
-        ],
-        "moduleFileExtensions": [
-            "ts",
-            "js"
-        ],
-        "transform": {
-            "\\.(ts)$": "ts-jest",
-            "^.+\\.js$": "babel-jest"
-        },
-        "modulePaths": [
-            "src"
-        ]
+        "@typescript-eslint/eslint-plugin": "^5.44.0",
+        "@typescript-eslint/parser": "^5.44.0",
+        "@vitest/coverage-istanbul": "^0.25.3",
+        "eslint": "^8.28.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "microbundle": "^0.15.1",
+        "prettier": "^2.8.0",
+        "typescript": "^4.9.3",
+        "vitest": "^0.25.3"
     }
 }

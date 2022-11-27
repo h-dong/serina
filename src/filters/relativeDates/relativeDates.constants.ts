@@ -51,7 +51,4 @@ const RELATIVE_DATES = {
     VERBAL_QUANTIFIERS,
 };
 
-export {
-    RELATIVE_DATES as default,
-    RELATIVE_ADVERB,
-};
+export { RELATIVE_DATES as default, RELATIVE_ADVERB };

@@ -1,10 +1,10 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import { DateTime } from 'luxon';
 import { DATES, PARTIAL_DATES } from './dates.constants';
 import parseMatches from 'utils/parseMatches';
 import convertPartialDateStringToObj from 'utils/convertPartialDateStringToObj';
 import remove from 'utils/remove';
 import matchPattern from 'utils/matchPattern';
+import { dayLite } from 'lib/date/dayLite';
 
 export default class PartialDates {
     static parseText(text: string): ParsedMatchSchema[] {
@@ -26,10 +26,6 @@ export default class PartialDates {
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-        const newDateTime = DateTime.utc().set({ day, month, year });
-
-        if (!newDateTime.isValid) return null;
-
-        return newDateTime.endOf('day').toJSDate();
+        return dayLite().set({ day, month, year }).endOf('day').toDate();
     }
 }
