@@ -19,7 +19,20 @@ const serina = (text: string): ParsedSchema => {
         matches: [],
     };
 
-    const filters = [ WeekDay, Day, Month, Year, Time, Dates, PartialDates, DateAndTime, RelativeTime, RelativeDates, WeekDayAndTime, TimeKeywords ];
+    const filters = [
+        WeekDay,
+        Day,
+        Month,
+        Year,
+        Time,
+        Dates,
+        PartialDates,
+        DateAndTime,
+        RelativeTime,
+        RelativeDates,
+        WeekDayAndTime,
+        TimeKeywords,
+    ];
 
     filters.forEach(filter => {
         const results: ParsedMatchSchema[] = filter.parseText(text);
