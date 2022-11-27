@@ -3,7 +3,7 @@ import { dayLite } from 'lib/date/dayLite';
 
 describe('convertDateStringToObj', () => {
     // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    const mockDate = new Date('2019-06-29T15:48:12');
+    const mockDate = new Date('2019-06-29T15:48:12Z');
     vi.useFakeTimers().setSystemTime(mockDate);
 
     const currentYear = dayLite(mockDate).year;

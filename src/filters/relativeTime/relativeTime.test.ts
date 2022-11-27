@@ -4,7 +4,7 @@ import { dayLite } from 'lib/date/dayLite';
 
 describe('RelativeTime', () => {
     // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
-    const mockDate = new Date('2018-11-01T23:30:00');
+    const mockDate = new Date('2018-11-01T23:30:00Z');
     vi.useFakeTimers().setSystemTime(mockDate);
 
     const mockDates = (day, month, year, hour, minute, second) =>

@@ -10,7 +10,7 @@ describe('Month', () => {
     const shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
     // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    vi.useFakeTimers().setSystemTime(new Date('2019-06-29T15:48:12'));
+    vi.useFakeTimers().setSystemTime(new Date('2019-06-29T15:48:12Z'));
 
     afterAll(() => {
         vi.useRealTimers();

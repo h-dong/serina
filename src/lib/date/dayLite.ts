@@ -1,4 +1,4 @@
-import { getDaysInMonth, nextMonths, orderUnits } from './helper';
+import { getDaysInMonth, getStartOfWeek, nextMonths, orderUnits } from './helper';
 import { DayLiteUnits } from './types';
 
 class DayLite {
@@ -9,47 +9,47 @@ class DayLite {
     }
 
     get millisecond() {
-        return this._dateTime.getMilliseconds();
+        return this._dateTime.getUTCMilliseconds();
     }
 
     private set millisecond(value: number) {
-        this._dateTime.setMilliseconds(value);
+        this._dateTime.setUTCMilliseconds(value);
     }
 
     get second() {
-        return this._dateTime.getSeconds();
+        return this._dateTime.getUTCSeconds();
     }
 
     private set second(value: number) {
-        this._dateTime.setSeconds(value);
+        this._dateTime.setUTCSeconds(value);
     }
 
     get minute() {
-        return this._dateTime.getMinutes();
+        return this._dateTime.getUTCMinutes();
     }
 
     private set minute(value: number) {
-        this._dateTime.setMinutes(value);
+        this._dateTime.setUTCMinutes(value);
     }
 
     get hour() {
-        return this._dateTime.getHours();
+        return this._dateTime.getUTCHours();
     }
 
     private set hour(value: number) {
-        this._dateTime.setHours(value);
+        this._dateTime.setUTCHours(value);
     }
 
     get day() {
-        return this._dateTime.getDate();
+        return this._dateTime.getUTCDate();
     }
 
     private set day(value: number) {
-        this._dateTime.setDate(value);
+        this._dateTime.setUTCDate(value);
     }
 
     get weekday() {
-        return this._dateTime.getDay();
+        return this._dateTime.getUTCDay();
     }
 
     private set weekday(value: number) {
@@ -65,15 +65,15 @@ class DayLite {
     }
 
     get month() {
-        return this._dateTime.getMonth() + 1;
+        return this._dateTime.getUTCMonth() + 1;
     }
 
     private set month(value: number) {
-        this._dateTime.setMonth(value - 1);
+        this._dateTime.setUTCMonth(value - 1);
     }
 
     get nativeMonth() {
-        return this._dateTime.getMonth();
+        return this._dateTime.getUTCMonth();
     }
 
     get monthName() {
@@ -81,15 +81,15 @@ class DayLite {
     }
 
     get year() {
-        return this._dateTime.getFullYear();
+        return this._dateTime.getUTCFullYear();
     }
 
     private set year(value: number) {
-        this._dateTime.setFullYear(value);
+        this._dateTime.setUTCFullYear(value);
     }
 
     get leapYear() {
-        return new Date(this.year, 1, 29).getDate() === 29;
+        return new Date(Date.UTC(this.year, 1, 29)).getUTCDate() === 29;
     }
 
     get daysInMonth() {
@@ -109,7 +109,7 @@ class DayLite {
     }
 
     now() {
-        return this._dateTime;
+        return this._dateTime.valueOf();
     }
 
     set(changes: Partial<Record<DayLiteUnits, number>>) {
@@ -330,7 +330,7 @@ class DayLite {
                 this.second = 0;
                 this.minute = 0;
                 this.hour = 0;
-                this.day = this.day - this.weekday + 1; // plus 1 here because first Monday is first day of the week
+                this.day = getStartOfWeek(this.weekday, this.day);
                 break;
             case 'month':
                 this.millisecond = 0;
@@ -383,14 +383,14 @@ class DayLite {
                 this.second = 59;
                 this.minute = 59;
                 this.hour = 23;
-                this.day = new Date(this.year, this.month, 0).getDate();
+                this.day = new Date(Date.UTC(this.year, this.month, 0)).getUTCDate();
                 break;
             case 'year':
                 this.millisecond = 999;
                 this.second = 59;
                 this.minute = 59;
                 this.hour = 23;
-                this.day = new Date(this.year, this.month, 0).getDate();
+                this.day = new Date(Date.UTC(this.year, this.month, 0)).getUTCDate();
                 this.month = 12;
                 break;
             default:

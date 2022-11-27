@@ -1,8 +1,8 @@
 import convertWeekdayStringToNumber from './convertWeekdayStringToNumber';
 
-// Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
 describe('convertWeekdayStringToNumber', () => {
-    vi.useFakeTimers().setSystemTime(new Date(2019, 0, 19));
+    // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+    vi.useFakeTimers().setSystemTime(new Date('2019-01-19T18:06:18Z'));
 
     afterAll(() => {
         vi.useRealTimers();
