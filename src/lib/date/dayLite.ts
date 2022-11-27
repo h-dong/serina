@@ -1,4 +1,4 @@
-import { nextMonths, orderUnits } from './helper';
+import { getDaysInMonth, nextMonths, orderUnits } from './helper';
 import { DayLiteUnits } from './types';
 
 class DayLite {
@@ -93,7 +93,7 @@ class DayLite {
     }
 
     get daysInMonth() {
-        return new Date(this.year, this.nativeMonth + 1, 0).getDate();
+        return getDaysInMonth(this.year, this.nativeMonth);
     }
 
     toDate() {

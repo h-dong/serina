@@ -1,67 +1,80 @@
-import { dayLite } from './dayLite';
 import { DayLiteUnits } from './types';
 
+export function getDaysInMonth(year: number, month: number, day?: number): number {
+    return new Date(year, month + 1, day ?? 0).getDate();
+}
+
 export function nextMonths(date: Date, value: number): Date {
-    const dateObj = dayLite(date);
-    const { day, month, nativeMonth, year } = dateObj;
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
 
     let count = value;
     // loop to skip any months without the day
     // e.g. given date is 31st March, since Apr does not have 31st, so skip to May
-    while (day > dayLite(new Date(year, nativeMonth + count, 1)).daysInMonth) {
+    while (day > getDaysInMonth(year, month + count)) {
+        if (count > 100) throw 'Possible infinite loop within nextMonths()';
         count++;
     }
 
-    return dateObj.set({ year, month, day }).plus(count, 'month').toDate();
+    const newDate = date;
+    newDate.setMonth(month + count);
+    return newDate;
 }
 
 export function nextYears(date: Date, value: number): Date {
-    const dateObj = dayLite(date);
-    const { day, month, nativeMonth, year } = dateObj;
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
 
     let count = value;
     // loop to skip any year without the day or has diff month
     // e.g.given date is 2000 Feb 29th, since 2001 Feb does not have 29th, so skip to 2004
-    while (
-        day > dayLite(new Date(year + count, nativeMonth, 1)).daysInMonth ||
-        dayLite(new Date(year + count, nativeMonth, day)).nativeMonth != nativeMonth
-    ) {
+    while (day > getDaysInMonth(year + count, month) || new Date(year + count, month, day).getMonth() != month) {
+        if (count > 100) throw 'Possible infinite loop within nextYears()';
         count++;
     }
 
-    return dateObj.set({ year, month, day }).plus(count, 'year').toDate();
+    const newDate = date;
+    newDate.setFullYear(year + count);
+    return newDate;
 }
 
 export function prevMonths(date: Date, value: number): Date {
-    const dateObj = dayLite(date);
-    const { day, month, nativeMonth, year } = dateObj;
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
 
     let count = value;
     // loop to skip any months without the day
     // e.g. given date is May 31st, since Apr does not have 31st, so skip to Mar
 
-    while (day > dayLite(new Date(year, nativeMonth - count, 1)).daysInMonth) {
+    while (day > getDaysInMonth(year, month - count)) {
+        if (count > 100) throw 'Possible infinite loop within prevMonths()';
         count++;
     }
 
-    return dateObj.set({ year, month, day }).minus(count, 'month').toDate();
+    const newDate = date;
+    newDate.setMonth(month - count);
+    return newDate;
 }
 
 export function prevYears(date: Date, value: number): Date {
-    const dateObj = dayLite(date);
-    const { day, month, nativeMonth, year } = dateObj;
+    const day = date.getDate();
+    const month = date.getMonth();
+    const year = date.getFullYear();
 
     let count = value;
     // loop to skip any year without the day
     // e.g. given date is 2004 Feb 29th, since 2001 Feb does not have 29th, so skip to 2000
-    while (
-        day > dayLite(new Date(year - count, nativeMonth, 1)).daysInMonth ||
-        dayLite(new Date(year - count, nativeMonth, 1)).nativeMonth != nativeMonth
-    ) {
+    while (day > getDaysInMonth(year - count, month) || new Date(year - count, month, 1).getMonth() != month) {
+        if (count > 100) throw 'Possible infinite loop within prevYears()';
         count++;
     }
 
-    return dateObj.set({ year, month, day }).minus(count, 'year').toDate();
+    const newDate = date;
+    newDate.setFullYear(year - count);
+    return newDate;
 }
 
 export function orderUnits(units: DayLiteUnits[]): DayLiteUnits[] {
