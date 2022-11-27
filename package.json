@@ -41,7 +41,7 @@
         "lint": "eslint src",
         "lint:fix": "eslint src --fix",
         "test": "vitest",
-        "test:ci": "vitest run"
+        "test:ci": "vitest run --coverage"
     },
     "browserslist": [
         "defaults and supports es6-module",
@@ -50,6 +50,7 @@
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.44.0",
         "@typescript-eslint/parser": "^5.44.0",
+        "@vitest/coverage-istanbul": "^0.25.3",
         "eslint": "^8.28.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-prettier": "^4.2.1",
