@@ -22,29 +22,15 @@ jobs:
         run: ['lint', 'test:ci', 'build']
     steps:
       - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 7
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: "pnpm"
+      - uses: ./.github/actions/prepare
+      # - uses: pnpm/action-setup@v2
+      #   with:
+      #     version: 7
+      # - uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18
+      #     cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm ${{ matrix.run }}
   
-  test-coverage:
-    name: Test Coverage
-    needs: validate
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ArtiomTr/jest-coverage-report-action@v2
-        id: coverage
-        with:
-          skip-step: all
-          output: report-markdown
-      - uses: marocchino/sticky-pull-request-comment@v2
-        with:
-            message: ${{ steps.coverage.outputs.report }}
-
 
