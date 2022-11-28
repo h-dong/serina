@@ -8,12 +8,9 @@ jobs:
     name: npm-publish
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-      - name: Prepare for publish
-        run: pnpm build
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/prepare
+      - run: pnpm build
       - name: Publish if version has been updated
         uses: pascalgn/npm-publish-action@1.3.9
         with:
