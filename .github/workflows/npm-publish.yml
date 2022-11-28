@@ -10,6 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/prepare
+      - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - name: Publish if version has been updated
         uses: pascalgn/npm-publish-action@1.3.9
