@@ -23,7 +23,6 @@ export default class WeekDayAndTime {
 
         if (!matches) return null;
 
-        // for each match, get the parsed cases
         return matches.map(match => {
             const dateTimeObj = this.convertWeekdayAndTimeToDateObj(match);
             return parseMatches(text, match, dateTimeObj);
