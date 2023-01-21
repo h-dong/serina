@@ -10,9 +10,20 @@ function getValidMatch(text: string, pattern: string): string {
     return value;
 }
 
+function convertTime(timeString: string, hour: number, minute: number) {
+    if (isNaN(hour) || isNaN(minute) || hour > 23 || minute > 59) return null;
+    if (contains(timeString, TIME.AM, false) && hour === 12) hour = 24;
+    if (contains(timeString, TIME.TO) && hour > 0) hour -= 1;
+    if (contains(timeString, TIME.TO)) minute = 60 - minute;
+    if (contains(timeString, TIME.PM, false) && hour < 12) hour += 12;
+    if (hour === 24) hour = 0;
+
+    return { hour, minute };
+}
+
 function convertTimeStringToObj(timeString: string): TimeObjectSchema {
-    let hour;
-    let minute;
+    let hour: string;
+    let minute: string;
     const isRelativeTime = contains(timeString, TIME.RELATIVE_TIME_FILLER_WORDS);
 
     if (isRelativeTime) {
@@ -65,20 +76,11 @@ function convertTimeStringToObj(timeString: string): TimeObjectSchema {
         } else {
             // 6pm
             hour = getValidMatch(timeString, `\\b${TIME.HOUR_PART}(?=(( )?${TIME.MERIDIEM}))`);
-            minute = 0;
+            minute = '0';
         }
     }
 
-    hour = parseInt(hour, 10);
-    minute = parseInt(minute, 10);
-    if (isNaN(hour) || isNaN(minute) || hour > 23 || minute > 59) return null;
-    if (contains(timeString, TIME.AM, false) && hour === 12) hour = 24;
-    if (contains(timeString, TIME.TO) && hour > 0) hour -= 1;
-    if (contains(timeString, TIME.TO)) minute = 60 - minute;
-    if (contains(timeString, TIME.PM, false) && hour < 12) hour += 12;
-    if (hour === 24) hour = 0;
-
-    return { hour, minute };
+    return convertTime(timeString, parseInt(hour, 10), parseInt(minute, 10));
 }
 
 export default convertTimeStringToObj;

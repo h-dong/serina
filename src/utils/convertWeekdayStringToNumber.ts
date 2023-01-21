@@ -6,6 +6,8 @@ function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolea
     let weekday = null;
     const todayInWeekday = dayLite().weekday;
 
+    // Logic here assumes Monday is the first day of the week
+    // TODO: Make this logic more robust
     Object.keys(WEEKDAY.SINGLE).forEach((key, index) => {
         const weekdayPattern = WEEKDAY.SINGLE[key];
         if (contains(weekdayString, weekdayPattern)) {
