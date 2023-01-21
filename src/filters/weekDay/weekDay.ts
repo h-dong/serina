@@ -1,5 +1,5 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import WEEKDAY from './weekDay.constants';
+import WEEKDAY from './weekday.constants';
 import contains from 'utils/contains';
 import matchPattern from 'utils/matchPattern';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';

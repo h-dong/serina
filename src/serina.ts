@@ -1,5 +1,5 @@
 import { ParsedSchema, ParsedMatchSchema } from 'serina.schema';
-import WeekDay from 'filters/weekDay/weekDay';
+import WeekDay from 'filters/weekday/weekday';
 import Day from 'filters/day/day';
 import Month from 'filters/month/month';
 import Year from 'filters/year/year';
@@ -7,7 +7,7 @@ import Time from 'filters/time/time';
 import Dates from 'filters/dates/dates';
 import PartialDates from 'filters/dates/partialDates';
 import DateAndTime from 'filters/dateAndTime/dateAndTime';
-import WeekDayAndTime from 'filters/weekDayAndTime/weekDayAndTime';
+import WeekDayAndTime from 'filters/weekdayAndTime/weekdayAndTime';
 import RelativeTime from 'filters/relativeTime/relativeTime';
 import RelativeDates from 'filters/relativeDates/relativeDates';
 import TimeKeywords from 'filters/timeKeywords/timeKeywords';

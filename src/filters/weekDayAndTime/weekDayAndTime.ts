@@ -1,5 +1,5 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import WEEKDAY from 'filters/weekDay/weekDay.constants';
+import WEEKDAY from 'filters/weekday/weekday.constants';
 import matchPattern from 'utils/matchPattern';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
 import contains from 'utils/contains';

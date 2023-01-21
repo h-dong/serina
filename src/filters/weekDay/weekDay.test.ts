@@ -1,4 +1,4 @@
-import WeekDay from './weekDay';
+import WeekDay from './weekday';
 import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
 

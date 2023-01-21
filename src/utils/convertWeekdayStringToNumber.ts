@@ -1,4 +1,4 @@
-import WEEKDAY from 'filters/weekDay/weekDay.constants';
+import WEEKDAY from 'filters/weekday/weekday.constants';
 import contains from 'utils/contains';
 import { dayLite } from 'lib/date/dayLite';
 
