@@ -1,42 +1,103 @@
 import Year from './year';
-import { ParsedMatchSchema } from 'serina.schema';
+import YEAR from './year.constants';
+import * as stringUtil from 'lib/string/stringUtil';
+import * as yearHelper from './year.helpers';
+import { SpyInstance } from 'vitest';
 import { dayLite } from 'lib/date/dayLite';
 
 describe('Year', () => {
-    const mockYear = (year: number) => dayLite().set({ year }).startOf('year').endOf('day').toDate();
+    let spyMatchPattern: SpyInstance;
+    let spyYearStringToDate: SpyInstance;
+    let spyParseMatches: SpyInstance;
 
-    test.each([
-        { filter: '1000', dateTime: mockYear(1000) },
-        { filter: 'in 1000', dateTime: mockYear(1000) },
-        { filter: '2019', dateTime: mockYear(2019) },
-        { filter: 'in 2019', dateTime: mockYear(2019) },
-        { filter: '9999', dateTime: mockYear(9999) },
-        { filter: 'in 9999', dateTime: mockYear(9999) },
-        { filter: '2020', dateTime: mockYear(2020) },
-        { filter: 'in 2020', dateTime: mockYear(2020) },
-    ])('should be able to parse $filter', ({ filter, dateTime }) => {
-        const text = 'go to work';
-        const result: ParsedMatchSchema[] = [
-            {
-                dateTime,
-                text,
-                matched: filter,
-            },
-        ];
-
-        expect(Year.parseText(`${text} ${filter}`)).toEqual(result);
+    beforeEach(() => {
+        spyMatchPattern = vi.spyOn(stringUtil, 'matchPattern');
+        spyYearStringToDate = vi.spyOn(yearHelper, 'yearStringToDate');
+        spyParseMatches = vi.spyOn(stringUtil, 'parseMatches');
     });
 
-    test('should return correct case for matched string', () => {
-        const text = 'Hand in paper 2020';
-        const result: ParsedMatchSchema[] = [
+    afterEach(() => {
+        spyMatchPattern.mockRestore();
+        spyYearStringToDate.mockRestore();
+        spyParseMatches.mockRestore();
+    });
+
+    test('call matchPattern() once', () => {
+        Year.parseText('some random text');
+        expect(stringUtil.matchPattern).toBeCalledTimes(1);
+    });
+
+    test('call matchPattern() with correct args', () => {
+        Year.parseText('test string 2000');
+        expect(stringUtil.matchPattern).toBeCalledWith('test string 2000', YEAR.YEAR_WITH_FILLER_WORDS);
+        spyMatchPattern.mockRestore();
+    });
+
+    test('do not call yearStringToDate() if no match', () => {
+        Year.parseText('some random text');
+        expect(yearHelper.yearStringToDate).not.toBeCalled();
+    });
+
+    test('do not call parseMatches() if no match', () => {
+        Year.parseText('some random text');
+        expect(stringUtil.parseMatches).not.toBeCalled();
+    });
+
+    test('return null if no match', () => {
+        const result = Year.parseText('some random text');
+        expect(result).toBeNull();
+    });
+
+    test('call yearStringToDate() once if there is one match', () => {
+        spyMatchPattern.mockReturnValue(['2000']);
+        Year.parseText('test string 2000');
+        expect(yearHelper.yearStringToDate).toBeCalledTimes(1);
+    });
+
+    test('call yearStringToDate() with correct args', () => {
+        spyMatchPattern.mockReturnValue(['2000']);
+        Year.parseText('test string 2000');
+        expect(yearHelper.yearStringToDate).toBeCalledWith('2000');
+    });
+
+    test('call yearStringToDate() twice if there are two matches', () => {
+        spyMatchPattern.mockReturnValue(['2000', '2001']);
+        Year.parseText('test string 2000 2001');
+        expect(yearHelper.yearStringToDate).toBeCalledTimes(2);
+    });
+
+    test('call parseMatches() once if there is one match', () => {
+        spyMatchPattern.mockReturnValue(['2000']);
+        Year.parseText('test string 2000');
+        expect(stringUtil.parseMatches).toBeCalledTimes(1);
+    });
+
+    test('call parseMatches() with correct args', () => {
+        spyMatchPattern.mockReturnValue(['2000']);
+        Year.parseText('test string 2000');
+        expect(stringUtil.parseMatches).toBeCalledWith(
+            'test string 2000',
+            '2000',
+            dayLite().set({ year: 2000 }).startOf('year').endOf('day').toDate()
+        );
+    });
+
+    test('call parseMatches() twice if there are two matches', () => {
+        spyMatchPattern.mockReturnValue(['2000', '2001']);
+        Year.parseText('test string 2000 2001');
+        expect(stringUtil.parseMatches).toBeCalledTimes(2);
+    });
+
+    test('return an array of ParsedMatchSchema if there is at least one match', () => {
+        spyMatchPattern.mockReturnValue(['2000']);
+        const output = Year.parseText('test string 2000 2001');
+        const results = [
             {
-                dateTime: mockYear(2020),
-                text: 'Hand in paper',
-                matched: '2020',
+                dateTime: dayLite().set({ year: 2000 }).startOf('year').endOf('day').toDate(),
+                matched: '2000',
+                text: 'test string 2001',
             },
         ];
-
-        expect(Year.parseText(text)).toEqual(result);
+        expect(output).toEqual(results);
     });
 });

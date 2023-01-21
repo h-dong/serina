@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from './weekday.constants';
-import contains from 'utils/contains';
-import matchPattern from 'utils/matchPattern';
+import { contains } from 'lib/string/stringUtil';
+import { matchPattern } from 'lib/string/stringUtil';
 import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
-import parseMatches from 'utils/parseMatches';
+import { parseMatches } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
 export default class WeekDay {

@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import RELATIVE_TIME from './relativeTime.constants';
-import parseMatches from 'utils/parseMatches';
-import matchPattern from 'utils/matchPattern';
+import { parseMatches } from 'lib/string/stringUtil';
+import { matchPattern } from 'lib/string/stringUtil';
 import remove from 'utils/remove';
-import contains from 'utils/contains';
+import { contains } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
 export default class RelativeTime {
@@ -19,7 +19,7 @@ export default class RelativeTime {
         });
     }
 
-    static convertRelativeTimeStringToNumericValue(timePeriod: string, timeUnit: string): number {
+    private static convertRelativeTimeStringToNumericValue(timePeriod: string, timeUnit: string): number {
         let timeValue = 1000;
         // Multiplication is commutative, we are going to take a quarter of whatever time unit we are going to get.
         if (contains(timePeriod, RELATIVE_TIME.VERBAL_QUANTIFIERS.QUARTER)) {
@@ -39,14 +39,14 @@ export default class RelativeTime {
         return timeValue;
     }
 
-    static addRelativeTimeToCurrentTime(timeString: string): Date {
+    private static addRelativeTimeToCurrentTime(timeString: string): Date {
         const timeUnit = matchPattern(timeString, RELATIVE_TIME.TIME_UNITS.ANY)[0];
         const timePeriod = remove(timeString, timeUnit);
         const timeValue = this.convertRelativeTimeStringToNumericValue(timePeriod, timeUnit);
         return dayLite().plus(timeValue, 'millisecond').toDate();
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const removedFillerWords = remove(matchingText, RELATIVE_TIME.FILLER_WORDS);
         const newDateTime = this.addRelativeTimeToCurrentTime(removedFillerWords);
         return dayLite(newDateTime).startOf('millisecond').toDate();

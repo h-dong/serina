@@ -1,7 +1,7 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import parseMatches from 'utils/parseMatches';
-import contains from 'utils/contains';
-import matchPattern from 'utils/matchPattern';
+import { parseMatches } from 'lib/string/stringUtil';
+import { contains } from 'lib/string/stringUtil';
+import { matchPattern } from 'lib/string/stringUtil';
 import monthStringToNumber from 'utils/monthStringToNumber';
 import MONTH from './month.constants';
 import { dayLite } from 'lib/date/dayLite';
@@ -20,7 +20,7 @@ export default class Month {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const month = monthStringToNumber(matchingText);
         if (month === null) return null;
 

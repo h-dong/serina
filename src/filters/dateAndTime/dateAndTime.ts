@@ -2,11 +2,11 @@ import { DateObjectSchema, ParsedMatchSchema } from 'serina.schema';
 import { DATES, DATE_AND_TIME, PARTIAL_DATES } from 'filters/dates/dates.constants';
 import RELATIVE_DATES from 'filters/relativeDates/relativeDates.constants';
 import TIME from 'filters/time/time.constants';
-import parseMatches from 'utils/parseMatches';
+import { parseMatches } from 'lib/string/stringUtil';
 import convertDateStringToObj from 'utils/convertDateStringToObj';
-import contains from 'utils/contains';
+import { contains } from 'lib/string/stringUtil';
 import remove from 'utils/remove';
-import matchPattern from 'utils/matchPattern';
+import { matchPattern } from 'lib/string/stringUtil';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
 import convertPartialDateStringToObj from 'utils/convertPartialDateStringToObj';
 import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
@@ -25,7 +25,7 @@ export default class DateAndTime {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const removeDateFillerWords = remove(matchingText, DATES.FILLER_WORDS);
         const dateStringMatches = matchPattern(
             removeDateFillerWords,

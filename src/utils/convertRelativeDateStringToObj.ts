@@ -1,10 +1,9 @@
-import contains from './contains';
 import findMatchingKey from './findMatchingKey';
-import matchPattern from './matchPattern';
 import remove from './remove';
 import RELATIVE_DATES, { RELATIVE_ADVERB } from 'filters/relativeDates/relativeDates.constants';
 import { dayLite } from 'lib/date/dayLite';
 import { DayLiteUnits } from 'lib/date/types';
+import { contains, matchPattern } from 'lib/string/stringUtil';
 
 type RegexTimeUnit = keyof typeof RELATIVE_DATES.TIME_UNITS;
 

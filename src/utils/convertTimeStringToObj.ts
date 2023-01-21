@@ -1,7 +1,7 @@
 import { TimeObjectSchema } from 'serina.schema';
 import TIME from 'filters/time/time.constants';
-import contains from './contains';
-import matchPattern from 'utils/matchPattern';
+import { contains } from 'lib/string/stringUtil';
+import { matchPattern } from 'lib/string/stringUtil';
 
 function getValidMatch(text: string, pattern: string): string {
     const matched = matchPattern(text, pattern, false);

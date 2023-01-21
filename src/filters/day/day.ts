@@ -1,7 +1,7 @@
 import { ParsedMatchSchema } from 'serina.schema';
-import parseMatches from 'utils/parseMatches';
-import contains from 'utils/contains';
-import matchPattern from 'utils/matchPattern';
+import { parseMatches } from 'lib/string/stringUtil';
+import { contains } from 'lib/string/stringUtil';
+import { matchPattern } from 'lib/string/stringUtil';
 import DAY from './day.constants';
 import { dayLite } from 'lib/date/dayLite';
 
@@ -19,7 +19,7 @@ export default class Day {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const today = dayLite();
         let day: number = null;
         let month: number = today.month;

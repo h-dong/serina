@@ -1,8 +1,8 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import TIME from './time.constants';
-import parseMatches from 'utils/parseMatches';
+import { parseMatches } from 'lib/string/stringUtil';
 import convertTimeStringToObj from 'utils/convertTimeStringToObj';
-import matchPattern from 'utils/matchPattern';
+import { matchPattern } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
 export default class Time {
@@ -18,7 +18,7 @@ export default class Time {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const timeObj = convertTimeStringToObj(matchingText);
 
         if (!timeObj) return null;

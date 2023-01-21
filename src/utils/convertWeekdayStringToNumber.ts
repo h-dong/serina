@@ -1,5 +1,5 @@
 import WEEKDAY from 'filters/weekday/weekday.constants';
-import contains from 'utils/contains';
+import { contains } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
 function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolean): number {

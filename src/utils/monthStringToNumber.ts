@@ -1,5 +1,5 @@
 import MONTH from 'filters/month/month.constants';
-import contains from './contains';
+import { contains } from 'lib/string/stringUtil';
 
 function monthStrToInt(matchingText: string): number {
     let month = null;

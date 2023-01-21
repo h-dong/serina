@@ -1,8 +1,8 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DATES } from 'filters/dates/dates.constants';
 import RELATIVE_DATES from './relativeDates.constants';
-import parseMatches from 'utils/parseMatches';
-import matchPattern from 'utils/matchPattern';
+import { parseMatches } from 'lib/string/stringUtil';
+import { matchPattern } from 'lib/string/stringUtil';
 import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
 import { dayLite } from 'lib/date/dayLite';
 
@@ -19,7 +19,7 @@ export default class RelativeDates {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const dateObj = convertRelativeDateStringToObj(matchingText);
         if (!dateObj) return null;
         return dayLite(dateObj).start('day').toDate();

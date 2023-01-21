@@ -1,9 +1,9 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import { DATES } from './dates.constants';
-import parseMatches from 'utils/parseMatches';
+import { parseMatches } from 'lib/string/stringUtil';
 import convertDateStringToObj from 'utils/convertDateStringToObj';
 import remove from 'utils/remove';
-import matchPattern from 'utils/matchPattern';
+import { matchPattern } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
 export default class Dates {
@@ -19,7 +19,7 @@ export default class Dates {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         const removedFillerWords = remove(matchingText, DATES.FILLER_WORDS);
         const dateObj = convertDateStringToObj(removedFillerWords);
 

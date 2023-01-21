@@ -1,6 +1,6 @@
-import matchPattern from 'utils/matchPattern';
-import parseMatches from 'utils/parseMatches';
-import contains from 'utils/contains';
+import { matchPattern } from 'lib/string/stringUtil';
+import { parseMatches } from 'lib/string/stringUtil';
+import { contains } from 'lib/string/stringUtil';
 import TIME_KEYWORDS from './timeKeywords.constants';
 import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
@@ -18,7 +18,7 @@ export default class TimeKeywords {
         });
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
+    private static convertMatchToDateObj(matchingText: string): Date {
         let day = dayLite().day;
         let hour = null;
         const currentHour = dayLite().hour;
