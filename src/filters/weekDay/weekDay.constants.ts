@@ -1,13 +1,23 @@
+import { wrapInBracket } from 'utils/wrapInBracket';
+
+const MONDAY = '(mon)(day)?';
+const TUESDAY = '(tue(s)?)(day)?';
+const WEDNESDAY = '(wed|wedn(es)?)(day)?';
+const THURSDAY = '(thu(r)?(s)?)(day)?';
+const FRIDAY = '(fri)(day)?';
+const SATURDAY = '(sat(ur)?)(day)?';
+const SUNDAY = '(sun)(day)?';
+
 const WEEKDAY = {
-    ANY: '(mon|tue(s)?|wed|wedn(es)?|thu|thur(s)?|fri|sat(ur)?|sun)(day)?',
+    ANY: wrapInBracket([MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY].join('|')),
     SINGLE: {
-        MONDAY: '(mon)(day)?',
-        TUESDAY: '(tue(s)?)(day)?',
-        WEDNESDAY: '(wed|wedn(es)?)(day)?',
-        THURSDAY: '(thu(r)?(s)?)(day)?',
-        FRIDAY: '(fri)(day)?',
-        SATURDAY: '(sat(ur)?)(day)?',
-        SUNDAY: '(sun)(day)?',
+        MONDAY,
+        TUESDAY,
+        WEDNESDAY,
+        THURSDAY,
+        FRIDAY,
+        SATURDAY,
+        SUNDAY,
     },
     FUTURE_WORDS: 'for|next|this|current|on',
     PAST_WORDS: 'last|prev(ious)?',

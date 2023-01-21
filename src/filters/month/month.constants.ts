@@ -1,18 +1,35 @@
+import { wrapInBracket } from 'utils/wrapInBracket';
+
+const JANUARY = 'jan(uary)?';
+const FEBRUARY = 'feb(ruary)?';
+const MARCH = 'mar(ch)?';
+const APRIL = 'apr(il)?';
+const MAY = 'may';
+const JUNE = 'jun(e)?';
+const JULY = 'jul(y)?';
+const AUGUST = 'aug(ust)?';
+const SEPTEMBER = 'sep(tember)?';
+const OCTOBER = 'oct(ober)?';
+const NOVEMBER = 'nov(ember)?';
+const DECEMBER = 'dec(ember)?';
+
 const MONTH = {
-    ANY: '(jan(uary)?|feb(ruary)?|mar(ch)?|apr(il)?|may|jun(e)?|jul(y)?|aug(ust)?|sep(tember)?|oct(ober)?|nov(ember)?|dec(ember)?)',
+    ANY: wrapInBracket(
+        [JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER].join('|')
+    ),
     SINGLE: {
-        JANUARY: 'jan(uary)?',
-        FEBRUARY: 'feb(ruary)?',
-        MARCH: 'mar(ch)?',
-        APRIL: 'apr(il)?',
-        MAY: 'may',
-        JUNE: 'jun(e)?',
-        JULY: 'jul(y)?',
-        AUGUST: 'aug(ust)?',
-        SEPTEMBER: 'sep(tember)?',
-        OCTOBER: 'oct(ober)?',
-        NOVEMBER: 'nov(ember)?',
-        DECEMBER: 'dec(ember)?',
+        JANUARY,
+        FEBRUARY,
+        MARCH,
+        APRIL,
+        MAY,
+        JUNE,
+        JULY,
+        AUGUST,
+        SEPTEMBER,
+        OCTOBER,
+        NOVEMBER,
+        DECEMBER,
     },
     NUMBERS: '(1[0-2]|0?[1-9])',
     FUTURE_WORDS: 'for|next|this|current|in',
