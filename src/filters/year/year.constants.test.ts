@@ -10,7 +10,7 @@ describe('YEAR', () => {
             { input: '2023', expected: true },
             { input: '9999', expected: true },
             { input: '10000', expected: false },
-        ])('should return $expected for $input', ({ input, expected }) => {
+        ])('should return $expected for "$input"', ({ input, expected }) => {
             const regex = new RegExp(YEAR.ANY, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
@@ -22,7 +22,7 @@ describe('YEAR', () => {
             { input: 'in ', expected: true },
             { input: ' in', expected: false },
             { input: ' in ', expected: true },
-        ])('should return $expected for $input', ({ input, expected }) => {
+        ])('should return $expected for "$input"', ({ input, expected }) => {
             const regex = new RegExp(YEAR.FILLER_WORDS, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
@@ -38,7 +38,7 @@ describe('YEAR', () => {
             { input: 'in 9999', expected: true },
             { input: 'in 10000', expected: false },
             { input: 'not_a_word_in 10000', expected: false },
-        ])('should return $expected for $input', ({ input, expected }) => {
+        ])('should return $expected for "$input"', ({ input, expected }) => {
             const regex = new RegExp(YEAR.YEAR_WITH_FILLER_WORDS, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
