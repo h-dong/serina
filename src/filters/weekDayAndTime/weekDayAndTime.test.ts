@@ -1,60 +1,111 @@
-import WeekDayAndTime from './weekdayAndTime';
-import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
+import { SpyInstance } from 'vitest';
+import * as stringUtil from 'lib/string/stringUtil';
+import * as weekdayAndTimeHelper from './weekdayAndTime.helpers';
+import WeekdayAndTime from './weekdayAndTime';
+import WEEKDAY_AND_TIME from './weekdayAndTime.constants';
 
-// Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-const mockDate = new Date('2019-01-19T18:06:18Z');
-vi.useFakeTimers().setSystemTime(mockDate);
-
-describe('Week Day and Time', () => {
-    const mockWeekdayAndTime = (day, month, year, hour, min) =>
-        dayLite(mockDate).set({ year, month, day, hour, minute: min }).startOf('minute').toDate();
-    const text = 'go to work';
+describe('Weekday and Time', () => {
+    // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+    const mockDate = new Date('2019-01-19T18:06:18Z');
+    vi.useFakeTimers().setSystemTime(mockDate);
 
     afterAll(() => {
         vi.useRealTimers();
     });
 
-    test.each([
-        { filter: 'on Monday 9am', input: `${text} on Monday 9am`, dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0) },
-        { filter: 'on Tue 10pm', input: `${text} on Tue 10pm`, dateTime: mockWeekdayAndTime(22, 1, 2019, 22, 0) },
-        { filter: '9am Mon', input: `${text} 9am Mon`, dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0) },
-        { filter: '12pm Wed', input: `${text} 12pm Wed`, dateTime: mockWeekdayAndTime(23, 1, 2019, 12, 0) },
-        { filter: '12:20 Sunday', input: `${text} 12:20 Sunday`, dateTime: mockWeekdayAndTime(20, 1, 2019, 12, 20) },
-        {
-            filter: 'at 1:20pm last Monday',
-            input: `${text} at 1:20pm last Monday`,
-            dateTime: mockWeekdayAndTime(14, 1, 2019, 13, 20),
-        },
-    ])('should be able to parse $filter', ({ filter, input, dateTime }) => {
-        const results = WeekDayAndTime.parseText(input);
-        const output = [{ dateTime, matched: filter, text }];
-        expect(results).toEqual(output);
+    let spyMatchPattern: SpyInstance;
+    let spyWeekdayAndTimeStringToDate: SpyInstance;
+    let spyParseMatches: SpyInstance;
+
+    beforeEach(() => {
+        spyMatchPattern = vi.spyOn(stringUtil, 'matchPattern');
+        spyWeekdayAndTimeStringToDate = vi.spyOn(weekdayAndTimeHelper, 'weekdayAndTimeToDateObj');
+        spyParseMatches = vi.spyOn(stringUtil, 'parseMatches');
     });
 
-    test('should return correct case for matched string', () => {
-        const mockText = 'Hand in paper on monday 9am';
-        const result: ParsedMatchSchema[] = [
-            {
-                dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0),
-                text: 'Hand in paper',
-                matched: 'on monday 9am',
-            },
-        ];
-
-        expect(WeekDayAndTime.parseText(mockText)).toEqual(result);
+    afterEach(() => {
+        spyMatchPattern.mockRestore();
+        spyWeekdayAndTimeStringToDate.mockRestore();
+        spyParseMatches.mockRestore();
     });
 
-    test('should not match filler word in string', () => {
-        const mockText = 'Gym session monday 9am';
-        const result: ParsedMatchSchema[] = [
+    test('call matchPattern() once', () => {
+        WeekdayAndTime.parseText('some random text');
+        expect(stringUtil.matchPattern).toBeCalledTimes(1);
+    });
+
+    test('call matchPattern() with correct args', () => {
+        WeekdayAndTime.parseText('test string 2am monday');
+        expect(stringUtil.matchPattern).toBeCalledWith('test string 2am monday', WEEKDAY_AND_TIME.ANY);
+        spyMatchPattern.mockRestore();
+    });
+
+    test('do not call weekdayAndTimeToDateObj() if no match', () => {
+        WeekdayAndTime.parseText('some random text');
+        expect(weekdayAndTimeHelper.weekdayAndTimeToDateObj).not.toBeCalled();
+    });
+
+    test('do not call parseMatches() if no match', () => {
+        WeekdayAndTime.parseText('some random text');
+        expect(stringUtil.parseMatches).not.toBeCalled();
+    });
+
+    test('return null if no match', () => {
+        const result = WeekdayAndTime.parseText('some random text');
+        expect(result).toBeNull();
+    });
+
+    test('call weekdayAndTimeToDateObj() once if there is one match', () => {
+        spyMatchPattern.mockReturnValue(['2am monday']);
+        WeekdayAndTime.parseText('test string 2am monday');
+        expect(weekdayAndTimeHelper.weekdayAndTimeToDateObj).toBeCalledTimes(1);
+    });
+
+    test('call weekdayAndTimeToDateObj() with correct args', () => {
+        spyMatchPattern.mockReturnValue(['2am monday']);
+        WeekdayAndTime.parseText('test string 2am monday');
+        expect(weekdayAndTimeHelper.weekdayAndTimeToDateObj).toBeCalledWith('2am monday');
+    });
+
+    test('call weekdayAndTimeToDateObj() twice if there are two matches', () => {
+        spyMatchPattern.mockReturnValue(['2am monday', 'tuesday 5pm']);
+        WeekdayAndTime.parseText('test string 2am monday tuesday 5pm');
+        expect(weekdayAndTimeHelper.weekdayAndTimeToDateObj).toBeCalledTimes(2);
+    });
+
+    test('call parseMatches() once if there is one match', () => {
+        spyMatchPattern.mockReturnValue(['2am monday']);
+        WeekdayAndTime.parseText('test string 2am monday');
+        expect(stringUtil.parseMatches).toBeCalledTimes(1);
+    });
+
+    test('call parseMatches() with correct args', () => {
+        spyMatchPattern.mockReturnValue(['2am monday']);
+        WeekdayAndTime.parseText('test string 2am monday');
+        expect(stringUtil.parseMatches).toBeCalledWith(
+            'test string 2am monday',
+            '2am monday',
+            dayLite().set({ weekday: 1, day: 21, hour: 2 }).startOf('hour').toDate()
+        );
+    });
+
+    test('call parseMatches() twice if there are two matches', () => {
+        spyMatchPattern.mockReturnValue(['2am monday', 'tuesday 5pm']);
+        WeekdayAndTime.parseText('test string 2am monday tuesday 5pm');
+        expect(stringUtil.parseMatches).toBeCalledTimes(2);
+    });
+
+    test('return an array of ParsedMatchSchema if there is at least one match', () => {
+        spyMatchPattern.mockReturnValue(['2am monday']);
+        const output = WeekdayAndTime.parseText('test string 2am monday tuesday 5pm');
+        const results = [
             {
-                dateTime: mockWeekdayAndTime(21, 1, 2019, 9, 0),
-                text: 'Gym session',
-                matched: 'monday 9am',
+                dateTime: dayLite().set({ weekday: 1, day: 21, hour: 2 }).startOf('hour').toDate(),
+                matched: '2am monday',
+                text: 'test string tuesday 5pm',
             },
         ];
-
-        expect(WeekDayAndTime.parseText(mockText)).toEqual(result);
+        expect(output).toEqual(results);
     });
 });

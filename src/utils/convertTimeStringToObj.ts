@@ -21,7 +21,7 @@ function convertTime(timeString: string, hour: number, minute: number) {
     return { hour, minute };
 }
 
-function convertTimeStringToObj(timeString: string): TimeObjectSchema {
+function timeStringToDateObj(timeString: string): TimeObjectSchema {
     let hour: string;
     let minute: string;
     const isRelativeTime = contains(timeString, TIME.RELATIVE_TIME_FILLER_WORDS);
@@ -83,4 +83,4 @@ function convertTimeStringToObj(timeString: string): TimeObjectSchema {
     return convertTime(timeString, parseInt(hour, 10), parseInt(minute, 10));
 }
 
-export default convertTimeStringToObj;
+export default timeStringToDateObj;

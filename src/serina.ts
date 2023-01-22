@@ -7,7 +7,7 @@ import Time from 'filters/time/time';
 import Dates from 'filters/dates/dates';
 import PartialDates from 'filters/dates/partialDates';
 import DateAndTime from 'filters/dateAndTime/dateAndTime';
-import WeekDayAndTime from 'filters/weekdayAndTime/weekdayAndTime';
+import WeekdayAndTime from 'filters/weekdayAndTime/weekdayAndTime';
 import RelativeTime from 'filters/relativeTime/relativeTime';
 import RelativeDates from 'filters/relativeDates/relativeDates';
 import TimeKeywords from 'filters/timeKeywords/timeKeywords';
@@ -30,7 +30,7 @@ const serina = (text: string): ParsedSchema => {
         DateAndTime,
         RelativeTime,
         RelativeDates,
-        WeekDayAndTime,
+        WeekdayAndTime,
         TimeKeywords,
     ];
 

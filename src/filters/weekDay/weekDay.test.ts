@@ -33,7 +33,7 @@ describe('Weekday', () => {
         spyMatchPattern.mockRestore();
     });
 
-    test('do not call week() if no match', () => {
+    test('do not call weekdayStringToDateObj() if no match', () => {
         Weekday.parseText('some random text');
         expect(weekdayHelper.weekdayStringToDateObj).not.toBeCalled();
     });
@@ -48,19 +48,19 @@ describe('Weekday', () => {
         expect(result).toBeNull();
     });
 
-    test('call week() once if there is one match', () => {
+    test('call weekdayStringToDateObj() once if there is one match', () => {
         spyMatchPattern.mockReturnValue(['mon']);
         Weekday.parseText('test string mon');
         expect(weekdayHelper.weekdayStringToDateObj).toBeCalledTimes(1);
     });
 
-    test('call week() with correct args', () => {
+    test('call weekdayStringToDateObj() with correct args', () => {
         spyMatchPattern.mockReturnValue(['mon']);
         Weekday.parseText('test string mon');
         expect(weekdayHelper.weekdayStringToDateObj).toBeCalledWith('mon');
     });
 
-    test('call week() twice if there are two matches', () => {
+    test('call weekdayStringToDateObj() twice if there are two matches', () => {
         spyMatchPattern.mockReturnValue(['mon', 'tue']);
         Weekday.parseText('test string mon tue');
         expect(weekdayHelper.weekdayStringToDateObj).toBeCalledTimes(2);

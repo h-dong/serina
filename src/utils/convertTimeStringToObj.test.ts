@@ -1,4 +1,4 @@
-import convertTimeStringToObj from './convertTimeStringToObj';
+import timeStringToDateObj from './convertTimeStringToObj';
 
 describe('convertTimeStringToObj()', () => {
     test.each([
@@ -47,7 +47,7 @@ describe('convertTimeStringToObj()', () => {
         { filter: '2:40a.M.', output: { hour: 2, minute: 40 } },
         { filter: '5a.M.', output: { hour: 5, minute: 0 } },
     ])('should be able to parse $filter', ({ filter, output }) => {
-        const results = convertTimeStringToObj(filter);
+        const results = timeStringToDateObj(filter);
         expect(results).toEqual(output);
     });
 });

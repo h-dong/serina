@@ -7,7 +7,7 @@ import convertDateStringToObj from 'utils/convertDateStringToObj';
 import { contains } from 'lib/string/stringUtil';
 import remove from 'utils/remove';
 import { matchPattern } from 'lib/string/stringUtil';
-import convertTimeStringToObj from 'utils/convertTimeStringToObj';
+import timeStringToDateObj from 'utils/convertTimeStringToObj';
 import convertPartialDateStringToObj from 'utils/convertPartialDateStringToObj';
 import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
 import { dayLite } from 'lib/date/dayLite';
@@ -51,7 +51,7 @@ export default class DateAndTime {
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-        const timeObj = convertTimeStringToObj(removedTimeFillerWords);
+        const timeObj = timeStringToDateObj(removedTimeFillerWords);
 
         if (!timeObj) return null;
 
