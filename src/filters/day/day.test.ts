@@ -1,124 +1,123 @@
 import Day from './day';
 import { ParsedMatchSchema } from 'serina.schema';
+import { SpyInstance } from 'vitest';
+import * as stringUtil from 'lib/string/stringUtil';
+import * as dayHelper from './day.helpers';
+import { dayLite } from 'lib/date/dayLite';
+import DAY from './day.constants';
 
 describe('Day', () => {
-    // Mock Date Time to Saturday, 19 January 2018 18:06:18 GMT+00:00
-    const mockDate = new Date(Date.UTC(2018, 0, 19));
-
-    const mockDay = (day: number, month: number, year: number): Date =>
-        new Date(Date.UTC(year, month, day, 23, 59, 59, 999));
-
-    describe('Normal Usage', () => {
-        const testData: {
-            date: string;
-            dateTime: Date;
-        }[] = [
-            { date: '01st', dateTime: mockDay(1, 1, 2018) },
-            { date: '02nd', dateTime: mockDay(2, 1, 2018) },
-            { date: '03rd', dateTime: mockDay(3, 1, 2018) },
-            { date: '04th', dateTime: mockDay(4, 1, 2018) },
-            { date: '05th', dateTime: mockDay(5, 1, 2018) },
-            { date: '06th', dateTime: mockDay(6, 1, 2018) },
-            { date: '07th', dateTime: mockDay(7, 1, 2018) },
-            { date: '08th', dateTime: mockDay(8, 1, 2018) },
-            { date: '09th', dateTime: mockDay(9, 1, 2018) },
-            { date: '1st', dateTime: mockDay(1, 1, 2018) },
-            { date: '2nd', dateTime: mockDay(2, 1, 2018) },
-            { date: '3rd', dateTime: mockDay(3, 1, 2018) },
-            { date: '4th', dateTime: mockDay(4, 1, 2018) },
-            { date: '5th', dateTime: mockDay(5, 1, 2018) },
-            { date: '6th', dateTime: mockDay(6, 1, 2018) },
-            { date: '7th', dateTime: mockDay(7, 1, 2018) },
-            { date: '8th', dateTime: mockDay(8, 1, 2018) },
-            { date: '9th', dateTime: mockDay(9, 1, 2018) },
-            { date: '10th', dateTime: mockDay(10, 1, 2018) },
-            { date: '11th', dateTime: mockDay(11, 1, 2018) },
-            { date: '12th', dateTime: mockDay(12, 1, 2018) },
-            { date: '13th', dateTime: mockDay(13, 1, 2018) },
-            { date: '14th', dateTime: mockDay(14, 1, 2018) },
-            { date: '15th', dateTime: mockDay(15, 1, 2018) },
-            { date: '16th', dateTime: mockDay(16, 1, 2018) },
-            { date: '17th', dateTime: mockDay(17, 1, 2018) },
-            { date: '18th', dateTime: mockDay(18, 1, 2018) },
-            { date: '19th', dateTime: mockDay(19, 0, 2018) },
-            { date: '20th', dateTime: mockDay(20, 0, 2018) },
-            { date: '21th', dateTime: mockDay(21, 0, 2018) },
-            { date: '22th', dateTime: mockDay(22, 0, 2018) },
-            { date: '23th', dateTime: mockDay(23, 0, 2018) },
-            { date: '24th', dateTime: mockDay(24, 0, 2018) },
-            { date: '25th', dateTime: mockDay(25, 0, 2018) },
-            { date: '26th', dateTime: mockDay(26, 0, 2018) },
-            { date: '27th', dateTime: mockDay(27, 0, 2018) },
-            { date: '28th', dateTime: mockDay(28, 0, 2018) },
-            { date: '29th', dateTime: mockDay(29, 0, 2018) },
-            { date: '30th', dateTime: mockDay(30, 0, 2018) },
-            { date: '31th', dateTime: mockDay(31, 0, 2018) },
-        ];
+    describe('Normal behaviour', () => {
+        let spyMatchPattern: SpyInstance;
+        let spyDayStringToDateObj: SpyInstance;
+        let spyParseMatches: SpyInstance;
 
         beforeAll(() => {
+            // Mock Date Time to Saturday, 19 February 2019 18:06:18 GMT+00:00
             vi.useFakeTimers();
-            vi.setSystemTime(mockDate);
+            vi.setSystemTime(new Date(Date.UTC(2019, 2, 19)));
         });
 
         afterAll(() => {
             vi.useRealTimers();
         });
 
-        test.each(testData)('without filler word $date', ({ date, dateTime }) => {
-            const text = 'go to library';
-
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime,
-                    text,
-                    matched: date,
-                },
-            ];
-
-            expect(Day.parseText(`${text} ${date}`)).toEqual(result);
+        beforeEach(() => {
+            spyMatchPattern = vi.spyOn(stringUtil, 'matchPattern');
+            spyDayStringToDateObj = vi.spyOn(dayHelper, 'dayStringToDateObj');
+            spyParseMatches = vi.spyOn(stringUtil, 'parseMatches');
         });
 
-        test.each(testData)('with "on" filler word $date', ({ date, dateTime }) => {
-            const text = 'go to library';
-
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: dateTime,
-                    text,
-                    matched: `on ${date}`,
-                },
-            ];
-            expect(Day.parseText(`${text} on ${date}`)).toEqual(result);
+        afterEach(() => {
+            spyMatchPattern.mockRestore();
+            spyDayStringToDateObj.mockRestore();
+            spyParseMatches.mockRestore();
         });
 
-        test.each(testData)('with "on the" filler word $date', ({ date, dateTime }) => {
-            const text = 'go to library';
-
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: dateTime,
-                    text,
-                    matched: `on ${date}`,
-                },
-            ];
-            expect(Day.parseText(`${text} on ${date}`)).toEqual(result);
+        test('call matchPattern() once', () => {
+            Day.parseText('some random text');
+            expect(stringUtil.matchPattern).toBeCalledTimes(1);
         });
 
-        test('should return correct case for matched string', () => {
-            const text = 'Hand in paper 5th';
-            const result: ParsedMatchSchema[] = [
+        test('call matchPattern() with correct args', () => {
+            Day.parseText('test string 20');
+            expect(stringUtil.matchPattern).toBeCalledWith('test string 20', DAY.DAY_WITH_FILLER_WORDS);
+            spyMatchPattern.mockRestore();
+        });
+
+        test('do not call dayStringToDateObj() if no match', () => {
+            Day.parseText('some random text');
+            expect(dayHelper.dayStringToDateObj).not.toBeCalled();
+        });
+
+        test('do not call parseMatches() if no match', () => {
+            Day.parseText('some random text');
+            expect(stringUtil.parseMatches).not.toBeCalled();
+        });
+
+        test('return null if no match', () => {
+            const result = Day.parseText('some random text');
+            expect(result).toBeNull();
+        });
+
+        test('call dayStringToDateObj() once if there is one match', () => {
+            spyMatchPattern.mockReturnValue(['20']);
+            Day.parseText('test string 20');
+            expect(dayHelper.dayStringToDateObj).toBeCalledTimes(1);
+        });
+
+        test('call dayStringToDateObj() with correct args', () => {
+            spyMatchPattern.mockReturnValue(['20']);
+            Day.parseText('test string 20');
+            expect(dayHelper.dayStringToDateObj).toBeCalledWith('20');
+        });
+
+        test('call dayStringToDateObj() twice if there are two matches', () => {
+            spyMatchPattern.mockReturnValue(['20', '21']);
+            Day.parseText('test string 20 21');
+            expect(dayHelper.dayStringToDateObj).toBeCalledTimes(2);
+        });
+
+        test('call parseMatches() once if there is one match', () => {
+            spyMatchPattern.mockReturnValue(['20']);
+            Day.parseText('test string 20');
+            expect(stringUtil.parseMatches).toBeCalledTimes(1);
+        });
+
+        test('call parseMatches() with correct args', () => {
+            spyMatchPattern.mockReturnValue(['20']);
+            Day.parseText('test string 20');
+            expect(stringUtil.parseMatches).toBeCalledWith(
+                'test string 20',
+                '20',
+                dayLite().set({ day: 20 }).endOf('day').toDate()
+            );
+        });
+
+        test('call parseMatches() twice if there are two matches', () => {
+            spyMatchPattern.mockReturnValue(['20', '21']);
+            Day.parseText('test string 20 21');
+            expect(stringUtil.parseMatches).toBeCalledTimes(2);
+        });
+
+        test('return an array of ParsedMatchSchema if there is at least one match', () => {
+            spyMatchPattern.mockReturnValue(['20']);
+            const output = Day.parseText('test string 20 21');
+            const results = [
                 {
-                    dateTime: mockDay(5, 1, 2018),
-                    text: 'Hand in paper',
-                    matched: '5th',
+                    dateTime: dayLite().set({ day: 20 }).startOf('day').endOf('day').toDate(),
+                    matched: '20',
+                    text: 'test string 21',
                 },
             ];
-
-            expect(Day.parseText(text)).toEqual(result);
+            expect(output).toEqual(results);
         });
     });
 
-    describe('Edge Cases', () => {
+    describe('Edge Cases (Integration)', () => {
+        const mockDay = (day: number, month: number, year: number): Date =>
+            new Date(Date.UTC(year, month, day, 23, 59, 59, 999));
+
         const text = 'go to library';
 
         beforeAll(() => {

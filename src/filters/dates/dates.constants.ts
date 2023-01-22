@@ -33,7 +33,6 @@ const TXT_MONTH_DAY = wrapInBracket([MONTH.ANY, DAY.ANY].join(TXT_DIVIDER));
 const TXT_DAY_MONTH = wrapInBracket([DAY.ANY, MONTH.ANY].join(TXT_DIVIDER));
 const TXT_MONTH_YEAR = wrapInBracket([MONTH.ANY, YEAR.ANY].join(TXT_DIVIDER));
 const TXT_YEAR_MONTH = wrapInBracket([YEAR.ANY, MONTH.ANY].join(TXT_DIVIDER));
-const DAY_ORDINAL_ONLY = DAY.ORDINAL_ONLY;
 
 const PARTIAL_DATES = {
     ANY: wrapInBracket(
@@ -46,7 +45,7 @@ const PARTIAL_DATES = {
             TXT_MONTH_DAY,
             TXT_YEAR_MONTH,
             TXT_DAY_MONTH,
-            DAY_ORDINAL_ONLY,
+            DAY.DAY_WITH_ORDINAL,
         ].join('|')
     ),
     NUM_MONTH_YEAR,
@@ -57,7 +56,7 @@ const PARTIAL_DATES = {
     TXT_MONTH_DAY,
     TXT_DAY_MONTH,
     TXT_YEAR_MONTH,
-    DAY: DAY_ORDINAL_ONLY,
+    DAY: DAY.DAY_WITH_ORDINAL,
 };
 
 const DATE_PART = `(${DATES.FILLER_WORDS})?(${[DATES.ANY, PARTIAL_DATES.ANY, RELATIVE_DATES.ANY].join('|')})`;

@@ -2,7 +2,7 @@ import { dayLite } from 'lib/date/dayLite';
 import { yearStringToDate } from './year.helpers';
 
 describe('Year Helpers', () => {
-    describe('yearStringToDate', () => {
+    describe('yearStringToDate()', () => {
         const mockYear = (year: number) => dayLite().set({ year }).startOf('year').endOf('day').toDate();
 
         test.each([
