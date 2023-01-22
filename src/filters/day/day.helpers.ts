@@ -17,5 +17,5 @@ export function dayStringToDateObj(matchingText: string): Date {
 
     if (!day) return null;
 
-    return dayLite().set({ day, month }).endOf('day').toDate();
+    return dayLite().set({ day, month }).start('day').toDate();
 }

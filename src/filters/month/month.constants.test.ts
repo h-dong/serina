@@ -108,7 +108,7 @@ describe('MONTH', () => {
         });
     });
 
-    describe('MONTH_WITH_FUTURE_PAST_WORDS', () => {
+    describe('WITH_FUTURE_PAST_WORDS', () => {
         test.each([
             { input: 'for Jan', expected: true },
             { input: 'next mar', expected: true },
@@ -121,7 +121,7 @@ describe('MONTH', () => {
             { input: 'some random text', expected: false },
             { input: 'last sept', expected: false },
         ])('should return $expected for "$input"', ({ input, expected }) => {
-            const regex = new RegExp(`\\b${MONTH.MONTH_WITH_FUTURE_PAST_WORDS}\\b`, 'ig');
+            const regex = new RegExp(`\\b${MONTH.WITH_FUTURE_PAST_WORDS}\\b`, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
     });

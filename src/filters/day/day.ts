@@ -6,7 +6,7 @@ import { dayStringToDateObj } from './day.helpers';
 
 export default class Day {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = DAY.DAY_WITH_FILLER_WORDS;
+        const pattern = DAY.WITH_FILLER_WORDS_AND_ORDINAL;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;

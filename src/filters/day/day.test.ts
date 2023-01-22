@@ -41,7 +41,7 @@ describe('Day', () => {
 
         test('call matchPattern() with correct args', () => {
             Day.parseText('test string 20');
-            expect(stringUtil.matchPattern).toBeCalledWith('test string 20', DAY.DAY_WITH_FILLER_WORDS);
+            expect(stringUtil.matchPattern).toBeCalledWith('test string 20', DAY.WITH_FILLER_WORDS_AND_ORDINAL);
             spyMatchPattern.mockRestore();
         });
 
@@ -90,7 +90,7 @@ describe('Day', () => {
             expect(stringUtil.parseMatches).toBeCalledWith(
                 'test string 20',
                 '20',
-                dayLite().set({ day: 20 }).endOf('day').toDate()
+                dayLite().set({ day: 20 }).start('day').toDate()
             );
         });
 
@@ -105,7 +105,7 @@ describe('Day', () => {
             const output = Day.parseText('test string 20 21');
             const results = [
                 {
-                    dateTime: dayLite().set({ day: 20 }).startOf('day').endOf('day').toDate(),
+                    dateTime: dayLite().set({ day: 20 }).startOf('day').start('day').toDate(),
                     matched: '20',
                     text: 'test string 21',
                 },
@@ -115,8 +115,7 @@ describe('Day', () => {
     });
 
     describe('Edge Cases (Integration)', () => {
-        const mockDay = (day: number, month: number, year: number): Date =>
-            new Date(Date.UTC(year, month, day, 23, 59, 59, 999));
+        const mockDay = (day: number, month: number, year: number): Date => new Date(Date.UTC(year, month, day));
 
         const text = 'go to library';
 

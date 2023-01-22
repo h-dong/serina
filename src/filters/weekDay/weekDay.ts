@@ -1,33 +1,21 @@
 import { ParsedMatchSchema } from 'serina.schema';
 import WEEKDAY from './weekday.constants';
-import { contains } from 'lib/string/stringUtil';
 import { matchPattern } from 'lib/string/stringUtil';
-import convertWeekdayStringToNumber from 'utils/convertWeekdayStringToNumber';
 import { parseMatches } from 'lib/string/stringUtil';
-import { dayLite } from 'lib/date/dayLite';
+import { weekdayStringToDateObj } from './weekday.helpers';
 
-export default class WeekDay {
-    /*
-     * When parsing day of the week, check for relative words & week day e.g. next friday
-     */
+export default class Weekday {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `((${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS}) )?${WEEKDAY.ANY}`;
+        // When parsing day of the week, check for relative words & week day e.g. next friday
+        const pattern = WEEKDAY.WITH_FUTURE_PAST_WORDS;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
 
         // for each match, get the parsed cases
         return matches.map(match => {
-            const dateTimeObj = this.convertWeekdayMatchToDate(match);
+            const dateTimeObj = weekdayStringToDateObj(match);
             return parseMatches(text, match, dateTimeObj);
         });
-    }
-
-    static convertWeekdayMatchToDate(matchingText: string) {
-        const [weekdayString] = matchPattern(matchingText, WEEKDAY.ANY);
-        const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
-        const weekday = convertWeekdayStringToNumber(weekdayString, pastWeekday);
-
-        return dayLite().set({ weekday }).endOf('day').toDate();
     }
 }

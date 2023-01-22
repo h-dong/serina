@@ -7,7 +7,7 @@ describe('Day Helpers', () => {
         const mockDate = new Date(Date.UTC(2018, 0, 19));
 
         const generateDate = ({ day, month, year }: { day: number; month: number; year: number }) =>
-            dayLite().set({ day, month, year }).endOf('day').toDate();
+            dayLite().set({ day, month, year }).start('day').toDate();
 
         beforeAll(() => {
             vi.useFakeTimers();

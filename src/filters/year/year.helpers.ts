@@ -13,5 +13,5 @@ export function yearStringToDate(matchingText: string): Date {
 
     if (!year) return null;
 
-    return dayLite().set({ year }).startOf('year').endOf('day').toDate();
+    return dayLite().set({ year }).startOf('year').toDate();
 }

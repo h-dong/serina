@@ -40,7 +40,7 @@ describe('Month', () => {
 
         test('call matchPattern() with correct args', () => {
             Month.parseText('test string oct');
-            expect(stringUtil.matchPattern).toBeCalledWith('test string oct', MONTH.MONTH_WITH_FUTURE_PAST_WORDS);
+            expect(stringUtil.matchPattern).toBeCalledWith('test string oct', MONTH.WITH_FUTURE_PAST_WORDS);
             spyMatchPattern.mockRestore();
         });
 
@@ -89,7 +89,7 @@ describe('Month', () => {
             expect(stringUtil.parseMatches).toBeCalledWith(
                 'test string oct',
                 'oct',
-                dayLite().set({ day: 1, month: 10 }).startOf('day').endOf('day').toDate()
+                dayLite().set({ day: 1, month: 10 }).startOf('day').toDate()
             );
         });
 
@@ -104,7 +104,7 @@ describe('Month', () => {
             const output = Month.parseText('test string oct nov');
             const results = [
                 {
-                    dateTime: dayLite().set({ day: 1, month: 10 }).startOf('day').endOf('day').toDate(),
+                    dateTime: dayLite().set({ day: 1, month: 10 }).startOf('day').toDate(),
                     matched: 'oct',
                     text: 'test string nov',
                 },

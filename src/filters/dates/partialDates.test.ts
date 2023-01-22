@@ -15,7 +15,7 @@ describe('Partial Dates', () => {
     });
 
     const mockDates = (day: number, month: number, year: number) =>
-        dayLite().set({ day, month, year }).endOf('day').toDate();
+        dayLite().set({ day, month, year }).start('day').toDate();
 
     test.each([
         { filter: '20', dateTime: null },

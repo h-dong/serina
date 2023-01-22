@@ -45,7 +45,7 @@ const PARTIAL_DATES = {
             TXT_MONTH_DAY,
             TXT_YEAR_MONTH,
             TXT_DAY_MONTH,
-            DAY.DAY_WITH_ORDINAL,
+            DAY.WITH_ORDINAL,
         ].join('|')
     ),
     NUM_MONTH_YEAR,
@@ -56,7 +56,7 @@ const PARTIAL_DATES = {
     TXT_MONTH_DAY,
     TXT_DAY_MONTH,
     TXT_YEAR_MONTH,
-    DAY: DAY.DAY_WITH_ORDINAL,
+    DAY: DAY.WITH_ORDINAL,
 };
 
 const DATE_PART = `(${DATES.FILLER_WORDS})?(${[DATES.ANY, PARTIAL_DATES.ANY, RELATIVE_DATES.ANY].join('|')})`;

@@ -7,7 +7,7 @@ import { matchPattern } from 'lib/string/stringUtil';
 // parsing year between 1000 - 9999
 export default class Year {
     static parseText(text: string): ParsedMatchSchema[] {
-        const matches = matchPattern(text, YEAR.YEAR_WITH_FILLER_WORDS);
+        const matches = matchPattern(text, YEAR.WITH_FILLER_WORDS);
 
         if (!matches) return null;
 

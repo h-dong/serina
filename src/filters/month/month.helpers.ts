@@ -25,5 +25,5 @@ export function monthStringToDateObj(matchingText: string): Date {
     if (month < dayLite().month) year += 1;
     if (contains(matchingText, `${MONTH.PAST_WORDS} ${MONTH.ANY}`)) year -= 1;
 
-    return dayLite().set({ month, year }).startOf('month').endOf('day').toDate();
+    return dayLite().set({ month, year }).startOf('month').start('day').toDate();
 }

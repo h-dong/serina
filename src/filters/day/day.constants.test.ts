@@ -96,7 +96,7 @@ describe('DAY', () => {
         });
     });
 
-    describe('DAY_WITH_ORDINAL', () => {
+    describe('WITH_ORDINAL', () => {
         test.each([
             { input: '0', expected: false },
             { input: '7', expected: false },
@@ -119,12 +119,12 @@ describe('DAY', () => {
             { input: '100th', expected: false },
         ])('should return $expected for "$input"', ({ input, expected }) => {
             // Add word boundary to test regex properly
-            const regex = new RegExp(`\\b${DAY.DAY_WITH_ORDINAL}\\b`, 'ig');
+            const regex = new RegExp(`\\b${DAY.WITH_ORDINAL}\\b`, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
     });
 
-    describe('DAY_WITH_FILLER_WORDS', () => {
+    describe('WITH_FILLER_WORDS_AND_ORDINAL', () => {
         test.each([
             { input: 'on', expected: false },
             { input: 'on the ', expected: false },
@@ -151,7 +151,7 @@ describe('DAY', () => {
             { input: 'on the 20th', expected: true },
         ])('should return $expected for "$input"', ({ input, expected }) => {
             // Add word boundary to test regex properly
-            const regex = new RegExp(`\\b${DAY.DAY_WITH_FILLER_WORDS}\\b`, 'ig');
+            const regex = new RegExp(`\\b${DAY.WITH_FILLER_WORDS_AND_ORDINAL}\\b`, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
     });

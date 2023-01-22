@@ -1,123 +1,103 @@
-import WeekDay from './weekday';
-import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
+import { SpyInstance } from 'vitest';
+import * as stringUtil from 'lib/string/stringUtil';
+import * as weekdayHelper from './weekday.helpers';
+import Weekday from './weekday';
+import WEEKDAY from './weekday.constants';
 
-describe('Day Of The Week', () => {
-    // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
-    const mockDate = new Date('2019-01-19T18:06:18Z');
-    vi.useFakeTimers().setSystemTime(mockDate);
+describe('Weekday', () => {
+    let spyMatchPattern: SpyInstance;
+    let spyWeekdayStringToDate: SpyInstance;
+    let spyParseMatches: SpyInstance;
 
-    const mockWeekday = (weekday: number) => dayLite(mockDate).set({ weekday }).endOf('day').toDate();
-
-    afterAll(() => {
-        vi.useRealTimers();
+    beforeEach(() => {
+        spyMatchPattern = vi.spyOn(stringUtil, 'matchPattern');
+        spyWeekdayStringToDate = vi.spyOn(weekdayHelper, 'weekdayStringToDateObj');
+        spyParseMatches = vi.spyOn(stringUtil, 'parseMatches');
     });
 
-    describe('parseText()', () => {
-        test('should find a single match', () => {
-            const text = 'hand in paper on mon';
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: mockWeekday(8),
-                    text: 'hand in paper',
-                    matched: 'on mon',
-                },
-            ];
-
-            expect(WeekDay.parseText(text)).toEqual(result);
-        });
-
-        test('should find multiple matches', () => {
-            const text = "hand in tuesday's paper on mon";
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: mockWeekday(9),
-                    text: "hand in 's paper on mon",
-                    matched: 'tuesday',
-                },
-                {
-                    dateTime: mockWeekday(8),
-                    text: "hand in tuesday's paper",
-                    matched: 'on mon',
-                },
-            ];
-            expect(WeekDay.parseText(text)).toEqual(result);
-        });
-
-        test('should return correct case for matched string', () => {
-            const text = 'Hand in paper on mon';
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: mockWeekday(8),
-                    text: 'Hand in paper',
-                    matched: 'on mon',
-                },
-            ];
-
-            expect(WeekDay.parseText(text)).toEqual(result);
-        });
-
-        test('should not match filler word in string', () => {
-            const text = 'Gym session Sun';
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: mockWeekday(7),
-                    text: 'Gym session',
-                    matched: 'Sun',
-                },
-            ];
-
-            expect(WeekDay.parseText(text)).toEqual(result);
-        });
+    afterEach(() => {
+        spyMatchPattern.mockRestore();
+        spyWeekdayStringToDate.mockRestore();
+        spyParseMatches.mockRestore();
     });
 
-    describe('Parse Text Contains Weekday', () => {
-        let result: ParsedMatchSchema[];
-        const relativeFutureArray = ['buy milk', 'buy milk for', 'buy milk next', 'buy milk this'];
-        const relativePastArray = ['buy milk last', 'buy milk prev', 'buy milk previous'];
+    test('call matchPattern() once', () => {
+        Weekday.parseText('some random text');
+        expect(stringUtil.matchPattern).toBeCalledTimes(1);
+    });
 
-        beforeEach(() => {
-            result = [
-                {
-                    dateTime: null,
-                    text: 'buy milk',
-                    matched: '',
-                },
-            ];
-        });
+    test('call matchPattern() with correct args', () => {
+        Weekday.parseText('test string mon');
+        expect(stringUtil.matchPattern).toBeCalledWith('test string mon', WEEKDAY.WITH_FUTURE_PAST_WORDS);
+        spyMatchPattern.mockRestore();
+    });
 
-        describe.each([
-            { title: 'Monday', next: 8, last: 1, weekdayArray: ['mon', 'monday'] },
-            { title: 'Tuesday', next: 9, last: 2, weekdayArray: ['tue', 'tues', 'tuesday'] },
-            { title: 'Wednesday', next: 10, last: 3, weekdayArray: ['wed', 'wedn', 'wednesday'] },
-            { title: 'Thursday', next: 11, last: 4, weekdayArray: ['thu', 'thur', 'thursday'] },
-            { title: 'Friday', next: 12, last: 5, weekdayArray: ['fri', 'friday'] },
-            { title: 'Saturday', next: 13, last: 6, weekdayArray: ['sat', 'saturday'] },
-            { title: 'Sunday', next: 7, last: 0, weekdayArray: ['sun', 'sunday'] },
-        ])('$title', ({ title, next, last, weekdayArray }) => {
-            test(`should parse date correctly for next ${title}`, () => {
-                result[0].dateTime = mockWeekday(next);
+    test('do not call week() if no match', () => {
+        Weekday.parseText('some random text');
+        expect(weekdayHelper.weekdayStringToDateObj).not.toBeCalled();
+    });
 
-                relativeFutureArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
+    test('do not call parseMatches() if no match', () => {
+        Weekday.parseText('some random text');
+        expect(stringUtil.parseMatches).not.toBeCalled();
+    });
 
-            test(`should return correct date for last ${title}`, () => {
-                result[0].dateTime = mockWeekday(last);
+    test('return null if no match', () => {
+        const result = Weekday.parseText('some random text');
+        expect(result).toBeNull();
+    });
 
-                relativePastArray.forEach(elem => {
-                    weekdayArray.forEach(weekday => {
-                        const combination = `${elem} ${weekday}`;
-                        result[0].matched = combination.replace('buy milk ', '');
-                        expect(WeekDay.parseText(combination)).toEqual(result);
-                    });
-                });
-            });
-        });
+    test('call week() once if there is one match', () => {
+        spyMatchPattern.mockReturnValue(['mon']);
+        Weekday.parseText('test string mon');
+        expect(weekdayHelper.weekdayStringToDateObj).toBeCalledTimes(1);
+    });
+
+    test('call week() with correct args', () => {
+        spyMatchPattern.mockReturnValue(['mon']);
+        Weekday.parseText('test string mon');
+        expect(weekdayHelper.weekdayStringToDateObj).toBeCalledWith('mon');
+    });
+
+    test('call week() twice if there are two matches', () => {
+        spyMatchPattern.mockReturnValue(['mon', 'tue']);
+        Weekday.parseText('test string mon tue');
+        expect(weekdayHelper.weekdayStringToDateObj).toBeCalledTimes(2);
+    });
+
+    test('call parseMatches() once if there is one match', () => {
+        spyMatchPattern.mockReturnValue(['mon']);
+        Weekday.parseText('test string mon');
+        expect(stringUtil.parseMatches).toBeCalledTimes(1);
+    });
+
+    test('call parseMatches() with correct args', () => {
+        spyMatchPattern.mockReturnValue(['mon']);
+        Weekday.parseText('test string mon');
+        expect(stringUtil.parseMatches).toBeCalledWith(
+            'test string mon',
+            'mon',
+            dayLite().set({ weekday: 1 }).startOf('day').toDate()
+        );
+    });
+
+    test('call parseMatches() twice if there are two matches', () => {
+        spyMatchPattern.mockReturnValue(['mon', 'tue']);
+        Weekday.parseText('test string mon tue');
+        expect(stringUtil.parseMatches).toBeCalledTimes(2);
+    });
+
+    test('return an array of ParsedMatchSchema if there is at least one match', () => {
+        spyMatchPattern.mockReturnValue(['mon']);
+        const output = Weekday.parseText('test string mon tue');
+        const results = [
+            {
+                dateTime: dayLite().set({ weekday: 1 }).startOf('day').toDate(),
+                matched: 'mon',
+                text: 'test string tue',
+            },
+        ];
+        expect(output).toEqual(results);
     });
 });

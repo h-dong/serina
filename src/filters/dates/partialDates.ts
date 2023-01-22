@@ -26,6 +26,6 @@ export default class PartialDates {
         if (!dateObj) return null;
 
         const { day, month, year } = dateObj;
-        return dayLite().set({ day, month, year }).endOf('day').toDate();
+        return dayLite().set({ day, month, year }).start('day').toDate();
     }
 }

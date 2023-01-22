@@ -8,8 +8,13 @@ const FRIDAY = '(fri)(day)?';
 const SATURDAY = '(sat(ur)?)(day)?';
 const SUNDAY = '(sun)(day)?';
 
+const ANY = wrapInBracket([MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY].join('|'));
+const FUTURE_WORDS = 'for|next|this|current|on';
+const PAST_WORDS = 'last|prev(ious)?';
+
 const WEEKDAY = {
-    ANY: wrapInBracket([MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY].join('|')),
+    WITH_FUTURE_PAST_WORDS: `((\\b(${FUTURE_WORDS}|${PAST_WORDS})\\b)( ))?${ANY}`,
+    ANY,
     SINGLE: {
         MONDAY,
         TUESDAY,
@@ -19,8 +24,7 @@ const WEEKDAY = {
         SATURDAY,
         SUNDAY,
     },
-    FUTURE_WORDS: 'for|next|this|current|on',
-    PAST_WORDS: 'last|prev(ious)?',
+    PAST_WORDS,
 };
 
 export default WEEKDAY;

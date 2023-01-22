@@ -19,7 +19,7 @@ const ANY = wrapInBracket(
 );
 
 const MONTH = {
-    MONTH_WITH_FUTURE_PAST_WORDS: `((${FUTURE_WORDS}|${PAST_WORDS}) )?${ANY}`,
+    WITH_FUTURE_PAST_WORDS: `((${FUTURE_WORDS}|${PAST_WORDS}) )?${ANY}`,
     ANY,
     SINGLE: {
         JANUARY,

@@ -3,7 +3,7 @@ import { yearStringToDate } from './year.helpers';
 
 describe('Year Helpers', () => {
     describe('yearStringToDate()', () => {
-        const mockYear = (year: number) => dayLite().set({ year }).startOf('year').endOf('day').toDate();
+        const mockYear = (year: number) => dayLite().set({ year }).startOf('year').start('day').toDate();
 
         test.each([
             { text: '2020', dateTime: mockYear(2020) },

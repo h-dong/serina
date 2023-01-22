@@ -3,7 +3,7 @@ import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
 
 describe('Dates', () => {
-    const mockDates = (day, month, year) => dayLite().set({ day, month, year }).endOf('day').toDate();
+    const mockDates = (day, month, year) => dayLite().set({ day, month, year }).start('day').toDate();
 
     test.each([
         { filter: '20', dateTime: null },

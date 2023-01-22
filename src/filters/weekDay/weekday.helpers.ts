@@ -1,8 +1,8 @@
 import WEEKDAY from 'filters/weekday/weekday.constants';
-import { contains } from 'lib/string/stringUtil';
+import { contains, matchPattern } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
-function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolean): number {
+export function weekdayStringToNumber(weekdayString: string, pastWeekday: boolean): number {
     let weekday = null;
     const todayInWeekday = dayLite().weekday;
 
@@ -21,4 +21,10 @@ function convertWeekdayStringToNumber(weekdayString: string, pastWeekday: boolea
     return weekday;
 }
 
-export default convertWeekdayStringToNumber;
+export function weekdayStringToDateObj(matchingText: string) {
+    const [weekdayString] = matchPattern(matchingText, WEEKDAY.ANY);
+    const pastWeekday: boolean = contains(matchingText, WEEKDAY.PAST_WORDS);
+    const weekday = weekdayStringToNumber(weekdayString, pastWeekday);
+
+    return dayLite().set({ weekday }).startOf('day').toDate();
+}

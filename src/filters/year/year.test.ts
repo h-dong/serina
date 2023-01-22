@@ -30,7 +30,7 @@ describe('Year', () => {
 
         test('call matchPattern() with correct args', () => {
             Year.parseText('test string 2000');
-            expect(stringUtil.matchPattern).toBeCalledWith('test string 2000', YEAR.YEAR_WITH_FILLER_WORDS);
+            expect(stringUtil.matchPattern).toBeCalledWith('test string 2000', YEAR.WITH_FILLER_WORDS);
             spyMatchPattern.mockRestore();
         });
 
@@ -79,7 +79,7 @@ describe('Year', () => {
             expect(stringUtil.parseMatches).toBeCalledWith(
                 'test string 2000',
                 '2000',
-                dayLite().set({ year: 2000 }).startOf('year').endOf('day').toDate()
+                dayLite().set({ year: 2000 }).startOf('year').toDate()
             );
         });
 
@@ -94,7 +94,7 @@ describe('Year', () => {
             const output = Year.parseText('test string 2000 2001');
             const results = [
                 {
-                    dateTime: dayLite().set({ year: 2000 }).startOf('year').endOf('day').toDate(),
+                    dateTime: dayLite().set({ year: 2000 }).startOf('year').toDate(),
                     matched: '2000',
                     text: 'test string 2001',
                 },

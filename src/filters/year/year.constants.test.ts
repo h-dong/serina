@@ -41,7 +41,7 @@ describe('YEAR', () => {
             { input: 'in the year 2023', expected: true },
             { input: 'not_a_word_in 10000', expected: false },
         ])('should return $expected for "$input"', ({ input, expected }) => {
-            const regex = new RegExp(YEAR.YEAR_WITH_FILLER_WORDS, 'ig');
+            const regex = new RegExp(YEAR.WITH_FILLER_WORDS, 'ig');
             expect(regex.test(input)).toEqual(expected);
         });
     });

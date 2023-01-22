@@ -1,7 +1,7 @@
 import WEEKDAY from 'filters/weekday/weekday.constants';
 import TIME from 'filters/time/time.constants';
 
-const anyWeekday = `((\\b(${WEEKDAY.FUTURE_WORDS}|${WEEKDAY.PAST_WORDS})\\b)( ))?${WEEKDAY.ANY}`;
+const anyWeekday = WEEKDAY.WITH_FUTURE_PAST_WORDS;
 const anyTime = `(${TIME.FILLER_WORDS}( ))?${TIME.FORMAT_NORMAL}`;
 const timeFirst = `${anyTime}( )${anyWeekday}`;
 const weekdayFirst = `${anyWeekday}( )${anyTime}`;

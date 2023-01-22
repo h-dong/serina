@@ -6,7 +6,7 @@ import { monthStringToDateObj } from './month.helpers';
 
 export default class Month {
     static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = MONTH.MONTH_WITH_FUTURE_PAST_WORDS;
+        const pattern = MONTH.WITH_FUTURE_PAST_WORDS;
         const matches = matchPattern(text, pattern);
 
         if (!matches) return null;
