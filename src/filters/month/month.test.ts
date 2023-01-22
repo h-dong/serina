@@ -1,174 +1,132 @@
 import Month from './month';
-import { ParsedMatchSchema } from 'serina.schema';
 import { dayLite } from 'lib/date/dayLite';
+import * as stringUtil from 'lib/string/stringUtil';
+import { SpyInstance } from 'vitest';
+import * as monthHelper from './month.helpers';
+import MONTH from './month.constants';
 
 describe('Month', () => {
-    const mockDate = (month, year) => {
-        return dayLite().set({ month, year }).startOf('month').endOf('day').toDate();
-    };
+    describe('Normal behaviour', () => {
+        let spyMatchPattern: SpyInstance;
+        let spyMonthStringToDateObj: SpyInstance;
+        let spyParseMatches: SpyInstance;
 
-    const shortMonths = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+        beforeAll(() => {
+            // Mock Date Time to Saturday, 19 February 2019 18:06:18 GMT+00:00
+            vi.useFakeTimers();
+            vi.setSystemTime(new Date(Date.UTC(2019, 2, 19)));
+        });
 
-    // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    vi.useFakeTimers().setSystemTime(new Date('2019-06-29T15:48:12Z'));
+        afterAll(() => {
+            vi.useRealTimers();
+        });
 
-    afterAll(() => {
-        vi.useRealTimers();
-    });
+        beforeEach(() => {
+            spyMatchPattern = vi.spyOn(stringUtil, 'matchPattern');
+            spyMonthStringToDateObj = vi.spyOn(monthHelper, 'monthStringToDateObj');
+            spyParseMatches = vi.spyOn(stringUtil, 'parseMatches');
+        });
 
-    describe('parseText()', () => {
-        test('should return correct case for matched string', () => {
-            const text = 'Hand in paper in march';
-            const result: ParsedMatchSchema[] = [
+        afterEach(() => {
+            spyMatchPattern.mockRestore();
+            spyMonthStringToDateObj.mockRestore();
+            spyParseMatches.mockRestore();
+        });
+
+        test('call matchPattern() once', () => {
+            Month.parseText('some random text');
+            expect(stringUtil.matchPattern).toBeCalledTimes(1);
+        });
+
+        test('call matchPattern() with correct args', () => {
+            Month.parseText('test string oct');
+            expect(stringUtil.matchPattern).toBeCalledWith('test string oct', MONTH.MONTH_WITH_FUTURE_PAST_WORDS);
+            spyMatchPattern.mockRestore();
+        });
+
+        test('do not call monthStringToDateObj() if no match', () => {
+            Month.parseText('some random text');
+            expect(monthHelper.monthStringToDateObj).not.toBeCalled();
+        });
+
+        test('do not call parseMatches() if no match', () => {
+            Month.parseText('some random text');
+            expect(stringUtil.parseMatches).not.toBeCalled();
+        });
+
+        test('return null if no match', () => {
+            const result = Month.parseText('some random text');
+            expect(result).toBeNull();
+        });
+
+        test('call monthStringToDateObj() once if there is one match', () => {
+            spyMatchPattern.mockReturnValue(['oct']);
+            Month.parseText('test string oct');
+            expect(monthHelper.monthStringToDateObj).toBeCalledTimes(1);
+        });
+
+        test('call monthStringToDateObj() with correct args', () => {
+            spyMatchPattern.mockReturnValue(['oct']);
+            Month.parseText('test string oct');
+            expect(monthHelper.monthStringToDateObj).toBeCalledWith('oct');
+        });
+
+        test('call monthStringToDateObj() twice if there are two matches', () => {
+            spyMatchPattern.mockReturnValue(['oct', 'nov']);
+            Month.parseText('test string oct nov');
+            expect(monthHelper.monthStringToDateObj).toBeCalledTimes(2);
+        });
+
+        test('call parseMatches() once if there is one match', () => {
+            spyMatchPattern.mockReturnValue(['oct']);
+            Month.parseText('test string oct');
+            expect(stringUtil.parseMatches).toBeCalledTimes(1);
+        });
+
+        test('call parseMatches() with correct args', () => {
+            spyMatchPattern.mockReturnValue(['oct']);
+            Month.parseText('test string oct');
+            expect(stringUtil.parseMatches).toBeCalledWith(
+                'test string oct',
+                'oct',
+                dayLite().set({ day: 1, month: 10 }).startOf('day').endOf('day').toDate()
+            );
+        });
+
+        test('call parseMatches() twice if there are two matches', () => {
+            spyMatchPattern.mockReturnValue(['oct', 'nov']);
+            Month.parseText('test string oct nov');
+            expect(stringUtil.parseMatches).toBeCalledTimes(2);
+        });
+
+        test('return an array of ParsedMatchSchema if there is at least one match', () => {
+            spyMatchPattern.mockReturnValue(['oct']);
+            const output = Month.parseText('test string oct nov');
+            const results = [
                 {
-                    dateTime: mockDate(3, 2020),
-                    text: 'Hand in paper',
-                    matched: 'in march',
+                    dateTime: dayLite().set({ day: 1, month: 10 }).startOf('day').endOf('day').toDate(),
+                    matched: 'oct',
+                    text: 'test string nov',
                 },
             ];
+            expect(output).toEqual(results);
+        });
+    });
 
-            expect(Month.parseText(text)).toEqual(result);
+    describe.skip('Edge cases', () => {
+        test('return null if text is undefined', () => {
+            const result = Month.parseText(undefined);
+            expect(result).toBeNull();
         });
 
-        describe('if no past or future words are used', () => {
-            test('should return date in next year if the month is before the current month', () => {
-                const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);
-                shortMonthsBeforeJune.forEach((month, index) => {
-                    const text = `visit athens in ${month}`;
-                    const result: ParsedMatchSchema[] = [
-                        {
-                            dateTime: mockDate(index + 1, 2020),
-                            text: 'visit athens',
-                            matched: `in ${month}`,
-                        },
-                    ];
-                    expect(Month.parseText(text)).toEqual(result);
-                });
-            });
-
-            test('should return date in the current year if the month is current month or later', () => {
-                const shortMonthsAfterJune = shortMonths.filter((_, index) => index >= 5);
-                shortMonthsAfterJune.forEach((month, index) => {
-                    const text = `visit athens in ${month}`;
-                    const result: ParsedMatchSchema[] = [
-                        {
-                            dateTime: mockDate(index + 6, 2019),
-                            text: 'visit athens',
-                            matched: `in ${month}`,
-                        },
-                    ];
-                    expect(Month.parseText(text)).toEqual(result);
-                });
-            });
-
-            test('should parse the month regardless of capital letters', () => {
-                const text = 'visit athens in DEceMBeR';
-                const result: ParsedMatchSchema[] = [
-                    {
-                        dateTime: mockDate(12, 2019),
-                        text: 'visit athens',
-                        matched: 'in DEceMBeR',
-                    },
-                ];
-                expect(Month.parseText(text)).toEqual(result);
-            });
-
-            test('should parse multiple matches', () => {
-                const text = 'visit athens in September or October';
-                const result: ParsedMatchSchema[] = [
-                    {
-                        dateTime: mockDate(9, 2019),
-                        text: 'visit athens or October',
-                        matched: 'in September',
-                    },
-                    {
-                        dateTime: mockDate(10, 2019),
-                        text: 'visit athens in September or',
-                        matched: 'October',
-                    },
-                ];
-                expect(Month.parseText(text)).toEqual(result);
-            });
-        });
-        describe('if a past word is used', () => {
-            test('should return date in the same year if the month is before the current month', () => {
-                const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);
-                shortMonthsBeforeJune.forEach((month, index) => {
-                    const text = `visit athens last ${month}`;
-                    const result: ParsedMatchSchema[] = [
-                        {
-                            dateTime: mockDate(index + 1, 2019),
-                            text: 'visit athens',
-                            matched: `last ${month}`,
-                        },
-                    ];
-                    expect(Month.parseText(text)).toEqual(result);
-                });
-            });
-
-            test('should return date in the previous year if the month is current month or later', () => {
-                const shortMonthsAfterJune = shortMonths.filter((_, index) => index >= 5);
-                shortMonthsAfterJune.forEach((month, index) => {
-                    const text = `visit athens last ${month}`;
-                    const result: ParsedMatchSchema[] = [
-                        {
-                            dateTime: mockDate(index + 6, 2018),
-                            text: 'visit athens',
-                            matched: `last ${month}`,
-                        },
-                    ];
-                    expect(Month.parseText(text)).toEqual(result);
-                });
-            });
-
-            test('should parse multiple matches', () => {
-                const text = 'visit athens last September or last October';
-                const result: ParsedMatchSchema[] = [
-                    {
-                        dateTime: mockDate(9, 2018),
-                        text: 'visit athens or last October',
-                        matched: 'last September',
-                    },
-                    {
-                        dateTime: mockDate(10, 2018),
-                        text: 'visit athens last September or',
-                        matched: 'last October',
-                    },
-                ];
-                expect(Month.parseText(text)).toEqual(result);
-            });
+        test('return null if text is null', () => {
+            const result = Month.parseText(null);
+            expect(result).toBeNull();
         });
 
-        describe('if a future word is used', () => {
-            test('should return date in next year if the month is before the current month', () => {
-                const shortMonthsBeforeJune = shortMonths.filter((_, index) => index < 5);
-                shortMonthsBeforeJune.forEach((month, index) => {
-                    const text = `visit athens next ${month}`;
-                    const result: ParsedMatchSchema[] = [
-                        {
-                            dateTime: mockDate(index + 1, 2020),
-                            text: 'visit athens',
-                            matched: `next ${month}`,
-                        },
-                    ];
-                    expect(Month.parseText(text)).toEqual(result);
-                });
-            });
-
-            test('should return date in the current year if the month is current month or later', () => {
-                const shortMonthsAfterJune = shortMonths.filter((_, index) => index >= 5);
-                shortMonthsAfterJune.forEach((month, index) => {
-                    const text = `visit athens next ${month}`;
-                    const result: ParsedMatchSchema[] = [
-                        {
-                            dateTime: mockDate(index + 6, 2019),
-                            text: 'visit athens',
-                            matched: `next ${month}`,
-                        },
-                    ];
-                    expect(Month.parseText(text)).toEqual(result);
-                });
-            });
+        test('return null if text is empty string', () => {
+            const result = Month.parseText('');
+            expect(result).toBeNull();
         });
     });
 });

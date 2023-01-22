@@ -12,11 +12,15 @@ const SEPTEMBER = 'sep(tember)?';
 const OCTOBER = 'oct(ober)?';
 const NOVEMBER = 'nov(ember)?';
 const DECEMBER = 'dec(ember)?';
+const FUTURE_WORDS = '(for|next|this|current|in)';
+const PAST_WORDS = '(last|prev(ious)?)';
+const ANY = wrapInBracket(
+    [JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER].join('|')
+);
 
 const MONTH = {
-    ANY: wrapInBracket(
-        [JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER].join('|')
-    ),
+    MONTH_WITH_FUTURE_PAST_WORDS: `((${FUTURE_WORDS}|${PAST_WORDS}) )?${ANY}`,
+    ANY,
     SINGLE: {
         JANUARY,
         FEBRUARY,
@@ -32,8 +36,7 @@ const MONTH = {
         DECEMBER,
     },
     NUMBERS: '(1[0-2]|0?[1-9])',
-    FUTURE_WORDS: 'for|next|this|current|in',
-    PAST_WORDS: 'last|prev(ious)?',
+    PAST_WORDS,
 };
 
 export default MONTH;

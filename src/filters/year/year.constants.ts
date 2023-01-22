@@ -1,5 +1,5 @@
 const ANY = '(\\b[0-9]{4}\\b)';
-const FILLER_WORDS = '(in( ))';
+const FILLER_WORDS = '(in( )((the( ))?year( ))?)';
 
 const YEAR = {
     ANY,

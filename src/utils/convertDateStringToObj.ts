@@ -1,8 +1,8 @@
 import { DateObjectSchema } from 'serina.schema';
 import { DATES } from 'filters/dates/dates.constants';
 import { contains } from 'lib/string/stringUtil';
-import monthStringToNumber from 'utils/monthStringToNumber';
 import strToInt from 'utils/strToInt';
+import { monthStringToNumber } from 'filters/month/month.helpers';
 
 function convertDateStringToObj(date: string): DateObjectSchema {
     let day: string;

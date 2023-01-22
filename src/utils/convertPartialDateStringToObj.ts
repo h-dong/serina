@@ -1,9 +1,9 @@
 import { DateObjectSchema } from 'serina.schema';
 import { DATES, PARTIAL_DATES } from 'filters/dates/dates.constants';
 import { contains } from 'lib/string/stringUtil';
-import monthStringToNumber from 'utils/monthStringToNumber';
 import strToInt from 'utils/strToInt';
 import { dayLite } from 'lib/date/dayLite';
+import { monthStringToNumber } from 'filters/month/month.helpers';
 
 /**
  * We want to return a future date, so if the month has already occurred this year, we give next year's date.

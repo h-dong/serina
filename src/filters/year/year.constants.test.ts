@@ -20,8 +20,8 @@ describe('YEAR', () => {
         test.each([
             { input: 'in', expected: false },
             { input: 'in ', expected: true },
-            { input: ' in', expected: false },
-            { input: ' in ', expected: true },
+            { input: 'in year ', expected: true },
+            { input: 'in the year ', expected: true },
         ])('should return $expected for "$input"', ({ input, expected }) => {
             const regex = new RegExp(YEAR.FILLER_WORDS, 'ig');
             expect(regex.test(input)).toEqual(expected);
@@ -37,6 +37,8 @@ describe('YEAR', () => {
             { input: 'in 2023', expected: true },
             { input: 'in 9999', expected: true },
             { input: 'in 10000', expected: false },
+            { input: 'in year 2023', expected: true },
+            { input: 'in the year 2023', expected: true },
             { input: 'not_a_word_in 10000', expected: false },
         ])('should return $expected for "$input"', ({ input, expected }) => {
             const regex = new RegExp(YEAR.YEAR_WITH_FILLER_WORDS, 'ig');
