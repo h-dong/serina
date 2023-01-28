@@ -40,7 +40,7 @@ describe('Weekday Helpers', () => {
             { text: 'fri', pastWeekday: true, expected: 5 },
             { text: 'sat', pastWeekday: true, expected: 6 },
             { text: 'sun', pastWeekday: true, expected: 0 },
-        ])('should be able to parse $filter', ({ text, pastWeekday, expected }) => {
+        ])('should be able to parse $text', ({ text, pastWeekday, expected }) => {
             const results = weekdayStringToNumber(text, pastWeekday);
             expect(results).toEqual(expected);
         });

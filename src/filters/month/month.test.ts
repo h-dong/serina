@@ -113,20 +113,8 @@ describe('Month', () => {
         });
     });
 
-    describe.skip('Edge cases', () => {
-        test('return null if text is undefined', () => {
-            const result = Month.parseText(undefined);
-            expect(result).toBeNull();
-        });
-
-        test('return null if text is null', () => {
-            const result = Month.parseText(null);
-            expect(result).toBeNull();
-        });
-
-        test('return null if text is empty string', () => {
-            const result = Month.parseText('');
-            expect(result).toBeNull();
-        });
+    test('return null if text is empty string', () => {
+        const result = Month.parseText('');
+        expect(result).toBeNull();
     });
 });

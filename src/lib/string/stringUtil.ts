@@ -1,3 +1,5 @@
+import { ParsedMatchSchema } from 'serina.schema';
+
 export function matchPattern(haystack: string, pattern: string, wordBoundary = true): string[] {
     const updatedPattern = wordBoundary ? `\\b${pattern}\\b` : pattern;
     const regex = new RegExp(updatedPattern, 'ig');

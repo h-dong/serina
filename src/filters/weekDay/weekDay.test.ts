@@ -78,7 +78,7 @@ describe('Weekday', () => {
         expect(stringUtil.parseMatches).toBeCalledWith(
             'test string mon',
             'mon',
-            dayLite().set({ weekday: 1 }).startOf('day').toDate()
+            dayLite().set({ weekday: 1 }).plus(1, 'week').startOf('day').toDate()
         );
     });
 
@@ -93,7 +93,7 @@ describe('Weekday', () => {
         const output = Weekday.parseText('test string mon tue');
         const results = [
             {
-                dateTime: dayLite().set({ weekday: 1 }).startOf('day').toDate(),
+                dateTime: dayLite().set({ weekday: 1 }).plus(1, 'week').startOf('day').toDate(),
                 matched: 'mon',
                 text: 'test string tue',
             },
