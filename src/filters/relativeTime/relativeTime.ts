@@ -4,7 +4,7 @@ import Filter from 'filters/filter';
 
 export default class RelativeTime extends Filter {
     constructor() {
-        super(RELATIVE_TIME.ANY);
+        super(RELATIVE_TIME.ANY, false);
     }
 
     parseStringToDateObj(match: string): Date {

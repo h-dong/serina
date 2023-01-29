@@ -4,7 +4,7 @@ import Filter from 'filters/filter';
 
 export default class DateAndTime extends Filter {
     constructor() {
-        super(DATE_AND_TIME.ANY);
+        super(DATE_AND_TIME.ANY, false);
     }
 
     parseStringToDateObj(match: string): Date {

@@ -6,7 +6,7 @@ import DATES from 'filters/dates/dates.constants';
 export default class RelativeDates extends Filter {
     constructor() {
         // TODO: change this template literal
-        super(`(${DATES.FILLER_WORDS})?${RELATIVE_DATES.ANY}`);
+        super(`(${DATES.FILLER_WORDS})?${RELATIVE_DATES.ANY}`, false);
     }
 
     parseStringToDateObj(match: string): Date {

@@ -4,7 +4,7 @@ import Filter from 'filters/filter';
 
 export default class Dates extends Filter {
     constructor() {
-        super(DATES.WITH_FILLER_WORDS);
+        super(DATES.WITH_FILLER_WORDS, false);
     }
 
     parseStringToDateObj(match: string): Date {

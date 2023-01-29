@@ -6,7 +6,7 @@ import Filter from 'filters/filter';
 export default class PartialDates extends Filter {
     constructor() {
         // TODO: change this template literal
-        super(`(${DATES.FILLER_WORDS})?(${PARTIAL_DATES.ANY})`);
+        super(`(${DATES.FILLER_WORDS})?(${PARTIAL_DATES.ANY})`, false);
     }
 
     parseStringToDateObj(match: string): Date {
