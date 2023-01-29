@@ -17,7 +17,7 @@ Serina Demo: [serina.netlify.com](https://serina.netlify.com)
 
 ## Introduction
 
-Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!https://github.com/neilgupta/Sherlock) project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
+Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!<https://github.com/neilgupta/Sherlock)> project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
 
 ## Installation
 
@@ -138,6 +138,7 @@ This project is currently developed by just me, so can't say when the library wi
 
 ### Todo
 
+- [ ] Parse seconds e.g. `15:30:22`
 - [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
 - [ ] Parse time range e.g. `between 5pm and 8pm`
 - [ ] Parse international date formats better e.g. `2018/06/21`

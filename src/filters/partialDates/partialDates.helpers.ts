@@ -1,9 +1,10 @@
 import { DateObjectSchema } from 'serina.schema';
-import { DATES, PARTIAL_DATES } from 'filters/dates/dates.constants';
-import { contains } from 'lib/string/stringUtil';
-import strToInt from 'utils/strToInt';
+import { contains, remove } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 import { monthStringToNumber } from 'filters/month/month.helpers';
+import PARTIAL_DATES from './partialDates.constants';
+import DATES from 'filters/dates/dates.constants';
+import { strToInt } from 'filters/dates/dates.helpers';
 
 /**
  * We want to return a future date, so if the month has already occurred this year, we give next year's date.
@@ -28,7 +29,7 @@ function getNextMonthIfDayIsInThePast(dayStr): number {
     return month < 13 ? month : 1;
 }
 
-function convertPartialDateStringToObj(date: string): DateObjectSchema {
+export function partialDateStringToDayMonthYear(date: string): DateObjectSchema {
     let day: string;
     let month: string;
     let year: string;
@@ -81,4 +82,12 @@ function convertPartialDateStringToObj(date: string): DateObjectSchema {
     return strToInt(day, month, year);
 }
 
-export default convertPartialDateStringToObj;
+export function partialDateStringToDateObj(matchingText: string): Date {
+    const removedFillerWords = remove(matchingText, DATES.FILLER_WORDS);
+    const dateObj = partialDateStringToDayMonthYear(removedFillerWords);
+
+    if (!dateObj) return null;
+
+    const { day, month, year } = dateObj;
+    return dayLite().set({ day, month, year }).start('day').toDate();
+}

@@ -1,11 +1,12 @@
-import findMatchingKey from './findMatchingKey';
-import remove from './remove';
 import RELATIVE_DATES, { RELATIVE_ADVERB } from 'filters/relativeDates/relativeDates.constants';
 import { dayLite } from 'lib/date/dayLite';
 import { DayLiteUnits } from 'lib/date/types';
-import { contains, matchPattern } from 'lib/string/stringUtil';
+import { contains, matchPattern, remove } from 'lib/string/stringUtil';
+import findMatchingKey from 'utils/findMatchingKey';
 
 type RegexTimeUnit = keyof typeof RELATIVE_DATES.TIME_UNITS;
+
+// TODO: export these functions and test them
 
 function regexTimeUnitToDayLiteTimeUnit(regexTimeUnit: RegexTimeUnit): DayLiteUnits {
     switch (regexTimeUnit) {
@@ -33,7 +34,8 @@ function convertRelativeAdverbToObj(relativeDateStr: string): Date {
     return dayLite().plus(1, 'day').toDate();
 }
 
-function getNext(unit: DayLiteUnits): Date {
+// TODO: can this be moved to dayLite?
+export function getNext(unit: DayLiteUnits): Date {
     return dayLite().start(unit).next(1, unit).toDate();
 }
 
@@ -57,7 +59,7 @@ function convertRelativeExpressionToObj(expression: string): Date {
     return dayLite().plus(quantity, dayLiteTimeUnit).toDate();
 }
 
-function convertRelativeDateStringToObj(date: string): Date {
+export function relativeDateStringToDayMonthYear(date: string): Date {
     const removedFillerWords = remove(date, RELATIVE_DATES.FILLER_WORDS);
     if (contains(removedFillerWords, RELATIVE_DATES.RELATIVE_ADVERB)) {
         return convertRelativeAdverbToObj(removedFillerWords);
@@ -66,4 +68,8 @@ function convertRelativeDateStringToObj(date: string): Date {
     }
 }
 
-export { convertRelativeDateStringToObj as default, getNext };
+export function relativeDateStringToDateObj(matchingText: string): Date {
+    const dateObj = relativeDateStringToDayMonthYear(matchingText);
+    if (!dateObj) return null;
+    return dayLite(dateObj).start('day').toDate();
+}

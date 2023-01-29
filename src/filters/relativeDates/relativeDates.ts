@@ -1,27 +1,15 @@
-import { ParsedMatchSchema } from 'serina.schema';
-import { DATES } from 'filters/dates/dates.constants';
 import RELATIVE_DATES from './relativeDates.constants';
-import { parseMatches } from 'lib/string/stringUtil';
-import { matchPattern } from 'lib/string/stringUtil';
-import convertRelativeDateStringToObj from 'utils/convertRelativeDateStringToObj';
-import { dayLite } from 'lib/date/dayLite';
+import { relativeDateStringToDateObj } from './relativeDates.helpers';
+import Filter from 'filters/filter';
+import DATES from 'filters/dates/dates.constants';
 
-export default class RelativeDates {
-    static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `(${DATES.FILLER_WORDS})?${RELATIVE_DATES.ANY}`;
-        const matches = matchPattern(text, pattern, false);
-
-        if (!matches) return null;
-
-        return matches.map(match => {
-            const dateTimeObj = this.convertMatchToDateObj(match);
-            return parseMatches(text, match, dateTimeObj);
-        });
+export default class RelativeDates extends Filter {
+    constructor() {
+        // TODO: change this template literal
+        super(`(${DATES.FILLER_WORDS})?${RELATIVE_DATES.ANY}`);
     }
 
-    private static convertMatchToDateObj(matchingText: string): Date {
-        const dateObj = convertRelativeDateStringToObj(matchingText);
-        if (!dateObj) return null;
-        return dayLite(dateObj).start('day').toDate();
+    parseStringToDateObj(match: string): Date {
+        return relativeDateStringToDateObj(match);
     }
 }

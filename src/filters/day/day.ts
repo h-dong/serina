@@ -1,19 +1,13 @@
-import { ParsedMatchSchema } from 'serina.schema';
-import { parseMatches } from 'lib/string/stringUtil';
-import { matchPattern } from 'lib/string/stringUtil';
 import DAY from './day.constants';
 import { dayStringToDateObj } from './day.helpers';
+import Filter from 'filters/filter';
 
-export default class Day {
-    static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = DAY.WITH_FILLER_WORDS_AND_ORDINAL;
-        const matches = matchPattern(text, pattern);
+export default class Day extends Filter {
+    constructor() {
+        super(DAY.WITH_FILLER_WORDS_AND_ORDINAL);
+    }
 
-        if (!matches) return null;
-
-        return matches.map(match => {
-            const dateTimeObj = dayStringToDateObj(match);
-            return parseMatches(text, match, dateTimeObj);
-        });
+    parseStringToDateObj(match: string): Date {
+        return dayStringToDateObj(match);
     }
 }

@@ -2,6 +2,7 @@ import { TimeObjectSchema } from 'serina.schema';
 import TIME from 'filters/time/time.constants';
 import { contains } from 'lib/string/stringUtil';
 import { matchPattern } from 'lib/string/stringUtil';
+import { dayLite } from 'lib/date/dayLite';
 
 function getValidMatch(text: string, pattern: string): string {
     const matched = matchPattern(text, pattern, false);
@@ -11,17 +12,18 @@ function getValidMatch(text: string, pattern: string): string {
 }
 
 function convertTime(timeString: string, hour: number, minute: number) {
-    if (isNaN(hour) || isNaN(minute) || hour > 23 || minute > 59) return null;
+    if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;
     if (contains(timeString, TIME.AM, false) && hour === 12) hour = 24;
     if (contains(timeString, TIME.TO) && hour > 0) hour -= 1;
     if (contains(timeString, TIME.TO)) minute = 60 - minute;
     if (contains(timeString, TIME.PM, false) && hour < 12) hour += 12;
     if (hour === 24) hour = 0;
+    if (hour < dayLite().hour || (hour === dayLite().hour && minute < dayLite().minute)) hour += 24;
 
     return { hour, minute };
 }
 
-function timeStringToDateObj(timeString: string): TimeObjectSchema {
+export function timeStringToDateObj(timeString: string): TimeObjectSchema {
     let hour: string;
     let minute: string;
     const isRelativeTime = contains(timeString, TIME.RELATIVE_TIME_FILLER_WORDS);
@@ -83,4 +85,17 @@ function timeStringToDateObj(timeString: string): TimeObjectSchema {
     return convertTime(timeString, parseInt(hour, 10), parseInt(minute, 10));
 }
 
-export default timeStringToDateObj;
+export function timeStringToHourMinute(matchingText: string): Date {
+    const timeObj = timeStringToDateObj(matchingText);
+
+    if (!timeObj) return null;
+
+    const { hour, minute } = timeObj;
+
+    return dayLite().set({ hour, minute }).startOf('minute').toDate();
+}
+
+// TODO: remove this unused function
+// export function isValidTime(hour: number, minute: number) {
+//     return hour < 0 || hour > 23 || minute < 0 || minute > 59 ? false : true;
+// }

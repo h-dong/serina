@@ -1,13 +1,13 @@
 import TIME from 'filters/time/time.constants';
+import { timeStringToDateObj } from 'filters/time/time.helpers';
 import WEEKDAY from 'filters/weekday/weekday.constants';
 import { weekdayStringToNumber } from 'filters/weekday/weekday.helpers';
 import { dayLite } from 'lib/date/dayLite';
 import { contains, matchPattern } from 'lib/string/stringUtil';
-import timeStringToDateObj from 'utils/convertTimeStringToObj';
 
 export function getValidMatch(text: string, pattern: string): string {
     const matched = matchPattern(text, pattern);
-    if (!matched || matched.length === 0) return null;
+    if (!matched) return null;
     const [value] = matched;
     return value;
 }

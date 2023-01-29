@@ -1,21 +1,14 @@
-import { ParsedMatchSchema } from 'serina.schema';
+import Filter from 'filters/filter';
 import WEEKDAY from './weekday.constants';
-import { matchPattern } from 'lib/string/stringUtil';
-import { parseMatches } from 'lib/string/stringUtil';
 import { weekdayStringToDateObj } from './weekday.helpers';
 
-export default class Weekday {
-    static parseText(text: string): ParsedMatchSchema[] {
+export default class Weekday extends Filter {
+    constructor() {
         // When parsing day of the week, check for relative words & week day e.g. next friday
-        const pattern = WEEKDAY.WITH_FUTURE_PAST_WORDS;
-        const matches = matchPattern(text, pattern);
+        super(WEEKDAY.WITH_FUTURE_PAST_WORDS);
+    }
 
-        if (!matches) return null;
-
-        // for each match, get the parsed cases
-        return matches.map(match => {
-            const dateTimeObj = weekdayStringToDateObj(match);
-            return parseMatches(text, match, dateTimeObj);
-        });
+    parseStringToDateObj(match: string): Date {
+        return weekdayStringToDateObj(match);
     }
 }

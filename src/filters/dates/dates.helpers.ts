@@ -1,10 +1,18 @@
-import { DateObjectSchema } from 'serina.schema';
-import { DATES } from 'filters/dates/dates.constants';
-import { contains } from 'lib/string/stringUtil';
-import strToInt from 'utils/strToInt';
 import { monthStringToNumber } from 'filters/month/month.helpers';
+import { dayLite } from 'lib/date/dayLite';
+import { contains, remove } from 'lib/string/stringUtil';
+import { DateObjectSchema } from 'serina.schema';
+import DATES from './dates.constants';
 
-function convertDateStringToObj(date: string): DateObjectSchema {
+export function strToInt(dayStr: string, monthStr: string, yearStr: string): DateObjectSchema {
+    return {
+        day: parseInt(dayStr, 10),
+        month: parseInt(monthStr, 10),
+        year: parseInt(yearStr, 10),
+    };
+}
+
+export function dateStringToDayMonthYear(date: string): DateObjectSchema {
     let day: string;
     let month: string;
     let year: string;
@@ -34,4 +42,12 @@ function convertDateStringToObj(date: string): DateObjectSchema {
     return strToInt(day, month, year);
 }
 
-export default convertDateStringToObj;
+export function dateStringToDateObj(matchingText: string): Date {
+    const removedFillerWords = remove(matchingText, DATES.FILLER_WORDS);
+    const dateObj = dateStringToDayMonthYear(removedFillerWords);
+
+    if (!dateObj) return null;
+
+    const { day, month, year } = dateObj;
+    return dayLite().set({ day, month, year }).start('day').toDate();
+}
