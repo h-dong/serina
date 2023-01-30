@@ -8,7 +8,7 @@ describe('Dates', () => {
         expect(result).toBeNull();
     });
 
-    test('return correct date object ', () => {
+    test('return correct date object', () => {
         const filter = new Dates();
         const result = filter.parseText('test string 2023/01/01');
         expect(result).toEqual([

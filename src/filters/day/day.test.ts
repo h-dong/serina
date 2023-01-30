@@ -19,7 +19,7 @@ describe('Day', () => {
             expect(result).toBeNull();
         });
 
-        test('return correct date object ', () => {
+        test('return correct date object', () => {
             const filter = new Day();
             const result = filter.parseText('test string 17th');
             expect(result).toEqual([

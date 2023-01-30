@@ -16,7 +16,7 @@ describe('Time Keywords', () => {
         expect(result).toBeNull();
     });
 
-    test('return correct date object ', () => {
+    test('return correct date object', () => {
         const filter = new TimeKeywords();
         const result = filter.parseText('test string midday');
         expect(result).toEqual([

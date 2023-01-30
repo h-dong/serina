@@ -18,7 +18,7 @@ describe('Month', () => {
         expect(result).toBeNull();
     });
 
-    test('return correct date object ', () => {
+    test('return correct date object', () => {
         const filter = new Month();
         const result = filter.parseText('test string march');
         expect(result).toEqual([

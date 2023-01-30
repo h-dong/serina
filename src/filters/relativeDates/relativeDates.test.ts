@@ -15,7 +15,7 @@ describe('RelativeDates', () => {
         expect(result).toBeNull();
     });
 
-    test('return correct date object ', () => {
+    test('return correct date object', () => {
         const filter = new RelativeDates();
         const result = filter.parseText('test string today');
         expect(result).toEqual([

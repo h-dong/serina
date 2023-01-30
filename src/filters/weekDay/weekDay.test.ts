@@ -16,7 +16,7 @@ describe('Weekday', () => {
         expect(result).toBeNull();
     });
 
-    test('return correct date object ', () => {
+    test('return correct date object', () => {
         const filter = new Weekday();
         const result = filter.parseText('test string monday');
         expect(result).toEqual([
