@@ -178,6 +178,11 @@ describe('dayLight', () => {
                 output: '2022-01-20T14:55:35.000Z',
             },
             {
+                name: 'month 2',
+                operation: dayLite().set({ month: 2 }).toString(),
+                output: '2022-02-20T14:55:35.000Z',
+            },
+            {
                 name: 'month 12',
                 operation: dayLite().set({ month: 12 }).toString(),
                 output: '2022-12-20T14:55:35.000Z',
@@ -196,6 +201,13 @@ describe('dayLight', () => {
         test('should return correct combination of set day, month and year', () => {
             vi.setSystemTime(new Date('2022-10-20T14:55:35Z'));
             expect(dayLite().set({ day: 2, month: 11, year: 2018 }).toString()).toEqual('2018-11-02T14:55:35.000Z');
+        });
+
+        test('should return correct combination of set minute, hour, day, month and year', () => {
+            vi.setSystemTime(new Date('2023-01-30T14:55:35Z'));
+            expect(dayLite().set({ day: 17, month: 2, year: 2009, hour: 16, minute: 0 }).toString()).toEqual(
+                '2009-02-17T16:00:35.000Z'
+            );
         });
     });
 

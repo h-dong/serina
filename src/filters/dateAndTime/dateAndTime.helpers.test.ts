@@ -86,7 +86,7 @@ describe('DateAndTime Helpers', () => {
 
         test('return date and time object', () => {
             const result = dateAndTimeToDateObj('some random text on 02/17/2009 4pm');
-            expect(result).toEqual(new Date('2009-03-17T16:00:00.000Z'));
+            expect(result).toEqual(new Date('2009-02-17T16:00:00.000Z'));
         });
     });
 });

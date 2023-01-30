@@ -34,11 +34,13 @@ export function getTimeString(matchingText: string) {
 export function differentDateStringToObj(dateString: string): DateObjectSchema {
     let dateObj: DateObjectSchema;
     if (contains(dateString, DATES.ANY)) {
-        dateObj = dateStringToDayMonthYear(dateString);
+        const { day, month, year } = dayLite(dateStringToDayMonthYear(dateString));
+        dateObj = { day, month, year };
     } else if (contains(dateString, `${PARTIAL_DATES.ANY}`)) {
-        dateObj = partialDateStringToDayMonthYear(dateString);
+        const { day, month, year } = partialDateStringToDayMonthYear(dateString);
+        dateObj = { day, month, year };
     } else {
-        const { day, month: nativeMonth, year } = dayLite(relativeDateStringToDayMonthYear(dateString));
+        const { day, nativeMonth, year } = dayLite(relativeDateStringToDayMonthYear(dateString));
         dateObj = { day, month: nativeMonth, year };
     }
 
@@ -61,5 +63,5 @@ export function dateAndTimeToDateObj(matchingText: string): Date {
     const { day, month, year } = dateObj;
     const { hour, minute } = timeObj;
 
-    return dayLite().set({ day, month, year, hour, minute }).startOf('minute').toDate();
+    return dayLite().set({ day, month, year, hour, minute }).start('minute').toDate();
 }

@@ -18,7 +18,9 @@ function convertTime(timeString: string, hour: number, minute: number) {
     if (contains(timeString, TIME.TO)) minute = 60 - minute;
     if (contains(timeString, TIME.PM, false) && hour < 12) hour += 12;
     if (hour === 24) hour = 0;
-    if (hour < dayLite().hour || (hour === dayLite().hour && minute < dayLite().minute)) hour += 24;
+
+    // TOOD: need to move this logic some where else
+    // if (hour < dayLite().hour || (hour === dayLite().hour && minute < dayLite().minute)) hour += 24;
 
     return { hour, minute };
 }
