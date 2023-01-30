@@ -9,7 +9,7 @@ import { strToInt } from 'filters/dates/dates.helpers';
 /**
  * We want to return a future date, so if the month has already occurred this year, we give next year's date.
  */
-function getFutureYearIfDateIsInThePast(monthStr, dayStr): string {
+export function getFutureYearIfDateIsInThePast(monthStr: string, dayStr: string): string {
     const currentDate = dayLite();
     const year = currentDate.year;
     const month = parseInt(monthStr, 10);
@@ -21,7 +21,7 @@ function getFutureYearIfDateIsInThePast(monthStr, dayStr): string {
     return year.toString();
 }
 
-function getNextMonthIfDayIsInThePast(dayStr): number {
+export function getNextMonthIfDayIsInThePast(dayStr: string): number {
     const currentDate = dayLite();
     const day = parseInt(dayStr, 10);
     const currMonth = currentDate.month;
@@ -29,7 +29,7 @@ function getNextMonthIfDayIsInThePast(dayStr): number {
     return month < 13 ? month : 1;
 }
 
-export function partialDateStringToDayMonthYear(date: string): DateObjectSchema {
+export function partialDateStringToDayMonthYear(date: string): Date {
     let day: string;
     let month: string;
     let year: string;
@@ -79,15 +79,13 @@ export function partialDateStringToDayMonthYear(date: string): DateObjectSchema 
 
     if (!day || !month || !year) return null;
 
-    return strToInt(day, month, year);
+    return dayLite()
+        .set({ day: parseInt(day), month: parseInt(month), year: parseInt(year) })
+        .start('day')
+        .toDate();
 }
 
 export function partialDateStringToDateObj(matchingText: string): Date {
     const removedFillerWords = remove(matchingText, DATES.FILLER_WORDS);
-    const dateObj = partialDateStringToDayMonthYear(removedFillerWords);
-
-    if (!dateObj) return null;
-
-    const { day, month, year } = dateObj;
-    return dayLite().set({ day, month, year }).start('day').toDate();
+    return partialDateStringToDayMonthYear(removedFillerWords);
 }

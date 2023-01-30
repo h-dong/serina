@@ -3,7 +3,7 @@ import MONTH from 'filters/month/month.constants';
 import YEAR from 'filters/year/year.constants';
 import { wrapInBracket } from 'utils/wrapInBracket';
 
-const FILLER_WORDS = '(on|by) (the )?';
+const FILLER_WORDS = '((on|by) (the )?)';
 const NUM_DIVIDER = '(/|(-))';
 const NUM_DAY_MONTH_YEAR = wrapInBracket(
     [

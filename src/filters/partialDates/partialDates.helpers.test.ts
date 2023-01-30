@@ -1,107 +1,91 @@
-import { dayLite } from 'lib/date/dayLite';
-import { partialDateStringToDayMonthYear } from './partialDates.helpers';
+import {
+    getFutureYearIfDateIsInThePast,
+    getNextMonthIfDayIsInThePast,
+    partialDateStringToDateObj,
+    partialDateStringToDayMonthYear,
+} from './partialDates.helpers';
 
-describe('partialDateStringToDayMonthYear', () => {
-    // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    const mockDate = new Date('2019-06-29T15:48:12Z');
-    vi.useFakeTimers().setSystemTime(mockDate);
-
-    const currentYear = dayLite(mockDate).year;
+describe('Partial Dates Helpers', () => {
+    vi.useFakeTimers();
 
     afterAll(() => {
         vi.useRealTimers();
     });
 
-    test.each([
-        { input: '02/2009', output: { day: 1, month: 2, year: 2009 } },
-        { input: 'Feb 2009', output: { day: 1, month: 2, year: 2009 } },
-        { input: 'February 2009', output: { day: 1, month: 2, year: 2009 } },
-        { input: '2/2009', output: { day: 1, month: 2, year: 2009 } },
-        { input: '2009 Feb', output: { day: 1, month: 2, year: 2009 } },
-        { input: '2009 February', output: { day: 1, month: 2, year: 2009 } },
-        { input: '2009/2', output: { day: 1, month: 2, year: 2009 } },
-        { input: '02/20', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: '02/10', output: { day: 2, month: 10, year: currentYear } },
-        { input: 'Feb 20', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: 'Feb 20th', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: 'February 20', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: 'February 20th', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: 'Feb 21st', output: { day: 21, month: 2, year: currentYear + 1 } },
-        { input: '20/02', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: '20 Feb', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: '20th Feb', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: '20 February', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: '20th February', output: { day: 20, month: 2, year: currentYear + 1 } },
-        { input: '22nd Feb', output: { day: 22, month: 2, year: currentYear + 1 } },
-        { input: '23rd Feb', output: { day: 23, month: 2, year: currentYear + 1 } },
-        { input: '29 Jun', output: { day: 29, month: 6, year: currentYear } },
-        { input: '28 Jun', output: { day: 28, month: 6, year: currentYear + 1 } },
-    ])('should convert $input', ({ input, output }) => {
-        const parsedText = partialDateStringToDayMonthYear(input);
-        expect(parsedText).toEqual(output);
+    describe('getFutureYearIfDateIsInThePast()', () => {
+        // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+        vi.setSystemTime(new Date('2019-06-29T15:48:12Z'));
+
+        test.each([
+            { month: '1', day: '1', output: '2020' }, // January 1st
+            { month: '6', day: '20', output: '2020' }, // June 20th
+            { month: '6', day: '30', output: '2019' }, // June 30th
+            { month: '12', day: '31', output: '2019' }, // June 20th
+        ])('return correct year given month=$month and day=$day', ({ month, day, output }) => {
+            const result = getFutureYearIfDateIsInThePast(month, day);
+            expect(result).toBe(output);
+        });
     });
 
-    //  // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
-    //  const mockDate = new Date('2019-06-29T15:48:12Z');
-    //  vi.useFakeTimers().setSystemTime(mockDate);
+    describe('getNextMonthIfDayIsInThePast()', () => {
+        // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+        vi.setSystemTime(new Date('2019-06-29T15:48:12Z'));
 
-    //  const currentYear = dayLite(mockDate).year;
-    //  const currentMonth = dayLite(mockDate).month;
+        test.each([
+            { day: '1', output: 7 }, // June 1st
+            { day: '20', output: 7 }, // June 20th
+            { day: '30', output: 6 }, // June 30th
+            { day: '31', output: 6 }, // June 20th
+        ])('return correct month given day=$day', ({ day, output }) => {
+            const result = getNextMonthIfDayIsInThePast(day);
+            expect(result).toBe(output);
+        });
+    });
 
-    //  afterAll(() => {
-    //      vi.useRealTimers();
-    //  });
+    describe('partialDateStringToDayMonthYear', () => {
+        // Mock Date Time to Sat Jun 29 2019 15:48:12 GMT+0100
+        const mockDate = new Date('2019-06-29T15:48:12Z');
+        vi.setSystemTime(mockDate);
 
-    //  const mockDates = (day: number, month: number, year: number) =>
-    //      dayLite().set({ day, month, year }).start('day').toDate();
+        test.each([
+            { input: '02/2009', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: 'Feb 2009', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: 'February 2009', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: '2/2009', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: '2009 Feb', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: '2009 February', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: '2009/2', output: new Date('2009-02-01T00:00:00.000Z') },
+            { input: '02/20', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: '02/10', output: new Date('2019-10-02T00:00:00.000Z') }, // TODO: this could be both formats day/month or month/day
+            { input: 'Feb 20', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: 'Feb 20th', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: 'February 20', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: 'February 20th', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: 'Feb 21st', output: new Date('2020-02-21T00:00:00.000Z') },
+            { input: '20/02', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: '20 Feb', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: '20th Feb', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: '20 February', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: '20th February', output: new Date('2020-02-20T00:00:00.000Z') },
+            { input: '22nd Feb', output: new Date('2020-02-22T00:00:00.000Z') },
+            { input: '23rd Feb', output: new Date('2020-02-23T00:00:00.000Z') },
+            { input: '29 Jun', output: new Date('2019-06-29T00:00:00.000Z') },
+            { input: '28 Jun', output: new Date('2020-06-28T00:00:00.000Z') },
+        ])('should convert $input to date object', ({ input, output }) => {
+            const parsedText = partialDateStringToDayMonthYear(input);
+            expect(parsedText).toEqual(output);
+        });
+    });
 
-    //  test.each([
-    //      { filter: '20', dateTime: null },
-    //      { filter: 'on 02/2009', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on Feb 2009', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on February 2009', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on 2/2009', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on 2009 Feb', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on 2009 February', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on 2009/2', dateTime: mockDates(1, 2, 2009) },
-    //      { filter: 'on 02/20', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 02/10', dateTime: mockDates(2, 10, currentYear) },
-    //      { filter: 'on 02-20', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 02-10', dateTime: mockDates(2, 10, currentYear) },
-    //      { filter: 'on Feb 20', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on Feb 20th', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on February 20', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on February 20th', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on Feb 21st', dateTime: mockDates(21, 2, currentYear + 1) },
-    //      { filter: 'on Feb 22nd', dateTime: mockDates(22, 2, currentYear + 1) },
-    //      { filter: 'on Feb 23rd', dateTime: mockDates(23, 2, currentYear + 1) },
-    //      { filter: 'on 20/02', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 20 Feb', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 20th Feb', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 20 February', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 20th February', dateTime: mockDates(20, 2, currentYear + 1) },
-    //      { filter: 'on 21st Feb', dateTime: mockDates(21, 2, currentYear + 1) },
-    //      { filter: 'on 22nd Feb', dateTime: mockDates(22, 2, currentYear + 1) },
-    //      { filter: 'on 23rd Feb', dateTime: mockDates(23, 2, currentYear + 1) },
-    //      { filter: 'on 23rd', dateTime: mockDates(23, currentMonth + 1, currentYear) },
-    //      { filter: 'on the 30th', dateTime: mockDates(30, currentMonth, currentYear) },
-    //  ])('should not parse $filter', ({ filter, dateTime }) => {
-    //      const text = 'go to work';
-    //      const results = PartialDates.parseText(`${text} ${filter}`);
-    //      const output = dateTime ? [{ dateTime, matched: filter, text }] : null;
-    //      expect(results).toEqual(output);
-    //  });
+    describe('partialDateStringToDateObj()', () => {
+        test('should return null if no date is found', () => {
+            const parsedText = partialDateStringToDateObj('no date');
+            expect(parsedText).toBeNull();
+        });
 
-    //  test('should return correct case for matched string', () => {
-    //      const text = 'Hand in paper on 21st Feb';
-    //      const result: ParsedMatchSchema[] = [
-    //          {
-    //              dateTime: mockDates(21, 2, currentYear + 1),
-    //              text: 'Hand in paper',
-    //              matched: 'on 21st Feb',
-    //          },
-    //      ];
-
-    //      expect(PartialDates.parseText(text)).toEqual(result);
-    //  });
+        test('should remove filler words and return date object ', () => {
+            const parsedText = partialDateStringToDateObj('on 02/2009');
+            expect(parsedText).toEqual(new Date('2009-02-01T00:00:00.000Z'));
+        });
+    });
 });
