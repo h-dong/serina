@@ -3,11 +3,13 @@ import { wrapInBracket } from 'utils/wrapInBracket';
 
 const TODAY = 'today';
 const TOMORROW = 'tomorrow';
+const YESTERDAY = 'yesterday';
 
 const RELATIVE_ADVERB = {
-    ANY: wrapInBracket([TODAY, TOMORROW].join('|')),
+    ANY: wrapInBracket([TODAY, TOMORROW, YESTERDAY].join('|')),
     TODAY,
     TOMORROW,
+    YESTERDAY,
 };
 
 const RELATIVE_PREPOSITIONS = '((in|after) )?';

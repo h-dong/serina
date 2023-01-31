@@ -3,16 +3,23 @@ import RELATIVE_DATES from './relativeDates.constants';
 describe('RELATIVE_DATES', () => {
     describe('RELATIVE_ADVERB', () => {
         describe('TODAY', () => {
-            it('should match "today"', () => {
+            test('should match "today"', () => {
                 const regex = new RegExp(RELATIVE_DATES.RELATIVE_ADVERB.TODAY, 'ig');
                 expect('today').toMatch(regex);
             });
         });
 
         describe('TOMORROW', () => {
-            it('should match "tomorrow"', () => {
+            test('should match "tomorrow"', () => {
                 const regex = new RegExp(RELATIVE_DATES.RELATIVE_ADVERB.TOMORROW, 'ig');
                 expect('tomorrow').toMatch(regex);
+            });
+        });
+
+        describe('YESTERDAY', () => {
+            test.each([['yesterday']])('should match "%s"', text => {
+                const regex = new RegExp(RELATIVE_DATES.RELATIVE_ADVERB.YESTERDAY, 'ig');
+                expect(text).toMatch(regex);
             });
         });
 
