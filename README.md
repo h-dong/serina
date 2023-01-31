@@ -17,7 +17,7 @@ Serina Demo: [serina.netlify.com](https://serina.netlify.com)
 
 ## Introduction
 
-Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!<https://github.com/neilgupta/Sherlock)> project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
+Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!<https://github.com/neilgupta/Sherlock>) project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
 
 ## Installation
 
