@@ -50,7 +50,7 @@ describe('Dates Helpers', () => {
             expect(parsedText).toBeNull();
         });
 
-        test.only('should return a date object if a date is found', () => {
+        test('should return a date object if a date is found', () => {
             const parsedText = dateStringToDateObj('on the 17 February, 2009');
             expect(parsedText).toEqual(new Date('2009-02-17T00:00:00.000Z'));
         });

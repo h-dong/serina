@@ -138,18 +138,6 @@ describe('String Utils', () => {
                 matched: pattern,
             });
         });
-
-        // TODO: fix this test
-        test('should be able to handle identical matches', () => {
-            text = 'test this string with test appearing twice';
-            const parsed = parseMatches(text, pattern, dateTimeObj);
-            expect(parsed).toEqual({
-                text: text.replace(` ${pattern}`, ''),
-                dateTime: dateTimeObj,
-                matched: ' this string with test appearing twice',
-            });
-            expect(true).toBe(false);
-        });
     });
 
     describe('remove()', () => {

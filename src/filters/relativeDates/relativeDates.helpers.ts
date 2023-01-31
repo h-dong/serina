@@ -50,7 +50,9 @@ export function convertRelativeExpressionToObj(expression: string): Date {
         quantity = parseInt(period, 10);
     }
 
-    return dayLite().plus(quantity, dayLiteTimeUnit).start(dayLiteTimeUnit).toDate();
+    const test = dayLite().plus(quantity, dayLiteTimeUnit).start('day').toDate();
+
+    return test;
 }
 
 export function relativeDateStringToDayMonthYear(date: string): Date {

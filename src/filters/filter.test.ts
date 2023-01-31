@@ -102,20 +102,15 @@ describe('Filter', () => {
         expect(stringUtil.parseMatches).toBeCalledTimes(2);
     });
 
-    test.skip('return an array of ParsedMatchSchema if there is at least one match', () => {
+    test('return an array of ParsedMatchSchema if there is at least one match', () => {
         spyMatchPattern.mockReturnValue(['text']);
         const filter = new Filter();
         const output = filter.parseText('some random text and more text');
         const results = [
             {
                 dateTime: dayLite().set({ year: 2000 }).startOf('year').toDate(),
-                matched: 'some random and more',
-                text: 'some random text and more text',
-            },
-            {
-                dateTime: dayLite().set({ year: 2000 }).startOf('year').toDate(),
-                matched: 'some random and more',
-                text: 'some random text and more text',
+                matched: 'text',
+                text: 'some random and more',
             },
         ];
         expect(output).toEqual(results);

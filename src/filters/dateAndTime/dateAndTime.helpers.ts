@@ -37,7 +37,7 @@ export function differentDateStringToObj(dateString: string): DateObjectSchema {
         const { day, month, year } = dayLite(dateStringToDayMonthYear(dateString));
         dateObj = { day, month, year };
     } else if (contains(dateString, `${PARTIAL_DATES.ANY}`)) {
-        const { day, month, year } = partialDateStringToDayMonthYear(dateString);
+        const { day, month, year } = dayLite(partialDateStringToDayMonthYear(dateString));
         dateObj = { day, month, year };
     } else {
         const { day, nativeMonth, year } = dayLite(relativeDateStringToDayMonthYear(dateString));

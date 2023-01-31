@@ -36,7 +36,7 @@ describe('Time Helpers', () => {
     });
 
     describe('convertTimeStringToObj()', () => {
-        test.only.each([
+        test.each([
             { input: '25pm', expected: null },
             { input: 'at 8:30am', expected: { hour: 8, minute: 30 } },
             { input: '09:45', expected: { hour: 9, minute: 45 } },

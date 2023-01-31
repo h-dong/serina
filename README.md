@@ -132,9 +132,9 @@ This project is currently developed by just me, so can't say when the library wi
 ### Version 2
 
 - [x] Rewrite Serina to stop using [Luxon](https://moment.github.io/luxon) as peer dependency
-- [ ] Improve Regex logic to make it easier to maintain
-- [ ] Review unit tests
-- [ ] Bug fixes
+- [x] Improve Regex logic to make it easier to maintain
+- [x] Review unit tests
+- [x] Bug fixes
 
 ### Todo
 
@@ -170,3 +170,7 @@ Week day normally refers to Mon - Fri and excludes weekends, but for the sake of
 ### Only match year 1000 - 9999
 
 Currently the library only find matched YEAR between (1000 - 9999). This could be a limitation for some people, so we may need to come back and address this. Please raise an issue if this is an problem for you.
+
+### Multiple identical matches in the same string
+
+It was decided to always prioritize the first match in these situations e.g. "catch the 2:20pm bus at 2:20pm". This decision was made due to the primary function of the library being time and date conversion. By utilizing the first match, the resulting date object will always be consistent. Allowing for multiple matches would result in duplicate suggestions, potentially leading to a poor user experience.

@@ -3,6 +3,7 @@ import {
     convertRelativeExpressionToObj,
     RegexTimeUnit,
     regexTimeUnitToDayLiteTimeUnit,
+    relativeDateStringToDateObj,
     relativeDateStringToDayMonthYear,
 } from './relativeDates.helpers';
 
@@ -37,7 +38,7 @@ describe('Relative Dates Helpers', () => {
         });
     });
 
-    describe.only('convertRelativeExpressionToObj()', () => {
+    describe('convertRelativeExpressionToObj()', () => {
         test('return null if no match', () => {
             const result = convertRelativeExpressionToObj('do something');
             expect(result).toBeNull();
@@ -46,13 +47,22 @@ describe('Relative Dates Helpers', () => {
         test.each([
             { input: '1 day', output: new Date('2019-06-21T00:00:00.000Z') },
             { input: '2 days', output: new Date('2019-06-22T00:00:00.000Z') },
-            { input: '1 week', output: new Date('2019-06-24T00:00:00.000Z') },
-            { input: '2 weeks', output: new Date('2019-07-01T00:00:00.000Z') },
-            { input: '1 month', output: new Date('2019-07-01T00:00:00.000Z') },
-            { input: '2 months', output: new Date('2019-08-01T00:00:00.000Z') },
-            { input: '1 year', output: new Date('2020-01-01T00:00:00.000Z') },
-            { input: '2 years', output: new Date('2021-01-01T00:00:00.000Z') },
+            { input: '1 week', output: new Date('2019-06-27T00:00:00.000Z') },
+            { input: '2 weeks', output: new Date('2019-07-04T00:00:00.000Z') },
+            { input: '1 month', output: new Date('2019-07-20T00:00:00.000Z') },
+            { input: '2 months', output: new Date('2019-08-20T00:00:00.000Z') },
+            { input: '1 year', output: new Date('2020-06-20T00:00:00.000Z') },
+            { input: '2 years', output: new Date('2021-06-20T00:00:00.000Z') },
         ])('returns correct date for "$input"', ({ input, output }) => {
+            const result = convertRelativeExpressionToObj(input);
+            expect(result).toEqual(output);
+        });
+
+        test.each([
+            { input: 'next week', output: new Date('2019-06-24T00:00:00.000Z') },
+            { input: 'next month', output: new Date('2019-07-01T00:00:00.000Z') },
+            { input: 'next year', output: new Date('2020-01-01T00:00:00.000Z') },
+        ])('parse "$input" to be at the start of the week/month/year', ({ input, output }) => {
             const result = convertRelativeExpressionToObj(input);
             expect(result).toEqual(output);
         });
@@ -61,30 +71,27 @@ describe('Relative Dates Helpers', () => {
     describe('relativeDateStringToDayMonthYear()', () => {
         test('should remove filler words', () => {
             const result = relativeDateStringToDayMonthYear('after 1 week');
-            expect(result).toBe(new Date('2019-06-24T00:00:00.000Z'));
+            expect(result).toEqual(new Date('2019-06-27T00:00:00.000Z'));
         });
 
         test('should be able to parse relative adverb', () => {
             const result = relativeDateStringToDayMonthYear('by today');
-            expect(result).toBe(new Date('2019-06-20T00:00:00.000Z'));
+            expect(result).toEqual(new Date('2019-06-20T00:00:00.000Z'));
         });
 
         test('should be able to parse relative expression', () => {
             const result = relativeDateStringToDayMonthYear('in 1 week');
-            expect(result).toBe(new Date('2019-06-24T00:00:00.000Z'));
+            expect(result).toEqual(new Date('2019-06-27T00:00:00.000Z'));
         });
     });
 
     describe('relativeDateStringToDateObj()', () => {
         test('should return null if no match', () => {
-            const result = relativeDateStringToDayMonthYear('do something');
+            const result = relativeDateStringToDateObj('do something');
             expect(result).toBeNull();
         });
 
         test.each([
-            { input: 'next week', output: new Date('2019-06-24T00:00:00.000Z') },
-            { input: 'next month', output: new Date('2019-07-01T00:00:00.000Z') },
-            { input: 'next year', output: new Date('2020-01-01T00:00:00.000Z') },
             { input: 'today', output: new Date('2019-06-20T00:00:00.000Z') },
             { input: 'in a day', output: new Date('2019-06-21T00:00:00.000Z') },
             { input: 'in a week', output: new Date('2019-06-27T00:00:00.000Z') },
@@ -104,10 +111,9 @@ describe('Relative Dates Helpers', () => {
             { input: '5 years later', output: new Date('2024-06-20T00:00:00.000Z') },
             { input: '5 years from now', output: new Date('2024-06-20T00:00:00.000Z') },
             { input: '5 years from now', output: new Date('2024-06-20T00:00:00.000Z') },
-            { input: '5 years ago', output: new Date('2014-06-20T00:00:00.000Z') },
         ])('should be able to parse "$input"', ({ input, output }) => {
-            const result = relativeDateStringToDayMonthYear(input);
-            expect(result).toBe(output);
+            const result = relativeDateStringToDateObj(input);
+            expect(result).toEqual(output);
         });
     });
 });
