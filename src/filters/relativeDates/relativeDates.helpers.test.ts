@@ -17,24 +17,24 @@ describe('Relative Dates Helpers', () => {
 
     describe('regexTimeUnitToDayLiteTimeUnit()', () => {
         test.each([
-            { input: 'DAYS', output: 'day' },
-            { input: 'WEEKS', output: 'week' },
-            { input: 'MONTHS', output: 'month' },
-            { input: 'YEARS', output: 'year' },
-            { input: 'ANY', output: null },
-        ])('returns correct unit given $input', ({ input, output }) => {
-            const result = regexTimeUnitToDayLiteTimeUnit(input as RegexTimeUnit);
-            expect(result).toBe(output);
+            { text: 'DAYS', expected: 'day' },
+            { text: 'WEEKS', expected: 'week' },
+            { text: 'MONTHS', expected: 'month' },
+            { text: 'YEARS', expected: 'year' },
+            { text: 'ANY', expected: null },
+        ])('returns correct unit given $text', ({ text, expected }) => {
+            const result = regexTimeUnitToDayLiteTimeUnit(text as RegexTimeUnit);
+            expect(result).toBe(expected);
         });
     });
 
     describe('convertRelativeAdverbToObj()', () => {
         test.each([
-            { input: 'do something today', output: new Date('2019-06-20T00:00:00.000Z') },
-            { input: 'do something tomorrow', output: new Date('2019-06-21T00:00:00.000Z') },
-        ])('returns correct date given $input', ({ input, output }) => {
-            const result = convertRelativeAdverbToObj(input);
-            expect(result).toEqual(output);
+            { text: 'do something today', expected: new Date('2019-06-20T00:00:00.000Z') },
+            { text: 'do something tomorrow', expected: new Date('2019-06-21T00:00:00.000Z') },
+        ])('returns correct date given $text', ({ text, expected }) => {
+            const result = convertRelativeAdverbToObj(text);
+            expect(result).toEqual(expected);
         });
     });
 
@@ -45,26 +45,26 @@ describe('Relative Dates Helpers', () => {
         });
 
         test.each([
-            { input: '1 day', output: new Date('2019-06-21T00:00:00.000Z') },
-            { input: '2 days', output: new Date('2019-06-22T00:00:00.000Z') },
-            { input: '1 week', output: new Date('2019-06-27T00:00:00.000Z') },
-            { input: '2 weeks', output: new Date('2019-07-04T00:00:00.000Z') },
-            { input: '1 month', output: new Date('2019-07-20T00:00:00.000Z') },
-            { input: '2 months', output: new Date('2019-08-20T00:00:00.000Z') },
-            { input: '1 year', output: new Date('2020-06-20T00:00:00.000Z') },
-            { input: '2 years', output: new Date('2021-06-20T00:00:00.000Z') },
-        ])('returns correct date for "$input"', ({ input, output }) => {
-            const result = convertRelativeExpressionToObj(input);
-            expect(result).toEqual(output);
+            { text: '1 day', expected: new Date('2019-06-21T00:00:00.000Z') },
+            { text: '2 days', expected: new Date('2019-06-22T00:00:00.000Z') },
+            { text: '1 week', expected: new Date('2019-06-27T00:00:00.000Z') },
+            { text: '2 weeks', expected: new Date('2019-07-04T00:00:00.000Z') },
+            { text: '1 month', expected: new Date('2019-07-20T00:00:00.000Z') },
+            { text: '2 months', expected: new Date('2019-08-20T00:00:00.000Z') },
+            { text: '1 year', expected: new Date('2020-06-20T00:00:00.000Z') },
+            { text: '2 years', expected: new Date('2021-06-20T00:00:00.000Z') },
+        ])('returns correct date for "$text"', ({ text, expected }) => {
+            const result = convertRelativeExpressionToObj(text);
+            expect(result).toEqual(expected);
         });
 
         test.each([
-            { input: 'next week', output: new Date('2019-06-24T00:00:00.000Z') },
-            { input: 'next month', output: new Date('2019-07-01T00:00:00.000Z') },
-            { input: 'next year', output: new Date('2020-01-01T00:00:00.000Z') },
-        ])('parse "$input" to be at the start of the week/month/year', ({ input, output }) => {
-            const result = convertRelativeExpressionToObj(input);
-            expect(result).toEqual(output);
+            { text: 'next week', expected: new Date('2019-06-24T00:00:00.000Z') },
+            { text: 'next month', expected: new Date('2019-07-01T00:00:00.000Z') },
+            { text: 'next year', expected: new Date('2020-01-01T00:00:00.000Z') },
+        ])('parse "$text" to be at the start of the week/month/year', ({ text, expected }) => {
+            const result = convertRelativeExpressionToObj(text);
+            expect(result).toEqual(expected);
         });
     });
 
@@ -92,28 +92,28 @@ describe('Relative Dates Helpers', () => {
         });
 
         test.each([
-            { input: 'today', output: new Date('2019-06-20T00:00:00.000Z') },
-            { input: 'in a day', output: new Date('2019-06-21T00:00:00.000Z') },
-            { input: 'in a week', output: new Date('2019-06-27T00:00:00.000Z') },
-            { input: 'in 5 weeks', output: new Date('2019-07-25T00:00:00.000Z') },
-            { input: 'tomorrow', output: new Date('2019-06-21T00:00:00.000Z') },
-            { input: 'in 5 days', output: new Date('2019-06-25T00:00:00.000Z') },
-            { input: 'in 31 days', output: new Date('2019-07-21T00:00:00.000Z') },
-            { input: 'in a wk', output: new Date('2019-06-27T00:00:00.000Z') },
-            { input: 'in 5 wks', output: new Date('2019-07-25T00:00:00.000Z') },
-            { input: 'in a month', output: new Date('2019-07-20T00:00:00.000Z') },
-            { input: 'in 5 months', output: new Date('2019-11-20T00:00:00.000Z') },
-            { input: 'in 12 months', output: new Date('2020-06-20T00:00:00.000Z') },
-            { input: 'in a year', output: new Date('2020-06-20T00:00:00.000Z') },
-            { input: 'in 5 years', output: new Date('2024-06-20T00:00:00.000Z') },
-            { input: 'in a yr', output: new Date('2020-06-20T00:00:00.000Z') },
-            { input: 'in 5 yrs', output: new Date('2024-06-20T00:00:00.000Z') },
-            { input: '5 years later', output: new Date('2024-06-20T00:00:00.000Z') },
-            { input: '5 years from now', output: new Date('2024-06-20T00:00:00.000Z') },
-            { input: '5 years from now', output: new Date('2024-06-20T00:00:00.000Z') },
-        ])('should be able to parse "$input"', ({ input, output }) => {
-            const result = relativeDateStringToDateObj(input);
-            expect(result).toEqual(output);
+            { text: 'today', expected: new Date('2019-06-20T00:00:00.000Z') },
+            { text: 'in a day', expected: new Date('2019-06-21T00:00:00.000Z') },
+            { text: 'in a week', expected: new Date('2019-06-27T00:00:00.000Z') },
+            { text: 'in 5 weeks', expected: new Date('2019-07-25T00:00:00.000Z') },
+            { text: 'tomorrow', expected: new Date('2019-06-21T00:00:00.000Z') },
+            { text: 'in 5 days', expected: new Date('2019-06-25T00:00:00.000Z') },
+            { text: 'in 31 days', expected: new Date('2019-07-21T00:00:00.000Z') },
+            { text: 'in a wk', expected: new Date('2019-06-27T00:00:00.000Z') },
+            { text: 'in 5 wks', expected: new Date('2019-07-25T00:00:00.000Z') },
+            { text: 'in a month', expected: new Date('2019-07-20T00:00:00.000Z') },
+            { text: 'in 5 months', expected: new Date('2019-11-20T00:00:00.000Z') },
+            { text: 'in 12 months', expected: new Date('2020-06-20T00:00:00.000Z') },
+            { text: 'in a year', expected: new Date('2020-06-20T00:00:00.000Z') },
+            { text: 'in 5 years', expected: new Date('2024-06-20T00:00:00.000Z') },
+            { text: 'in a yr', expected: new Date('2020-06-20T00:00:00.000Z') },
+            { text: 'in 5 yrs', expected: new Date('2024-06-20T00:00:00.000Z') },
+            { text: '5 years later', expected: new Date('2024-06-20T00:00:00.000Z') },
+            { text: '5 years from now', expected: new Date('2024-06-20T00:00:00.000Z') },
+            { text: '5 years from now', expected: new Date('2024-06-20T00:00:00.000Z') },
+        ])('should be able to parse "$text"', ({ text, expected }) => {
+            const result = relativeDateStringToDateObj(text);
+            expect(result).toEqual(expected);
         });
     });
 });

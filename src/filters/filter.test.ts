@@ -105,7 +105,7 @@ describe('Filter', () => {
     test('return an array of ParsedMatchSchema if there is at least one match', () => {
         spyMatchPattern.mockReturnValue(['text']);
         const filter = new Filter();
-        const output = filter.parseText('some random text and more text');
+        const expected = filter.parseText('some random text and more text');
         const results = [
             {
                 dateTime: dayLite().set({ year: 2000 }).startOf('year').toDate(),
@@ -113,6 +113,6 @@ describe('Filter', () => {
                 text: 'some random and more',
             },
         ];
-        expect(output).toEqual(results);
+        expect(expected).toEqual(results);
     });
 });

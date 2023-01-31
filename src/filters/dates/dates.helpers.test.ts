@@ -15,32 +15,32 @@ describe('Dates Helpers', () => {
 
     describe('dateStringToDayMonthYear()', () => {
         test.each([
-            { input: '02/17/2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '17/02/2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '2009/02/17', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '2/17/2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '17/2/2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '2009/2/17', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '2/17/2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '2-17-2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '10-2-2009', output: new Date('2009-02-10T00:00:00.000Z') },
-            { input: 'February 17, 2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '17 February, 2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: 'Feb 17, 2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: '17 Feb, 2009', output: new Date('2009-02-17T00:00:00.000Z') },
-            { input: 'Feb 17, 2014', output: new Date('2014-02-17T00:00:00.000Z') },
-            { input: '17 Feb, 2014', output: new Date('2014-02-17T00:00:00.000Z') },
-            { input: '21st Feb 2019', output: new Date('2019-02-21T00:00:00.000Z') },
-            { input: 'Feb 21st 2019', output: new Date('2019-02-21T00:00:00.000Z') },
-            { input: '22nd Feb 2019', output: new Date('2019-02-22T00:00:00.000Z') },
-            { input: 'Feb 22nd 2019', output: new Date('2019-02-22T00:00:00.000Z') },
-            { input: '22nd Feb 2019', output: new Date('2019-02-22T00:00:00.000Z') },
-            { input: 'Feb 22nd 2019', output: new Date('2019-02-22T00:00:00.000Z') },
-            { input: '17th February 2019', output: new Date('2019-02-17T00:00:00.000Z') },
-            { input: 'February 17th 2019', output: new Date('2019-02-17T00:00:00.000Z') },
-        ])('should convert $input', ({ input, output }) => {
-            const parsedText = dateStringToDayMonthYear(input);
-            expect(parsedText).toEqual(output);
+            { text: '02/17/2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '17/02/2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '2009/02/17', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '2/17/2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '17/2/2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '2009/2/17', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '2/17/2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '2-17-2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '10-2-2009', expected: new Date('2009-02-10T00:00:00.000Z') },
+            { text: 'February 17, 2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '17 February, 2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: 'Feb 17, 2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: '17 Feb, 2009', expected: new Date('2009-02-17T00:00:00.000Z') },
+            { text: 'Feb 17, 2014', expected: new Date('2014-02-17T00:00:00.000Z') },
+            { text: '17 Feb, 2014', expected: new Date('2014-02-17T00:00:00.000Z') },
+            { text: '21st Feb 2019', expected: new Date('2019-02-21T00:00:00.000Z') },
+            { text: 'Feb 21st 2019', expected: new Date('2019-02-21T00:00:00.000Z') },
+            { text: '22nd Feb 2019', expected: new Date('2019-02-22T00:00:00.000Z') },
+            { text: 'Feb 22nd 2019', expected: new Date('2019-02-22T00:00:00.000Z') },
+            { text: '22nd Feb 2019', expected: new Date('2019-02-22T00:00:00.000Z') },
+            { text: 'Feb 22nd 2019', expected: new Date('2019-02-22T00:00:00.000Z') },
+            { text: '17th February 2019', expected: new Date('2019-02-17T00:00:00.000Z') },
+            { text: 'February 17th 2019', expected: new Date('2019-02-17T00:00:00.000Z') },
+        ])('should convert $text', ({ text, expected }) => {
+            const parsedText = dateStringToDayMonthYear(text);
+            expect(parsedText).toEqual(expected);
         });
     });
 

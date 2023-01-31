@@ -49,12 +49,12 @@ describe('Month Helpers', () => {
         });
 
         test.each([
-            { input: 'oct', expected: generateDate({ day: 1, month: 10, year: 2018 }) },
-            { input: 'last feb', expected: generateDate({ day: 1, month: 2, year: 2018 }) },
-            { input: 'next jan', expected: generateDate({ day: 1, month: 1, year: 2019 }) },
-            { input: 'some random text', expected: null },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
-            expect(monthStringToDateObj(input)).toEqual(expected);
+            { text: 'oct', expected: generateDate({ day: 1, month: 10, year: 2018 }) },
+            { text: 'last feb', expected: generateDate({ day: 1, month: 2, year: 2018 }) },
+            { text: 'next jan', expected: generateDate({ day: 1, month: 1, year: 2019 }) },
+            { text: 'some random text', expected: null },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
+            expect(monthStringToDateObj(text)).toEqual(expected);
         });
     });
 });

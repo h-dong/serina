@@ -3,53 +3,44 @@ import TIME_KEYWORDS from './timeKeywords.constants';
 describe('TIME_KEYWORDS', () => {
     describe('WITH_FILLER_WORDS', () => {
         test.each([
-            { input: 'at noon', expected: true },
-            { input: 'at midnight', expected: true },
-            { input: 'at mid-night', expected: true },
-            { input: 'at mid night', expected: true },
-            { input: 'at midday', expected: true },
-            { input: 'at mid-day', expected: true },
-            { input: 'at mid day', expected: true },
-            { input: 'by noon', expected: true },
-            { input: 'by midnight', expected: true },
-            { input: 'by mid-night', expected: true },
-            { input: 'by mid night', expected: true },
-            { input: 'by midday', expected: true },
-            { input: 'by mid-day', expected: true },
-            { input: 'by mid day', expected: true },
-            { input: 'around noon', expected: true },
-            { input: 'around midnight', expected: true },
-            { input: 'around mid-night', expected: true },
-            { input: 'around mid night', expected: true },
-            { input: 'around midday', expected: true },
-            { input: 'around mid-day', expected: true },
-            { input: 'around mid day', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            ['at noon'],
+            ['at midnight'],
+            ['at mid-night'],
+            ['at mid night'],
+            ['at midday'],
+            ['at mid-day'],
+            ['at mid day'],
+            ['by noon'],
+            ['by midnight'],
+            ['by mid-night'],
+            ['by mid night'],
+            ['by midday'],
+            ['by mid-day'],
+            ['by mid day'],
+            ['around noon'],
+            ['around midnight'],
+            ['around mid-night'],
+            ['around mid night'],
+            ['around midday'],
+            ['around mid-day'],
+            ['around mid day'],
+        ])('should match "$text"', text => {
             const regex = new RegExp(TIME_KEYWORDS.WITH_FILLER_WORDS, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(text).toMatch(regex);
         });
     });
 
     describe('MID_NIGHT', () => {
-        test.each([
-            { input: 'midnight', expected: true },
-            { input: 'mid night', expected: true },
-            { input: 'mid-night', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+        test.each([['midnight'], ['mid night'], ['mid-night']])('should match "$text"', text => {
             const regex = new RegExp(TIME_KEYWORDS.MID_NIGHT, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(text).toMatch(regex);
         });
     });
 
     describe('MID_DAY', () => {
-        test.each([
-            { input: 'noon', expected: true },
-            { input: 'midday', expected: true },
-            { input: 'mid day', expected: true },
-            { input: 'mid-day', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+        test.each([['noon'], ['midday'], ['mid day'], ['mid-day']])('should match "$text"', text => {
             const regex = new RegExp(TIME_KEYWORDS.MID_DAY, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(text).toMatch(regex);
         });
     });
 });

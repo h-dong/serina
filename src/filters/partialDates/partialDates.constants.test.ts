@@ -3,134 +3,134 @@ import PARTIAL_DATES from './partialDates.constants';
 describe('PARTIAL_DATES', () => {
     describe('NUM_MONTH_YEAR', () => {
         test.each([
-            { input: '1/2020', expected: true },
-            { input: '1-2020', expected: true },
-            { input: '01/2020', expected: true },
-            { input: '01-2020', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '1/2020', expected: true },
+            { text: '1-2020', expected: true },
+            { text: '01/2020', expected: true },
+            { text: '01-2020', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.NUM_MONTH_YEAR, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('NUM_YEAR_MONTH', () => {
         test.each([
-            { input: '2020/1', expected: true },
-            { input: '2020-1', expected: true },
-            { input: '2020/01', expected: true },
-            { input: '2020-01', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '2020/1', expected: true },
+            { text: '2020-1', expected: true },
+            { text: '2020/01', expected: true },
+            { text: '2020-01', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.NUM_YEAR_MONTH, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('NUM_MONTH_DAY', () => {
         test.each([
-            { input: '1/1', expected: true },
-            { input: '1-1', expected: true },
-            { input: '01/1', expected: true },
-            { input: '01-1', expected: true },
-            { input: '1/01', expected: true },
-            { input: '1-01', expected: true },
-            { input: '01/01', expected: true },
-            { input: '01-01', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '1/1', expected: true },
+            { text: '1-1', expected: true },
+            { text: '01/1', expected: true },
+            { text: '01-1', expected: true },
+            { text: '1/01', expected: true },
+            { text: '1-01', expected: true },
+            { text: '01/01', expected: true },
+            { text: '01-01', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.NUM_MONTH_DAY, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('NUM_DAY_MONTH', () => {
         test.each([
-            { input: '1/1', expected: true },
-            { input: '1-1', expected: true },
-            { input: '01/1', expected: true },
-            { input: '01-1', expected: true },
-            { input: '1/01', expected: true },
-            { input: '1-01', expected: true },
-            { input: '01/01', expected: true },
-            { input: '01-01', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '1/1', expected: true },
+            { text: '1-1', expected: true },
+            { text: '01/1', expected: true },
+            { text: '01-1', expected: true },
+            { text: '1/01', expected: true },
+            { text: '1-01', expected: true },
+            { text: '01/01', expected: true },
+            { text: '01-01', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.NUM_DAY_MONTH, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('TXT_MONTH_YEAR', () => {
         test.each([
-            { input: 'January 2020', expected: true },
-            { input: 'Jan 2020', expected: true },
-            { input: 'february 3000', expected: true },
-            { input: 'feb 3000', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: 'January 2020', expected: true },
+            { text: 'Jan 2020', expected: true },
+            { text: 'february 3000', expected: true },
+            { text: 'feb 3000', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.TXT_MONTH_YEAR, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('TXT_MONTH_DAY', () => {
         test.each([
-            { input: 'January 1', expected: true },
-            { input: 'Jan 1', expected: true },
-            { input: 'february 1', expected: true },
-            { input: 'feb 1', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: 'January 1', expected: true },
+            { text: 'Jan 1', expected: true },
+            { text: 'february 1', expected: true },
+            { text: 'feb 1', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.TXT_MONTH_DAY, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('TXT_DAY_MONTH', () => {
         test.each([
-            { input: '1 January', expected: true },
-            { input: '1 Jan', expected: true },
-            { input: '1 february', expected: true },
-            { input: '1 feb', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '1 January', expected: true },
+            { text: '1 Jan', expected: true },
+            { text: '1 february', expected: true },
+            { text: '1 feb', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.TXT_DAY_MONTH, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
     describe('TXT_YEAR_MONTH', () => {
         test.each([
-            { input: '2020 January', expected: true },
-            { input: '2020 Jan', expected: true },
-            { input: '3000 february', expected: true },
-            { input: '3000 feb', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '2020 January', expected: true },
+            { text: '2020 Jan', expected: true },
+            { text: '3000 february', expected: true },
+            { text: '3000 feb', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.TXT_YEAR_MONTH, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
     describe('DAY', () => {
         test.each([
-            { input: '1', expected: false },
-            { input: '01', expected: false },
-            { input: '31', expected: false },
-            { input: '1st', expected: true },
-            { input: '2nd', expected: true },
-            { input: '3rd', expected: true },
-            { input: '4th', expected: true },
-            { input: '31st', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '1', expected: false },
+            { text: '01', expected: false },
+            { text: '31', expected: false },
+            { text: '1st', expected: true },
+            { text: '2nd', expected: true },
+            { text: '3rd', expected: true },
+            { text: '4th', expected: true },
+            { text: '31st', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.DAY, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 
     describe('ANY', () => {
         test.each([
-            { input: '01-31', expected: true },
-            { input: '31-01', expected: true },
-            { input: 'January 2020', expected: true },
-            { input: '2000 January', expected: true },
-            { input: 'January 1', expected: true },
-            { input: '1 January', expected: true },
-            { input: '1st', expected: true },
-        ])('should return $expected for "$input"', ({ input, expected }) => {
+            { text: '01-31', expected: true },
+            { text: '31-01', expected: true },
+            { text: 'January 2020', expected: true },
+            { text: '2000 January', expected: true },
+            { text: 'January 1', expected: true },
+            { text: '1 January', expected: true },
+            { text: '1st', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.ANY, 'ig');
-            expect(regex.test(input)).toEqual(expected);
+            expect(regex.test(text)).toEqual(expected);
         });
     });
 });
