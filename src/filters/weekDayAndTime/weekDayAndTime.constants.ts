@@ -1,4 +1,4 @@
-import WEEKDAY from 'filters/weekday2/weekday2.constants';
+import WEEKDAY from 'filters/weekday/weekday.constants';
 import TIME from 'filters/time/time.constants';
 
 const anyWeekday = WEEKDAY.WITH_FUTURE_PAST_WORDS;

@@ -1,4 +1,4 @@
-import WEEKDAY from './weekday2.constants';
+import WEEKDAY from './weekday.constants';
 
 describe('WEEKDAY', () => {
     describe('WITH_FUTURE_PAST_WORDS', () => {
