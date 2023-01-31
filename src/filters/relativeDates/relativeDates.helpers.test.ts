@@ -1,135 +1,113 @@
-import { getNext } from './relativeDates.helpers';
+import {
+    convertRelativeAdverbToObj,
+    convertRelativeExpressionToObj,
+    RegexTimeUnit,
+    regexTimeUnitToDayLiteTimeUnit,
+    relativeDateStringToDayMonthYear,
+} from './relativeDates.helpers';
 
 describe('Relative Dates Helpers', () => {
-    describe('getNext', () => {
-        afterAll(() => {
-            vi.useRealTimers();
+    // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
+    vi.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52.123Z'));
+
+    afterAll(() => {
+        vi.useRealTimers();
+    });
+
+    describe('regexTimeUnitToDayLiteTimeUnit()', () => {
+        test.each([
+            { input: 'DAYS', output: 'day' },
+            { input: 'WEEKS', output: 'week' },
+            { input: 'MONTHS', output: 'month' },
+            { input: 'YEARS', output: 'year' },
+            { input: 'ANY', output: null },
+        ])('returns correct unit given $input', ({ input, output }) => {
+            const result = regexTimeUnitToDayLiteTimeUnit(input as RegexTimeUnit);
+            expect(result).toBe(output);
+        });
+    });
+
+    describe('convertRelativeAdverbToObj()', () => {
+        test.each([
+            { input: 'do something today', output: new Date('2019-06-20T00:00:00.000Z') },
+            { input: 'do something tomorrow', output: new Date('2019-06-21T00:00:00.000Z') },
+        ])('returns correct date given $input', ({ input, output }) => {
+            const result = convertRelativeAdverbToObj(input);
+            expect(result).toEqual(output);
+        });
+    });
+
+    describe.only('convertRelativeExpressionToObj()', () => {
+        test('return null if no match', () => {
+            const result = convertRelativeExpressionToObj('do something');
+            expect(result).toBeNull();
         });
 
-        test('correctly gets start of next week', () => {
-            const testDate = new Date('2019-01-12T12:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('week');
-            expect(parsedNext).toEqual(new Date('2019-01-14T00:00:00.000Z'));
-        });
-
-        test('correctly gets start of next month', () => {
-            const testDate = new Date('2019-06-20T12:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('month');
-            expect(parsedNext).toEqual(new Date('2019-07-01T00:00:00.000Z'));
-        });
-
-        test('correctly gets start of next month when the date is near the end of a longer month', () => {
-            const testDate = new Date('2019-01-31T00:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('month');
-            expect(parsedNext).toEqual(new Date('2019-02-01T00:00:00.000Z'));
-        });
-
-        test('correctly gets start of next month when the date is near the beginning of a shorter month', () => {
-            const testDate = new Date('2019-02-19T12:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('month');
-            expect(parsedNext).toEqual(new Date('2019-03-01T00:00:00.000Z'));
-        });
-
-        test('correctly gets start of next month when the date is near the end of the year', () => {
-            const testDate = new Date('2019-12-02T12:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('month');
-            expect(parsedNext).toEqual(new Date('2020-01-01T00:00:00.000Z'));
-        });
-
-        test('correctly gets start of next year', () => {
-            const testDate = new Date(new Date('2019-05-19T12:00:00.000Z'));
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('year');
-            expect(parsedNext).toEqual(new Date('2020-01-01T00:00:00.000Z'));
-        });
-
-        test('correctly gets start of next year when the date is near the start of a leap year', () => {
-            const testDate = new Date('2020-01-01T12:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('year');
-            expect(parsedNext).toEqual(new Date('2021-01-01T00:00:00.000Z'));
-        });
-
-        test('correctly fails when the date is illegal', () => {
-            const testDate = new Date('2019-02-31T12:00:00.000Z');
-            vi.useFakeTimers().setSystemTime(testDate);
-            const parsedNext = getNext('month');
-            expect(parsedNext === null);
+        test.each([
+            { input: '1 day', output: new Date('2019-06-21T00:00:00.000Z') },
+            { input: '2 days', output: new Date('2019-06-22T00:00:00.000Z') },
+            { input: '1 week', output: new Date('2019-06-24T00:00:00.000Z') },
+            { input: '2 weeks', output: new Date('2019-07-01T00:00:00.000Z') },
+            { input: '1 month', output: new Date('2019-07-01T00:00:00.000Z') },
+            { input: '2 months', output: new Date('2019-08-01T00:00:00.000Z') },
+            { input: '1 year', output: new Date('2020-01-01T00:00:00.000Z') },
+            { input: '2 years', output: new Date('2021-01-01T00:00:00.000Z') },
+        ])('returns correct date for "$input"', ({ input, output }) => {
+            const result = convertRelativeExpressionToObj(input);
+            expect(result).toEqual(output);
         });
     });
 
     describe('relativeDateStringToDayMonthYear()', () => {
-        test('missing test', () => {
-            expect(true).toBe(false);
+        test('should remove filler words', () => {
+            const result = relativeDateStringToDayMonthYear('after 1 week');
+            expect(result).toBe(new Date('2019-06-24T00:00:00.000Z'));
+        });
+
+        test('should be able to parse relative adverb', () => {
+            const result = relativeDateStringToDayMonthYear('by today');
+            expect(result).toBe(new Date('2019-06-20T00:00:00.000Z'));
+        });
+
+        test('should be able to parse relative expression', () => {
+            const result = relativeDateStringToDayMonthYear('in 1 week');
+            expect(result).toBe(new Date('2019-06-24T00:00:00.000Z'));
         });
     });
 
     describe('relativeDateStringToDateObj()', () => {
-        test('missing test', () => {
-            expect(true).toBe(false);
+        test('should return null if no match', () => {
+            const result = relativeDateStringToDayMonthYear('do something');
+            expect(result).toBeNull();
         });
 
-        //         // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
-        // vi.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52.123Z'));
-
-        // const mockDates = (date: string) => {
-        //     const d = new Date(date);
-        //     d.setUTCMilliseconds(0);
-        //     d.setUTCSeconds(0);
-        //     d.setUTCHours(0);
-        //     return d;
-        // };
-
-        // afterAll(() => {
-        //     vi.useRealTimers();
-        // });
-
-        // test.each([
-        //     { filter: 'next week', dateTime: mockDates('2019-06-24T00:00:00.000Z') },
-        //     { filter: 'next month', dateTime: mockDates('2019-07-01T00:00:00.000Z') },
-        //     { filter: 'next year', dateTime: mockDates('2020-01-01T00:00:00.000Z') },
-        //     { filter: 'today', dateTime: mockDates('2019-06-20T00:00:00.000Z') },
-        //     { filter: 'in a day', dateTime: mockDates('2019-06-21T00:00:00.000Z') },
-        //     { filter: 'in a week', dateTime: mockDates('2019-06-27T00:00:00.000Z') },
-        //     { filter: 'in 5 weeks', dateTime: mockDates('2019-07-25T00:00:00.000Z') },
-        //     { filter: 'tomorrow', dateTime: mockDates('2019-06-21T00:00:00.000Z') },
-        //     { filter: 'in 5 days', dateTime: mockDates('2019-06-25T00:00:00.000Z') },
-        //     { filter: 'in 31 days', dateTime: mockDates('2019-07-21T00:00:00.000Z') },
-        //     { filter: 'in a wk', dateTime: mockDates('2019-06-27T00:00:00.000Z') },
-        //     { filter: 'in 5 wks', dateTime: mockDates('2019-07-25T00:00:00.000Z') },
-        //     { filter: 'in a month', dateTime: mockDates('2019-07-20T00:00:00.000Z') },
-        //     { filter: 'in 5 months', dateTime: mockDates('2019-11-20T00:00:00.000Z') },
-        //     { filter: 'in 12 months', dateTime: mockDates('2020-06-20T00:00:00.000Z') },
-        //     { filter: 'in a year', dateTime: mockDates('2020-06-20T00:00:00.000Z') },
-        //     { filter: 'in 5 years', dateTime: mockDates('2024-06-20T00:00:00.000Z') },
-        //     { filter: 'in a yr', dateTime: mockDates('2020-06-20T00:00:00.000Z') },
-        //     { filter: 'in 5 yrs', dateTime: mockDates('2024-06-20T00:00:00.000Z') },
-        //     { filter: '5 years later', dateTime: mockDates('2024-06-20T00:00:00.000Z') },
-        //     { filter: '5 years from now', dateTime: mockDates('2024-06-20T00:00:00.000Z') },
-        //     { filter: '5 years from now', dateTime: mockDates('2024-06-20T00:00:00.000Z') },
-        // ])('should parse "$filter"', ({ filter, dateTime }) => {
-        //     const text = 'go to work';
-        //     const results = RelativeDates.parseText(`${text} ${filter}`);
-        //     const output = dateTime ? [{ dateTime, matched: filter, text }] : null;
-        //     expect(results).toEqual(output);
-        // });
-
-        // test('should return correct case for matched string', () => {
-        //     const text = 'Hand in paper 5 years from now';
-        //     const result: ParsedMatchSchema[] = [
-        //         {
-        //             dateTime: mockDates('2024-06-20T00:00:00.000Z'),
-        //             text: 'Hand in paper',
-        //             matched: '5 years from now',
-        //         },
-        //     ];
-
-        //     expect(RelativeDates.parseText(text)).toEqual(result);
-        // });
+        test.each([
+            { input: 'next week', output: new Date('2019-06-24T00:00:00.000Z') },
+            { input: 'next month', output: new Date('2019-07-01T00:00:00.000Z') },
+            { input: 'next year', output: new Date('2020-01-01T00:00:00.000Z') },
+            { input: 'today', output: new Date('2019-06-20T00:00:00.000Z') },
+            { input: 'in a day', output: new Date('2019-06-21T00:00:00.000Z') },
+            { input: 'in a week', output: new Date('2019-06-27T00:00:00.000Z') },
+            { input: 'in 5 weeks', output: new Date('2019-07-25T00:00:00.000Z') },
+            { input: 'tomorrow', output: new Date('2019-06-21T00:00:00.000Z') },
+            { input: 'in 5 days', output: new Date('2019-06-25T00:00:00.000Z') },
+            { input: 'in 31 days', output: new Date('2019-07-21T00:00:00.000Z') },
+            { input: 'in a wk', output: new Date('2019-06-27T00:00:00.000Z') },
+            { input: 'in 5 wks', output: new Date('2019-07-25T00:00:00.000Z') },
+            { input: 'in a month', output: new Date('2019-07-20T00:00:00.000Z') },
+            { input: 'in 5 months', output: new Date('2019-11-20T00:00:00.000Z') },
+            { input: 'in 12 months', output: new Date('2020-06-20T00:00:00.000Z') },
+            { input: 'in a year', output: new Date('2020-06-20T00:00:00.000Z') },
+            { input: 'in 5 years', output: new Date('2024-06-20T00:00:00.000Z') },
+            { input: 'in a yr', output: new Date('2020-06-20T00:00:00.000Z') },
+            { input: 'in 5 yrs', output: new Date('2024-06-20T00:00:00.000Z') },
+            { input: '5 years later', output: new Date('2024-06-20T00:00:00.000Z') },
+            { input: '5 years from now', output: new Date('2024-06-20T00:00:00.000Z') },
+            { input: '5 years from now', output: new Date('2024-06-20T00:00:00.000Z') },
+            { input: '5 years ago', output: new Date('2014-06-20T00:00:00.000Z') },
+        ])('should be able to parse "$input"', ({ input, output }) => {
+            const result = relativeDateStringToDayMonthYear(input);
+            expect(result).toBe(output);
+        });
     });
 });

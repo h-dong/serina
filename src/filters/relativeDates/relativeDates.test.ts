@@ -10,7 +10,6 @@ describe('RelativeDates', () => {
 
     test('return null if no match', () => {
         const filter = new RelativeDates();
-
         const result = filter.parseText('some random text');
         expect(result).toBeNull();
     });
@@ -20,8 +19,8 @@ describe('RelativeDates', () => {
         const result = filter.parseText('test string today');
         expect(result).toEqual([
             {
-                dateTime: new Date('2019-01-22T02:00:00.000Z'),
-                matched: 'tomorrow',
+                dateTime: new Date('2019-06-20T00:00:00.000Z'),
+                matched: 'today',
                 text: 'test string',
             },
         ]);

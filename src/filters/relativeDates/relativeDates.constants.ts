@@ -1,10 +1,11 @@
+import DATES from 'filters/dates/dates.constants';
 import { wrapInBracket } from 'utils/wrapInBracket';
 
 const TODAY = 'today';
 const TOMORROW = 'tomorrow';
 
 const RELATIVE_ADVERB = {
-    ANY: [TODAY, TOMORROW].join('|'),
+    ANY: wrapInBracket([TODAY, TOMORROW].join('|')),
     TODAY,
     TOMORROW,
 };
@@ -43,14 +44,17 @@ const RELATIVE_EXPRESSION = {
     ARGUMENT_AFTER,
     ARGUMENT_FIRST,
 };
+const ANY = wrapInBracket([RELATIVE_ADVERB.ANY, RELATIVE_EXPRESSION.ANY].join('|'));
+const FILLER_WORDS = [RELATIVE_PREPOSITIONS, RELATIVE_POSTPOSITIONS].join('|');
 
 const RELATIVE_DATES = {
-    ANY: wrapInBracket([RELATIVE_ADVERB.ANY, RELATIVE_EXPRESSION.ANY].join('|')),
-    RELATIVE_ADVERB: RELATIVE_ADVERB.ANY,
+    WITH_FILLER_WORDS: `(${DATES.FILLER_WORDS})?${ANY}`,
+    ANY,
+    RELATIVE_ADVERB,
     RELATIVE_EXPRESSION,
-    FILLER_WORDS: [RELATIVE_PREPOSITIONS, RELATIVE_POSTPOSITIONS].join('|'),
+    FILLER_WORDS,
     TIME_UNITS,
     VERBAL_QUANTIFIERS,
 };
 
-export { RELATIVE_DATES as default, RELATIVE_ADVERB };
+export default RELATIVE_DATES;
