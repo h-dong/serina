@@ -1,4 +1,4 @@
-import WEEKDAY_AND_TIME from './weekdayAndTime2.constants';
+import WEEKDAY_AND_TIME from './weekdayAndTime.constants';
 
 describe('WEEKDAY_AND_TIME', () => {
     describe('ANY', () => {
