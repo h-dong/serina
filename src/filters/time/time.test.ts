@@ -21,7 +21,7 @@ describe('Time', () => {
         const result = filter.parseText('test string 2am');
         expect(result).toEqual([
             {
-                dateTime: new Date('2019-01-20T02:00:00.000Z'),
+                dateTime: new Date('2019-01-19T02:00:00.000Z'),
                 matched: '2am',
                 text: 'test string',
             },

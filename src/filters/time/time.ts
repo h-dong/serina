@@ -4,7 +4,7 @@ import { timeStringToHourMinute } from './time.helpers';
 
 export default class Time extends Filter {
     constructor() {
-        super(`(${TIME.FILLER_WORDS}( ))?${TIME.ANY}`, false);
+        super(TIME.WITH_FILLER_WORDS, false);
     }
 
     parseStringToDateObj(match: string): Date {

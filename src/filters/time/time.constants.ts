@@ -6,14 +6,14 @@ const MERIDIEM = `(${AM}|${PM})`;
 const FILLER_WORDS = '(at|by)';
 const HOUR_PART = '([0-9]{1,2})';
 const DIVIDER = '(:)';
-const MINUTE_PART = '([0-9]{1,2})';
+const MINUTE_PART = '([0-5][0-9])';
 const TO = '(to|until)';
 const PAST = '(after|past)';
 const RELATIVE_TIME_FILLER_WORDS = wrapInBracket([TO, PAST].join('|'));
 const HALF = 'half';
 const QUARTER = 'quarter';
 const VERBAL_QUANTIFIERS = wrapInBracket([HALF, QUARTER].join('|'));
-const MINUTE_IDENTIFIER = '(min|mins|minutes)';
+const MINUTE_IDENTIFIER = '(min|mins|minute|minutes)';
 
 const FORMAT_JUST_HOUR = `${HOUR_PART}( )?${MERIDIEM}`; // 4am or 4 am
 const FORMAT_HOUR_WITH_MINS = [HOUR_PART, MINUTE_PART].join(DIVIDER); // 04:30
@@ -24,9 +24,11 @@ const FORMAT_NORMAL = wrapInBracket(
     [FORMAT_JUST_HOUR, FORMAT_HOUR_WITH_MINS_AND_MERIDIEM, FORMAT_HOUR_WITH_MINS].join('|')
 );
 const FORMAT_RELATIVE = wrapInBracket([FORMAT_VERBAL_QUANTIFIERS, FORMAT_DIGIT_RELATIVE].join('|'));
+const ANY = wrapInBracket([FORMAT_NORMAL, FORMAT_RELATIVE].join('|'));
 
 const TIME = {
-    ANY: wrapInBracket([FORMAT_NORMAL, FORMAT_RELATIVE].join('|')),
+    WITH_FILLER_WORDS: `(${FILLER_WORDS}( ))?${ANY}`,
+    ANY,
     FORMAT_NORMAL,
     FORMAT_RELATIVE,
     RELATIVE_TIME_FILLER_WORDS,

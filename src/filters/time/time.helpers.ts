@@ -4,14 +4,14 @@ import { contains } from 'lib/string/stringUtil';
 import { matchPattern } from 'lib/string/stringUtil';
 import { dayLite } from 'lib/date/dayLite';
 
-function getValidMatch(text: string, pattern: string): string {
+export function getValidMatch(text: string, pattern: string): string {
     const matched = matchPattern(text, pattern, false);
     if (!matched || matched.length === 0) return null;
     const [value] = matched;
     return value;
 }
 
-function convertTime(timeString: string, hour: number, minute: number) {
+export function convertTime(timeString: string, hour: number, minute: number): TimeObjectSchema {
     if (isNaN(hour) || isNaN(minute) || hour < 0 || hour > 23 || minute < 0 || minute > 59) return null;
     if (contains(timeString, TIME.AM, false) && hour === 12) hour = 24;
     if (contains(timeString, TIME.TO) && hour > 0) hour -= 1;
@@ -19,7 +19,7 @@ function convertTime(timeString: string, hour: number, minute: number) {
     if (contains(timeString, TIME.PM, false) && hour < 12) hour += 12;
     if (hour === 24) hour = 0;
 
-    // TOOD: need to move this logic some where else
+    // TODO: need to move this logic some where else
     // if (hour < dayLite().hour || (hour === dayLite().hour && minute < dayLite().minute)) hour += 24;
 
     return { hour, minute };
@@ -96,8 +96,3 @@ export function timeStringToHourMinute(matchingText: string): Date {
 
     return dayLite().set({ hour, minute }).startOf('minute').toDate();
 }
-
-// TODO: remove this unused function
-// export function isValidTime(hour: number, minute: number) {
-//     return hour < 0 || hour > 23 || minute < 0 || minute > 59 ? false : true;
-// }

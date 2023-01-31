@@ -36,4 +36,4 @@ const RELATIVE_TIME = {
     VERBAL_QUANTIFIERS,
 };
 
-export { RELATIVE_TIME as default };
+export default RELATIVE_TIME;

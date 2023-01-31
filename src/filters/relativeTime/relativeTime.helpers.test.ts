@@ -1,47 +1,48 @@
-// // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
-// const mockDate = new Date('2018-11-01T23:30:00Z');
-// vi.useFakeTimers().setSystemTime(mockDate);
+import {
+    addRelativeTimeToCurrentTime,
+    convertMatchToDateObj,
+    convertRelativeTimeStringToNumericValue,
+} from './relativeTime.helpers';
 
-// const mockDates = (day, month, year, hour, minute, second) =>
-//     dayLite(mockDate).set({ day, month, year, hour, minute, second }).startOf('second').toDate();
+describe('Relative Time Helpers', () => {
+    describe('convertRelativeTimeStringToNumericValue()', () => {
+        test.each([
+            { timePeriod: 'half a', timeUnit: 'hours', expected: 1800000 },
+            { timePeriod: 'half an', timeUnit: 'hours', expected: 1800000 },
+            { timePeriod: 'a quarter of a', timeUnit: 'hours', expected: 900000 },
+            { timePeriod: 'a quarter of an', timeUnit: 'hours', expected: 900000 },
+            { timePeriod: 'a', timeUnit: 'hours', expected: 3600000 },
+            { timePeriod: 'an', timeUnit: 'hours', expected: 3600000 },
+            { timePeriod: 'one', timeUnit: 'hours', expected: 3600000 },
+            { timePeriod: '2', timeUnit: 'hours', expected: 7200000 },
+            { timePeriod: '2', timeUnit: 'minutes', expected: 120000 },
+        ])('should return correct value in secs for "$timePeriod $timeUnit"', ({ timePeriod, timeUnit, expected }) => {
+            const result = convertRelativeTimeStringToNumericValue(timePeriod, timeUnit);
+            expect(result).toBe(expected);
+        });
+    });
 
-// afterAll(() => {
-//     vi.useRealTimers();
-// });
+    describe('addRelativeTimeToCurrentTime()', () => {
+        test('should return a date object', () => {
+            const result = addRelativeTimeToCurrentTime('2 hours');
+            expect(result).toBeInstanceOf(Date);
+        });
 
-// test.each([
-//     { filter: 'in half an hour', dateTime: mockDates(2, 11, 2018, 0, 0, 0) },
-//     { filter: 'in a quarter of a minute', dateTime: mockDates(1, 11, 2018, 23, 30, 15) },
-//     { filter: 'in 15 minutes', dateTime: mockDates(1, 11, 2018, 23, 45, 0) },
-//     { filter: 'in 15 mins', dateTime: mockDates(1, 11, 2018, 23, 45, 0) },
-//     { filter: 'in 15 min', dateTime: mockDates(1, 11, 2018, 23, 45, 0) },
-//     { filter: 'in an hour', dateTime: mockDates(2, 11, 2018, 0, 30, 0) },
-//     { filter: 'in 1 hour', dateTime: mockDates(2, 11, 2018, 0, 30, 0) },
-//     { filter: 'in 1 hr', dateTime: mockDates(2, 11, 2018, 0, 30, 0) },
-//     { filter: 'in 2 hours', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
-//     { filter: 'in 2 hrs', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
-//     { filter: '2 hrs from now', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
-//     { filter: '2 hrs after', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
-//     { filter: '2 hrs later', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
-//     { filter: 'after 2 hrs', dateTime: mockDates(2, 11, 2018, 1, 30, 0) },
-//     { filter: 'after 30 secs', dateTime: mockDates(1, 11, 2018, 23, 30, 30) },
-//     { filter: 'after 60 seconds', dateTime: mockDates(1, 11, 2018, 23, 31, 0) },
-// ])('should not parse $filter', ({ filter, dateTime }) => {
-//     const text = 'go to work';
-//     const results = RelativeTime.parseText(`${text} ${filter}`);
-//     const output = [{ dateTime, matched: filter, text }];
-//     expect(results).toEqual(output);
-// });
+        test('should return a date object after removing time unit', () => {
+            const result = addRelativeTimeToCurrentTime('2 hours');
+            expect(result.getHours()).toBe(2);
+        });
+    });
 
-// test('should return correct case for matched string', () => {
-//     const text = 'Hand in paper in 2 hrs';
-//     const result: ParsedMatchSchema[] = [
-//         {
-//             dateTime: mockDates(2, 11, 2018, 1, 30, 0),
-//             text: 'Hand in paper',
-//             matched: 'in 2 hrs',
-//         },
-//     ];
+    describe('convertMatchToDateObj()', () => {
+        test('should return a date object', () => {
+            const result = convertMatchToDateObj('in 2 hours');
+            expect(result).toBeInstanceOf(Date);
+        });
 
-//     expect(RelativeTime.parseText(text)).toEqual(result);
-// });
+        test('should return a date object after removing filler words', () => {
+            const result = convertMatchToDateObj('in 2 hours');
+            expect(result.getHours()).toBe(2);
+        });
+    });
+});
