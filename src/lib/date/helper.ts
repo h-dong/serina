@@ -94,15 +94,15 @@ export function prevYears(date: Date, value: number): Date {
 
 export function orderUnits(units: DayLiteUnits[]): DayLiteUnits[] {
     const order: DayLiteUnits[] = [
-        'year',
-        'month',
-        'weekday',
-        'week',
-        'day',
-        'hour',
-        'minute',
-        'second',
         'millisecond',
+        'second',
+        'minute',
+        'hour',
+        'day',
+        'week',
+        'weekday',
+        'month',
+        'year',
     ];
     const newList = [];
 

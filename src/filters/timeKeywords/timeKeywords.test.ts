@@ -1,46 +1,30 @@
 import TimeKeywords from './timeKeywords';
-import { ParsedMatchSchema } from 'serina.schema';
-import { dayLite } from 'lib/date/dayLite';
 
 describe('Time Keywords', () => {
-    // Mock Date Time to 2018/11/1 23:30:00 GMT+0110
-    const mockDate = new Date('2018-11-01T23:30:00Z');
+    // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
+    const mockDate = new Date('2019-01-19T18:06:18Z');
     vi.useFakeTimers().setSystemTime(mockDate);
-
-    const mockTime = (day, hour, minute) => dayLite(mockDate).set({ day, hour, minute }).startOf('minute').toDate();
 
     afterAll(() => {
         vi.useRealTimers();
     });
 
-    describe('parseText', () => {
-        test.each([
-            { filter: 'noon', dateTime: mockTime(2, 12, 0) },
-            { filter: 'by noon', dateTime: mockTime(2, 12, 0) },
-            { filter: 'mid-day', dateTime: mockTime(2, 12, 0) },
-            { filter: 'midday', dateTime: mockTime(2, 12, 0) },
-            { filter: 'around mid day', dateTime: mockTime(2, 12, 0) },
-            { filter: 'at mid-night', dateTime: mockTime(2, 0, 0) },
-            { filter: 'by midnight', dateTime: mockTime(2, 0, 0) },
-            { filter: 'around mid night', dateTime: mockTime(2, 0, 0) },
-        ])('should be able to parse $filter', ({ filter, dateTime }) => {
-            const text = 'go to work';
-            const results = TimeKeywords.parseText(`${text} ${filter}`);
-            const output = [{ dateTime, matched: filter, text }];
-            expect(results).toEqual(output);
-        });
+    test('return null if no match', () => {
+        const filter = new TimeKeywords();
 
-        test('should return correct case for matched string', () => {
-            const text = 'Hand in paper by noon';
-            const result: ParsedMatchSchema[] = [
-                {
-                    dateTime: mockTime(2, 12, 0),
-                    text: 'Hand in paper',
-                    matched: 'by noon',
-                },
-            ];
+        const result = filter.parseText('some random text');
+        expect(result).toBeNull();
+    });
 
-            expect(TimeKeywords.parseText(text)).toEqual(result);
-        });
+    test('return correct date object', () => {
+        const filter = new TimeKeywords();
+        const result = filter.parseText('test string midday');
+        expect(result).toEqual([
+            {
+                dateTime: new Date('2019-01-20T12:00:00.000Z'),
+                matched: 'midday',
+                text: 'test string',
+            },
+        ]);
     });
 });

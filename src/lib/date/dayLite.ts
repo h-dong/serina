@@ -148,7 +148,7 @@ class DayLite {
                     } else if (value > 12) {
                         this.month = 12;
                     } else {
-                        this.month = value > 0 ? value : value + 1;
+                        this.month = value;
                     }
                     break;
                 case 'year':

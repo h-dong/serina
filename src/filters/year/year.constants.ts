@@ -1,6 +1,10 @@
+const ANY = '(\\b[0-9]{4}\\b)';
+const FILLER_WORDS = '(in( )((the( ))?year( ))?)';
+
 const YEAR = {
-    ANY: '(\\b\\d{4}\\b)',
-    FILLER_WORDS: 'in ',
+    ANY,
+    FILLER_WORDS,
+    WITH_FILLER_WORDS: `${FILLER_WORDS}?${ANY}`,
 };
 
 export default YEAR;

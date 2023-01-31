@@ -1,10 +1,13 @@
+import DATES from 'filters/dates/dates.constants';
+import { wrapInBracket } from 'utils/wrapInBracket';
+
 const TODAY = 'today';
 const TOMORROW = 'tomorrow';
 
 const RELATIVE_ADVERB = {
-    ANY: `${TODAY}|${TOMORROW}`,
-    TODAY: `${TODAY}`,
-    TOMORROW: `${TOMORROW}`,
+    ANY: wrapInBracket([TODAY, TOMORROW].join('|')),
+    TODAY,
+    TOMORROW,
 };
 
 const RELATIVE_PREPOSITIONS = '((in|after) )?';
@@ -16,39 +19,42 @@ const MONTHS = '(months|month)';
 const YEARS = '(years|year|yrs|yr)';
 
 const TIME_UNITS = {
-    DAYS: `${DAYS}`,
-    WEEKS: `${WEEKS}`,
-    MONTHS: `${MONTHS}`,
-    YEARS: `${YEARS}`,
-    ANY: `(${DAYS}|${WEEKS}|${MONTHS}|${YEARS})`,
+    DAYS,
+    WEEKS,
+    MONTHS,
+    YEARS,
+    ANY: wrapInBracket([DAYS, WEEKS, MONTHS, YEARS].join('|')),
 };
 
 const NEXT = '(next|following)';
 const ONE = 'a';
 
 const VERBAL_QUANTIFIERS = {
-    ANY: `(${NEXT}|${ONE})`,
-    NEXT: `${NEXT}`,
-    ONE: `${ONE}`,
+    ANY: [NEXT, ONE].join('|'),
+    NEXT,
+    ONE,
 };
 
-const ARGUMENT = `([0-9]+|${VERBAL_QUANTIFIERS.ANY}) ${TIME_UNITS.ANY}`;
+const ARGUMENT = `([0-9]+|${VERBAL_QUANTIFIERS.ANY})( )${TIME_UNITS.ANY}`;
 const ARGUMENT_AFTER = `${RELATIVE_PREPOSITIONS}?${ARGUMENT}`;
 const ARGUMENT_FIRST = `${ARGUMENT}${RELATIVE_POSTPOSITIONS}`;
 
 const RELATIVE_EXPRESSION = {
-    ANY: `(${ARGUMENT_FIRST}|${ARGUMENT_AFTER})`,
-    ARGUMENT_AFTER: `${ARGUMENT_AFTER}`,
-    ARGUMENT_FIRST: `${ARGUMENT_FIRST}`,
+    ANY: [ARGUMENT_FIRST, ARGUMENT_AFTER].join('|'),
+    ARGUMENT_AFTER,
+    ARGUMENT_FIRST,
 };
+const ANY = wrapInBracket([RELATIVE_ADVERB.ANY, RELATIVE_EXPRESSION.ANY].join('|'));
+const FILLER_WORDS = [RELATIVE_PREPOSITIONS, RELATIVE_POSTPOSITIONS].join('|');
 
 const RELATIVE_DATES = {
-    ANY: `(${RELATIVE_ADVERB.ANY}|${RELATIVE_EXPRESSION.ANY})`,
-    RELATIVE_ADVERB: `${RELATIVE_ADVERB.ANY}`,
-    RELATIVE_EXPRESSION: `${RELATIVE_EXPRESSION}`,
-    FILLER_WORDS: `${RELATIVE_PREPOSITIONS}|${RELATIVE_POSTPOSITIONS}`,
+    WITH_FILLER_WORDS: `(${DATES.FILLER_WORDS})?${ANY}`,
+    ANY,
+    RELATIVE_ADVERB,
+    RELATIVE_EXPRESSION,
+    FILLER_WORDS,
     TIME_UNITS,
     VERBAL_QUANTIFIERS,
 };
 
-export { RELATIVE_DATES as default, RELATIVE_ADVERB };
+export default RELATIVE_DATES;

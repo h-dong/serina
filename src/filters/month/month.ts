@@ -1,36 +1,13 @@
-import { ParsedMatchSchema } from 'serina.schema';
-import parseMatches from 'utils/parseMatches';
-import contains from 'utils/contains';
-import matchPattern from 'utils/matchPattern';
-import monthStringToNumber from 'utils/monthStringToNumber';
+import Filter from 'filters/filter';
 import MONTH from './month.constants';
-import { dayLite } from 'lib/date/dayLite';
+import { monthStringToDateObj } from './month.helpers';
 
-export default class Month {
-    static parseText(text: string): ParsedMatchSchema[] {
-        const pattern = `((${MONTH.FUTURE_WORDS}|${MONTH.PAST_WORDS}) )?${MONTH.ANY}`;
-        const matches = matchPattern(text, pattern);
-
-        if (!matches) return null;
-
-        // for each match, get the parsed cases
-        return matches.map(match => {
-            const dateTimeObj = this.convertMatchToDateObj(match);
-            return parseMatches(text, match, dateTimeObj);
-        });
+export default class Month extends Filter {
+    constructor() {
+        super(MONTH.WITH_FUTURE_PAST_WORDS);
     }
 
-    static convertMatchToDateObj(matchingText: string): Date {
-        const month = monthStringToNumber(matchingText);
-        if (month === null) return null;
-
-        let year = dayLite().year;
-        if (month < dayLite().month) {
-            year += 1;
-        }
-        if (contains(matchingText, `${MONTH.PAST_WORDS} ${MONTH.ANY}`)) {
-            year -= 1;
-        }
-        return dayLite().set({ month, year }).startOf('month').endOf('day').toDate();
+    parseStringToDateObj(match: string): Date {
+        return monthStringToDateObj(match);
     }
 }

@@ -17,7 +17,7 @@ Serina Demo: [serina.netlify.com](https://serina.netlify.com)
 
 ## Introduction
 
-Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!https://github.com/neilgupta/Sherlock) project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
+Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!<https://github.com/neilgupta/Sherlock)> project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
 
 ## Installation
 
@@ -132,12 +132,13 @@ This project is currently developed by just me, so can't say when the library wi
 ### Version 2
 
 - [x] Rewrite Serina to stop using [Luxon](https://moment.github.io/luxon) as peer dependency
-- [ ] Improve Regex logic to make it easier to maintain
-- [ ] Review unit tests
-- [ ] Bug fixes
+- [x] Improve Regex logic to make it easier to maintain
+- [x] Review unit tests
+- [x] Bug fixes
 
 ### Todo
 
+- [ ] Parse seconds e.g. `15:30:22`
 - [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
 - [ ] Parse time range e.g. `between 5pm and 8pm`
 - [ ] Parse international date formats better e.g. `2018/06/21`
@@ -169,3 +170,7 @@ Week day normally refers to Mon - Fri and excludes weekends, but for the sake of
 ### Only match year 1000 - 9999
 
 Currently the library only find matched YEAR between (1000 - 9999). This could be a limitation for some people, so we may need to come back and address this. Please raise an issue if this is an problem for you.
+
+### Multiple identical matches in the same string
+
+It was decided to always prioritize the first match in these situations e.g. "catch the 2:20pm bus at 2:20pm". This decision was made due to the primary function of the library being time and date conversion. By utilizing the first match, the resulting date object will always be consistent. Allowing for multiple matches would result in duplicate suggestions, potentially leading to a poor user experience.

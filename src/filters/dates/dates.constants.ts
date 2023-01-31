@@ -1,62 +1,46 @@
 import DAY from 'filters/day/day.constants';
 import MONTH from 'filters/month/month.constants';
 import YEAR from 'filters/year/year.constants';
-import TIME from 'filters/time/time.constants';
-import RELATIVE_DATES from 'filters/relativeDates/relativeDates.constants';
+import { wrapInBracket } from 'utils/wrapInBracket';
 
-const numDividers = '(/|-)';
-const numDayMonthYear = `(${DAY.NUMBERS}${numDividers}${MONTH.NUMBERS}${numDividers}${YEAR.ANY})`;
-const numMonthDayYear = `(${MONTH.NUMBERS}${numDividers}${DAY.NUMBERS}${numDividers}${YEAR.ANY})`;
-const numYearMonthDay = `(${YEAR.ANY}${numDividers}${MONTH.NUMBERS}${numDividers}${DAY.NUMBERS})`;
-const txtDividers = '((,)? )';
-const txtDayMonthYear = `(${DAY.ANY}?${txtDividers}${MONTH.ANY}${txtDividers}${YEAR.ANY})`;
-const txtMonthDayYear = `(${MONTH.ANY}${txtDividers}${DAY.ANY}?${txtDividers}${YEAR.ANY})`;
+const FILLER_WORDS = '((on|by) (the )?)';
+const NUM_DIVIDER = '(/|(-))';
+const NUM_DAY_MONTH_YEAR = wrapInBracket(
+    [
+        wrapInBracket([DAY.NUMBERS, MONTH.NUMBERS, YEAR.ANY].join('-')), // 30-01-2023
+        wrapInBracket([DAY.NUMBERS, MONTH.NUMBERS, YEAR.ANY].join('/')), // 30/01/2023
+    ].join('|')
+);
+const NUM_MONTH_DAY_YEAR = wrapInBracket(
+    [
+        wrapInBracket([MONTH.NUMBERS, DAY.NUMBERS, YEAR.ANY].join('-')), // 01-30-2023
+        wrapInBracket([MONTH.NUMBERS, DAY.NUMBERS, YEAR.ANY].join('/')), // 01/30/2023
+    ].join('|')
+);
+const NUM_YEAR_MONTH_DAY = wrapInBracket(
+    [
+        wrapInBracket([YEAR.ANY, MONTH.NUMBERS, DAY.NUMBERS].join('-')), // 2023-01-30
+        wrapInBracket([YEAR.ANY, MONTH.NUMBERS, DAY.NUMBERS].join('/')), // 2023/01/30
+    ].join('|')
+);
+const TXT_DIVIDER = '((,)? )';
+const TXT_DAY_MONTH_YEAR = wrapInBracket([DAY.ANY, MONTH.ANY, YEAR.ANY].join(TXT_DIVIDER));
+const TXT_MONTH_DAY_YEAR = wrapInBracket([MONTH.ANY, DAY.ANY, YEAR.ANY].join(TXT_DIVIDER));
+const ANY = [NUM_DAY_MONTH_YEAR, NUM_MONTH_DAY_YEAR, NUM_YEAR_MONTH_DAY, TXT_DAY_MONTH_YEAR, TXT_MONTH_DAY_YEAR].join(
+    '|'
+);
 
 const DATES = {
-    ANY: `${numDayMonthYear}|${numMonthDayYear}|${numYearMonthDay}|${txtDayMonthYear}|${txtMonthDayYear}`,
-    NUM_DAY_MONTH_YEAR: numDayMonthYear,
-    NUM_MONTH_DAY_YEAR: numMonthDayYear,
-    NUM_YEAR_MONTH_DAY: numYearMonthDay,
-    TXT_DAY_MONTH_YEAR: txtDayMonthYear,
-    TXT_MONTH_DAY_YEAR: txtMonthDayYear,
-    FILLER_WORDS: '(on|by) (the )?',
-    NUM_DIVIDER: numDividers,
-    TXT_DIVIDER: txtDividers,
+    WITH_FILLER_WORDS: `(${FILLER_WORDS})?(${ANY})`,
+    ANY,
+    NUM_DAY_MONTH_YEAR,
+    NUM_MONTH_DAY_YEAR,
+    NUM_YEAR_MONTH_DAY,
+    TXT_DAY_MONTH_YEAR,
+    TXT_MONTH_DAY_YEAR,
+    FILLER_WORDS,
+    NUM_DIVIDER,
+    TXT_DIVIDER,
 };
 
-const numMonthYear = `(${MONTH.NUMBERS}${numDividers}${YEAR.ANY})`;
-const numYearMonth = `(${YEAR.ANY}${numDividers}${MONTH.NUMBERS})`;
-const numMonthDay = `(${MONTH.NUMBERS}${numDividers}${DAY.NUMBERS})`;
-const numDayMonth = `(${DAY.NUMBERS}${numDividers}${MONTH.NUMBERS})`;
-const txtMonthDay = `(${MONTH.ANY}${txtDividers}${DAY.ANY})`;
-const txtDayMonth = `(${DAY.ANY}${txtDividers}${MONTH.ANY})`;
-const txtMonthYear = `(${MONTH.ANY}${txtDividers}${YEAR.ANY})`;
-const txtYearMonth = `(${YEAR.ANY}${txtDividers}${MONTH.ANY})`;
-const day = `${DAY.ORDINAL_ONLY}`;
-
-const PARTIAL_DATES = {
-    ANY: `(${numMonthYear}|${numYearMonth}|${numMonthDay}|${numDayMonth}|${txtMonthYear}|${txtMonthDay}|${txtYearMonth}|${txtDayMonth}|${day})`,
-    NUM_MONTH_YEAR: numMonthYear,
-    NUM_YEAR_MONTH: numYearMonth,
-    NUM_MONTH_DAY: numMonthDay,
-    NUM_DAY_MONTH: numDayMonth,
-    TXT_MONTH_YEAR: txtMonthYear,
-    TXT_MONTH_DAY: txtMonthDay,
-    TXT_DAY_MONTH: txtDayMonth,
-    TXT_YEAR_MONTH: txtYearMonth,
-    DAY: day,
-};
-
-const datePart = `(${DATES.FILLER_WORDS})?(${DATES.ANY}|${PARTIAL_DATES.ANY}|${RELATIVE_DATES.ANY})`;
-const timePart = `(${TIME.FILLER_WORDS}( ))?${TIME.ANY}`;
-
-const dateFirst = `${datePart}( )${timePart}`;
-const timeFirst = `${timePart}( )${datePart}`;
-
-const DATE_AND_TIME = {
-    ANY: `${dateFirst}|${timeFirst}`,
-    DATE_FIRST: dateFirst,
-    TIME_FIRST: timeFirst,
-};
-
-export { DATES, PARTIAL_DATES, DATE_AND_TIME };
+export default DATES;
