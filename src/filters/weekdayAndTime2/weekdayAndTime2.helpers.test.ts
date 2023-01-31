@@ -1,4 +1,4 @@
-import { getValidMatch, weekdayAndTimeToDateObj } from './weekdayAndTime.helpers';
+import { getValidMatch, weekdayAndTimeToDateObj } from './weekdayAndTime2.helpers';
 
 describe('Weekday And Time Helpers', () => {
     describe('getValidMatch()', () => {

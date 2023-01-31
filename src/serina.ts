@@ -6,7 +6,7 @@ import Year from 'filters/year/year';
 import Time from 'filters/time/time';
 import Dates from 'filters/dates/dates';
 import DateAndTime from 'filters/dateAndTime/dateAndTime';
-import WeekdayAndTime from 'filters/weekdayAndTime/weekdayAndTime';
+import WeekdayAndTime from 'filters/weekdayAndTime2/weekdayAndTime2';
 import RelativeTime from 'filters/relativeTime/relativeTime';
 import RelativeDates from 'filters/relativeDates/relativeDates';
 import TimeKeywords from 'filters/timeKeywords/timeKeywords';

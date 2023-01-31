@@ -1,4 +1,4 @@
-import WeekdayAndTime from './weekdayAndTime';
+import WeekdayAndTime from './weekdayAndTime2';
 
 describe('Weekday and Time', () => {
     // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00
