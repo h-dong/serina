@@ -134,6 +134,7 @@ This project is currently developed by just me, so can't say when the library wi
 - [x] Rewrite Serina to stop using [Luxon](https://moment.github.io/luxon) as peer dependency
 - [x] Improve Regex logic to make it easier to maintain
 - [x] Review unit tests
+- [x] Add support for parsing `yesterday`
 - [x] Bug fixes
 
 ### Todo

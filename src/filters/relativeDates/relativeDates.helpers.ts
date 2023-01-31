@@ -25,6 +25,11 @@ export function convertRelativeAdverbToObj(relativeDateStr: string): Date {
     if (contains(relativeDateStr, RELATIVE_DATES.RELATIVE_ADVERB.TODAY)) {
         return dayLite().start('day').toDate();
     }
+
+    if (contains(relativeDateStr, RELATIVE_DATES.RELATIVE_ADVERB.YESTERDAY)) {
+        return dayLite().minus(1, 'day').start('day').toDate();
+    }
+
     return dayLite().plus(1, 'day').start('day').toDate();
 }
 
