@@ -142,6 +142,8 @@ This project is currently developed by just me, so can't say when the library wi
 - [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
 - [ ] Parse time range e.g. `between 5pm and 8pm`
 - [ ] Parse international date formats better e.g. `2018/06/21`
+- [ ] Parse text that contains number words e.g. `one`, `twelve`
+- [ ] Parse more time related words e.g. `noon`, `midnight`
 - [ ] Parse more UK keywords e.g. `oxt`, `fortnight`
 - [ ] Parse more advanced time e.g. `seconds`, `millisecond`
 - [ ] Timezone support <https://github.com/h-dong/serina/issues/59>
