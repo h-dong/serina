@@ -13,7 +13,7 @@ describe('Date And Time', () => {
         const result = filter.parseText('test string 2022/12/25 2am');
         expect(result).toEqual([
             {
-                dateTime: new Date('2022-12-26T02:00:00.000Z'),
+                dateTime: new Date('2022-12-25T02:00:00.000Z'),
                 matched: '2022/12/25 2am',
                 text: 'test string',
             },

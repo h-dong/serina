@@ -21,7 +21,7 @@ describe('Weekday and Time', () => {
         const result = filter.parseText('test string 2am monday');
         expect(result).toEqual([
             {
-                dateTime: new Date('2019-01-22T02:00:00.000Z'),
+                dateTime: new Date('2019-01-21T02:00:00.000Z'),
                 matched: '2am monday',
                 text: 'test string',
             },

@@ -5,6 +5,13 @@ import {
 } from './relativeTime.helpers';
 
 describe('Relative Time Helpers', () => {
+    // Mock Date Time to Thu Jun 20 2019 08:34:52 GMT+0100
+    vi.useFakeTimers().setSystemTime(new Date('2019-06-20T08:34:52.123Z'));
+
+    afterAll(() => {
+        vi.useRealTimers();
+    });
+
     describe('convertRelativeTimeStringToNumericValue()', () => {
         test.each([
             { timePeriod: 'half a', timeUnit: 'hours', expected: 1800000 },
@@ -30,7 +37,7 @@ describe('Relative Time Helpers', () => {
 
         test('should return a date object after removing time unit', () => {
             const result = addRelativeTimeToCurrentTime('2 hours');
-            expect(result.getHours()).toBe(2);
+            expect(result.getHours()).toBe(11);
         });
     });
 
@@ -42,7 +49,7 @@ describe('Relative Time Helpers', () => {
 
         test('should return a date object after removing filler words', () => {
             const result = convertMatchToDateObj('in 2 hours');
-            expect(result.getHours()).toBe(2);
+            expect(result.getHours()).toBe(11);
         });
     });
 });
