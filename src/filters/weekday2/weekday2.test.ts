@@ -1,4 +1,4 @@
-import Weekday from './weekday';
+import Weekday from './weekday2';
 
 describe('Weekday', () => {
     // Mock Date Time to Saturday, 19 January 2019 18:06:18 GMT+00:00

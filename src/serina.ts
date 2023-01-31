@@ -1,5 +1,5 @@
 import { ParsedSchema, ParsedMatchSchema } from 'serina.schema';
-import WeekDay from 'filters/weekday/weekday';
+import WeekDay from 'filters/weekday2/weekday2';
 import Day from 'filters/day/day';
 import Month from 'filters/month/month';
 import Year from 'filters/year/year';

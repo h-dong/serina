@@ -1,6 +1,6 @@
 import Filter from 'filters/filter';
-import WEEKDAY from './weekday.constants';
-import { weekdayStringToDateObj } from './weekday.helpers';
+import WEEKDAY from './weekday2.constants';
+import { weekdayStringToDateObj } from './weekday2.helpers';
 
 export default class Weekday extends Filter {
     constructor() {

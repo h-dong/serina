@@ -1,7 +1,7 @@
 import TIME from 'filters/time/time.constants';
 import { timeStringToDateObj } from 'filters/time/time.helpers';
-import WEEKDAY from 'filters/weekday/weekday.constants';
-import { weekdayStringToNumber } from 'filters/weekday/weekday.helpers';
+import WEEKDAY from 'filters/weekday2/weekday2.constants';
+import { weekdayStringToNumber } from 'filters/weekday2/weekday2.helpers';
 import { dayLite } from 'lib/date/dayLite';
 import { contains, matchPattern } from 'lib/string/stringUtil';
 

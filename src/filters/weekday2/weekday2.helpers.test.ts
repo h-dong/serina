@@ -1,4 +1,4 @@
-import { weekdayStringToDateObj, weekdayStringToNumber } from './weekday.helpers';
+import { weekdayStringToDateObj, weekdayStringToNumber } from './weekday2.helpers';
 
 describe('Weekday Helpers', () => {
     describe('convertWeekdayStringToNumber()', () => {
