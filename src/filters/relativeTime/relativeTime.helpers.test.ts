@@ -1,3 +1,4 @@
+import { dayLite } from 'lib/date/dayLite';
 import {
     addRelativeTimeToCurrentTime,
     convertMatchToDateObj,
@@ -37,7 +38,7 @@ describe('Relative Time Helpers', () => {
 
         test('should return a date object after removing time unit', () => {
             const result = addRelativeTimeToCurrentTime('2 hours');
-            expect(result.getHours()).toBe(10);
+            expect(dayLite(result).hour).toBe(10);
         });
     });
 
@@ -49,7 +50,7 @@ describe('Relative Time Helpers', () => {
 
         test('should return a date object after removing filler words', () => {
             const result = convertMatchToDateObj('in 2 hours');
-            expect(result.getHours()).toBe(10);
+            expect(dayLite(result).hour).toBe(10);
         });
     });
 });
