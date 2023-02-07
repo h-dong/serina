@@ -69,10 +69,6 @@ export function partialDateStringToDayMonthYear(date: string): Date {
         [month, day] = date.replace(dividerRegex, ' ').split(' ');
         month = monthStringToNumber(month).toString();
         year = getFutureYearIfDateIsInThePast(month, day);
-    } else if (contains(date, PARTIAL_DATES.DAY)) {
-        day = date;
-        month = getNextMonthIfDayIsInThePast(day).toString();
-        year = getFutureYearIfDateIsInThePast(month, date);
     }
 
     if (!day || !month || !year) return null;

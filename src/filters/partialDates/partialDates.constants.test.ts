@@ -103,21 +103,6 @@ describe('PARTIAL_DATES', () => {
             expect(regex.test(text)).toEqual(expected);
         });
     });
-    describe('DAY', () => {
-        test.each([
-            { text: '1', expected: false },
-            { text: '01', expected: false },
-            { text: '31', expected: false },
-            { text: '1st', expected: true },
-            { text: '2nd', expected: true },
-            { text: '3rd', expected: true },
-            { text: '4th', expected: true },
-            { text: '31st', expected: true },
-        ])('should return $expected for "$text"', ({ text, expected }) => {
-            const regex = new RegExp(PARTIAL_DATES.DAY, 'ig');
-            expect(regex.test(text)).toEqual(expected);
-        });
-    });
 
     describe('ANY', () => {
         test.each([
@@ -127,7 +112,6 @@ describe('PARTIAL_DATES', () => {
             { text: '2000 January', expected: true },
             { text: 'January 1', expected: true },
             { text: '1 January', expected: true },
-            { text: '1st', expected: true },
         ])('should return $expected for "$text"', ({ text, expected }) => {
             const regex = new RegExp(PARTIAL_DATES.ANY, 'ig');
             expect(regex.test(text)).toEqual(expected);
