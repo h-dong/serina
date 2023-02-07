@@ -117,4 +117,16 @@ describe('PARTIAL_DATES', () => {
             expect(regex.test(text)).toEqual(expected);
         });
     });
+
+    describe('WITH_FILTER_WORDS', () => {
+        test.each([
+            { text: 'on 01-31', expected: true },
+            { text: 'on the 01-31', expected: true },
+            { text: 'by 01-31', expected: true },
+            { text: 'by the 01-31', expected: true },
+        ])('should return $expected for "$text"', ({ text, expected }) => {
+            const regex = new RegExp(PARTIAL_DATES.WITH_FILTER_WORDS, 'ig');
+            expect(regex.test(text)).toEqual(expected);
+        });
+    });
 });

@@ -12,20 +12,22 @@ const TXT_MONTH_DAY = wrapInBracket([MONTH.ANY, DAY.ANY].join(DATES.TXT_DIVIDER)
 const TXT_DAY_MONTH = wrapInBracket([DAY.ANY, MONTH.ANY].join(DATES.TXT_DIVIDER));
 const TXT_MONTH_YEAR = wrapInBracket([MONTH.ANY, YEAR.ANY].join(DATES.TXT_DIVIDER));
 const TXT_YEAR_MONTH = wrapInBracket([YEAR.ANY, MONTH.ANY].join(DATES.TXT_DIVIDER));
+const ANY = wrapInBracket(
+    [
+        NUM_MONTH_YEAR,
+        NUM_YEAR_MONTH,
+        NUM_MONTH_DAY,
+        NUM_DAY_MONTH,
+        TXT_MONTH_YEAR,
+        TXT_MONTH_DAY,
+        TXT_YEAR_MONTH,
+        TXT_DAY_MONTH,
+    ].join('|')
+);
 
 const PARTIAL_DATES = {
-    ANY: wrapInBracket(
-        [
-            NUM_MONTH_YEAR,
-            NUM_YEAR_MONTH,
-            NUM_MONTH_DAY,
-            NUM_DAY_MONTH,
-            TXT_MONTH_YEAR,
-            TXT_MONTH_DAY,
-            TXT_YEAR_MONTH,
-            TXT_DAY_MONTH,
-        ].join('|')
-    ),
+    WITH_FILTER_WORDS: `(${DATES.FILLER_WORDS})?(${ANY})`,
+    ANY,
     NUM_MONTH_YEAR,
     NUM_YEAR_MONTH,
     NUM_MONTH_DAY,
