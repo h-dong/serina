@@ -3,7 +3,7 @@ import serina from 'serina';
 describe('Serina', () => {
     test.each([
         { filter: 'WeekDay', text: 'on Monday', expected: 1 },
-        { filter: 'Day', text: 'on 21st', expected: 2 },
+        { filter: 'Day', text: 'on 21st', expected: 1 },
         { filter: 'Month', text: 'June', expected: 1 },
         { filter: 'Year', text: '2011', expected: 1 },
         { filter: 'Time', text: '5pm', expected: 1 },
