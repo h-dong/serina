@@ -24,7 +24,6 @@ const PARTIAL_DATES = {
             TXT_MONTH_DAY,
             TXT_YEAR_MONTH,
             TXT_DAY_MONTH,
-            DAY.WITH_ORDINAL,
         ].join('|')
     ),
     NUM_MONTH_YEAR,
@@ -35,7 +34,6 @@ const PARTIAL_DATES = {
     TXT_MONTH_DAY,
     TXT_DAY_MONTH,
     TXT_YEAR_MONTH,
-    DAY: DAY.WITH_ORDINAL,
 };
 
 export default PARTIAL_DATES;

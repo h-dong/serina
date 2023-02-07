@@ -25,7 +25,7 @@ describe('DATE_AND_TIME', () => {
                 ['at 8:30am on 23rd Feb 2019'],
                 ['at 8:30am on 17th February 2019'],
                 ['at 8:30am by February 17th 2019'],
-            ])('should return $expected for "$text"', text => {
+            ])('should match "%s"', text => {
                 const regex = new RegExp(DATE_AND_TIME.ANY, 'ig');
                 expect(text).toMatch(regex);
             });
@@ -33,7 +33,6 @@ describe('DATE_AND_TIME', () => {
 
         describe('should parse the correct date and time when dates are partial', () => {
             test.each([
-                ['on 30th 8:30am'],
                 ['on 02/2009 at 8:30 am'],
                 ['on Feb 2009 at 09:45'],
                 ['on February 2009 at 9am'],
@@ -60,10 +59,7 @@ describe('DATE_AND_TIME', () => {
                 ['on 21st Feb at 8:30am'],
                 ['on 22nd Feb at 8:30am'],
                 ['on 23rd Feb at 8:30am'],
-                ['on 3rd at 8:30am'],
-                ['on the 30th at 8:30am'],
-                ['on 30th at 8:30am'],
-            ])('should return $expected for "$text"', text => {
+            ])('should match "%s"', text => {
                 const regex = new RegExp(DATE_AND_TIME.ANY, 'ig');
                 expect(text).toMatch(regex);
             });
@@ -71,7 +67,6 @@ describe('DATE_AND_TIME', () => {
 
         describe('should parse the correct date and time when dates are partial and time is before date', () => {
             test.each([
-                ['8:30am on 30th'],
                 ['at 8:30 am on 02/2009'],
                 ['at 09:45 on Feb 2009'],
                 ['at 9am on February 2009'],
@@ -98,10 +93,7 @@ describe('DATE_AND_TIME', () => {
                 ['at 8:30am on 21st Feb'],
                 ['at 8:30am on 22nd Feb'],
                 ['at 8:30am on 23rd Feb'],
-                ['at 8:30am on 3rd'],
-                ['at 8:30am on the 30th'],
-                ['at 8:30am on 30th'],
-            ])('should return $expected for "$text"', text => {
+            ])('should match "%s"', text => {
                 const regex = new RegExp(DATE_AND_TIME.ANY, 'ig');
                 expect(text).toMatch(regex);
             });
@@ -127,7 +119,7 @@ describe('DATE_AND_TIME', () => {
                 ['in 5 yrs at half past 4'],
                 ['5 years later at 20 min to 4'],
                 ['5 years from now at 20 past 4'],
-            ])('should return $expected for "$text"', text => {
+            ])('should match "%s"', text => {
                 const regex = new RegExp(DATE_AND_TIME.ANY, 'ig');
                 expect(text).toMatch(regex);
             });
@@ -153,7 +145,7 @@ describe('DATE_AND_TIME', () => {
                 ['at half past 4 in 5 yrs'],
                 ['at 20 min to 4 5 years later'],
                 ['at 20 past 4 5 years from now'],
-            ])('should return $expected for "$text"', text => {
+            ])('should match "%s"', text => {
                 const regex = new RegExp(DATE_AND_TIME.ANY, 'ig');
                 expect(text).toMatch(regex);
             });
