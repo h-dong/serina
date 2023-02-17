@@ -30,10 +30,6 @@
         "utils": "./src/utils",
         "lib": "./src/lib"
     },
-    "engines": {
-        "node": ">=18",
-        "pnpm": ">=7"
-    },
     "scripts": {
         "watch": "microbundle watch",
         "build": "microbundle build --tsconfig tsconfig.build.json",
