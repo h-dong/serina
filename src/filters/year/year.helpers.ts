@@ -1,6 +1,5 @@
 import { dayLite } from 'lib/date/dayLite';
-import { contains } from 'lib/string/stringUtil';
-import { matchPattern } from 'lib/string/stringUtil';
+import { contains, matchPattern } from 'lib/string/stringUtil';
 
 import YEAR from './year.constants';
 

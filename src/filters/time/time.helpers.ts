@@ -1,7 +1,6 @@
 import TIME from 'filters/time/time.constants';
 import { dayLite } from 'lib/date/dayLite';
-import { contains } from 'lib/string/stringUtil';
-import { matchPattern } from 'lib/string/stringUtil';
+import { contains, matchPattern } from 'lib/string/stringUtil';
 import type { TimeObjectSchema } from 'serina.schema';
 
 export function getValidMatch(text: string, pattern: string): string {

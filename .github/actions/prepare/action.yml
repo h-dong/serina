@@ -6,5 +6,5 @@ runs:
     - uses: pnpm/action-setup@v5
     - uses: actions/setup-node@v6
       with:
-        node-version-file: ".nvmrc"
+        node-version-file: '.nvmrc'
         cache: 'pnpm'
