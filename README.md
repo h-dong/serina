@@ -1,6 +1,6 @@
 # Serina
 
-> Serina v2 is under active development (currently in alpha), so please continue to use v1.x.x until v2 becomes table.
+> Serina is being actively modernized and maintained again. Current stable usage remains `v1` while the modernization work for new version is in progress.
 
 ---
 
@@ -17,7 +17,51 @@ Serina Demo: [serina.netlify.com](https://serina.netlify.com)
 
 ## Introduction
 
-Serina can parse English phrases and return an object that is easier to work. This project is inspired by [Sherlock](!<https://github.com/neilgupta/Sherlock>) project. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
+Serina can parse English phrases and return an object that is easier to work. The name comes from the Xbox Game "Halo wars", where she was the Artificial Intelligence of the UNSC navy ship - Spirit of Fire.
+
+## Why Serina
+
+I started this project wanting to experiment with this idea of writing a NLP for data and time. This project was inspired by [Sherlock](!<https://github.com/neilgupta/Sherlock>) project at the time. After v1 was stable, I wasn't sure which direction to take this project further. For most people, [crono](https://github.com/wanasit/chrono) is a much better solution. The main advantages for Serina are the small bundle size over `crono` and first-class TS support compared to `Sherlock`, which arguably are weak reasons to pick Serina over.
+
+With the upcoming [Temporal API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal) release, maybe there are more reasons to move this project forward. The current goal is to build a TypeScript first, Temporal API native, and extensible parser-based NLP library. Which just happens to do Date and Time parsing.
+
+## Modernisation Roadmap
+
+Updated on 2026/04/23.
+
+Serina has gone through a long inactive period, so this roadmap focuses first on reliability and maintainability before adding major new capabilities.
+
+### Goals
+
+- Refresh and update dev depencencies and configs to prepare for the upcoming changes.
+- Reposition library to take advantage of the upcoming [Temporal API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal).
+- Regex-only path is a dead-end, will be shifting to parser-based approach.
+- Make the parser extensible so users can add custom grammar safely.
+
+### Phase 1: Tooling Modernisation
+
+Before adding new features, ensure the current codebase runs cleanly in a modern environment.
+
+- [ ] Modernize tooling (for example, move build pipelines toward `Vite` or `tsup`) and move to ESM-only bundle output.
+- [ ] Bump dev-dependencies to the latest versions.
+- [ ] Move to OXC for linting and formatting.
+
+### Phase 2: Core Modernisation
+
+This phase is focused on technical debt reduction, not feature expansion.
+
+- [ ] Abandon current v2 rewrite, and start from scratch.
+- [ ] Remove DayLite logic and move to Temporal APIs to handle dates. This will provide timezone support out of the box.
+- [ ] Move from monolithic regex parsing toward a custom parser combinator architecture like `Parsimmon` (which is unmaintained now) for modularity and testability.
+- [ ] Bump library version to v2.0.0
+
+### Phase 3: Extensibility and Registry
+
+Differentiate Serina by making parser customization a first-class feature.
+
+- [ ] Define a stable TypeScript parser interface for built-in and user-provided parsers.
+- [ ] Build a `SerinaEngine` registry model so users can register parser plugins (e.g. `engine.registerParser(myCustomParser)`).
+- [ ] Export and document parser primitives (`digit`, `word`, `whitespace`, etc.) to simplify custom parser development.
 
 ## Installation
 
@@ -59,14 +103,14 @@ const parsed = serina('Remind me to buy milk tomorrow 3pm');
 
 ## Usage of Library
 
-```js
-var parsed = serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
+```ts
+const parsed = serina('Remind me to buy milk tomorrow 3pm'); // assuming it is currently 29th Oct 2017
 
 // assuming current time is 2019/09/10 1pm
 console.log(parsed);
 ```
 
-```js
+```json
 // console output
 {
     "original": "Remind me to buy milk tomorrow 3pm",
@@ -107,56 +151,6 @@ Or publish locally if all else fails.
 ```bash
 npm run publish
 ```
-
-## Progress
-
-This project is currently developed by just me, so can't say when the library will be ready. But just to give a high level breakdown, here is everything I'm planning to include:
-
-### Version 1 ✅
-
-- [x] Parse weekdays e.g. `tue`, `tuesday`
-- [x] Parse day e.g. `11th`, `2nd`
-- [x] Parse month e.g. `july`, `jan`
-- [x] Parse year e.g. `2018`, `9999`
-- [x] Parse time e.g. `5pm`, `5:00am`, `15:00`
-- [x] Parse combined day, month and year e.g. `11th June 2019`, `11/09/2018`
-- [x] Parse incomplete date formats e.g. `20/08` or `Jan 2020`
-- [x] Parse combined date and time e.g. `20/10/2019 8pm`, `11th 14:00`
-- [x] Parse day of week with time e.g. `4pm Mon`, `Tuesday 5:30pm`
-- [x] Parse relative time e.g. `in half an hour`, `4 hours from now`
-- [x] Parse relative days e.g. `today`, `tomorrow`, `a week from now`
-- [x] Parse relative dates e.g. `next year`, `2 weeks from now`
-- [x] Parse combined relative date and time e.g. `a week from now 2pm`
-- [x] Parse keywords such as `noon`, `midnight`, `mid day`
-
-### Version 2
-
-- [x] Rewrite Serina to stop using [Luxon](https://moment.github.io/luxon) as peer dependency
-- [x] Improve Regex logic to make it easier to maintain
-- [x] Review unit tests
-- [x] Add support for parsing `yesterday`
-- [x] Bug fixes
-
-### Todo
-
-- [ ] Parse seconds e.g. `15:30:22`
-- [ ] Parse date range e.g. `tue - thu`, `4th july to 8th aug`
-- [ ] Parse time range e.g. `between 5pm and 8pm`
-- [ ] Parse international date formats better e.g. `2018/06/21`
-- [ ] Parse text that contains number words e.g. `one`, `twelve`
-- [ ] Parse more time related words e.g. `noon`, `midnight`
-- [ ] Parse more UK keywords e.g. `oxt`, `fortnight`
-- [ ] Parse more advanced time e.g. `seconds`, `millisecond`
-- [ ] Timezone support <https://github.com/h-dong/serina/issues/59>
-
-## Why remove Luxon and reinvent the wheel?
-
-There are two main considerations for removing [Luxon](https://moment.github.io/luxon):
-
-- This project now has zero dependencies (exclude dev-dependencies of course).
-- Took inspirations from [Day.js](https://day.js.org/) and implement a DayLite class to handle previous Luxon date operations. Now, with full control over the date-time logic, it's possible to move more complex date operations into the DayLite class. Hopefully this will translate to simpler Serina utility files and have them more focused on NLP.
-
-The idea is to release DayLite as a separate library at some point, for now it is easier to keep it within this project.
 
 ## Edge cases / Limitations
 
