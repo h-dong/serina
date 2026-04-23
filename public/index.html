@@ -57,6 +57,9 @@
         </div>
         <pre id="results" class="wrapper"></pre>
 
-        <script src="./serina.umd.js"></script>
+        <script type="module">
+            import serina from './serina.module.js';
+            window.serina = serina;
+        </script>
     </body>
 </html>

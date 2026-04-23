@@ -8,5 +8,5 @@ mkdir -p docs/
 cp public/index.html docs/
 
 # copy over library
-cp -R dist/serina.umd.js docs/
-cp -R dist/serina.umd.js.map docs/
+cp dist/serina.module.js docs/
+cp dist/serina.module.js.map docs/
