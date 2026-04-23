@@ -1,6 +1,3 @@
-**/.eslintrc
-**/.eslintignore
-**/.parcel-cache
 **/src
 coverage
 public
@@ -14,5 +11,5 @@ vitest.config.ts
 .github
 .editorconfig
 .nvmrc
-.prettierrc
-.travis.yml
+.oxfmtrc.json
+.oxlintrc.json
