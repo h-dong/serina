@@ -38,12 +38,13 @@
     "test:ci": "vitest run --coverage"
   },
   "devDependencies": {
-    "@vitest/coverage-istanbul": "^0.25.3",
+    "@vitest/coverage-istanbul": "^4.1.5",
     "oxfmt": "^0.46.0",
     "oxlint": "^1.61.0",
-    "tsup": "^8.5.0",
-    "typescript": "^4.9.3",
-    "vitest": "^0.25.3"
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vitest": "^4.1.5"
   },
   "browserslist": [
     "defaults and supports es6-module",

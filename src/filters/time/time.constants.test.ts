@@ -32,7 +32,7 @@ describe('TIME', () => {
   });
 
   describe('HOUR_PART', () => {
-    test.each([[0], ['00'], ['4'], ['04'], ['12'], ['23']])('should match %s', (text) => {
+    test.each([['0'], ['00'], ['4'], ['04'], ['12'], ['23']])('should match %s', (text) => {
       const regex = new RegExp(TIME.HOUR_PART, 'ig');
       expect(text).toMatch(regex);
     });

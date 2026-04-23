@@ -33,7 +33,7 @@ Serina has gone through a long inactive period, so this roadmap focuses first on
 
 ### Goals
 
-- Refresh and update dev depencencies and configs to prepare for the upcoming changes.
+- Refresh and update dev dependencies and configs to prepare for the upcoming changes.
 - Reposition library to take advantage of the upcoming [Temporal API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal).
 - Regex-only path is a dead-end, will be shifting to parser-based approach.
 - Make the parser extensible so users can add custom grammar safely.
@@ -43,7 +43,7 @@ Serina has gone through a long inactive period, so this roadmap focuses first on
 Before adding new features, ensure the current codebase runs cleanly in a modern environment.
 
 - [x] Modernize tooling by migrating build pipeline to `tsup` and move to ESM-only bundle output.
-- [ ] Bump dev-dependencies to the latest versions.
+- [x] Bump dev-dependencies to the latest versions.
 - [x] Move to OXC for linting and formatting.
 
 ### Phase 2: Core Modernisation
