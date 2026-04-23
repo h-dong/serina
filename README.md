@@ -42,7 +42,7 @@ Serina has gone through a long inactive period, so this roadmap focuses first on
 
 Before adding new features, ensure the current codebase runs cleanly in a modern environment.
 
-- [ ] Modernize tooling (for example, move build pipelines toward `Vite` or `tsup`) and move to ESM-only bundle output.
+- [x] Modernize tooling by migrating build pipeline to `tsup` and move to ESM-only bundle output.
 - [ ] Bump dev-dependencies to the latest versions.
 - [x] Move to OXC for linting and formatting.
 
@@ -69,14 +69,13 @@ Simply run `npm install serina`
 
 ### Basic browser setup
 
-Just include Serina in a script tag. You can access its various classes through the serina global.
+Serina is now distributed as ESM. Import it from your bundler entry, or directly in a module script.
 
 ```html
-<script src="serina.umd.js"></script>
-```
-
-```js
-var parsed = serina('Remind me to buy milk tomorrow 3pm');
+<script type="module">
+  import serina from 'https://unpkg.com/serina/dist/serina.module.js';
+  const parsed = serina('Remind me to buy milk tomorrow 3pm');
+</script>
 ```
 
 ### Node
@@ -88,18 +87,12 @@ npm i --save serina
 ```
 
 ```js
-const serina = require('serina');
-
-var parsed = serina('Remind me to buy milk tomorrow 3pm');
-```
-
-### ES6
-
-```js
 import serina from 'serina';
 
 const parsed = serina('Remind me to buy milk tomorrow 3pm');
 ```
+
+`require('serina')` is not supported in this ESM-only output.
 
 ## Usage of Library
 
