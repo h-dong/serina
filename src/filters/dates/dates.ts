@@ -1,13 +1,14 @@
-import { dateStringToDateObj } from './dates.helpers';
-import DATES from './dates.constants';
 import Filter from 'filters/filter';
 
-export default class Dates extends Filter {
-    constructor() {
-        super(DATES.WITH_FILLER_WORDS, false);
-    }
+import DATES from './dates.constants';
+import { dateStringToDateObj } from './dates.helpers';
 
-    parseStringToDateObj(match: string): Date {
-        return dateStringToDateObj(match);
-    }
+export default class Dates extends Filter {
+  constructor() {
+    super(DATES.WITH_FILLER_WORDS, false);
+  }
+
+  parseStringToDateObj(match: string): Date {
+    return dateStringToDateObj(match);
+  }
 }

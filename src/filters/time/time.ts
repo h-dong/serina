@@ -1,13 +1,14 @@
-import TIME from './time.constants';
 import Filter from 'filters/filter';
+
+import TIME from './time.constants';
 import { timeStringToHourMinute } from './time.helpers';
 
 export default class Time extends Filter {
-    constructor() {
-        super(TIME.WITH_FILLER_WORDS, false);
-    }
+  constructor() {
+    super(TIME.WITH_FILLER_WORDS, false);
+  }
 
-    parseStringToDateObj(match: string): Date {
-        return timeStringToHourMinute(match);
-    }
+  parseStringToDateObj(match: string): Date {
+    return timeStringToHourMinute(match);
+  }
 }

@@ -44,7 +44,7 @@ Before adding new features, ensure the current codebase runs cleanly in a modern
 
 - [ ] Modernize tooling (for example, move build pipelines toward `Vite` or `tsup`) and move to ESM-only bundle output.
 - [ ] Bump dev-dependencies to the latest versions.
-- [ ] Move to OXC for linting and formatting.
+- [x] Move to OXC for linting and formatting.
 
 ### Phase 2: Core Modernisation
 
@@ -113,25 +113,25 @@ console.log(parsed);
 ```json
 // console output
 {
-    "original": "Remind me to buy milk tomorrow 3pm",
-    "isValid": true,
-    "matches": [
-        {
-            "text": "Remind me to buy milk tomorrow",
-            "dateTime": "2019-09-10T15:00:00.000Z",
-            "matched": "3pm"
-        },
-        {
-            "text": "Remind me to buy milk 3pm",
-            "dateTime": "2019-09-11T00:00:00.000Z",
-            "matched": "tomorrow"
-        },
-        {
-            "text": "Remind me to buy milk",
-            "dateTime": "2019-09-11T15:00:00.000Z",
-            "matched": "tomorrow 3pm"
-        }
-    ]
+  "original": "Remind me to buy milk tomorrow 3pm",
+  "isValid": true,
+  "matches": [
+    {
+      "text": "Remind me to buy milk tomorrow",
+      "dateTime": "2019-09-10T15:00:00.000Z",
+      "matched": "3pm"
+    },
+    {
+      "text": "Remind me to buy milk 3pm",
+      "dateTime": "2019-09-11T00:00:00.000Z",
+      "matched": "tomorrow"
+    },
+    {
+      "text": "Remind me to buy milk",
+      "dateTime": "2019-09-11T15:00:00.000Z",
+      "matched": "tomorrow 3pm"
+    }
+  ]
 }
 ```
 
