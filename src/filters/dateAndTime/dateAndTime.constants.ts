@@ -9,7 +9,7 @@ const DATE_FIRST = [DATE_PART, TIME_PART].join(' ');
 const TIME_FIRST = [TIME_PART, DATE_PART].join(' ');
 
 const DATE_AND_TIME = {
-    ANY: [DATE_FIRST, TIME_FIRST].join('|'),
+  ANY: [DATE_FIRST, TIME_FIRST].join('|'),
 };
 
 export default DATE_AND_TIME;

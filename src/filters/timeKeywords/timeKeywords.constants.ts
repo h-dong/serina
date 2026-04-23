@@ -6,9 +6,9 @@ const ANY = wrapInBracket([MID_NIGHT, MID_DAY].join('|'));
 const FILLER_WORDS = '(at|by|around)';
 
 const TIME_KEYWORDS = {
-    WITH_FILLER_WORDS: `(${FILLER_WORDS}( ))?${ANY}`,
-    MID_NIGHT,
-    MID_DAY,
+  WITH_FILLER_WORDS: `(${FILLER_WORDS}( ))?${ANY}`,
+  MID_NIGHT,
+  MID_DAY,
 };
 
 export default TIME_KEYWORDS;

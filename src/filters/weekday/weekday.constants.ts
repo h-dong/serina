@@ -13,18 +13,18 @@ const FUTURE_WORDS = 'for|next|this|current|on';
 const PAST_WORDS = 'last|prev(ious)?';
 
 const WEEKDAY = {
-    WITH_FUTURE_PAST_WORDS: `((\\b(${FUTURE_WORDS}|${PAST_WORDS})\\b)( ))?${ANY}`,
-    ANY,
-    SINGLE: {
-        MONDAY,
-        TUESDAY,
-        WEDNESDAY,
-        THURSDAY,
-        FRIDAY,
-        SATURDAY,
-        SUNDAY,
-    },
-    PAST_WORDS,
+  WITH_FUTURE_PAST_WORDS: `((\\b(${FUTURE_WORDS}|${PAST_WORDS})\\b)( ))?${ANY}`,
+  ANY,
+  SINGLE: {
+    MONDAY,
+    TUESDAY,
+    WEDNESDAY,
+    THURSDAY,
+    FRIDAY,
+    SATURDAY,
+    SUNDAY,
+  },
+  PAST_WORDS,
 };
 
 export default WEEKDAY;

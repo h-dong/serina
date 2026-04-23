@@ -3,10 +3,8 @@ description: Prepare PNPM and Node
 runs:
   using: composite
   steps:
-    - uses: pnpm/action-setup@v2
+    - uses: pnpm/action-setup@v5
+    - uses: actions/setup-node@v6
       with:
-        version: 7
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: "pnpm"
+        node-version-file: '.nvmrc'
+        cache: 'pnpm'

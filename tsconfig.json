@@ -1,25 +1,22 @@
 {
-    "version": "2.5.0",
-    "compilerOptions": {
-        "allowSyntheticDefaultImports": true,
-        "declaration": true,
-        "diagnostics": true,
-        "target": "ESNext",
-        "downlevelIteration": true,
-        "forceConsistentCasingInFileNames": true,
-        "noFallthroughCasesInSwitch": true,
-        "noImplicitReturns": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "removeComments": true,
-        "noLib": false,
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "baseUrl": "src",
-        "typeRoots": ["node_modules/@types"],
-        "types": ["vitest/globals"]
-    },
-    "include": ["src/**/*.ts"],
-    "exclude": ["node_modules"],
-    "moduleResolution": "nodenext"
+  "version": "2.5.0",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "diagnostics": true,
+    "target": "ESNext",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": true,
+    "noLib": false,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "baseUrl": "src",
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

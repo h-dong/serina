@@ -1,4 +1,7 @@
 {
-    "extends": "./tsconfig.json",
-    "exclude": ["src/**/*.test.ts"]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "ignoreDeprecations": "6.0"
+  },
+  "exclude": ["src/**/*.test.ts"]
 }

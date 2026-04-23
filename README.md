@@ -33,7 +33,7 @@ Serina has gone through a long inactive period, so this roadmap focuses first on
 
 ### Goals
 
-- Refresh and update dev depencencies and configs to prepare for the upcoming changes.
+- Refresh and update dev dependencies and configs to prepare for the upcoming changes.
 - Reposition library to take advantage of the upcoming [Temporal API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal).
 - Regex-only path is a dead-end, will be shifting to parser-based approach.
 - Make the parser extensible so users can add custom grammar safely.
@@ -42,9 +42,9 @@ Serina has gone through a long inactive period, so this roadmap focuses first on
 
 Before adding new features, ensure the current codebase runs cleanly in a modern environment.
 
-- [ ] Modernize tooling (for example, move build pipelines toward `Vite` or `tsup`) and move to ESM-only bundle output.
-- [ ] Bump dev-dependencies to the latest versions.
-- [ ] Move to OXC for linting and formatting.
+- [x] Modernize tooling by migrating build pipeline to `tsup` and move to ESM-only bundle output.
+- [x] Bump dev-dependencies to the latest versions.
+- [x] Move to OXC for linting and formatting.
 
 ### Phase 2: Core Modernisation
 
@@ -69,14 +69,13 @@ Simply run `npm install serina`
 
 ### Basic browser setup
 
-Just include Serina in a script tag. You can access its various classes through the serina global.
+Serina is now distributed as ESM. Import it from your bundler entry, or directly in a module script.
 
 ```html
-<script src="serina.umd.js"></script>
-```
-
-```js
-var parsed = serina('Remind me to buy milk tomorrow 3pm');
+<script type="module">
+  import serina from 'https://unpkg.com/serina/dist/serina.module.js';
+  const parsed = serina('Remind me to buy milk tomorrow 3pm');
+</script>
 ```
 
 ### Node
@@ -88,18 +87,12 @@ npm i --save serina
 ```
 
 ```js
-const serina = require('serina');
-
-var parsed = serina('Remind me to buy milk tomorrow 3pm');
-```
-
-### ES6
-
-```js
 import serina from 'serina';
 
 const parsed = serina('Remind me to buy milk tomorrow 3pm');
 ```
+
+`require('serina')` is not supported in this ESM-only output.
 
 ## Usage of Library
 
@@ -113,25 +106,25 @@ console.log(parsed);
 ```json
 // console output
 {
-    "original": "Remind me to buy milk tomorrow 3pm",
-    "isValid": true,
-    "matches": [
-        {
-            "text": "Remind me to buy milk tomorrow",
-            "dateTime": "2019-09-10T15:00:00.000Z",
-            "matched": "3pm"
-        },
-        {
-            "text": "Remind me to buy milk 3pm",
-            "dateTime": "2019-09-11T00:00:00.000Z",
-            "matched": "tomorrow"
-        },
-        {
-            "text": "Remind me to buy milk",
-            "dateTime": "2019-09-11T15:00:00.000Z",
-            "matched": "tomorrow 3pm"
-        }
-    ]
+  "original": "Remind me to buy milk tomorrow 3pm",
+  "isValid": true,
+  "matches": [
+    {
+      "text": "Remind me to buy milk tomorrow",
+      "dateTime": "2019-09-10T15:00:00.000Z",
+      "matched": "3pm"
+    },
+    {
+      "text": "Remind me to buy milk 3pm",
+      "dateTime": "2019-09-11T00:00:00.000Z",
+      "matched": "tomorrow"
+    },
+    {
+      "text": "Remind me to buy milk",
+      "dateTime": "2019-09-11T15:00:00.000Z",
+      "matched": "tomorrow 3pm"
+    }
+  ]
 }
 ```
 

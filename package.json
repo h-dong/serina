@@ -1,58 +1,59 @@
 {
-    "name": "serina",
-    "version": "2.0.0-alpha.3",
-    "description": "Natural Language Parser for date and time in Javascript",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/h-dong/serina.git"
-    },
-    "keywords": [
-        "javascript",
-        "library",
-        "javascript-library",
-        "natural-language-processing",
-        "date-parser",
-        "time-parsing"
-    ],
-    "author": "Hao Dong (dong_hao@hotmail.co.uk)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/h-dong/serina/issues"
-    },
-    "homepage": "https://github.com/h-dong/serina#readme",
-    "source": "./src/serina.ts",
-    "main": "./dist/serina.cjs",
-    "module": "./dist/serina.module.js",
-    "unpkg": "./dist/serina.umd.js",
-    "types": "./dist/serina.d.ts",
-    "alias": {
-        "filters": "./src/filters",
-        "utils": "./src/utils",
-        "lib": "./src/lib"
-    },
-    "scripts": {
-        "watch": "microbundle watch",
-        "build": "microbundle build --tsconfig tsconfig.build.json",
-        "build:docs": "./scripts/build-doc.sh",
-        "lint": "eslint src",
-        "lint:fix": "eslint src --fix",
-        "test": "vitest",
-        "test:ci": "vitest run --coverage"
-    },
-    "browserslist": [
-        "defaults and supports es6-module",
-        "maintained node versions"
-    ],
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^5.44.0",
-        "@typescript-eslint/parser": "^5.44.0",
-        "@vitest/coverage-istanbul": "^0.25.3",
-        "eslint": "^8.28.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "microbundle": "^0.15.1",
-        "prettier": "^2.8.0",
-        "typescript": "^4.9.3",
-        "vitest": "^0.25.3"
-    }
+  "name": "serina",
+  "version": "2.0.0-alpha.3",
+  "description": "Natural Language Parser for date and time in Javascript",
+  "keywords": [
+    "date-parser",
+    "javascript",
+    "javascript-library",
+    "library",
+    "natural-language-processing",
+    "time-parsing"
+  ],
+  "homepage": "https://github.com/h-dong/serina#readme",
+  "bugs": {
+    "url": "https://github.com/h-dong/serina/issues"
+  },
+  "license": "MIT",
+  "author": "Hao Dong (hey@hao.dev)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h-dong/serina.git"
+  },
+  "source": "./src/serina.ts",
+  "main": "./dist/serina.module.js",
+  "module": "./dist/serina.module.js",
+  "types": "./dist/serina.d.mts",
+  "unpkg": "./dist/serina.module.js",
+  "scripts": {
+    "watch": "tsup --watch",
+    "build": "tsup",
+    "build:docs": "./scripts/build-doc.sh",
+    "fix": "pnpm lint:fix && pnpm format:fix",
+    "lint": "oxlint src",
+    "lint:fix": "oxlint src --fix",
+    "format": "oxfmt --check .",
+    "format:fix": "oxfmt --write .",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@vitest/coverage-istanbul": "^4.1.5",
+    "oxfmt": "^0.46.0",
+    "oxlint": "^1.61.0",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vitest": "^4.1.5"
+  },
+  "browserslist": [
+    "defaults and supports es6-module",
+    "maintained node versions"
+  ],
+  "packageManager": "pnpm@10.33.2",
+  "alias": {
+    "filters": "./src/filters",
+    "utils": "./src/utils",
+    "lib": "./src/lib"
+  }
 }
