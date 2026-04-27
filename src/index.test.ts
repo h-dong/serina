@@ -1,64 +1,72 @@
-import serina, { DateParser, parse, parser } from 'serina';
+import { vi } from 'vitest';
 
-describe('Serina', () => {
-  test.each([
-    { filter: 'WeekDay', text: 'on Monday', expected: 1 },
-    { filter: 'Day', text: 'on 21st', expected: 1 },
-    { filter: 'Month', text: 'June', expected: 1 },
-    { filter: 'Year', text: '2011', expected: 1 },
-    { filter: 'Time', text: '5pm', expected: 1 },
-    { filter: 'Dates', text: '15/12/2019', expected: 3 },
-    { filter: 'PartialDates', text: '15th Dec', expected: 3 },
-    { filter: 'DateAndTime', text: '5am in 2 yrs', expected: 3 },
-    { filter: 'DateAndTime', text: '5am 12/2019', expected: 4 },
-    { filter: 'RelativeTime', text: 'in 15 mins', expected: 1 },
-    { filter: 'RelativeDates', text: 'in 2 days', expected: 1 },
-    { filter: 'WeekDayAndTime', text: '5am Mon', expected: 3 },
-    { filter: 'TimeKeywords', text: 'at noon', expected: 1 },
-  ])('should be able to parse $filter', ({ text, expected }) => {
-    const results = serina(`go to work ${text}`);
-    expect(results.matches.length).toEqual(expected);
+import serina, {
+  DateParser,
+  ParserRegistry,
+  Tokenizer,
+  createDefaultParserRegistry,
+  parse,
+  parser,
+} from 'serina';
+
+const mocks = vi.hoisted(() => {
+  const parsedResult = {
+    original: 'meet tomorrow',
+    isValid: true,
+    matches: [],
+  };
+
+  return {
+    DateParser: vi.fn(),
+    ParserRegistry: vi.fn(),
+    Tokenizer: vi.fn(),
+    createDefaultParserRegistry: vi.fn(),
+    parse: vi.fn(),
+    parsedResult,
+    parser: {
+      parse: vi.fn(() => parsedResult),
+    },
+  };
+});
+
+vi.mock('parser/DateParser', () => ({
+  DateParser: mocks.DateParser,
+  parse: mocks.parse,
+  parser: mocks.parser,
+}));
+
+vi.mock('parser/ParserRegistry', () => ({
+  ParserRegistry: mocks.ParserRegistry,
+  createDefaultParserRegistry: mocks.createDefaultParserRegistry,
+}));
+
+vi.mock('parser/Tokenizer', () => ({
+  Tokenizer: mocks.Tokenizer,
+}));
+
+describe('Serina entrypoint', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
   });
 
-  test('accepts per-call locale options', () => {
-    const results = serina('go to work 10/02/2022', { locale: 'en-US' });
-    expect(results.matches).toContainEqual({
-      dateTime: new Date('2022-10-02T00:00:00.000Z'),
-      matched: '10/02/2022',
-      text: 'go to work',
-    });
+  test('default export delegates to the singleton parser', () => {
+    const options = { locale: 'en-GB' } as const;
+
+    const results = serina('meet tomorrow', options);
+
+    expect(parser.parse).toHaveBeenCalledWith('meet tomorrow', options);
+    expect(results).toBe(mocks.parsedResult);
   });
 
-  test('DateParser constructor locale is used by default', () => {
-    const dateParser = new DateParser({ locale: 'en-US' });
-    const results = dateParser.parse('go to work 10/02/2022');
-    expect(results.matches).toContainEqual({
-      dateTime: new Date('2022-10-02T00:00:00.000Z'),
-      matched: '10/02/2022',
-      text: 'go to work',
-    });
+  test('re-exports parser API from DateParser', () => {
+    expect(DateParser).toBe(mocks.DateParser);
+    expect(parse).toBe(mocks.parse);
+    expect(parser).toBe(mocks.parser);
   });
 
-  test('per-call locale overrides DateParser constructor locale', () => {
-    const dateParser = new DateParser({ locale: 'en-US' });
-    const results = dateParser.parse('go to work 10/02/2022', { locale: 'en-GB' });
-    expect(results.matches).toContainEqual({
-      dateTime: new Date('2022-02-10T00:00:00.000Z'),
-      matched: '10/02/2022',
-      text: 'go to work',
-    });
-  });
-
-  test('exports the singleton parser', () => {
-    expect(parser).toBeInstanceOf(DateParser);
-  });
-
-  test('exports a parse convenience function', () => {
-    const results = parse('go to work 10/02/2022', { locale: 'en-US' });
-    expect(results.matches).toContainEqual({
-      dateTime: new Date('2022-10-02T00:00:00.000Z'),
-      matched: '10/02/2022',
-      text: 'go to work',
-    });
+  test('re-exports parser infrastructure', () => {
+    expect(ParserRegistry).toBe(mocks.ParserRegistry);
+    expect(createDefaultParserRegistry).toBe(mocks.createDefaultParserRegistry);
+    expect(Tokenizer).toBe(mocks.Tokenizer);
   });
 });

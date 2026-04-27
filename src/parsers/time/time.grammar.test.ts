@@ -14,6 +14,7 @@ describe('time.grammar', () => {
       ['at quarter past 4'],
       ['at half past 4'],
       ['at 20 min to 19'],
+      ['at 20 to 19'],
       ['at 20 minutes past 4'],
       ['5:27 p.m.'],
       ['19:27 PM.'],

@@ -1,5 +1,5 @@
 import type { LegacyFilter } from 'parser/adapter';
-import { ParserRegistry } from 'parser/ParserRegistry';
+import { ParserRegistry, createDefaultParserRegistry } from 'parser/ParserRegistry';
 
 describe('ParserRegistry', () => {
   test('returns an invalid result when no registered parser matches', () => {
@@ -34,5 +34,21 @@ describe('ParserRegistry', () => {
         },
       ],
     });
+  });
+
+  test.each<[ReturnType<LegacyFilter['parseText']>]>([[null], [[]]])('ignores non-matching parser result %s', (result) => {
+    const parser: LegacyFilter = {
+      parseText: () => result,
+    };
+
+    expect(new ParserRegistry([parser]).parse('no date here')).toEqual({
+      original: 'no date here',
+      isValid: false,
+      matches: [],
+    });
+  });
+
+  test('creates the default parser registry', () => {
+    expect(createDefaultParserRegistry()).toBeInstanceOf(ParserRegistry);
   });
 });

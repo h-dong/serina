@@ -21,14 +21,18 @@ describe('localeHelpers', () => {
     expect(resolveLocale(locale)).toBe(expected);
   });
 
-  test('returns the locale config for a resolved locale', () => {
-    expect(getLocale('en-US')).toBe(enUS);
-    expect(getLocale('fr-FR')).toBe(enGB);
+  test.each([
+    { locale: 'en-US', expected: enUS },
+    { locale: 'fr-FR', expected: enGB },
+  ])('returns $expected.id for $locale', ({ locale, expected }) => {
+    expect(getLocale(locale)).toBe(expected);
   });
 
-  test('returns date order for the resolved locale', () => {
-    expect(getDateOrder('en-US')).toBe('MDY');
-    expect(getDateOrder('en-GB')).toBe('DMY');
-    expect(getDateOrder('en-CA')).toBe('YMD');
+  test.each([
+    { locale: 'en-US', expected: 'MDY' },
+    { locale: 'en-GB', expected: 'DMY' },
+    { locale: 'en-CA', expected: 'YMD' },
+  ])('returns $expected date order for $locale', ({ locale, expected }) => {
+    expect(getDateOrder(locale)).toBe(expected);
   });
 });
