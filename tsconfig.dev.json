@@ -1,0 +1,35 @@
+{
+  "version": "2.5.0",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": true,
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declarationMap": true,
+    "baseUrl": "src",
+    "paths": {
+      "locales": ["locales/index.ts"],
+      "locales/*": ["locales/*"],
+      "parser": ["parser/index.ts"],
+      "parser/*": ["parser/*"],
+      "parsers": ["parsers/index.ts"],
+      "parsers/*": ["parsers/*"],
+      "patterns": ["patterns/index.ts"],
+      "patterns/*": ["patterns/*"],
+      "serina": ["index.ts"],
+      "types": ["types.ts"],
+      "utils": ["utils/index.ts"],
+      "utils/*": ["utils/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "src/**/*.test.ts"]
+}

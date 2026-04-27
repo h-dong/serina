@@ -1,4 +1,4 @@
-import { contains } from 'lib/string/stringUtil';
+import { contains } from 'utils/string/stringUtil';
 
 export default function findMatchingKey(object: Record<string, string>, pattern: string): string {
   const keys = Object.keys(object);
