@@ -1,4 +1,4 @@
-import findMatchingKey from './findMatchingKey';
+import findMatchingKey from 'utils/findMatchingKey';
 
 describe('findMatchingKey()', () => {
   const testObject = {
@@ -6,6 +6,11 @@ describe('findMatchingKey()', () => {
     second: '2',
     third: '3',
   };
+
+  test('should return null when the object has no keys', () => {
+    const check = findMatchingKey({}, '[1]');
+    expect(check).toBe(null);
+  });
 
   test('should return null when no match is found', () => {
     const check = findMatchingKey(testObject, '[4]');

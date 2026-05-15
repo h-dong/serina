@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup';
 
 export default defineConfig((options) => ({
   entry: {
-    serina: 'src/serina.ts',
+    serina: 'src/index.ts',
   },
   format: ['esm'],
   dts: true,

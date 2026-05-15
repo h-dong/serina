@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.dev.json",
+  "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false,
+    "noImplicitAny": false,
+    "noEmit": true,
+    "strict": false,
+    "strictNullChecks": false,
+    "types": ["vitest/globals"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
+}

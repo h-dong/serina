@@ -50,9 +50,9 @@ Before adding new features, ensure the current codebase runs cleanly in a modern
 
 This phase is focused on technical debt reduction, not feature expansion.
 
-- [ ] Abandon current v2 rewrite, and start from scratch.
-- [ ] Remove DayLite logic and move to Temporal APIs to handle dates. This will provide timezone support out of the box.
-- [ ] Move from monolithic regex parsing toward a custom parser combinator architecture like `Parsimmon` (which is unmaintained now) for modularity and testability.
+- [x] Abandon current v2 rewrite, and start from scratch.
+- [x] Remove DayLite logic and move to Temporal APIs to handle dates. This will provide timezone support out of the box.
+- [x] Move from monolithic regex parsing toward a custom parser combinator architecture like `Parsimmon` (which is unmaintained now) for modularity and testability.
 - [ ] Bump library version to v2.0.0
 
 ### Phase 3: Extensibility and Registry
@@ -62,6 +62,12 @@ Differentiate Serina by making parser customization a first-class feature.
 - [ ] Define a stable TypeScript parser interface for built-in and user-provided parsers.
 - [ ] Build a `SerinaEngine` registry model so users can register parser plugins (e.g. `engine.registerParser(myCustomParser)`).
 - [ ] Export and document parser primitives (`digit`, `word`, `whitespace`, etc.) to simplify custom parser development.
+
+## Runtime requirement
+
+Serina v2 uses the native `Temporal` API for date/time operations and does not ship a polyfill.
+Your runtime (browser or Node.js) must provide `globalThis.Temporal`.
+If Temporal is unavailable, Serina will throw at runtime.
 
 ## Installation
 

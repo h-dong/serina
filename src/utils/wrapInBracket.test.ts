@@ -1,4 +1,4 @@
-import { wrapInBracket } from './wrapInBracket';
+import { wrapInBracket } from 'utils/wrapInBracket';
 
 describe('wrapInBracket()', () => {
   test.each([
